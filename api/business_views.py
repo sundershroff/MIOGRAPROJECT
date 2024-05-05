@@ -11,9 +11,10 @@ from rest_framework.decorators import api_view
 from api import models
 import json
 import datetime
+from django.core.exceptions import ObjectDoesNotExist
 from pymongo import MongoClient
 from bson.json_util import dumps,loads
-from django.db.models import Sum
+from django.db.models import Sum,Avg
 from django.utils import timezone
 import datetime
 from django.db import transaction
@@ -26,32 +27,150 @@ import requests
 all_image_url = "http://127.0.0.1:3000/"
 x = datetime.datetime.now()
 
-def send_notification(registration_ids , message_title , message_desc):
+from django.db import transaction
+
+def send_notification(registration_ids, message_title, message_desc):
     fcm_api = "AAAAwN1-l3g:APA91bF58TyTj5cEDKz6qpeltmumxQEnzh9xwDN9A9QXLcNEzdAJGY1DrURU9xFOqOpdBA0SMyYd7MrAxtmYp4iWVBHuPhICBZHLFoLj9x6-tQicyMVUWwnM_0KYESKY7kxHqXS2C3P3"
     url = "https://fcm.googleapis.com/fcm/send"
     
     headers = {
-    "Content-Type":"application/json",
-    "Authorization": 'key='+fcm_api
-    }    
+        "Content-Type": "application/json",
+        "Authorization": 'key=' + fcm_api
+    }
 
     payload = {
-        "registration_ids" :registration_ids,
-        "priority" : "high",
-        "notification" : {
-            "body" : message_desc,
-            "title" : message_title,
-            "image" : "https://i.ytimg.com/vi/m5WUPHRgdOA/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDwz-yjKEdwxvKjwMANGk5BedCOXQ",
+        "registration_ids": registration_ids,
+        "priority": "high",
+        "notification": {
+            "body": message_desc,
+            "title": message_title,
+            "image": "https://i.ytimg.com/vi/m5WUPHRgdOA/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDwz-yjKEdwxvKjwMANGk5BedCOXQ",
             "icon": "https://yt3.ggpht.com/ytc/AKedOLSMvoy4DeAVkMSAuiuaBdIGKC7a5Ib75bKzKO3jHg=s900-c-k-c0x00ffffff-no-rj",
-            
         }
     }
 
-    result = requests.post(url,  data=json.dumps(payload), headers=headers )
-    print(result.status_code)
-    print(result.json())
- 
-# send_notification("resgistration_ids" , 'hii' , 'hello world')
+    try:
+        result = requests.post(url, data=json.dumps(payload), headers=headers)
+        print(result.status_code)
+        print(result.text) 
+
+        with transaction.atomic():  # Ensure atomic transaction
+            # Save notification to the database
+            sender_id=models.Businessmodel.objects.get(device_id=registration_ids)
+            print(sender_id)
+            notification = models.Notification.objects.create(
+                notify_id=business_extension.id_generate(),
+                recipient=registration_ids, 
+                message_title=message_title,
+                message_desc=message_desc,
+                sender_id=sender_id.uid,
+
+            )
+            notification.save()
+
+    except requests.exceptions.RequestException as e:
+        print("Failed to send notification:", e)
+
+
+# send_notification("dShDvq88TLGL6C6BIbJunp:APA91bEYthyTG2otBBcmnmHzh9AMeGrpatBuRy2aFgv3SCqa3evPhs5CZVsMvhWrm03AwXI8Q-rVKZljiLD9hM7xfhcx0Q-qXMQMg1Cl989SY4zUCBG8vfSBEyOF9_mt1v9e1oKpKVPs" , 'you have got a text message' , 'deliveryperson order accepted')
+
+def deliverysend_notification(message_title, message_desc):
+    fcm_api = "AAAAbIibZeo:APA91bEHlJFNQjqRjMjX2N-YfgDAjOU_fXdt8HkQiQYhOYbGcv9B6MqGykeaG7zQVdrMOEQrOGckrUwKbl4XWdEOboEY9uDUSALHdzbpdW-DJbUxlVzCG_ayQJIPJfAnEPcCeKX86sqg"
+    url = "https://fcm.googleapis.com/fcm/send"
+    
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": 'key=' + fcm_api
+    }
+
+    delivery = models.deliverylogintable_model.objects.filter(status=True, delivery_type="Quick")
+    for delivery_person in delivery:
+        registration_id = delivery_person.deliveryperson.device_id
+
+        payload = {
+            "registration_ids": [registration_id],
+            "priority": "high",
+            "notification": {
+                "body": message_desc,
+                "title": message_title,
+                "image": "https://i.ytimg.com/vi/m5WUPHRgdOA/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDwz-yjKEdwxvKjwMANGk5BedCOXQ",
+                "icon": "https://yt3.ggpht.com/ytc/AKedOLSMvoy4DeAVkMSAuiuaBdIGKC7a5Ib75bKzKO3jHg=s900-c-k-c0x00ffffff-no-rj",
+            }
+        }
+        try:
+            result = requests.post(url, data=json.dumps(payload), headers=headers)
+            print(result.status_code)
+            print(result.json())
+
+            with transaction.atomic():  # Ensure atomic transaction
+                # Save notification to the database
+                sender_id = models.Delivery_model.objects.get(device_id=registration_id)
+                notification = models.Notification.objects.create(
+                    notify_id=business_extension.id_generate(),
+                    recipient=registration_id,
+                    message_title=message_title,
+                    message_desc=message_desc,
+                    sender_id=sender_id.uid,
+                )
+                notification.save()
+
+        except requests.exceptions.RequestException as e:
+            print("Failed to send notification:", e)
+
+
+
+
+# def deliverysend_notification(message_title , message_desc):
+#     fcm_api = "AAAAbIibZeo:APA91bEHlJFNQjqRjMjX2N-YfgDAjOU_fXdt8HkQiQYhOYbGcv9B6MqGykeaG7zQVdrMOEQrOGckrUwKbl4XWdEOboEY9uDUSALHdzbpdW-DJbUxlVzCG_ayQJIPJfAnEPcCeKX86sqg"
+#     url = "https://fcm.googleapis.com/fcm/send"
+    
+#     headers = {
+#     "Content-Type":"application/json",
+#     "Authorization": 'key='+fcm_api
+#     }    
+#     ex_registration_ids=[]
+#     delivery = models.deliverylogintable_model.objects.filter(status=True,delivery_type= "Quick")
+#     for i in delivery:
+#         ex_registration_ids.append((i.deliveryperson.device_id))
+
+#     print(ex_registration_ids)
+#     for x in ex_registration_ids:
+
+#         payload = {
+#             "registration_ids" :x,
+#             "priority" : "high",
+#             "notification" : {
+#                 "body" : message_desc,
+#                 "title" : message_title,
+#                 "image" : "https://i.ytimg.com/vi/m5WUPHRgdOA/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDwz-yjKEdwxvKjwMANGk5BedCOXQ",
+#                 "icon": "https://yt3.ggpht.com/ytc/AKedOLSMvoy4DeAVkMSAuiuaBdIGKC7a5Ib75bKzKO3jHg=s900-c-k-c0x00ffffff-no-rj",
+                
+#             }
+#         }
+#         try:
+#             result = requests.post(url,  data=json.dumps(payload), headers=headers )
+#             print(result.status_code)
+#             print(result.json())
+#             with transaction.atomic():  # Ensure atomic transaction
+#                 # Save notification to the database
+
+#                 sender_id=models.Delivery_model.objects.get(device_id=x)
+#                 print(sender_id)
+#                 notification = models.Notification.objects.create(
+#                     notify_id=business_extension.id_generate(),
+#                     recipient=x, 
+#                     message_title=message_title,
+#                     message_desc=message_desc,
+#                     sender_id=sender_id.uid,
+
+#                 )
+#                 notification.save()
+
+#         except requests.exceptions.RequestException as e:
+#             print("Failed to send notification:", e)
+
+# send_notification('hii' , 'hello world')
+
 
 @api_view(['POST'])
 def business_signup(request):
@@ -103,7 +222,6 @@ def business_otp(request):
             return Response({"Cannot Verify OTP"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     else:
         return Response({"Wrong OTP"}, status=status.HTTP_403_FORBIDDEN)
-
 
 
 @api_view(['POST'])
@@ -263,18 +381,50 @@ def business_profile_update(request, id):
 
 
 # shop_dashboard
-    
+
+
+
 @api_view(['GET'])
-def shop_total_revenue(request,id):
+def shop_total_revenue(request, id):
     print(id)
     if request.method == 'GET':
         total_revenue = models.Product_Ordermodel.objects.filter(shop_id_id__shop_id=id).aggregate(total_revenue=Sum('total_amount'))['total_revenue'] or 0
-        # print(total_revenue)
+
         shop = models.shoppingmodel.objects.get(shop_id=id)
         shop.total_revenue = total_revenue
         shop.save()
-        return Response(data={'total_revenue': total_revenue}, status=status.HTTP_200_OK)
 
+        notification_data = {
+
+            "registration_ids": ["dShDvq88TLGL6C6BIbJunp:APA91bEYthyTG2otBBcmnmHzh9AMeGrpatBuRy2aFgv3SCqa3evPhs5CZVsMvhWrm03AwXI8Q-rVKZljiLD9hM7xfhcx0Q-qXMQMg1Cl989SY4zUCBG8vfSBEyOF9_mt1v9e1oKpKVPs"],
+            "message_title": "You have got a text message",
+            "message_desc": "Delivery person order accepted"
+        }
+        send_notification(**notification_data)
+ 
+        return Response(data={'total_revenue': total_revenue}, status=status.HTTP_200_OK)
+    else:
+        return Response("Shop order not found", status=status.HTTP_400_BAD_REQUEST)
+    
+# @api_view(['GET'])
+# def shop_total_revenue(request,id):
+#     print(id)
+#     if request.method == 'GET':
+
+#         total_revenue = models.Product_Ordermodel.objects.filter(shop_id_id__shop_id=id).aggregate(total_revenue=Sum('total_amount'))['total_revenue'] or 0
+#         # print(total_revenue)
+#         shop = models.shoppingmodel.objects.get(shop_id=id)
+#         shop.total_revenue = total_revenue
+#         shop.save()
+#         notification_data = {
+#                 "message_title": "you have got a text message",
+#                 "message_desc": "deliveryperson order accepted"
+#             }
+#         send_notification("dShDvq88TLGL6C6BIbJunp:APA91bEYthyTG2otBBcmnmHzh9AMeGrpatBuRy2aFgv3SCqa3evPhs5CZVsMvhWrm03AwXI8Q-rVKZljiLD9hM7xfhcx0Q-qXMQMg1Cl989SY4zUCBG8vfSBEyOF9_mt1v9e1oKpKVPs" ,"you have got a text message","deliveryperson order accepted")
+
+#         return Response(data={'total_revenue': total_revenue}, status=status.HTTP_200_OK)
+#     else:
+#         return Response("shop_ordernot found",status=status.HTTP_400_BAD_REQUEST)
 @api_view(['GET'])
 def shop_mon_revenue(request, id):
     if request.method == 'GET':
@@ -286,50 +436,58 @@ def shop_mon_revenue(request, id):
         shop.monthly_revenue = monthly_revenue
         shop.save()
         return Response(data={'monthly_revenue': monthly_revenue}, status=status.HTTP_200_OK)
-
+    else:
+        return Response("shop_ordernot found",status=status.HTTP_400_BAD_REQUEST)
 @api_view(['GET'])
 def shop_orderstatus(request,id):
     if request.method == 'GET':
 
         shop = models.Product_Ordermodel.objects.filter(shop_id_id__shop_id=id).first()
-        if not shop:
-            return Response(data={'error': 'Shop not found'}, status=status.HTTP_404_NOT_FOUND)
+        # if not shop:
+            # return Response(data={'error': 'Shop not found'}, status=status.HTTP_404_NOT_FOUND)
         delivered_count = models.Product_Ordermodel.objects.filter(shop_id_id__shop_id=id, status='delivered').count()
-        cancelled_count = models.Product_Ordermodel.objects.filter(shop_id_id__shop_id=id, status='cancelled').count()
-        on_process_count = models.Product_Ordermodel.objects.filter(shop_id_id__shop_id=id, status='on_process').count()
-        # delivered_count = delivered_count if delivered_count else 0
-        # cancelled_count = cancelled_count if cancelled_count else 0
-        # on_process_count = on_process_count if on_process_count else 0
+        cancelled_count = models.Product_Ordermodel.objects.filter(shop_id_id__shop_id=id, status='return').count()
+        on_process_count = models.Product_Ordermodel.objects.filter(shop_id_id__shop_id=id, status='ready_to_pickup').count()
+        delivered_count = delivered_count if delivered_count else 0
+        cancelled_count = cancelled_count if cancelled_count else 0
+        on_process_count = on_process_count if on_process_count else 0
         response_data = {
             'delivered_products': delivered_count,
             'cancelled_products': cancelled_count,
             'on_process_products': on_process_count
         }
         return Response(data=response_data, status=status.HTTP_200_OK)
+    else:
+        return Response("shop_ordernot found",status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+
+
 
 
 @api_view(["POST"])
-def update_product_order_status_reject(request,id,product_id,order_id):
+def update_product_order_status_reject(request, id, product_id, order_id):
     try:
         business = models.Businessmodel.objects.get(uid=id)
         print(business.uid)
-        product_orders = models.Product_Ordermodel.objects.filter(business__uid=business.uid, product_id=product_id, order_id=order_id)
-        if product_orders.exists():
-            for product_order in product_orders:
-                # Update the status field with the new value
-                product_order.status = "rejected"
-                product_order.save()
-            return Response("Status updated successfully", status=status.HTTP_200_OK)
-        else:
+        try:
+            product_order = models.Product_Ordermodel.objects.get(business__uid=business.uid, product_id=product_id, order_id=order_id)
+            # Delete the order
+            product_order.delete()
+            return Response("Order deleted successfully", status=status.HTTP_200_OK)
+        except ObjectDoesNotExist:
             return Response("Product order not found", status=status.HTTP_404_NOT_FOUND)
-    except:
-        return Response("Product order not found", status=status.HTTP_404_NOT_FOUND)
+    except models.Businessmodel.DoesNotExist:
+        return Response("Business not found", status=status.HTTP_404_NOT_FOUND)
+
 
 
 @api_view(["POST"])
 def update_product_order_status_accept(request,id,product_id,order_id):
     try:
-        business = models.Businessmodel.objects.get(uid=id) 
+        business = models.Businessmodel.objects.get(uid=id)
         print(business.uid)
 
         product_orders = models.Product_Ordermodel.objects.filter(business__uid=business.uid, product_id=product_id, order_id=order_id)
@@ -371,16 +529,27 @@ def update_product_order_status_accept(request,id,product_id,order_id):
                 admin_data = comission_Editing.objects.get(id=1)  
                 per_km = (admin_data.per_km)  
                 incentive =(admin_data.incentive)
-
+                admin_commision=business_commision.objects.get(id=1)
+                commission=admin_commision.commission
+                shops.admin_commission_amount=commission
                 total_amount=per_km*distance
                 shops.incentive=incentive
                 shops.order_total=int(total_amount)
                 shops.save()
+                notification_data = {
+                    "message_title": "You have got a text message",
+                    "message_desc": "New order arrived"
+                }
+
+                deliverysend_notification(**notification_data)
                 return Response("Status updated successfully", status=status.HTTP_200_OK)
             elif product_order.delivery_type == "Normal":
                 shops=models.Product_Ordermodel.objects.get(order_id=order_id)
                 print(shops)
-                admin_data = comission_Editing.objects.get(id=1)  
+                admin_data = comission_Editing.objects.get(id=1)
+                admin_commision=business_commision.objects.get(id=1)
+                commission=admin_commision.commission
+                shops.admin_commission_amount=commission
                 incentive =(admin_data.normal_delivery_commision)
                 shops.incentive=incentive
                 shops.order_total=incentive
@@ -399,15 +568,24 @@ def business_status_pickedUp(request,order_id):
     try:
         pro=get_object_or_404(models.Product_Ordermodel,order_id=order_id)
         
-        pro.business_pickup= "1"
+        pro.status = "ready_to_pickup"  
         pro.save()
+
         return Response({"order_id":order_id},status=status.HTTP_200_OK)
     except:
         return Response("nostatus",status=status.HTTP_400_BAD_REQUEST)
 
 
-
-
+@api_view(["POST"])
+def business_order_dispatch(request,order_id):
+    try:
+        pro=get_object_or_404(models.Product_Ordermodel,order_id=order_id)
+        
+        pro.status= "order_dispatch"
+        pro.save()
+        return Response({"order_id":order_id},status=status.HTTP_200_OK)
+    except:
+        return Response("nostatus",status=status.HTTP_400_BAD_REQUEST)
 
 # shopping 
 @api_view(['POST'])
@@ -499,7 +677,7 @@ def shopping(request,id):
                 return Response(id, status=status.HTTP_200_OK)
         else:
             print("serializer prblm")
-            return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)
+            return Response("you are out of region", status=status.HTTP_403_FORBIDDEN)
     else:
         return Response({"Invalid Data"}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -525,38 +703,83 @@ def business_shopping_data(request,id):
         serializer = business_serializers.shopping_list_serializer(data,many=True)
         return Response(data=serializer.data,status=status.HTTP_200_OK)
 
-@api_view(['GET'])
-def get_allproducts_order(request,id,prostatus):
-    if request.method == "GET":
-        if models.Product_Ordermodel.objects.filter(shop_id__shop_id=id).exists():
-            data= models.Product_Ordermodel.objects.filter(shop_id__shop_id=id,status=prostatus)
-            alldataserializer= end_user_serializers.product_orderlistSerializer(data,many=True)
-            return Response(data=alldataserializer.data,status=status.HTTP_200_OK)
-        elif models.Product_Ordermodel.objects.filter(food_id__food_id=id).exists():
-            data= models.Product_Ordermodel.objects.filter(shop_id__shop_id=id,status=prostatus)
-            alldataserializer= end_user_serializers.product_orderlistSerializer(data,many=True)
-            return Response(data=alldataserializer.data,status=status.HTTP_200_OK)
-        elif models.Product_Ordermodel.objects.filter(fresh_id__fresh_id=id).exists():
-            data= models.Product_Ordermodel.objects.filter(shop_id__shop_id=id,status=prostatus)
-            alldataserializer= end_user_serializers.product_orderlistSerializer(data,many=True)
-            return Response(data=alldataserializer.data,status=status.HTTP_200_OK)      
-        elif models.Product_Ordermodel.objects.filter(dmio_id__dmio_id=id).exists():
-            data= models.Product_Ordermodel.objects.filter(shop_id__shop_id=id,status=prostatus)
-            alldataserializer= end_user_serializers.product_orderlistSerializer(data,many=True)
-            return Response(data=alldataserializer.data,status=status.HTTP_200_OK)       
-        elif models.Product_Ordermodel.objects.filter(jewel_id__jewel_id=id).exists():
-            data= models.Product_Ordermodel.objects.filter(shop_id__shop_id=id,status=prostatus)
-            alldataserializer= end_user_serializers.product_orderlistSerializer(data,many=True)
-            return Response(data=alldataserializer.data,status=status.HTTP_200_OK)
-        elif models.Product_Ordermodel.objects.filter(d_id__d_id=id).exists():
-            data= models.Product_Ordermodel.objects.filter(shop_id__shop_id=id,status=prostatus)
-            alldataserializer= end_user_serializers.product_orderlistSerializer(data,many=True)
-            return Response(data=alldataserializer.data,status=status.HTTP_200_OK)
-        elif models.Product_Ordermodel.objects.filter(pharm_id__pharm_id=id).exists():
-            data= models.Product_Ordermodel.objects.filter(shop_id__shop_id=id,status=prostatus)
-            alldataserializer= end_user_serializers.product_orderlistSerializer(data,many=True)
-            return Response(data=alldataserializer.data,status=status.HTTP_200_OK)
 
+@api_view(['GET'])
+def get_allproducts_order(request, id, prostatus):
+    if request.method == "GET":
+
+        if prostatus == "ready_to_pickup":
+            if models.Product_Ordermodel.objects.filter(shop_id__shop_id=id).exists():
+                data = models.Product_Ordermodel.objects.filter(shop_id__shop_id=id,
+                                                                status__in=["ready_to_pickup", "order_dispatch",
+                                                                            "delivered"], payment_status = "")
+                alldataserializer = end_user_serializers.product_orderlistSerializer(data, many=True)
+                return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
+
+            elif models.Product_Ordermodel.objects.filter(d_id__d_id=id).exists():
+                data = models.Product_Ordermodel.objects.filter(d_id__d_id=id,
+                                                                status__in=["ready_to_pickup", "order_dispatch",
+                                                                            "delivered"],payment_status = "")
+                alldataserializer = end_user_serializers.product_orderlistSerializer(data, many=True)
+                return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
+
+
+            elif models.Product_Ordermodel.objects.filter(jewel_id__jewel_id=id).exists():
+                data = models.Product_Ordermodel.objects.filter(jewel_id__jewel_id=id,
+                                                                status__in=["ready_to_pickup", "order_dispatch",
+                                                                            "delivered"],payment_status = "")
+                alldataserializer = end_user_serializers.product_orderlistSerializer(data, many=True)
+                return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
+        elif prostatus == "payment_settled":
+            print(prostatus == "payment_settled")
+            if models.Product_Ordermodel.objects.filter(shop_id__shop_id=id).exists():
+                data = models.Product_Ordermodel.objects.filter(shop_id__shop_id=id,
+                                                                status="delivered", payment_status=prostatus)
+                alldataserializer = end_user_serializers.product_orderlistSerializer(data, many=True)
+                return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
+            elif models.Product_Ordermodel.objects.filter(d_id__d_id=id).exists():
+                data = models.Product_Ordermodel.objects.filter(d_id__d_id=id,status="delivered", payment_status=prostatus)
+                alldataserializer = end_user_serializers.product_orderlistSerializer(data, many=True)
+                return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
+            elif models.Product_Ordermodel.objects.filter(jewel_id__jewel_id=id).exists():
+                data = models.Product_Ordermodel.objects.filter(jewel_id__jewel_id=id,status="delivered", payment_status=prostatus)
+                alldataserializer = end_user_serializers.product_orderlistSerializer(data, many=True)
+                return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
+
+        else:
+            if models.Product_Ordermodel.objects.filter(shop_id__shop_id=id).exists():
+                data = models.Product_Ordermodel.objects.filter(shop_id__shop_id=id, status=prostatus)
+                alldataserializer = end_user_serializers.product_orderlistSerializer(data, many=True)
+                return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
+            elif models.Product_Ordermodel.objects.filter(food_id__food_id=id).exists():
+                data = models.Product_Ordermodel.objects.filter(food_id__food_id=id, status=prostatus)
+                alldataserializer = end_user_serializers.product_orderlistSerializer(data, many=True)
+                return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
+            elif models.Product_Ordermodel.objects.filter(fresh_id__fresh_id=id).exists():
+                data = models.Product_Ordermodel.objects.filter(fresh_id__fresh_id=id, status=prostatus)
+                alldataserializer = end_user_serializers.product_orderlistSerializer(data, many=True)
+                return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
+            elif models.Product_Ordermodel.objects.filter(dmio_id__dmio_id=id).exists():
+                data = models.Product_Ordermodel.objects.filter(dmio_id__dmio_id=id, status=prostatus)
+                alldataserializer = end_user_serializers.product_orderlistSerializer(data, many=True)
+                return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
+            elif models.Product_Ordermodel.objects.filter(jewel_id__jewel_id=id).exists():
+                data = models.Product_Ordermodel.objects.filter(jewel_id__jewel_id=id, status=prostatus)
+                alldataserializer = end_user_serializers.product_orderlistSerializer(data, many=True)
+                return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
+            elif models.Product_Ordermodel.objects.filter(d_id__d_id=id).exists():
+                data = models.Product_Ordermodel.objects.filter(d_id__d_id=id, status=prostatus)
+                alldataserializer = end_user_serializers.product_orderlistSerializer(data, many=True)
+                return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
+            elif models.Product_Ordermodel.objects.filter(pharm_id__pharm_id=id).exists():
+                data = models.Product_Ordermodel.objects.filter(pharm_id__pharm_id=id, status=prostatus)
+                alldataserializer = end_user_serializers.product_orderlistSerializer(data, many=True)
+                return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
+            else:
+                return Response("order not found", status=status.HTTP_403_FORBIDDEN)
+
+    else:
+        return Response("product found", status=status.HTTP_404_NOT_FOUND)    
 
 @api_view(["POST"])
 def shopping_update(request,id,shop_id):
@@ -692,7 +915,7 @@ def shop_products(request, id):
     print(f"{shop_products}")
     cleaned_data_dict = {key: value[0] if isinstance(value, list) and len(value) == 1 else value for key, value in
                          shop_products.items()}
-    cleaned_data_dict ['other_imagelist'] = other_imagelist
+    cleaned_data_dict ['other_images'] = other_imagelist
     
     global shop_product_data
     shop_product_data = {
@@ -746,6 +969,10 @@ def shop_get_products(request,id):
         data= models.shop_productsmodel.objects.filter(shop_id=id)
         alldataserializer= business_serializers.shop_productlistserializer(data,many=True)
         return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
+
+
+
+
 
 
 
@@ -830,56 +1057,88 @@ def shop_delete_product(request,id,product_id):
     shop_product.delete()
     return Response(id,status=status.HTTP_200_OK)
 
+
 @api_view(['POST'])
-def shop_update_product(request,id,product_id):
+def shop_imgupdate_product(request, id, product_id,index_value):
+    try:
+        if request.method == "POST":
+            fs = FileSystemStorage()
+            data = models.shop_productsmodel.objects.get(shop_id=id, product_id=product_id)
+            shop_pro=data.product.get("other_images")
+            product_img=data.product
+            print(shop_pro)
+            index_value = int(index_value)
+            if index_value < 0 or index_value >= len(shop_pro):
+                return Response({"error": "Invalid index value"}, status=status.HTTP_400_BAD_REQUEST)
+            if index_value == int(index_value):
+                other_images = str(request.FILES['other_images']).replace(" ", "_")
+                other_images_path = fs.save(f"api/shop_products/{id}/other_images/" + other_images,
+                                            request.FILES['other_images'])
+                other_images_paths = all_image_url + fs.url(other_images_path)
+                print(other_images_paths)
+                shop_pro[index_value] = other_images_paths
+                product_img["other_images"] =shop_pro
+                data.product=product_img  #replacejson
+                data.save()
 
+            return Response({"message": "Image Updated successfully"}, status=status.HTTP_200_OK)
+        else:
+            return Response({"error": "Index value mismatch"}, status=status.HTTP_400_BAD_REQUEST)
+            
+    except models.shop_productsmodel.DoesNotExist:
+        return Response({"error": "Shop product not found"}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def shop_update_product(request, id, product_id):
+    print(request.data)
     shop_products = dict(request.POST)
-
     fs = FileSystemStorage()
     try:
         primary_image = str(request.FILES['primary_image']).replace(" ", "_")
-        primary_image_path = fs.save(f"api/shop_products/{id}/primary_image/"+primary_image, request.FILES['primary_image'])
-        primary_image_paths = all_image_url+fs.url(primary_image_path)
+        primary_image_path = fs.save(f"api/shop_products/{id}/primary_image/" + primary_image,
+                                     request.FILES['primary_image'])
+        primary_image_paths = all_image_url + fs.url(primary_image_path)
         print(primary_image_paths)
         shop_products['primary_image'] = primary_image_paths
     except:
-        # shop_pro=collection.find_one({"shop_id": id,"product_id":product_id})
-        # primary_image_paths=shop_pro.get("primary_image")
-        # shop_products['primary_image'] = primary_image_paths
         pass
-        
-    
+
     try:
         other_image = []
         other_imagelist = []
         for sav in request.FILES.getlist('other_images'):
-            ot = fs.save(f"api/shop_products/{id}/other_images/"+sav.name, sav)
-            other_image.append(str(ot).replace(" ","_"))
-                
+            ot = fs.save(f"api/shop_products/{id}/other_images/" + sav.name, sav)
+            other_image.append(str(ot).replace(" ", "_"))
+
             print(other_image)
             for iname in other_image:
                 other_images_path = iname
-                other_imagelist.append(all_image_url+fs.url(other_images_path))
+                other_imagelist.append(all_image_url + fs.url(other_images_path))
         shop_products['other_images'] = other_imagelist
 
     except:
         pass
-    
+
     try:
         shop_product_instance = models.shop_productsmodel.objects.get(shop_id=id, product_id=product_id)
-        
         existing_product_data = shop_product_instance.product
-        
+
         # Updating product field with new data
         new_product_data = dict(request.POST)
-        existing_product_data.update(new_product_data)
-        
+        # shop_products = dict(request.POST)
+        shop_products["other_images"] = shop_product_instance.product['other_images']
+        print(shop_products)
+        cleaned_data_dict = {key: value[0] if isinstance(value, list) and len(value) == 1 else value for key, value in
+                             shop_products.items()}
+
+        # existing_product_data.update(cleaned_data_dict)
+
         # Saving changes to the SQLite table
         with transaction.atomic():
             # Updating only the product field
-            shop_product_instance.product = existing_product_data
+            shop_product_instance.product = cleaned_data_dict
             shop_product_instance.save()
-        
+
         return Response(id, status=status.HTTP_200_OK)
     except models.shop_productsmodel.DoesNotExist:
         return Response({"error": "Shop product not found"}, status=status.HTTP_404_NOT_FOUND)
@@ -920,12 +1179,16 @@ def shop_productorder_date(request,id):
 @api_view(['GET'])
 def jewel_total_revenue(request,id):
     if request.method == 'GET':
-        total_revenue = models.Product_Ordermodel.objects.filter(jewel_id_id__jewel_id=id).aggregate(total_revenue=Sum('total_amount'))['total_revenue'] or 0
-        print(total_revenue)
-        jewel = models.jewellerymodel.objects.get(jewel_id=id)
-        jewel.total_revenue = total_revenue
-        jewel.save()
-        return Response(data={'total_revenue': total_revenue}, status=status.HTTP_200_OK)
+        if models.Product_Ordermodel.objects.filter(jewel_id_id__jewel_id=id).exists():
+            total_revenue = models.Product_Ordermodel.objects.filter(jewel_id_id__jewel_id=id).aggregate(total_revenue=Sum('total_amount'))['total_revenue'] or 0
+            print(total_revenue)
+            jewel = models.jewellerymodel.objects.get(jewel_id=id)
+            jewel.total_revenue = total_revenue
+            jewel.save()
+            return Response(data={'total_revenue': total_revenue}, status=status.HTTP_200_OK)
+        else:
+            return Response(data={'total_revenue': 0}, status=status.HTTP_200_OK)
+
 
 @api_view(['GET'])
 def jewel_mon_revenue(request,id):
@@ -933,19 +1196,23 @@ def jewel_mon_revenue(request,id):
         current_date = timezone.now().date()
         start_of_month = current_date.replace(day=1)
         end_of_month = start_of_month.replace(month=start_of_month.month + 1) - datetime.timedelta(days=1)
-        monthly_revenue = models.Product_Ordermodel.objects.filter(jewel_id_id__jewel_id=id, order_date__range=(start_of_month, end_of_month)).aggregate(monthly_revenue=Sum('total_amount'))['monthly_revenue']or 0
-        jewel = models.jewellerymodel.objects.get(jewel_id=id)
-        jewel.monthly_revenue = monthly_revenue
-        jewel.save()
-        return Response(data={'monthly_revenue': monthly_revenue}, status=status.HTTP_200_OK)
+        if models.Product_Ordermodel.objects.filter(jewel_id_id__jewel_id=id).exists():
+            monthly_revenue = models.Product_Ordermodel.objects.filter(jewel_id_id__jewel_id=id, order_date__range=(start_of_month, end_of_month)).aggregate(monthly_revenue=Sum('total_amount'))['monthly_revenue']or 0
+            jewel = models.jewellerymodel.objects.get(jewel_id=id)
+            jewel.monthly_revenue = monthly_revenue
+            jewel.save()
+            return Response(data={'monthly_revenue': monthly_revenue}, status=status.HTTP_200_OK)
+        else:
+            return Response(data={'monthly_revenue': 0}, status=status.HTTP_200_OK)
+
 
 @api_view(['GET'])
 def jewel_orderstatus(request,id):
     if request.method == 'GET':
 
         jewel = models.Product_Ordermodel.objects.filter(jewel_id_id__jewel_id=id).first()
-        if not jewel:
-            return Response(data={'error': 'jewel not found'}, status=status.HTTP_404_NOT_FOUND)
+        # if not jewel:
+        #     return Response(data={'error': 'jewel not found'}, status=status.HTTP_404_NOT_FOUND)
         delivered_count = models.Product_Ordermodel.objects.filter(jewel_id_id__jewel_id=id, status='delivered').count()
         cancelled_count = models.Product_Ordermodel.objects.filter(jewel_id_id__jewel_id=id, status='cancelled').count()
         on_process_count = models.Product_Ordermodel.objects.filter(jewel_id_id__jewel_id=id, status='on_process').count()
@@ -957,7 +1224,8 @@ def jewel_orderstatus(request,id):
         }
         return Response(data=response_data, status=status.HTTP_200_OK)
 
-
+    else:
+        return Response("shop_ordernot found",status=status.HTTP_400_BAD_REQUEST)
 
 
 # jewellery
@@ -1214,7 +1482,7 @@ def jewel_products(request,id):
     print(jewel_products)
     cleaned_data_dict ={key:value[0] if isinstance(value,list) and len(value)==1 else value for key,value in jewel_products.items()}
 
-    cleaned_data_dict ['other_imagelist'] = other_imagelist
+    cleaned_data_dict ['other_images'] = other_imagelist
 
     global data
     data= {
@@ -1285,9 +1553,10 @@ def jewel_delete_product(request,id,product_id):
     jewel_product.delete()
     return Response(id,status=status.HTTP_200_OK)
 
+
 @api_view(['POST'])
 def jewel_update_product(request,id,product_id):
-
+    print(request.data)
     jewel_products = dict(request.POST)
 
     fs = FileSystemStorage()
@@ -1321,18 +1590,21 @@ def jewel_update_product(request,id,product_id):
         pass
 
     try:
+
         jewel_product_instance = models.jewel_productsmodel.objects.get(jewel_id=id, product_id=product_id)
 
         
         existing_product_data = jewel_product_instance.product
-        
-        new_product_data = dict(request.POST)
-        existing_product_data.update(new_product_data)
+        jewel_products["other_images"] = jewel_product_instance.product['other_images']
+        cleaned_data_dict = {key: value[0] if isinstance(value, list) and len(value) == 1 else value for key, value in
+                            jewel_products.items()}
+        # existing_product_data.update(cleaned_data_dict)
         
         # Saving changes to the SQLite table
         with transaction.atomic():
+            
             # Updating only the product field
-            jewel_product_instance.product = existing_product_data
+            jewel_product_instance.product = cleaned_data_dict
             jewel_product_instance.save()
             # cleaned_data_dict ={key:value[0] if isinstance(value,list) and len(value)==1 else value for key,value in new_product_data.items()}
             # print(cleaned_data_dict)
@@ -1341,8 +1613,38 @@ def jewel_update_product(request,id,product_id):
             jewel_product_instance.save()
         return Response(id, status=status.HTTP_200_OK)
     except models.jewel_productsmodel.DoesNotExist:
-        return Response({"error": "Shop product not found"}, status=status.HTTP_404_NOT_FOUND)
+        return Response({"error": "jewel product not found"}, status=status.HTTP_404_NOT_FOUND)
 
+
+@api_view(['POST'])
+def jewel_imgupdate_product(request,id,product_id,index_value):
+    try:
+        if request.method == "POST":
+            fs = FileSystemStorage()
+            data = models.jewel_productsmodel.objects.get(jewel_id=id, product_id=product_id)
+            jewel_pro=data.product.get("other_images")
+            product_img=data.product
+            print(jewel_pro)
+            index_value = int(index_value)
+            if index_value < 0 or index_value >= len(jewel_pro):
+                return Response({"error": "Invalid index value"}, status=status.HTTP_400_BAD_REQUEST)
+            if index_value == int(index_value):
+                other_images = str(request.FILES['other_images']).replace(" ", "_")
+                other_images_path = fs.save(f"api/jewel_products/{id}/other_images/" + other_images,
+                                            request.FILES['other_images'])
+                other_images_paths = all_image_url + fs.url(other_images_path)
+                print(other_images_paths)
+                jewel_pro[index_value] = other_images_paths
+                product_img["other_images"] =jewel_pro
+                data.product=product_img  #replacejson
+                data.save()
+
+            return Response({"message": "Image Updated successfully"}, status=status.HTTP_200_OK)
+        else:
+            return Response({"error": "Index value mismatch"}, status=status.HTTP_400_BAD_REQUEST)
+            
+    except models.jewel_productsmodel.DoesNotExist:
+        return Response({"error": "Shop product not found"}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(["POST","GET"])
 def jewel_productorder_date(request,id):
@@ -1380,32 +1682,42 @@ def jewel_productorder_date(request,id):
 @api_view(['GET'])
 def food_total_revenue(request,id):
     if request.method == 'GET':
-        total_revenue = models.Product_Ordermodel.objects.filter(food_id_id__food_id=id).aggregate(total_revenue=Sum('total_amount'))['total_revenue'] or 0
-        print(total_revenue)
-        food = models.foodmodel.objects.get(food_id_id__food_id=id)
-        food.total_revenue = total_revenue
-        food.save()
-        return Response(data={'total_revenue': total_revenue}, status=status.HTTP_200_OK)
+        if models.Product_Ordermodel.objects.filter(food_id_id__food_id=id).exists():
+            total_revenue = models.Product_Ordermodel.objects.filter(food_id_id__food_id=id).aggregate(total_revenue=Sum('total_amount'))['total_revenue'] or 0
+            print(total_revenue)
+            food = models.foodmodel.objects.get(food_id=id)
+            food.total_revenue = total_revenue
+            food.save()
+            return Response(data={'total_revenue': total_revenue}, status=status.HTTP_200_OK)
+        else:
+            return Response(data={'total_revenue': 0}, status=status.HTTP_200_OK)
 
+    else:
+        return Response("shop_ordernot found",status=status.HTTP_400_BAD_REQUEST)
 @api_view(['GET'])
 def food_mon_revenue(request, id):
     if request.method == 'GET':
         current_date = timezone.now().date()
         start_of_month = current_date.replace(day=1)
         end_of_month = start_of_month.replace(month=start_of_month.month + 1) - datetime.timedelta(days=1)
-        monthly_revenue = models.Product_Ordermodel.objects.filter(food_id_id__food_id=id, order_date__range=(start_of_month, end_of_month)).aggregate(monthly_revenue=Sum('total_amount'))['monthly_revenue']or 0
-        food = models.foodmodel.objects.get(food_id=id)
-        food.monthly_revenue = monthly_revenue
-        food.save()
-        return Response(data={'monthly_revenue': monthly_revenue}, status=status.HTTP_200_OK)
-
+        if models.Product_Ordermodel.objects.filter(food_id_id__food_id=id).exists():
+            monthly_revenue = models.Product_Ordermodel.objects.filter(food_id_id__food_id=id, order_date__range=(start_of_month, end_of_month)).aggregate(monthly_revenue=Sum('total_amount'))['monthly_revenue']or 0
+            food = models.foodmodel.objects.get(food_id=id)
+            food.monthly_revenue = monthly_revenue
+            food.save()
+            return Response(data={'monthly_revenue': monthly_revenue}, status=status.HTTP_200_OK)
+        else:
+            return Response(data={'monthly_revenue': 0},status=status.HTTP_200_OK)
+    else:
+        return Response("shop_ordernot found",status=status.HTTP_400_BAD_REQUEST)
+    
 @api_view(['GET'])
 def food_orderstatus(request,id):
     if request.method == 'GET':
 
         food = models.Product_Ordermodel.objects.filter(food_id_id__food_id=id).first()
-        if not food:
-            return Response(data={'error': 'food not found'}, status=status.HTTP_404_NOT_FOUND)
+        # if not food:
+        #     return Response(data={'error': 'food not found'}, status=status.HTTP_404_NOT_FOUND)
         delivered_count = models.Product_Ordermodel.objects.filter(food_id_id__food_id=id, status='delivered').count()
         cancelled_count = models.Product_Ordermodel.objects.filter(food_id_id__food_id=id, status='cancelled').count()
         on_process_count = models.Product_Ordermodel.objects.filter(food_id_id__food_id=id, status='on_process').count()
@@ -1416,8 +1728,8 @@ def food_orderstatus(request,id):
             'on_process_products': on_process_count
         }
         return Response(data=response_data, status=status.HTTP_200_OK)
-
-
+    else:
+        return Response("shop_ordernot found",status=status.HTTP_400_BAD_REQUEST)
 
 #foodview  
 @api_view(['POST'])
@@ -1618,6 +1930,27 @@ def food_update(request,id,food_id):
     except:
         return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)
 
+@api_view(["POST"])    
+def add_review_restaurant(request, id):
+    products = models.food_productsmodel.objects.filter(food_id=id)
+    total_rating = 0
+    total_reviews = 0
+    for product in products:
+        reviews = models.Reviews.objects.filter(food_product=product)
+        product_rating = reviews.aggregate(Avg('rating'))['rating__avg']
+        if product_rating is not None:
+            total_rating += product_rating
+            total_reviews += 1
+    if total_reviews > 0:
+        average_rating = total_rating / total_reviews
+    else:
+        average_rating = 0 
+   
+    shop = models.foodmodel.objects.get(food_id=id)
+    shop.rating = average_rating
+    shop.save()
+    return Response(id, status=status.HTTP_200_OK)
+
 
 # food products
 @api_view(['POST'])
@@ -1670,7 +2003,7 @@ def food_products(request,id):
     # Clean data and prepare for serialization
     cleaned_data_dict ={key:value[0] if isinstance(value,list) and len(value)==1 else value for key,value in food_products.items()}
     print(cleaned_data_dict)
-    cleaned_data_dict ['other_imagelist'] = other_imagelist
+    cleaned_data_dict ['other_images'] = other_imagelist
 
     global food_products_data
     food_products_data= {
@@ -1693,9 +2026,10 @@ def food_products(request,id):
         print("Error while saving data:", e)
         return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)
 
+
+
 @api_view(['POST'])
-def food_product_save(request, id):
-    food_products(request,id)
+def food_product_save(request,id):
     print(type(food_products_data["food_id"]))
     print(type(id))
     print(food_products_data["food_id"])
@@ -1744,11 +2078,14 @@ def food_delete_product(request,id,product_id):
     food_product.delete()
     return Response(id,status=status.HTTP_200_OK)
 
+
+
+
 @api_view(['POST'])
 def food_update_product(request,id,product_id):
 
     food_products = dict(request.POST)
-
+  
     fs = FileSystemStorage()
     try:
         primary_image = str(request.FILES['primary_image']).replace(" ", "_")
@@ -1784,18 +2121,54 @@ def food_update_product(request,id,product_id):
         existing_product_data = food_product_instance.product
         
         # Updating product field with new data
-        new_product_data = dict(request.POST)
-        existing_product_data.update(new_product_data)
+        food_products["other_images"] = food_product_instance.product['other_images']
+        cleaned_data_dict = {key: value[0] if isinstance(value, list) and len(value) == 1 else value for key, value in
+                            food_products.items()}
+
+        # existing_product_data.update(cleaned_data_dict)
+     
         
         # Saving changes to the SQLite table
         with transaction.atomic():
             # Updating only the product field
-            food_product_instance.product = existing_product_data
+            food_product_instance.product = cleaned_data_dict
             food_product_instance.save()
         
         return Response(id, status=status.HTTP_200_OK)
     except models.food_productsmodel.DoesNotExist:
         return Response({"error": "Shop product not found"}, status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(['POST'])
+def food_imgupdate_product(request, id, product_id,index_value):
+    try:
+        if request.method == "POST":
+            fs = FileSystemStorage()
+            data = models.food_productsmodel.objects.get(food_id=id, product_id=product_id)
+            food_pro=data.product.get("other_images")
+            product_img=data.product
+            print(food_pro)
+            index_value = int(index_value)
+            if index_value < 0 or index_value >= len(food_pro):
+                return Response({"error": "Invalid index value"}, status=status.HTTP_400_BAD_REQUEST)
+            if index_value == int(index_value):
+                other_images = str(request.FILES['other_images']).replace(" ", "_")
+                other_images_path = fs.save(f"api/food_products/{id}/other_images/" + other_images,
+                                            request.FILES['other_images'])
+                other_images_paths = all_image_url + fs.url(other_images_path)
+                print(other_images_paths)
+                food_pro[index_value] = other_images_paths
+                product_img["other_images"] =food_pro
+                data.product=product_img  #replacejson
+                data.save()
+
+            return Response({"message": "Image Updated successfully"}, status=status.HTTP_200_OK)
+        else:
+            return Response({"error": "Index value mismatch"}, status=status.HTTP_400_BAD_REQUEST)
+            
+    except models.food_productsmodel.DoesNotExist:
+        return Response({"error": "Shop product not found"}, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 @api_view(["POST","GET"])
@@ -1834,12 +2207,16 @@ def food_productorder_date(request,id):
 def fresh_total_revenue(request, id):
 
     if request.method == 'GET':
-        total_revenue = models.Product_Ordermodel.objects.filter(fresh_id_id__fresh_id=id).aggregate(total_revenue=Sum('total_amount'))['total_revenue'] or 0
-        print(total_revenue)
-        fresh = models.freshcutsmodel.objects.get(fresh_id=id)
-        fresh.total_revenue = total_revenue
-        fresh.save()
-        return Response(data={'total_revenue': total_revenue}, status=status.HTTP_200_OK)
+        if models.Product_Ordermodel.objects.filter(fresh_id_id__fresh_id=id).exists():
+            total_revenue = models.Product_Ordermodel.objects.filter(fresh_id_id__fresh_id=id).aggregate(total_revenue=Sum('total_amount'))['total_revenue'] or 0
+            print(total_revenue)
+            fresh = models.freshcutsmodel.objects.get(fresh_id=id)
+            fresh.total_revenue = total_revenue
+            fresh.save()
+            return Response(data={'total_revenue': total_revenue}, status=status.HTTP_200_OK)
+        else:
+            return Response(data={'total_revenue': total_revenue}, status=status.HTTP_200_OK)
+  
 
 @api_view(['GET'])
 def fresh_mon_revenue(request, id):
@@ -1847,19 +2224,23 @@ def fresh_mon_revenue(request, id):
         current_date = timezone.now().date()
         start_of_month = current_date.replace(day=1)
         end_of_month = start_of_month.replace(month=start_of_month.month + 1) - datetime.timedelta(days=1)
-        monthly_revenue = models.Product_Ordermodel.objects.filter(fresh_id_id__fresh_id=id, order_date__range=(start_of_month, end_of_month)).aggregate(monthly_revenue=Sum('total_amount'))['monthly_revenue']or 0
-        fresh = models.freshcutsmodel.objects.get(fresh_id=id)
-        fresh.monthly_revenue = monthly_revenue
-        fresh.save()
-        return Response(data={'monthly_revenue': monthly_revenue}, status=status.HTTP_200_OK)
+        if models.Product_Ordermodel.objects.filter(fresh_id_id__fresh_id=id).exists():
+            monthly_revenue = models.Product_Ordermodel.objects.filter(fresh_id_id__fresh_id=id, order_date__range=(start_of_month, end_of_month)).aggregate(monthly_revenue=Sum('total_amount'))['monthly_revenue']or 0
+            fresh = models.freshcutsmodel.objects.get(fresh_id=id)
+            fresh.monthly_revenue = monthly_revenue
+            fresh.save()
+            return Response(data={'monthly_revenue': monthly_revenue}, status=status.HTTP_200_OK)
+        else:
+            return Response(data={'monthly_revenue': 0}, status=status.HTTP_200_OK)
+   
 
 @api_view(['GET'])
 def fresh_orderstatus(request,id):
     if request.method == 'GET':
 
         shop = models.Product_Ordermodel.objects.filter(fresh_id_id__fresh_id=id).first()
-        if not shop:
-            return Response(data={'error': 'fresh not found'}, status=status.HTTP_404_NOT_FOUND)
+        # if not shop:
+        #     return Response(data={'error': 'fresh not found'}, status=status.HTTP_404_NOT_FOUND)
         delivered_count = models.Product_Ordermodel.objects.filter(fresh_id_id__fresh_id=id, status='delivered').count()
         cancelled_count = models.Product_Ordermodel.objects.filter(fresh_id_id__fresh_id=id, status='cancelled').count()
         on_process_count = models.Product_Ordermodel.objects.filter(fresh_id_id__fresh_id=id, status='on_process').count()
@@ -1870,8 +2251,8 @@ def fresh_orderstatus(request,id):
             'on_process_products': on_process_count
         }
         return Response(data=response_data, status=status.HTTP_200_OK)
-
-
+    else:
+        return Response("shop_ordernot found",status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 def freshcuts(request,id):
@@ -2121,7 +2502,7 @@ def fresh_products(request, id):
     fresh_products['selling_price'] = selling_price
     print(fresh_products)
     cleaned_data_dict ={key:value[0] if isinstance(value,list) and len(value)==1 else value for key,value in fresh_products.items()}
-    cleaned_data_dict ['other_imagelist'] = other_imagelist
+    cleaned_data_dict ['other_images'] = other_imagelist
    
     global data
     data= {
@@ -2237,18 +2618,52 @@ def fresh_update_product(request,id,product_id):
         existing_product_data = fresh_product_instance.product
         
         # Updating product field with new data
-        new_product_data = dict(request.POST)
-        existing_product_data.update(new_product_data)
+        fresh_products["other_images"] = fresh_product_instance.product['other_images']
+        cleaned_data_dict = {key: value[0] if isinstance(value, list) and len(value) == 1 else value for key, value in
+                             fresh_products.items()}
+
+        # existing_product_data.update(cleaned_data_dict)
         
         # Saving changes to the SQLite table
         with transaction.atomic():
             # Updating only the product field
-            fresh_product_instance.product = existing_product_data
+            fresh_product_instance.product = cleaned_data_dict
             fresh_product_instance.save()
         
         return Response(id, status=status.HTTP_200_OK)
     except models.fresh_productsmodel.DoesNotExist:
         return Response({"error": "fresh product not found"}, status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(['POST'])
+def fresh_imgupdate_product(request,id,product_id,index_value):
+    try:
+        if request.method == "POST":
+            fs = FileSystemStorage()
+            data = models.fresh_productsmodel.objects.get(fresh_id=id, product_id=product_id)
+            fresh_pro=data.product.get("other_images")
+            product_img=data.product
+            print(fresh_pro)
+            index_value = int(index_value)
+            if index_value < 0 or index_value >= len(fresh_pro):
+                return Response({"error": "Invalid index value"}, status=status.HTTP_400_BAD_REQUEST)
+            if index_value == int(index_value):
+                other_images = str(request.FILES['other_images']).replace(" ", "_")
+                other_images_path = fs.save(f"api/fresh_products/{id}/other_images/" + other_images,
+                                            request.FILES['other_images'])
+                other_images_paths = all_image_url + fs.url(other_images_path)
+                print(other_images_paths)
+                fresh_pro[index_value] = other_images_paths
+                product_img["other_images"] =fresh_pro
+                data.product=product_img  #replacejson
+                data.save()
+
+            return Response({"message": "Image Updated successfully"}, status=status.HTTP_200_OK)
+        else:
+            return Response({"error": "Index value mismatch"}, status=status.HTTP_400_BAD_REQUEST)
+            
+    except models.fresh_productsmodel.DoesNotExist:
+        return Response({"error": "Shop product not found"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["POST","GET"])
@@ -2286,12 +2701,17 @@ def fresh_productorder_date(request,id):
 @api_view(['GET'])
 def dmio_total_revenue(request, id):
     if request.method == 'GET':
-        total_revenue = models.Product_Ordermodel.objects.filter(dmio_id_id__dmio_id=id).aggregate(total_revenue=Sum('total_amount'))['total_revenue'] or 0
-        print(total_revenue)
-        dmio = models.dailymio_model.objects.get(dmio_id=id)
-        dmio.total_revenue = total_revenue
-        dmio.save()
-        return Response(data={'total_revenue': total_revenue}, status=status.HTTP_200_OK)
+        if models.Product_Ordermodel.objects.filter(dmio_id_id__dmio_id=id).exists():
+            total_revenue = models.Product_Ordermodel.objects.filter(dmio_id_id__dmio_id=id).aggregate(total_revenue=Sum('total_amount'))['total_revenue'] or 0
+            print(total_revenue)
+            dmio = models.dailymio_model.objects.get(dmio_id=id)
+            dmio.total_revenue = total_revenue
+            dmio.save()
+            return Response(data={'total_revenue': total_revenue}, status=status.HTTP_200_OK)
+        else:
+            return Response(data={'total_revenue': 0}, status=status.HTTP_200_OK)
+
+
 
 @api_view(['GET'])
 def dmio_mon_revenue(request, id):
@@ -2299,19 +2719,24 @@ def dmio_mon_revenue(request, id):
         current_date = timezone.now().date()
         start_of_month = current_date.replace(day=1)
         end_of_month = start_of_month.replace(month=start_of_month.month + 1) - datetime.timedelta(days=1)
-        monthly_revenue = models.Product_Ordermodel.objects.filter(dmio_id_id__dmio_id=id, order_date__range=(start_of_month, end_of_month)).aggregate(monthly_revenue=Sum('total_amount'))['monthly_revenue']or 0
-        dmio = models.dailymio_model.objects.get(dmio_id=id)
-        dmio.monthly_revenue = monthly_revenue
-        dmio.save()
-        return Response(data={'monthly_revenue': monthly_revenue}, status=status.HTTP_200_OK)
+        if models.Product_Ordermodel.objects.filter(dmio_id_id__dmio_id=id).exists():
+            monthly_revenue = models.Product_Ordermodel.objects.filter(dmio_id_id__dmio_id=id, order_date__range=(start_of_month, end_of_month)).aggregate(monthly_revenue=Sum('total_amount'))['monthly_revenue']or 0
+            dmio = models.dailymio_model.objects.get(dmio_id=id)
+            dmio.monthly_revenue = monthly_revenue
+            dmio.save()
+            return Response(data={'monthly_revenue': monthly_revenue}, status=status.HTTP_200_OK)
+        else:
+            return Response(data={'monthly_revenue': 0}, status=status.HTTP_200_OK)
+
+
 
 @api_view(['GET'])
 def dmio_orderstatus(request,id):
     if request.method == 'GET':
 
         dmio = models.Product_Ordermodel.objects.filter(dmio_id_id__dmio_id=id).first()
-        if not dmio:
-            return Response(data={'error': 'dmio not found'}, status=status.HTTP_404_NOT_FOUND)
+        # if not dmio:
+        #     return Response(data={'error': 'dmio not found'}, status=status.HTTP_404_NOT_FOUND)
         delivered_count = models.Product_Ordermodel.objects.filter(dmio_id_id__dmio_id=id, status='delivered').count()
         cancelled_count = models.Product_Ordermodel.objects.filter(dmio_id_id__dmio_id=id, status='cancelled').count()
         on_process_count = models.Product_Ordermodel.objects.filter(dmio_id_id__dmio_id=id, status='on_process').count()
@@ -2322,7 +2747,8 @@ def dmio_orderstatus(request,id):
             'on_process_products': on_process_count
         }
         return Response(data=response_data, status=status.HTTP_200_OK)
-
+    else:
+        return Response("shop_ordernot found",status=status.HTTP_400_BAD_REQUEST)
 
 # dailymio_model
 
@@ -2577,7 +3003,7 @@ def dmio_products(request,id):
     dmio_products['selling_price'] = selling_price
     print(dmio_products)
     cleaned_data_dict ={key:value[0] if isinstance(value,list) and len(value)==1 else value for key,value in dmio_products.items()}
-    cleaned_data_dict ['other_imagelist'] = other_imagelist
+    cleaned_data_dict ['other_images'] = other_imagelist
 
     global data
     data= {
@@ -2692,18 +3118,52 @@ def dmio_update_product(request,id,product_id):
         existing_product_data = dmio_product_instance.product
         
         # Updating product field with new data
-        new_product_data = dict(request.POST)
-        existing_product_data.update(new_product_data)
+        dmio_products["other_images"] = dmio_product_instance.product['other_images']
+        cleaned_data_dict = {key: value[0] if isinstance(value, list) and len(value) == 1 else value for key, value in
+                            dmio_products.items()}
+
+        # existing_product_data.update(cleaned_data_dict)
         
         # Saving changes to the SQLite table
         with transaction.atomic():
             # Updating only the product field
-            dmio_product_instance.product = existing_product_data
+            dmio_product_instance.product = cleaned_data_dict
             dmio_product_instance.save()
         
         return Response(id, status=status.HTTP_200_OK)
     except models.dmio_productsmodel.DoesNotExist:
         return Response({"error": "dmio product not found"}, status=status.HTTP_404_NOT_FOUND)
+    
+@api_view(['POST'])
+def dmio_imgupdate_product(request, id, product_id,index_value):
+    try:
+        if request.method == "POST":
+            fs = FileSystemStorage()
+            data = models.dmio_productsmodel.objects.get(dmio_id=id, product_id=product_id)
+            dmio_pro=data.product.get("other_images")
+            product_img=data.product
+            print(dmio_pro)
+            index_value = int(index_value)
+            if index_value < 0 or index_value >= len(dmio_pro):
+                return Response({"error": "Invalid index value"}, status=status.HTTP_400_BAD_REQUEST)
+            if index_value == int(index_value):
+                other_images = str(request.FILES['other_images']).replace(" ", "_")
+                other_images_path = fs.save(f"api/dmio_products/{id}/other_images/" + other_images,
+                                            request.FILES['other_images'])
+                other_images_paths = all_image_url + fs.url(other_images_path)
+                print(other_images_paths)
+                dmio_pro[index_value] = other_images_paths
+                product_img["other_images"] =dmio_pro
+                data.product=product_img  #replacejson
+                data.save()
+
+            return Response({"message": "Image Updated successfully"}, status=status.HTTP_200_OK)
+        else:
+            return Response({"error": "Index value mismatch"}, status=status.HTTP_400_BAD_REQUEST)
+            
+    except models.dmio_productsmodel.DoesNotExist:
+        return Response({"error": "Shop product not found"}, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 @api_view(["POST","GET"])
@@ -2740,12 +3200,16 @@ def dmio_productorder_date(request,id):
 @api_view(['GET'])
 def pharmacy_total_revenue(request, id):
     if request.method == 'GET':
-        total_revenue = models.Product_Ordermodel.objects.filter(pharm_id_id__pharm_id=id).aggregate(total_revenue=Sum('total_amount'))['total_revenue'] or 0
-        print(total_revenue)
-        pharm = models.pharmacy_model.objects.get(pharm_id=id)
-        pharm.total_revenue = total_revenue
-        pharm.save()
-        return Response(data={'total_revenue': total_revenue}, status=status.HTTP_200_OK)
+        if models.Product_Ordermodel.objects.filter(pharm_id_id__pharm_id=id).exists():
+            total_revenue = models.Product_Ordermodel.objects.filter(pharm_id_id__pharm_id=id).aggregate(total_revenue=Sum('total_amount'))['total_revenue'] or 0
+            print(total_revenue)
+            pharm = models.pharmacy_model.objects.get(pharm_id=id)
+            pharm.total_revenue = total_revenue
+            pharm.save()
+            return Response(data={'total_revenue': total_revenue}, status=status.HTTP_200_OK)
+        else:
+            return Response(data={'total_revenue': 0}, status=status.HTTP_200_OK)
+
 
 @api_view(['GET'])
 def pharm_mon_revenue(request, id):
@@ -2753,19 +3217,23 @@ def pharm_mon_revenue(request, id):
         current_date = timezone.now().date()
         start_of_month = current_date.replace(day=1)
         end_of_month = start_of_month.replace(month=start_of_month.month + 1) - datetime.timedelta(days=1)
-        monthly_revenue = models.Product_Ordermodel.objects.filter(pharm_id_id__pharm_id=id, order_date__range=(start_of_month, end_of_month)).aggregate(monthly_revenue=Sum('total_amount'))['monthly_revenue']or 0
-        pharm = models.pharmacy_model.objects.get(pharm_id=id)
-        pharm.monthly_revenue = monthly_revenue
-        pharm.save()
-        return Response(data={'monthly_revenue': monthly_revenue}, status=status.HTTP_200_OK)
+        if models.Product_Ordermodel.objects.filter(pharm_id_id__pharm_id=id).exists():
+            monthly_revenue = models.Product_Ordermodel.objects.filter(pharm_id_id__pharm_id=id, order_date__range=(start_of_month, end_of_month)).aggregate(monthly_revenue=Sum('total_amount'))['monthly_revenue']or 0
+            pharm = models.pharmacy_model.objects.get(pharm_id=id)
+            pharm.monthly_revenue = monthly_revenue
+            pharm.save()
+            return Response(data={'monthly_revenue': monthly_revenue}, status=status.HTTP_200_OK)
+        else:
+            return Response(data={'monthly_revenue': 0}, status=status.HTTP_200_OK)
+
 
 @api_view(['GET'])
 def pharm_orderstatus(request,id):
     if request.method == 'GET':
 
         pharm = models.Product_Ordermodel.objects.filter(pharm_id_id__pharm_id=id).first()
-        if not pharm:
-            return Response(data={'error': 'pharm not found'}, status=status.HTTP_404_NOT_FOUND)
+        # if not pharm:
+        #     return Response(data={'error': 'pharm not found'}, status=status.HTTP_404_NOT_FOUND)
         delivered_count = models.Product_Ordermodel.objects.filter(pharm_id_id__pharm_id=id, status='delivered').count()
         cancelled_count = models.Product_Ordermodel.objects.filter(pharm_id_id__pharm_id=id, status='cancelled').count()
         on_process_count = models.Product_Ordermodel.objects.filter(pharm_id_id__pharm_id=id, status='on_process').count()
@@ -2777,7 +3245,8 @@ def pharm_orderstatus(request,id):
         }
         return Response(data=response_data, status=status.HTTP_200_OK)
 
-
+    else:
+        return Response("shop_ordernot found",status=status.HTTP_400_BAD_REQUEST)
 
 # pharmacy_model
 @api_view(['POST'])
@@ -3028,7 +3497,7 @@ def pharmacy_products(request,id):
     pharmacy_products['selling_price'] = selling_price
     print(pharmacy_products)
     cleaned_data_dict ={key:value[0] if isinstance(value,list) and len(value)==1 else value for key,value in pharmacy_products.items()}
-    cleaned_data_dict ['other_imagelist'] = other_imagelist
+    cleaned_data_dict ['other_images'] = other_imagelist
    
     global data
     data= {
@@ -3140,18 +3609,52 @@ def pharmacy_update_product(request,id,product_id):
         existing_product_data = pharmacy_product_instance.product
         
         # Updating product field with new data
-        new_product_data = dict(request.POST)
-        existing_product_data.update(new_product_data)
+        pharmacy_products["other_images"] = pharmacy_product_instance.product['other_images']
+        cleaned_data_dict = {key: value[0] if isinstance(value, list) and len(value) == 1 else value for key, value in
+                            pharmacy_products.items()}
+
+        # existing_product_data.update(cleaned_data_dict)
         
         # Saving changes to the SQLite table
         with transaction.atomic():
             # Updating only the product field
-            pharmacy_product_instance.product = existing_product_data
+            pharmacy_product_instance.product = cleaned_data_dict
             pharmacy_product_instance.save()
         
         return Response(id, status=status.HTTP_200_OK)
     except models.pharmacy_productsmodel.DoesNotExist:
         return Response({"error": "pharmacy product not found"}, status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['POST'])
+def pharm_imgupdate_product(request, id, product_id,index_value):
+    try:
+        if request.method == "POST":
+            fs = FileSystemStorage()
+            data = models.pharmacy_productsmodel.objects.get(pharm_id=id, product_id=product_id)
+            pharm_pro=data.product.get("other_images")
+            product_img=data.product
+            print(pharm_pro)
+            index_value = int(index_value)
+            if index_value < 0 or index_value >= len(pharm_pro):
+                return Response({"error": "Invalid index value"}, status=status.HTTP_400_BAD_REQUEST)
+            if index_value == int(index_value):
+                other_images = str(request.FILES['other_images']).replace(" ", "_")
+                other_images_path = fs.save(f"api/pharm_products/{id}/other_images/" + other_images,
+                                            request.FILES['other_images'])
+                other_images_paths = all_image_url + fs.url(other_images_path)
+                print(other_images_paths)
+                pharm_pro[index_value] = other_images_paths
+                product_img["other_images"] =pharm_pro
+                data.product=product_img  #replacejson
+                data.save()
+
+            return Response({"message": "Image Updated successfully"}, status=status.HTTP_200_OK)
+        else:
+            return Response({"error": "Index value mismatch"}, status=status.HTTP_400_BAD_REQUEST)
+            
+    except models.pharmacy_productsmodel.DoesNotExist:
+        return Response({"error": "Shop product not found"}, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 @api_view(["POST","GET"])
@@ -3189,12 +3692,16 @@ def pharmacy_productorder_date(request,id):
 @api_view(['GET'])
 def d_origin_total_revenue(request, id):
     if request.method == 'GET':
-        total_revenue = models.Product_Ordermodel.objects.filter(d_id_id__d_id=id).aggregate(total_revenue=Sum('total_amount'))['total_revenue'] or 0
-        print(total_revenue)
-        shop = models.d_originalmodel.objects.get(d_id=id)
-        shop.total_revenue = total_revenue
-        shop.save()
-        return Response(data={'total_revenue': total_revenue}, status=status.HTTP_200_OK)
+        if models.Product_Ordermodel.objects.filter(d_id_id__d_id=id).exists():
+            total_revenue = models.Product_Ordermodel.objects.filter(d_id_id__d_id=id).aggregate(total_revenue=Sum('total_amount'))['total_revenue'] or 0
+            print(total_revenue)
+            shop = models.d_originalmodel.objects.get(d_id=id)
+            shop.total_revenue = total_revenue
+            shop.save()
+            return Response(data={'total_revenue': total_revenue}, status=status.HTTP_200_OK)
+        else:
+            return Response(data={'total_revenue': 0}, status=status.HTTP_200_OK)
+
 
 @api_view(['GET'])
 def d_origin_mon_revenue(request, id):
@@ -3202,19 +3709,22 @@ def d_origin_mon_revenue(request, id):
         current_date = timezone.now().date()
         start_of_month = current_date.replace(day=1)
         end_of_month = start_of_month.replace(month=start_of_month.month + 1) - datetime.timedelta(days=1)
-        monthly_revenue = models.Product_Ordermodel.objects.filter(d_id_id__d_id=id, order_date__range=(start_of_month, end_of_month)).aggregate(monthly_revenue=Sum('total_amount'))['monthly_revenue']or 0
-        d_origin = models.d_originalmodel.objects.get(d_id=id)
-        d_origin.monthly_revenue = monthly_revenue
-        d_origin.save()
-        return Response(data={'monthly_revenue': monthly_revenue}, status=status.HTTP_200_OK)
+        if models.Product_Ordermodel.objects.filter(d_id_id__d_id=id).exists():
+            monthly_revenue = models.Product_Ordermodel.objects.filter(d_id_id__d_id=id, order_date__range=(start_of_month, end_of_month)).aggregate(monthly_revenue=Sum('total_amount'))['monthly_revenue']or 0
+            d_origin = models.d_originalmodel.objects.get(d_id=id)
+            d_origin.monthly_revenue = monthly_revenue
+            d_origin.save()
+            return Response(data={'monthly_revenue': monthly_revenue}, status=status.HTTP_200_OK)
+        else:
+            return Response(data={'monthly_revenue': 0}, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def d_origin_orderstatus(request,id):
     if request.method == 'GET':
 
         d_origin = models.Product_Ordermodel.objects.filter(d_id_id__d_id=id).first()
-        if not d_origin:
-            return Response(data={'error': 'd_origin not found'}, status=status.HTTP_404_NOT_FOUND)
+        # if not d_origin:
+        #     return Response(data={'error': 'd_origin not found'}, status=status.HTTP_404_NOT_FOUND)
         delivered_count = models.Product_Ordermodel.objects.filter(d_id_id__d_id=id, status='delivered').count()
         cancelled_count = models.Product_Ordermodel.objects.filter(d_id_id__d_id=id, status='cancelled').count()
         on_process_count = models.Product_Ordermodel.objects.filter(d_id_id__d_id=id, status='on_process').count()
@@ -3475,7 +3985,7 @@ def d_original_products(request,id):
     d_original_products['selling_price'] = selling_price
     print(d_original_products)
     cleaned_data_dict ={key:value[0] if isinstance(value,list) and len(value)==1 else value for key,value in d_original_products.items()}
-    cleaned_data_dict ['other_imagelist'] = other_imagelist
+    cleaned_data_dict ['other_images'] = other_imagelist
    
     global data
     data= {
@@ -3595,18 +4105,53 @@ def d_original_update_product(request,id,product_id):
         existing_product_data = d_original_product_instance.product
         
         # Updating product field with new data
-        new_product_data = dict(request.POST)
-        existing_product_data.update(new_product_data)
-        
+   
+        d_original_products["other_images"] = d_original_product_instance.product['other_images']
+        cleaned_data_dict = {key: value[0] if isinstance(value, list) and len(value) == 1 else value for key, value in
+                            d_original_products.items()}
+
+        # existing_product_data.update(cleaned_data_dict)
         # Saving changes to the SQLite table
         with transaction.atomic():
             # Updating only the product field
-            d_original_product_instance.product = existing_product_data
+            d_original_product_instance.product = cleaned_data_dict
             d_original_product_instance.save()
         
         return Response(id, status=status.HTTP_200_OK)
     except models.d_original_productsmodel.DoesNotExist:
         return Response({"error": "d_original product not found"}, status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(['POST'])
+def d_original_imgupdate_product(request, id, product_id,index_value):
+    try:
+        if request.method == "POST":
+            fs = FileSystemStorage()
+            data = models.d_original_productsmodel.objects.get(d_id=id, product_id=product_id)
+            d_original_pro=data.product.get("other_images")
+            product_img=data.product
+            print(d_original_pro)
+            index_value = int(index_value)
+            if index_value < 0 or index_value >= len(d_original_pro):
+                return Response({"error": "Invalid index value"}, status=status.HTTP_400_BAD_REQUEST)
+            if index_value == int(index_value):
+                other_images = str(request.FILES['other_images']).replace(" ", "_")
+                other_images_path = fs.save(f"api/d_original_products/{id}/other_images/" + other_images,
+                                            request.FILES['other_images'])
+                other_images_paths = all_image_url + fs.url(other_images_path)
+                print(other_images_paths)
+                d_original_pro[index_value] = other_images_paths
+                product_img["other_images"] =d_original_pro
+                data.product=product_img  #replacejson
+                data.save()
+
+            return Response({"message": "Image Updated successfully"}, status=status.HTTP_200_OK)
+        else:
+            return Response({"error": "Index value mismatch"}, status=status.HTTP_400_BAD_REQUEST)
+            
+    except models.d_original_productsmodel.DoesNotExist:
+        return Response({"error": "Shop product not found"}, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 @api_view(["POST","GET"])
@@ -3637,93 +4182,77 @@ def d_original_productorder_date(request,id):
 
     return JsonResponse({"error": "Invalid request method"}, status=status.HTTP_400_BAD_REQUEST)
 
-
+@api_view(['GET'])
+def dorigin_district_products_only(request,district):
+    if request.method == "GET":
+        data = models.d_original_productsmodel.objects.filter(district=district)
+        alldataserializer = business_serializers.d_original_productlistserializer(data, many=True)
+        return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
 
 
 @api_view(["GET"])
 def get_normalproduct_order(request, id):
-    if models.Businessmodel.objects.filter(uid=id).exists():
-        business = models.Businessmodel.objects.get(uid=id)
-        print(business.uid)
-        orders = models.Product_Ordermodel.objects.filter(business__uid=business.uid, delivery_type='Normal')
-        print(orders)
-        
-        order_data = []
-        if orders:  # Check if orders queryset is not empty
-            for order in orders:
-                if order.shop_product:  # If shop_product is not None, it's a shop product
-                    print(order.shop_product.product)
-                    order_data.append(order.shop_product.product)
-                elif order.jewel_product:  # If jewellery_product is not None, it's a jewellery product
-                    print(order.jewel_product.product)
-                    order_data.append(order.jewel_product.product
-                    )
-                elif order.d_original_product:  # If d_originalproduct is not None, it's a d_originalproduct
-                    print(order.d_original_product.product)
-                    order_data.append(
-                        order.d_original_product.product)
-                else:
-                    print("Unknown product type")
-            # order_data_json = json.dumps(order_data)
+    if models.shoppingmodel.objects.filter(shop_id=id).exists():
+        shopp = models.shoppingmodel.objects.get(shop_id=id)
+        orders = models.Product_Ordermodel.objects.filter(shop_id__shop_id=shopp.shop_id, delivery_type='Normal')
+    elif models.jewellerymodel.objects.filter(jewel_id=id).exists():
+        jewel = models.jewellerymodel.objects.get(jewel_id=id)
+        orders = models.Product_Ordermodel.objects.filter(jewel_id__jewel_id=jewel.jewel_id, delivery_type='Normal')
+    elif models.d_originalmodel.objects.filter(d_id=id).exists():
+        dorigin = models.d_originalmodel.objects.get(d_id=id)
+        orders = models.Product_Ordermodel.objects.filter(d_id__d_id=dorigin.d_id, delivery_type='Normal')
+    
+    order_data = []  # Define order_data list outside of the if-else blocks
+    if orders:
+        for order in orders:
+            if order.shop_product: 
+                order_data.append(order)
+            elif order.jewel_product: 
+                order_data.append(order)
+            elif order.d_original_product: 
+                order_data.append(order)
+            else:
+                return Response("Unknown product type for order", status=status.HTTP_204_NO_CONTENT)
 
-            # print(order_data_json)
-            # order_data_dict = {item: item for index, item in enumerate(order_data)}
-            order_data_dict = {item['product_id']: item for item in order_data}
-
-            # print(order_data_dict)
-            return Response(order_data_dict, status=status.HTTP_200_OK)
-        else:
-            return Response("No orders found", status=status.HTTP_404_NOT_FOUND)
+        # Serialize the order data
+        serializer = end_user_serializers.product_orderlistSerializer(order_data, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     else:
-        return Response("Business not found", status=status.HTTP_404_NOT_FOUND)
-
-
-
-   
-
-
+        return Response("No orders found", status=status.HTTP_404_NOT_FOUND)
 
 @api_view(["GET"])
-def get_quickproduct_order(request,id):
-
-    if models.Businessmodel.objects.filter(uid=id).exists():
-        business = models.Businessmodel.objects.get(uid=id)
-        print(business.uid)
-        orders = models.Product_Ordermodel.objects.filter(business__uid=business.uid, delivery_type='Quick')
-        print(orders)
-        
-        order_data = []
-        if orders:  # Check if orders queryset is not empty
-            for order in orders:
-                if order.food_product:  # If shop_product is not None, it's a shop product
-                    print(order.food_product.product)
-                    order_data.append(order.food_product.product)
-                elif order.freshcut_product:  # If jewellery_product is not None, it's a jewellery product
-                    print(order.freshcut_product.product)
-                    order_data.append(order.freshcut_product.product
-                    )
-                elif order.pharmacy_product:  # If d_originalproduct is not None, it's a d_originalproduct
-                    print(order.pharmacy_product.product)
-                    order_data.append(
-                        order.pharmacy_product.product)
-                elif order.dmio_product:
-                    print(order.pharmacy_product.product)
-                    order_data.append(
-                        order.pharmacy_product.product)
-                    print("Unknown product type")
-            # order_data_json = json.dumps(order_data)
-
-            # print(order_data_json)
-            # order_data_dict = {item: item for index, item in enumerate(order_data)}
-            order_data_dict = {item['product_id']: item for item in order_data}
-
-            # print(order_data_dict) 
-            return Response(order_data_dict, status=status.HTTP_200_OK)
-        else:
-            return Response("No orders found", status=status.HTTP_404_NOT_FOUND)
+def get_quickproduct_order(request, id):
+    orders = None  
+    if models.pharmacy_model.objects.filter(pharm_id=id).exists():
+        pharm = models.pharmacy_model.objects.get(phram_id=id)
+        orders = models.Product_Ordermodel.objects.filter(pharm_id__pharm_id=pharm.pharm_id, delivery_type='Quick')
+    elif models.dailymio_model.objects.filter(dmio_id=id).exists():
+        dmio = models.dailymio_model.objects.get(dmio_id=id)
+        orders = models.Product_Ordermodel.objects.filter(dmio_id__dmio_id=dmio.dmio_id, delivery_type='Quick')
+    elif models.foodmodel.objects.filter(food_id=id).exists():
+        food = models.foodmodel.objects.get(food_id=id)
+        orders = models.Product_Ordermodel.objects.filter(food_id__food_id=food.food_id, delivery_type='Quick')
+    elif models.freshcutsmodel.objects.filter(fresh_id=id).exists():
+        fresh = models.freshcutsmodel.objects.get(fresh_id=id)
+        orders = models.Product_Ordermodel.objects.filter(fresh_id__fresh_id=fresh.fresh_id, delivery_type='Quick')
+    
+    order_data = []  # Define order_data list outside of the if-else blocks
+    if orders:
+        for order in orders:
+            if order.food_product: 
+                order_data.append(order)
+            elif order.freshcut_product: 
+                order_data.append(order)
+            elif order.pharmacy_product: 
+                order_data.append(order)
+            elif order.dmio_product: 
+                order_data.append(order)
+            else:
+                return Response("Unknown product type for order", status=status.HTTP_204_NO_CONTENT)
+        serializer = end_user_serializers.product_orderlistSerializer(order_data, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     else:
-        return Response("Business not found", status=status.HTTP_404_NOT_FOUND)
-
+        return Response("No orders found", status=status.HTTP_404_NOT_FOUND)
 
 
 @api_view(["POST"])
@@ -3747,3 +4276,72 @@ def business_notify_status_false(request,id):
         return Response("nostatus",status=status.HTTP_400_BAD_REQUEST)
     
 
+
+
+@api_view(["GET"])
+def dashboardproduct_count(request,id):
+    try:
+        if models.shoppingmodel.objects.filter(shop_id=id).exists():
+            id=models.shoppingmodel.objects.get(shop_id=id)
+            data=models.shop_productsmodel.objects.all()
+        elif models.jewellerymodel.objects.filter(jewel_id=id).exists():
+            id=models.jewellerymodel.objects.get(jewel_id=id)
+            data=models.jewel_productsmodel.objects.all()
+        elif models.foodmodel.objects.filter(food_id=id).exists():
+            id=models.foodmodel.objects.get(food_id=id)
+            data=models.food_productsmodel.objects.all()
+        elif models.freshcutsmodel.objects.filter(fresh_id=id).exists():
+            id=models.freshcutsmodel.objects.get(fresh_id=id)
+            data=models.fresh_productsmodel.objects.all()
+        elif models.dailymio_model.objects.filter(dmio_id=id).exists():
+            id=models.dailymio_model.objects.get(dmio_id=id)
+            data=models.dmio_productsmodel.objects.all()
+        elif models.pharmacy_model.objects.filter(pharm_id=id).exists():
+            id=models.pharmacy_model.objects.get(pharm_id=id)
+            data=models.pharmacy_productsmodel.objects.all()
+        elif models.d_originalmodel.objects.filter(d_id=id).exists():
+            id=models.d_originalmodel.objects.get(d_id=id)
+            data=models.d_original_productsmodel.objects.all()
+        print(data.count())
+        return Response({"product":data.count()},status=status.HTTP_200_OK)
+    except:
+        return Response({"product":0},status=status.HTTP_200_OK)
+
+
+
+# Getting Notification List for all users 
+   
+@api_view(['GET'])
+def get_notification_data(request,id):
+    if request.method == 'GET':
+       allDataa = models.Notification.objects.filter(sender_id=id).order_by('-notify_date')
+       alldataserializer = business_serializers.notificationlistSerializer(allDataa,many=True)
+    return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(["POST"])
+def single_notify_delete(request,id):
+    try:
+        delete_data = models.Notification.objects.filter(notify_id =id)
+        print(delete_data)
+        if delete_data:
+            delete_data.delete()
+            return Response("Deleted", status=status.HTTP_200_OK)
+        else:
+            return Response({"Data not found"}, status=status.HTTP_404_NOT_FOUND)
+    except:
+        return Response({"Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+
+@api_view(['POST'])  
+def business_delete_all_notification(request,id):
+    try:
+        delete_all=models.Notification.objects.filter(sender_id = id)
+        print(delete_all)
+        if delete_all:
+            delete_all.delete()
+            return Response({'All Deleted'},status=status.HTTP_200_OK)
+        else:
+            return Response({'no data'},status=status.HTTP_404_NOT_FOUND)
+    except:
+        return Response({'server prblm'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)

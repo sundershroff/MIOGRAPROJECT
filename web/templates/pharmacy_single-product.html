@@ -108,25 +108,63 @@
                         <div class="col-lg-7 col-md-6">
                             <div class="product-details-view-content pt-60">
                                 <div class="product-info">
-                                    <h2>Ayurvedic</h2>
-                                    <span class="product-details-ref"></span>
+                                    <h2>{{pharms.product.model_name}}</h2>
+                                    <span class="product-details-ref"> {{pharms.product.subcategory}}</span>
                                     <div class="rating-box pt-20">
-                                        <ul class="rating rating-with-review-item">
-                                            <li><i class="fa fa-star-o"></i></li>
-                                            <li><i class="fa fa-star-o"></i></li>
-                                            <li><i class="fa fa-star-o"></i></li>
-                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                            <li class="review-item"><a href="#">Read Review</a></li>
-                                            <li class="review-item"><a href="#">Write Review</a></li>
-                                        </ul>
+                                        {% if pharms.rating == "2.0" %}
+                                                            <span>{{pharms.rating}}</span>
+                                                            <ul class="rating">
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                            </ul>
+                                                            {% elif pharms.rating == "3.0" %}
+                                                            <span>{{pharms.rating}}</span>
+                                                            <ul class="rating">
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                            </ul>
+                                                            {% elif pharms.rating == "4.0" %}
+                                                            <span>{{pharms.rating}}</span>
+                                                            <ul class="rating">
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                            </ul>
+                                                            {% elif pharms.rating == "5.0" %}
+                                                            <span>{{pharms.rating}}</span>
+                                                            <ul class="rating">
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                            </ul>
+                                                            {% else %}
+                                                            <span>{{pharms.rating}}</span>
+                                                            <ul class="rating">
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                            </ul>
+                                                            {% endif %}
                                     </div>
                                     <div class="price-box pt-20">
-                                        <span class="new-price new-price-2">&#8377 150.98</span>
+                                        <span class="new-price new-price-2">&#8377 {{pharms.product.selling_price}}</span>
                                     </div>
                                     <div class="product-desc">
                                         <p>
-                                            <span>100% cotton double printed dress. Black and white striped top and orange high waisted skater skirt bottom. Lorem ipsum dolor sit amet, consectetur adipisicing elit. quibusdam corporis, earum facilis et nostrum dolorum accusamus similique eveniet quia pariatur.
+                                            <span>
+                                                {{pharms.product.description}}
                                             </span>
                                         </p>
                                     </div>
@@ -154,7 +192,7 @@
                                         </form>
                                     </div>
                                     <div class="product-additional-info pt-25">
-                                        <a class="wishlist-btn" href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a>
+                                        <a class="wishlist-btn" href="/enduser/usersignin"><i class="fa fa-heart-o"></i>Add to wishlist</a>
                                         <div class="product-social-sharing pt-25">
                                             <ul>
                                                 <li class="facebook"><a href="#"><i class="fa fa-facebook"></i>Facebook</a></li>
@@ -164,7 +202,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <!-- <div class="block-reassurance">
+                                  <div class="block-reassurance">
                                         <ul>
                                             <li>
                                                 <div class="reassurance-item">
@@ -191,7 +229,7 @@
                                                 </div>
                                             </li>
                                         </ul>
-                                    </div> -->
+                                    </div>
                                 </div>
                             </div>
                         </div> 
@@ -200,7 +238,7 @@
             </div>
             <!-- content-wraper end -->
             <!-- Begin Product Area -->
-            <!-- <div class="product-area pt-35">
+           <div class="product-area pt-35">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
@@ -212,49 +250,97 @@
                                 </ul>               
                             </div>
                             <!-- Begin Li's Tab Menu Content Area -->
-                       <!-- </div>
+                       </div>
                     </div>
                     <div class="tab-content">
                         <div id="description" class="tab-pane active show" role="tabpanel">
                             <div class="product-description">
-                                <span>The best is yet to come! Give your walls a voice with a framed poster. This aesthethic, optimistic poster will look great in your desk or in an open-space office. Painted wooden frame with passe-partout for more depth.</span>
-                            </div>
+                                <span>{{pharms.product.description}}</span>
+                             </div>
                         </div>
                         <div id="product-details" class="tab-pane" role="tabpanel">
                             <div class="product-details-manufacturer">
-                                <a href="#">
-                                    <img src="images/food/briyani.jpg" alt="Product Manufacturer Image">
-                                </a>
-                                <p><span>Reference</span> demo_7</p>
-                                <p><span>Reference</span> demo_7</p>
+                                
+                                <p><span>Product Name : </span> {{pharms.product.model_name}}</p>
+                                <p><span>Brand : </span> {{pharms.product.brand}}</p>
+                                <p><span>Category :</span>{{pharms.product.subcategory}}</p>
+                                <p><span>Actual Price: </span> {{pharms.product.actual_price}}</p>
+                                <p><span>Selling Price (+ GST) : </span> {{pharms.product.selling_price}}</p>
                             </div>
                         </div>
                         <div id="reviews" class="tab-pane" role="tabpanel">
                             <div class="product-reviews">
                                 <div class="product-details-comment-block">
+                                    {% for x in reviews %}
                                     <div class="comment-review">
-                                        <span>Grade</span>
-                                        <ul class="rating">
+                                        {% if x.rating == "2.0" %}
+                                        <ul class="rating rating-with-review-item">
                                             <li><i class="fa fa-star-o"></i></li>
                                             <li><i class="fa fa-star-o"></i></li>
                                             <li><i class="fa fa-star-o"></i></li>
                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="review-item"><a href="#reviews">Read Review</a></li>
+                                            <li class="review-item"><a href="#">Write Review</a></li>
                                         </ul>
+                                        {% elif x.rating == "3.0" %}
+                                        <ul class="rating rating-with-review-item">
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="review-item"><a href="#reviews">Read Review</a></li>
+                                            <li class="review-item"><a href="#">Write Review</a></li>
+                                        </ul>
+                                        {% elif x.rating == "4.0" %}
+                                        <ul class="rating rating-with-review-item">
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="review-item"><a href="#reviews">Read Review</a></li>
+                                            <li class="review-item"><a href="#">Write Review</a></li>
+                                        </ul>
+                                        
+                                        {% elif x.rating == "5.0" %}
+                                        <ul class="rating rating-with-review-item">
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="review-item"><a href="#reviews">Read Review</a></li>
+                                            <li class="review-item"><a href="#">Write Review</a></li>
+                                        </ul>
+                                        {% else %}
+                                        <ul class="rating rating-with-review-item">
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="review-item"><a href="#reviews">Read Review</a></li>
+                                            <li class="review-item"><a href="#">Write Review</a></li>
+                                        </ul>
+                                        {% endif %}
                                     </div>
                                     <div class="comment-author-infos pt-25">
-                                        <span>HTML 5</span>
-                                        <em>01-12-18</em>
+                                        <span>{{x.user.fullname}}</span>
+                                        <em>{{x.created_date}}</em>
                                     </div>
                                     <div class="comment-details">
-                                        <h4 class="title-block">Demo</h4>
-                                        <p>Plaza</p>
+                                        <h4 class="title-block">Comment</h4>
+                                        <p>{{x.comment}}</p>
                                     </div>
+                                    {% endfor %}
                                     <div class="review-btn">
-                                        <a class="review-links" href="#" data-toggle="modal" data-target="#mymodal">Write Your Review!</a>
+                                        <a class="review-links" href="#" >Write Your Review!</a>
                                     </div>
+                                    
                                     <!-- Begin Quick View | Modal Area -->
-                                   <!-- <div class="modal fade modal-wrapper" id="mymodal" >
+                                  <div class="modal fade modal-wrapper" id="mymodal" >
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-body">
@@ -274,7 +360,7 @@
                                                         <div class="col-lg-6">
                                                             <div class="li-review-content">
                                                                 <!-- Begin Feedback Area -->
-                                                           <!--     <div class="feedback-area">
+                                                               <div class="feedback-area">
                                                                     <div class="feedback">
                                                                         <h3 class="feedback-title">Our Feedback</h3>
                                                                         <form action="#">
@@ -315,7 +401,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <!-- Feedback Area End Here -->
-                                                          <!--  </div>
+                                                           </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -323,12 +409,12 @@
                                         </div>
                                     </div>   
                                     <!-- Quick View | Modal Area End Here -->
-                               <!-- </div>
+                               </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div> 
             <!-- Product Area End Here -->
             <!-- Begin Li's Laptop Product Area -->
 

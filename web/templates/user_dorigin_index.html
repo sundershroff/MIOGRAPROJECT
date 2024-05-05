@@ -45,6 +45,7 @@
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
         <!-- Modernizr js -->
         <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
          <link rel="stylesheet" href="">
     </head>
@@ -56,10 +57,35 @@
         <div class="body-wrapper" style="padding: 0px 15px;">
             <!-- Begin Header Area -->
             <!-- Header Area End Here -->
-            {% include "header.html" %}
+            {% include "enduser_header.html" %}
             <!-- Begin Slider With Banner Area -->
+            
             <div class="slider-with-banner">
+                
                 <div class="container-fluid">
+                    <div class="row" >
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8" style="align-items:center;">
+                            <form method="POST" >
+                                {% csrf_token %}
+                                <div>
+                                    <select name="district" class="dist-select" style="min-width: 91%;">
+                                        <option value="">Select District</option>                         
+                                        <option value="kanniyakumari">Kanyakumari</option> 
+                                        <option value="thirunelveli">Thirunelveli</option>
+                                        <option value="thanjavur">Thanjavur</option>
+                                        <option value="madurai">Madurai</option>                    
+                                        <option value="namakkal">Namakkal</option>
+                                        <option value="selam">Selam</option>
+                                        
+                                    </select> 
+                                    <button class="li-btn" type="submit" fdprocessedid="rj8qgm"><i class="fa fa-search"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+                    
                     <div class="row">
                         <!-- Begin Slider Area -->
                         <div class="col-lg-12 col-md-12" style="
@@ -69,30 +95,30 @@
                             <div class="slider-area">
                                 <div class="slider-active owl-carousel">
                                     <!-- Begin Single Slide Area -->
-                                    <div class="single-slide align-center-left  animation-style-01 bg-1">
+                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(/media/{{banner.banner1}});">
                                         <div class="slider-progress"></div>
-                                        <div class="slider-content">
+                                        {% comment %} <div class="slider-content">
                                             <h5>Sale Offer <span>-20% Off</span> This Week</h5>
                                             <h2>Tirunelveli Halwa </h2>
                                             <h3>Starting at <span>&#8377;150.00</span></h3>
                                             <div class="default-btn slide-btn">
                                                 <a class="links" href="used_product_left-sidebar.html">Shopping Now</a>
                                             </div>
-                                        </div>
+                                        </div> {% endcomment %}
                                     </div>
                                     <!-- Single Slide Area End Here -->
                                     <!-- Begin Single Slide Area -->
-                                    <!-- <div class="single-slide align-center-left animation-style-02 bg-2">
+                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(/media/{{banner.banner2}});">
                                         <div class="slider-progress"></div>
-                                        <div class="slider-content">
+                                        {% comment %} <div class="slider-content">
                                             <h5>Sale Offer <span>Black Friday</span> This Week</h5>
                                             <h2>Sea Fish</h2>
                                             <h3>Starting at <span>&#8377;224.00</span></h3>
                                             <div class="default-btn slide-btn">
                                                 <a class="links" href="used_product_left-sidebar.html">Shopping Now</a>
                                             </div>
-                                        </div>
-                                    </div> -->
+                                        </div> {% endcomment %}
+                                    </div> 
                                     <!-- Single Slide Area End Here -->
                                     <!-- Begin Single Slide Area -->
                                     <!-- <div class="single-slide align-center-left animation-style-01 bg-3">
@@ -146,6 +172,7 @@
                     </div>
                     <div class="tab-content">
                         <div id="li-bestseller-product" class="tab-pane" role="tabpanel">
+                           
                             <div class="row">
                                 <div class="product-active owl-carousel">
                                     {% for i in dorigin %}
@@ -153,7 +180,7 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="/freshproducts/fresh_single_product/{{i.d_id}}/{{i.product_id}}">
+                                                <a href="/products/doriginalproducts/doriginal/{{key.uid}}/{{i.d_id}}/{{i.product_id}}">
                                                     <img src="{{i.product.primary_image}}" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">New</span>
@@ -162,10 +189,18 @@
                                                 <div class="product_desc_info">
                                                     <div class="product-review">
                                                         <h5 class="manufacturer">
-                                                            <a href="used_product_left-sidebar.html">Graphic Corner</a>
+                                                            <a href="/products/dailymioproducts/daily_mio/{{key.uid}}/{{i.product.subcategory}}/">{{i.product.subcategory}}</a>
                                                         </h5>
                                                         <div class="rating-box">
-                                                            
+                                                            {% if i.rating == "2.0"%}
+                                                            <ul class="rating">
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                            </ul>
+                                                            {% elif i.rating == "3.0"%}
                                                             <ul class="rating">
                                                                 <li><i class="fa fa-star-o"></i></li>
                                                                 <li><i class="fa fa-star-o"></i></li>
@@ -173,18 +208,43 @@
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                             </ul>
+                                                            {% elif i.rating == "4.0"%}
+                                                            <ul class="rating">
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                            </ul>
+                                                            {% elif i.rating == "5.0"%}
+                                                            <ul class="rating">
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                            </ul>
+                                                            {% else %}
+                                                            <ul class="rating">
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                            </ul>
+                                                            {% endif %}
                                                         </div>
                                                     </div>
-                                                    <h4><a class="product_name" href="doriginal_single_product.html">Accusantium dolorem1</a></h4>
+                                                    <h4><a class="product_name" href="/doriginalproducts/doriginal/{{i.d_id}}/{{i.product_id}}">{{i.product.model_name}}</a></h4>
                                                     <div class="price-box">
-                                                        <span class="new-price">&#8377;46.80</span>
+                                                        <span class="new-price">&#8377;{{i.product.selling_price}}</span>
                                                     </div>
                                                 </div>
                                                 <div class="add-actions">
                                                     <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="#">Add to cart</a></li>
+                                                        <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/d_original/products/{{i.d_id}}/{{i.product_id}}/">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
+                                                        <li><a href="/products/dailymioproducts/dmio_singleproduct/{{key.uid}}/{{i.d_id}}/{{i.product_id}}" title="quick view" class="quick-view-btn" ><i class="fa fa-eye"></i></a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -685,14 +745,16 @@
                                             <li><a data-toggle="tab" href="#home3"><span>XailStation</span></a></li> -->
                                          </ul> 
                                     </div>
+                                 
                                     <div class="row">
                                         <div class="product-active owl-carousel">
+                                            {% for i in dorigin %}
                                             <div class="col-lg-12">
                                                 <!-- single-product-wrap start -->
                                                 <div class="single-product-wrap">
                                                     <div class="product-image">
-                                                        <a href="doriginal_single_product.html">
-                                                            <img src="/static/images/doriginal/hALWA.jpg" alt="Li's Product Image">
+                                                        <a href="/products/doriginalproducts/doriginal/{{key.uid}}/{{i.d_id}}/{{i.product_id}}">
+                                                            <img src="{{i.product.primary_image}}" alt="Li's Product Image">
                                                         </a>
                                                         <span class="sticker">New</span>
                                                     </div>
@@ -700,10 +762,18 @@
                                                         <div class="product_desc_info">
                                                             <div class="product-review">
                                                                 <h5 class="manufacturer">
-                                                                    <a href="shop-left-sidebar.html">Halwa</a>
+                                                                    <a href="/products/doriginal/district/{{key.uid}}/{{i.district}}/">{{i.district}}</a>
                                                                 </h5>
                                                                 <div class="rating-box">
-                                                                    <span>4.2</span>
+                                                                    {% if i.rating == "2.0"%}
+                                                                    <ul class="rating">
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                    </ul>
+                                                                    {% elif i.rating == "3.0"%}
                                                                     <ul class="rating">
                                                                         <li><i class="fa fa-star-o"></i></li>
                                                                         <li><i class="fa fa-star-o"></i></li>
@@ -711,71 +781,138 @@
                                                                         <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                         <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                     </ul>
-                                                                </div>
-                                                            </div>
-                                                            <h4><a class="product_name" href="doriginal_single_product.html">Halwa</a></h4>
-                                                            <div class="price-box">
-                                                                <span class="new-price">&#8377;100.80</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="add-actions">
-                                                            <ul class="add-actions-link">
-                                                                <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                                <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- single-product-wrap end -->
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <!-- single-product-wrap start -->
-                                                <div class="single-product-wrap">
-                                                    <div class="product-image">
-                                                        <a href="doriginal_single_product.html">
-                                                            <img src="/static/images/doriginal/gigar.png" alt="Li's Product Image">
-                                                        </a>
-                                                        <span class="sticker">New</span>
-                                                    </div>
-                                                    <div class="product_desc">
-                                                        <div class="product_desc_info">
-                                                            <div class="product-review">
-                                                                <h5 class="manufacturer">
-                                                                    <a href="shop-left-sidebar.html">Sweet</a>
-                                                                </h5>
-                                                                <div class="rating-box">
-                                                                    <span>4.2</span>
+                                                                    {% elif i.rating == "4.0"%}
                                                                     <ul class="rating">
                                                                         <li><i class="fa fa-star-o"></i></li>
                                                                         <li><i class="fa fa-star-o"></i></li>
                                                                         <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                    </ul>
+                                                                    {% elif i.rating == "5.0"%}
+                                                                    <ul class="rating">
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                    </ul>
+                                                                    {% else %}
+                                                                    <ul class="rating">
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                         <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                         <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                     </ul>
+                                                                    {% endif %}
                                                                 </div>
                                                             </div>
-                                                            <h4><a class="product_name" href="doriginal_single_product.html">Jiharthanda </a></h4>
+                                                            <h4><a class="product_name" href="/doriginalproducts/doriginal/{{i.d_id}}/{{i.product_id}}">{{i.product.model_name}}</a></h4>
                                                             <div class="price-box">
-                                                                <span class="new-price new-price-2">&#8377;71.80</span>
-                                                                <span class="old-price">&#8377;77.22</span>
-                                                                <span class="discount-percentage">-7%</span>
+                                                                <span class="new-price">&#8377;{{i.product.selling_price}}</span>
                                                             </div>
                                                         </div>
                                                         <div class="add-actions">
                                                             <ul class="add-actions-link">
-                                                                <li class="add-cart active"><a href="#">Add to cart</a></li>
+                                                                <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/d_original/products/{{i.d_id}}/{{i.product_id}}/">Add to cart</a></li>
                                                                 <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
+                                                                <li><a href="/products/dailymioproducts/dmio_singleproduct/{{key.uid}}/{{i.d_id}}/{{i.product_id}}" title="quick view" class="quick-view-btn" ><i class="fa fa-eye"></i></a></li>
                                                             </ul>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <!-- single-product-wrap end -->
                                             </div>
+                                            {% endfor %}
                                       
                                         </div>
                                     </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="product-active owl-carousel">
+                                            {% for i in dorigin %}
+                                            <div class="col-lg-12">
+                                                <!-- single-product-wrap start -->
+                                                <div class="single-product-wrap">
+                                                    <div class="product-image">
+                                                        <a href="/products/doriginalproducts/doriginal/{{key.uid}}/{{i.d_id}}/{{i.product_id}}">
+                                                            <img src="{{i.product.primary_image}}" alt="Li's Product Image">
+                                                        </a>
+                                                        <span class="sticker">New</span>
+                                                    </div>
+                                                    <div class="product_desc">
+                                                        <div class="product_desc_info">
+                                                            <div class="product-review">
+                                                                <h5 class="manufacturer">
+                                                                    <a href="/products/doriginal/district/{{key.uid}}/{{i.district}}/">{{i.district}}</a>
+                                                                </h5>
+                                                                <div class="rating-box">
+                                                                    {% if i.rating == "2.0"%}
+                                                                    <ul class="rating">
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                    </ul>
+                                                                    {% elif i.rating == "3.0"%}
+                                                                    <ul class="rating">
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                    </ul>
+                                                                    {% elif i.rating == "4.0"%}
+                                                                    <ul class="rating">
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                    </ul>
+                                                                    {% elif i.rating == "5.0"%}
+                                                                    <ul class="rating">
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                    </ul>
+                                                                    {% else %}
+                                                                    <ul class="rating">
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                    </ul>
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                            <h4><a class="product_name" href="/doriginalproducts/doriginal/{{i.d_id}}/{{i.product_id}}">{{i.product.model_name}}</a></h4>
+                                                            <div class="price-box">
+                                                                <span class="new-price">&#8377;{{i.product.selling_price}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="add-actions">
+                                                            <ul class="add-actions-link">
+                                                                <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/d_original/products/{{i.d_id}}/{{i.product_id}}/">Add to cart</a></li>
+                                                                <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
+                                                                <li><a href="/products/dailymioproducts/dmio_singleproduct/{{key.uid}}/{{i.d_id}}/{{i.product_id}}" title="quick view" class="quick-view-btn" ><i class="fa fa-eye"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- single-product-wrap end -->
+                                            </div>
+                                            {% endfor %}
+                                           
+                                      
+                                        </div>
+                                    </div>
+
                                 </div>
                                 <!-- Li's Section Area End Here -->
                             </div>

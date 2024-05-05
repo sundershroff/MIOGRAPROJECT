@@ -1,0 +1,307 @@
+{% load static %}
+
+
+        <header>
+            <!-- Begin Header Top Area -->
+            <div class="header-top">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- Begin Header Top Left Area -->
+                        <div class="col-lg-3 col-md-4">
+                            <div class="header-top-left">
+                                <ul class="phone-wrap" style="margin-left:30px;">
+                                    <li><span>Telephone Enquiry: </span><a href="tel:(+91) 9072 242 801"> (+91) 9072 242 801</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Header Top Left Area End Here -->
+                        <!-- Begin Header Top Right Area -->
+                        <div class="col-lg-9 col-md-8">
+                            <div class="header-top-right">
+                                <ul class="ht-menu" style="margin-right:30px;">
+                                    <!-- Begin Setting Area -->
+                                    <li>
+                                        <div class="ht-setting-trigger"><span>Setting</span></div>
+                                        <div class="setting ht-setting">
+                                            <ul class="ht-setting-list">
+                                                <li><a href="">My Account</a></li>
+                                                <!--<li><a href="">Checkout</a></li>-->
+                                                <li><a href="/enduser/logout/{{key.uid}}">Log Out</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+         
+                                    <!-- Language Area End Here -->
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Header Top Right Area End Here -->
+                    </div>
+                </div>
+            </div>
+            <!-- Header Top Area End Here -->
+            <!-- Begin Header Middle Area -->
+            <div class="header-middle pl-sm-0 pr-sm-0 pl-xs-0 pr-xs-0">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- Begin Header Logo Area -->
+                        <div class="col-lg-3">
+                            <div class="logo pb-sm-30 pb-xs-30 " style="display: flex;justify-content: center;">
+                                <a href="/products/foodproducts/food/{{key.uid}}">
+                                    <img src="{% static 'images/menu/logo/header.png' %}" style="margin-left:30px;" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Header Logo Area End Here -->
+                        <!-- Begin Header Middle Right Area -->
+                        <div class="col-lg-9 col-md-11 pl-0 ml-sm-15 ml-xs-15">
+                            <!-- Begin Header Middle Searchbox Area -->
+                            <form method="GET" class="hm-searchbox" action="{% url 'search_view' %}">
+                                {% csrf_token %}
+                                <!--<select class="nice-select select-search-category" style="display: none;">-->
+                                <!--    <option value="0">All</option>                         -->
+                                <!--    <option value="10">Laptops</option>                     -->
+   
+                                <!--</select>-->
+                                <!--<div class="nice-select select-search-category" tabindex="0"><span class="current">All</span><ul class="list"><li data-value="0" class="option selected">All</li><li data-value="10" class="option">Laptops</li></ul></div>-->
+                                <input id="search" name="query"  type="text" placeholder="Enter your search key ..." fdprocessedid="l04srr" list="search-suggestions" autocomplete="off" >
+                                {% comment %} <datalist id="search-suggestions" style="display:none">
+                                    <option value="Electronics">
+                                    <option value="Mobiles">
+                                    <option value="Briyani">
+                                    <option value="Chinese">
+                                </datalist> {% endcomment %}
+                                <input type="text" name="user" value="{{key.uid}}" style="display:none;"> 
+                                <button class="li-btn" id="searchButton" fdprocessedid="rj8qgm"><i class="fa fa-search"></i></button>
+                            </form>
+                            <!-- Header Middle Searchbox Area End Here -->
+                            <!-- Begin Header Middle Right Area -->
+                            <div class="header-middle-right">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-6" style="
+                                    display: flex;
+                                    justify-content: center;
+                                ">
+                                <ul class="hm-menu" style="display: flex;padding-left: 24px;">
+                                    <!-- Begin Header Middle Wishlist Area -->
+                                    <li class="hm-wishlist">
+                                        <a href="/user/shopping_wishlist_products/{{key.uid}}/">
+                                            {% if wishcount == ''%}
+                                            <span class="cart-item-count wishlist-item-count">0</span>
+                                            {% else %}
+                                            <span class="cart-item-count wishlist-item-count">{{wishcount}}</span>
+                                            {% endif %}
+                                            <i class="fa fa-heart-o"></i>
+                                        </a>
+                                    </li>
+                                    <!-- Header Middle Wishlist Area End Here -->
+                                    <!-- Begin Header Mini Cart Area -->
+                                    <li class="hm-minicart">
+                                        <div class="hm-minicart-trigger" style="margin-right:30px;">
+                                          <span class="item-icon"></span>
+                                          {% comment %} <a href="/user/shopping_cart_products/{{key.uid}}/">  {% endcomment %}
+                                             <span class="item-text">
+                                                <span class="cart-item-count">{{cartcount}}</span>
+                                            </span>
+                                        {% comment %} </a> {% endcomment %}
+                                        </div>
+                                        <span></span>
+                                        <div class="minicart" style="display: none;">
+                                           
+                                            {% comment %} {% for item in cart_data|slice:" -2:" %}
+
+                                            <ul class="minicart-product-list">
+                                                <li>
+                                                    <a href="single-product.html" class="minicart-product-image">
+                                                        <img src="{{item.food_product.product.primary_image}}" alt="cart products">
+                                                    </a>
+                                                    <div class="minicart-product-details">
+                                                        <h6><a href="single-product.html">{{item.food_product.product.name}}</a></h6>
+                                                        <span>₹ {{item.food_product.product.selling_price}} x {{item.quantity}}</span>
+                                                    </div>
+                                                    <button class="close" title="Remove" value="{{item.cart_id}}" fdprocessedid="gh33bi">
+                                                        <i class="fa fa-close"></i>
+                                                    </button>
+                                                </li>
+                                                <!-- <li>
+                                                    <a href="single-product.html" class="minicart-product-image">
+                                                        <img src="{% static 'images/product/small-size/6.jpg' %}" alt="cart products">
+                                                    </a>
+                                                    <div class="minicart-product-details">
+                                                        <h6><a href="single-product.html">Aenean eu tristique</a></h6>
+                                                        <span>₹ 40 x 1</span>
+                                                    </div>
+                                                    <button class="close" title="Remove" fdprocessedid="b4z9y6">
+                                                        <i class="fa fa-close"></i>
+                                                    </button>
+                                                </li> -->
+                                            </ul>
+                                            {% endfor %} {% endcomment %}
+                                        
+                                            <p class="minicart-total">TOTAL: <span>₹ {{tot}}</span></p>
+                                            <div class="minicart-button">
+                                                <a href="/user/food_cart/{{key.uid}}/" class="li-button li-button-fullwidth ">
+                                                    <span>View Food Cart</span>
+                                                </a>
+                                                <a href="/user/shopping_cart_products/{{key.uid}}/" class="li-button li-button-fullwidth ">
+                                                    <span>View Full Cart</span>
+                                                </a>
+                                                {% comment %} <a href="/user/food_cart/checkout/{{key.uid}}" class="li-button li-button-fullwidth li-button-dark">
+                                                    <span>Checkout</span>
+                                                </a> {% endcomment %}
+                                            </div>
+                                        </div> 
+                                    </li>
+                                    <!-- Header Mini Cart Area End Here -->
+                                </ul>
+                            </div>
+                            <!--    <div class="col-lg-6 col-md-6 col-sm-6 col-6" style="-->
+                            <!--    justify-content: center;-->
+                            <!--    display: flex;max-height:40px;-->
+                            <!--">-->
+                            <!--        <a href="/enduser/logout/{{key.uid}}" class="signup" fdprocessedid="vzukqa" style="text-align:center;">LOGOUT</a>-->
+                            <!--    </div>-->
+                            </div>
+                            </div>
+                            <!-- Header Middle Right Area End Here -->
+                        </div>
+                        <!-- Header Middle Right Area End Here -->
+                    </div>
+                </div>
+            </div>
+            <!-- Header Middle Area End Here -->
+            <!-- Begin Header Bottom Area -->
+            <div class="header-bottom header-sticky d-none d-lg-block d-xl-block">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- Begin Header Bottom Menu Area -->
+                            <div class="hb-menu">
+                                <nav style="text-align:center;">
+                                    <ul> 
+<!-- #food -->
+                                        <li class="dropdown-holder mx-3"><a href="/products/foodproducts/food/{{key.uid}}">Food</a>
+                                          
+                                        
+                                        </li>
+                                         <!-- #shopping -->
+                                         <li class="dropdown-holder mx-3"><a href="/products/shopproducts/shop/{{key.uid}}">Shopping</a>
+                                            
+
+                                         </li>
+
+<!-- #fresh Cuts    -->
+                                     <li class="dropdown-holder mx-3"><a href="/products/freshproducts/fresh_cuts/{{key.uid}}">Fresh Cuts</a>
+                                            
+                                        </li>
+
+<!-- #Daily mio    -->
+                                     <li class="dropdown-holder mx-3"><a href="/products/dailymioproducts/daily_mio/{{key.uid}}">Daily Mio</a>
+                                       
+                                    </li>
+
+<!-- #Pharmacy    -->
+                                     <li class="dropdown-holder mx-3"><a href="/products/pharmacyproducts/pharmacy/{{key.uid}}">pharmacy</a>
+                                     
+                                    </li>
+                                   
+                                    <li class="dropdown-holder mx-3"><a href="/products/jewelleryproducts/jewellery/{{key.uid}}">Jewellery</a>
+          
+                                    </li>
+                                    <li class="dropdown-holder mx-3"><a href="/enduser/used_products/products/{{key.uid}}">Used Products</a>
+                                     
+                                    </li>
+                                    <li class="dropdown-holder mx-3"><a href="/products/doriginalproducts/doriginal/{{key.uid}}">Doriginal</a>
+                                       
+                                    </li>
+                                    <li class="dropdown-holder mx-3"><a href="/user_order_product_list/{{key.uid}}">Orders</a>
+                                       
+                                    </li>
+                                        <li class="mx-3"><a href="/aboutUs_miogra/{{key.uid}}">About Us</a></li>
+                                        <li class="mx-3"><a href="">Services</a></li>
+                                        <li class="mx-3"><a href="/enduser/contact/{{key.uid}}">Contact</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            
+                            <!-- Header Bottom Menu Area End Here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Header Bottom Area End Here -->
+            <!-- Begin Mobile Menu Area -->
+            <div class="mobile-menu-area d-lg-none d-xl-none col-12">
+                <div class="container"> 
+                    <div class="row">
+                        <div class="mobile-menu">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Mobile Menu Area End Here -->
+        </header>
+
+
+    {% comment %} <script>
+            $(document).ready(function() {
+                allproducts = [];
+                $.getJSON('/get_foodproduct_data/', function(foods) {
+                    foods.forEach(function(food) {
+                        allproducts.push(food);
+                       
+                    });
+                });
+                $.getJSON('/get_shopproduct_data/', function(shops) {
+                    shops.forEach(function(shop) {
+                        allproducts.push(shop);
+                       
+                    });
+                console.log(allproducts);
+                
+                            
+               
+              
+            // Function to handle search
+            function handleSearch() {
+                const baseUrl = window.location.origin;
+                const userId = "{{key.uid|safe}}";
+                const query = $('#search').val().toLowerCase();
+                let url;
+                const currentUrl = window.location.href;
+                
+                allproducts.forEach(function(product) {
+                    console.log(product.subcategory);
+                if (query === product.subcategory) {
+                    url = `/products/food_products_category/${userId}/${encodeURIComponent(query)}/`;
+                }
+                 else {
+                    url = `/products/shopproduct_categorywise/${userId}/${encodeURIComponent(query)}/`;
+                }
+            });
+                // Check if the URL is already set
+                
+                if (url !== currentUrl) {
+                    console.log(url); 
+                    // Using requestAnimationFrame for the redirection
+                    requestAnimationFrame(function() {
+                        window.location.href = url;
+                    });
+                }
+            }
+       
+         
+
+            $('#searchButton').on('click', handleSearch);
+
+            // Optionally, you can also trigger search on pressing Enter key
+            $('#search').on('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    handleSearch();
+                }
+            });
+            });
+
+        });
+
+    </script> {% endcomment %}

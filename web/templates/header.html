@@ -10,7 +10,7 @@
                         <div class="col-lg-3 col-md-4">
                             <div class="header-top-left">
                                 <ul class="phone-wrap" style="margin-left:30px;">
-                                    <li><span>Telephone Enquiry:</span><a href="#">(+123) 123 321 345</a></li>
+                                    <li><span>Telephone Enquiry: </span><a href="tel:(+91) 9072 242 801">(+91) 9072 242 801</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -24,9 +24,9 @@
                                         <div class="ht-setting-trigger"><span>Setting</span></div>
                                         <div class="setting ht-setting">
                                             <ul class="ht-setting-list">
-                                                <li><a href="login-register.html">My Account</a></li>
-                                                <li><a href="checkout.html">Checkout</a></li>
-                                                <li><a href="login-register.html">Sign In</a></li>
+                                                <li><a href="">My Account</a></li>
+                                                <!--<li><a href="">Checkout</a></li>-->
+                                                <li><a href="/enduser/usersignup">Sign In</a></li>
                                             </ul>
                                         </div>
                                     </li>
@@ -47,8 +47,8 @@
                         <!-- Begin Header Logo Area -->
                         <div class="col-lg-3">
                             <div class="logo pb-sm-30 pb-xs-30 " style="display: flex;justify-content: center;">
-                                <a href="/shopproducts/shop">
-                                    <img src="{% static 'images/menu/logo/Miogra_logo.png' %}" style="margin-left:30px;" alt="">
+                                <a href="/">
+                                    <img src="{% static 'images/menu/logo/header.png' %}" style="margin-left:30px;" alt="">
                                 </a>
                             </div>
                         </div>
@@ -56,14 +56,22 @@
                         <!-- Begin Header Middle Right Area -->
                         <div class="col-lg-9 col-md-11 pl-0 ml-sm-15 ml-xs-15">
                             <!-- Begin Header Middle Searchbox Area -->
-                            <form action="#" class="hm-searchbox">
-                                <select class="nice-select select-search-category" style="display: none;">
-                                    <option value="0">All</option>                         
-                                    <option value="10">Laptops</option>                     
+                            <form method="GET" class="hm-searchbox" action="{% url 'search_view' %}">
+                                {% csrf_token %}
+                                <!--<select class="nice-select select-search-category" style="display: none;">-->
+                                <!--    <option value="0">All</option>                         -->
+                                <!--    <option value="10">Laptops</option>                     -->
    
-                                </select><div class="nice-select select-search-category" tabindex="0"><span class="current">All</span><ul class="list"><li data-value="0" class="option selected">All</li><li data-value="10" class="option">Laptops</li></ul></div>
-                                <input type="text" placeholder="Enter your search key ..." fdprocessedid="l04srr">
-                                <button class="li-btn" type="submit" fdprocessedid="rj8qgm"><i class="fa fa-search"></i></button>
+                                <!--</select>-->
+                                <!--<div class="nice-select select-search-category" tabindex="0"><span class="current">All</span><ul class="list"><li data-value="0" class="option selected">All</li><li data-value="10" class="option">Laptops</li></ul></div>-->
+                                <input id="search" name="query"  type="text" placeholder="Enter your search key ..." fdprocessedid="l04srr" list="search-suggestions" autocomplete="off" >
+                                {% comment %} <datalist id="search-suggestions" style="display:none">
+                                    <option value="Electronics">
+                                    <option value="Mobiles">
+                                    <option value="Briyani">
+                                    <option value="Chinese">
+                                </datalist> {% endcomment %}
+                                <button class="li-btn" id="searchButton" fdprocessedid="rj8qgm"><i class="fa fa-search"></i></button>
                             </form>
                             <!-- Header Middle Searchbox Area End Here -->
                             <!-- Begin Header Middle Right Area -->
@@ -76,7 +84,7 @@
                                 <ul class="hm-menu" style="display: flex;padding-left: 24px;">
                                     <!-- Begin Header Middle Wishlist Area -->
                                     <li class="hm-wishlist">
-                                        <a href="wishlist.html">
+                                        <a href="">
                                             <span class="cart-item-count wishlist-item-count">0</span>
                                             <i class="fa fa-heart-o"></i>
                                         </a>
@@ -91,43 +99,6 @@
                                             </span>
                                         </div>
                                         <span></span>
-                                        <div class="minicart" style="display: none;">
-                                            <ul class="minicart-product-list">
-                                                <li>
-                                                    <a href="single-product.html" class="minicart-product-image">
-                                                        <img src="{% static 'images/product/small-size/5.jpg' %}" alt="cart products">
-                                                    </a>
-                                                    <div class="minicart-product-details">
-                                                        <h6><a href="single-product.html">Aenean eu tristique</a></h6>
-                                                        <span>₹ 40 x 1</span>
-                                                    </div>
-                                                    <button class="close" title="Remove" fdprocessedid="gh33bi">
-                                                        <i class="fa fa-close"></i>
-                                                    </button>
-                                                </li>
-                                                <li>
-                                                    <a href="single-product.html" class="minicart-product-image">
-                                                        <img src="{% static 'images/product/small-size/6.jpg' %}" alt="cart products">
-                                                    </a>
-                                                    <div class="minicart-product-details">
-                                                        <h6><a href="single-product.html">Aenean eu tristique</a></h6>
-                                                        <span>₹ 40 x 1</span>
-                                                    </div>
-                                                    <button class="close" title="Remove" fdprocessedid="b4z9y6">
-                                                        <i class="fa fa-close"></i>
-                                                    </button>
-                                                </li>
-                                            </ul>
-                                            <p class="minicart-total">SUBTOTAL: <span>₹ 80.00</span></p>
-                                            <div class="minicart-button">
-                                                <a href="/shopproducts/shopping_cart" class="li-button li-button-fullwidth li-button-dark">
-                                                    <span>View Full Cart</span>
-                                                </a>
-                                                <a href="/shopproducts/shopping_checkout" class="li-button li-button-fullwidth">
-                                                    <span>Checkout</span>
-                                                </a>
-                                            </div>
-                                        </div>
                                     </li>
                                     <!-- Header Mini Cart Area End Here -->
                                 </ul>
@@ -156,16 +127,17 @@
                             <div class="hb-menu">
                                 <nav style="text-align:center;">
                                     <ul>
-                                        <!-- #shopping -->
-                                        <li class="dropdown-holder mx-3"><a href="/shopproducts/shop">Shopping</a>
-                                            
-
-                                        </li>
+                                       
 <!-- #food -->
-                                        <li class="dropdown-holder mx-3"><a href="/foodproducts/food">Food</a>
+                                        <li class="dropdown-holder mx-3"><a href="/">Food</a>
                                           
                                         
                                         </li>
+                                         <!-- #shopping -->
+                                         <li class="dropdown-holder mx-3"><a href="/shopproducts/shop">Shopping</a>
+                                            
+
+                                         </li>
 
 <!-- #fresh Cuts    -->
                                      <li class="dropdown-holder mx-3"><a href="/freshproducts/fresh_cuts">Fresh Cuts</a>
@@ -176,7 +148,6 @@
                                      <li class="dropdown-holder mx-3"><a href="/dailymioproducts/daily_mio">Daily Mio</a>
                                        
                                     </li>
-
 <!-- #Pharmacy    -->
                                      <li class="dropdown-holder mx-3"><a href="/pharmacyproducts/pharmacy/">pharmacy</a>
                                      
@@ -185,16 +156,16 @@
                                     <li class="dropdown-holder mx-3"><a href="/jewelleryproducts/jewellery/">Jewellery</a>
           
                                     </li>
-                                    <li class="dropdown-holder mx-3"><a href="/limupa-digital-products-store-ecommerce/used_product">Used Products</a>
+                                    <li class="dropdown-holder mx-3"><a href="/usedproducts/products/">Used Products</a>
                                      
                                     </li>
                                     <li class="dropdown-holder mx-3"><a href="/doriginalproducts/doriginal">Doriginal</a>
                                        
                                     </li>
                                    
-                                        <li class="mx-3"><a href="about-us.html">About Us</a></li>
+                                        <li class="mx-3"><a href="/about_miogra/">About Us</a></li>
                                         <li class="mx-3"><a href="">Services</a></li>
-                                        <li class="mx-3"><a href="">Contact</a></li>
+                                        <li class="mx-3"><a href="/miogra/contact/">Contact</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -209,6 +180,7 @@
                 <div class="container"> 
                     <div class="row">
                         <div class="mobile-menu">
+
                         </div>
                     </div>
                 </div>

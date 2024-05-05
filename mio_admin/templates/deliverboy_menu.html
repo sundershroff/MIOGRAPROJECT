@@ -236,6 +236,36 @@
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title text-white">Todo</h4>
+                  <div class="row">
+                    <!-- Delivery live trackibg -->
+                    <div class="dropdown">
+                      <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                        {{region_area}}
+                      </button>
+                      <form method="POST" class="dropdown-menu">
+                        {% csrf_token %}
+                      <select name="region_select" style="
+                      width: 100%;
+                      height: 100%;
+                      border: 0px;
+                  " onchange="this.form.submit()">
+                  <option value="">Select</option>
+                        <option value="nagercoil">Nagercoil</option>
+                        <option value="kanniyakumari">Kanyakumari</option>
+                        <option value="thuckalay">Tuckalay</option>
+                        <option value="marthandam">Marthandam</option>
+                        <option value="karungal">Karungal</option>
+                        <option value="nithiravilai">Nithiravilai</option>
+                      </select>
+                      <script>
+  
+                      </script>
+                    </form>
+                    <input type="text" name="filter" style="width: 30%;float: inline-end;" id="filter" placeholder="Type to Filter">
+
+                    </div>
+
+                  </div>
                   <div class="list-wrapper">
 
              
@@ -258,7 +288,7 @@
                                                         
                                                         <th>Contact</th>
                                                         <th>Email</th>
-                                                     
+                                                        <th>Delivery Type</th>
                                                         <th>ACTION</th>
                                                     </tr>
                                                 </thead>
@@ -273,20 +303,27 @@
                                                     <td>{{i.region}}</td>            
                                                     <td>{{i.phone_number}}</td>
                                                     <td>{{i.email}}</td>
-                                                 
+                                                    <td>{{i.delivery_type}}</td>
                                                     <td>
+                                                      {% if i.approve_status == None %}
+                                                      <a href="/admin/delivery_boy_add/{{i.uid}}/{{authenticate.username}}"><button type="button" value="True" name="status" class="action_a" style="background-color: orange;">UPDATE</button></a>
+                                                      {% endif %}
                                                       {% if i.approve_status == "False"  %}
                                                       <form method="POST">
                                                         {% csrf_token %}
-                                                      <button type="submit" value="True" name="status" class="action_a">Accept</button>
-                                                      <button type="submit" class="action_a" value="Reject" name="status" style="background-color: red;">Reject</button>
-                                                      <input type="hidden" name="uid" value="{{i.uid}}" id="">
+                                                        <a href="/admin/delivery_boy_single/{{i.uid}}/{{authenticate.username}}"><i class="fa fa-eye" style="font-size:25px"></i></a>&nbsp&nbsp
+                                                        <button type="submit" value="True" name="status" class="action_a">Accept</button>
+                                                        <button type="submit" class="action_a" value="Reject" name="status" style="background-color: red;">Reject</button>
+                                                        <input type="hidden" name="uid" value="{{i.uid}}" id="">
+
                                                       {% comment %} <input type="hidden" name="category" value="{{i.category}}" id=""> {% endcomment %}
                                                     </form>
                                                       {% elif i.approve_status == "True" %}
-                                                      <a href="/admin/delivery_boy_single/{{i.uid}}"><i class="fa fa-eye" style="font-size:25px"></i></a>&nbsp&nbsp<button class="action_a" style="width: 6rem;">Accepted</button>
+
+                                                      <a href="/admin/delivery_boy_single/{{i.uid}}/{{authenticate.username}}"><i class="fa fa-eye" style="font-size:25px"></i></a>&nbsp&nbsp<button class="action_a" style="width: 6rem;">Accepted</button>
                                                       {% elif i.approve_status == "Reject" %}
-                                                      <a href="/admin/delivery_boy_single/{{i.uid}}"><i class="fa fa-eye" style="font-size:25px"></i></a>&nbsp&nbsp<button type="button" style="width: 6rem;background-color: red;" class="action_a"  >Rejected</button>
+
+                                                      <a href="/admin/delivery_boy_single/{{i.uid}}/{{authenticate.username}}"><i class="fa fa-eye" style="font-size:25px"></i></a>&nbsp&nbsp<button type="button" style="width: 6rem;background-color: red;" class="action_a"  >Rejected</button>
                                                       {% endif %}
                                                       
         

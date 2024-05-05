@@ -156,25 +156,12 @@ class OTPSerializer(serializers.Serializer):
         return instance
     
 
-class notificationSerializer(serializers.Serializer):
-    notify_id=serializers.CharField()
-    sender_id=serializers.CharField()
-    notify_message=serializers.CharField()
-    recever_id=serializers.CharField()
-    
-    def create(self,data):
-        return models.Notification.objects.create(
-        notify_id = data['notify_id'],
-        sender_id = data['sender_id'],
-        notify_message = data['notify_message'],
-        recever_id = data['recever_id'],
-        )
+
 
 
 class notificationlistSerializer(serializers.Serializer):
-    notify_id=serializers.CharField()
-    sender_id=serializers.CharField()
-    notify_message=serializers.CharField()
-    recever_id= serializers.DateField()
-    is_read=serializers.CharField()
+    recipient = serializers.CharField()
+    message_title = serializers.CharField()
+    message_desc = serializers.CharField()
     notify_date = serializers.DateField()
+    is_read=serializers.BooleanField()

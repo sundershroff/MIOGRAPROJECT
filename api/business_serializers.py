@@ -275,6 +275,7 @@ class shop_productlistserializer(serializers.Serializer):
     subcategory=serializers.CharField()
     product = serializers.JSONField()
     business_status=serializers.CharField()
+    rating=serializers.CharField()
 
 class delivered_productlistserializer(serializers.Serializer):
     product = serializers.JSONField()
@@ -443,6 +444,7 @@ class jewel_productlistserializer(serializers.Serializer):
     subcategory=serializers.CharField()
     product = serializers.JSONField()
     business_status=serializers.CharField()
+    rating=serializers.CharField()
 class jewel_productserializer(serializers.Serializer):
     product_id = serializers.CharField()
     jewel_id = serializers.CharField()
@@ -632,7 +634,7 @@ class food_productlistserializer(serializers.Serializer):
     subcategory=serializers.CharField()
     product = serializers.JSONField()
     business_status=serializers.CharField()
-
+    rating=serializers.CharField()
 
 
 
@@ -805,7 +807,7 @@ class fresh_productlistserializer(serializers.Serializer):
     subcategory=serializers.CharField()
     product = serializers.JSONField()
     business_status=serializers.CharField()
-
+    rating=serializers.CharField()
 # dailymio
 
 class dailymio_serializer(serializers.Serializer):
@@ -975,7 +977,7 @@ class dmio_productlistserializer(serializers.Serializer):
     subcategory=serializers.CharField()
     product = serializers.JSONField()
     business_status=serializers.CharField()
-
+    rating=serializers.CharField()
 
 # pharmacy
 class pharmacy_serializer(serializers.Serializer):
@@ -1143,7 +1145,7 @@ class pharmacy_productlistserializer(serializers.Serializer):
     subcategory=serializers.CharField()
     product = serializers.JSONField()
     business_status=serializers.CharField()
-
+    rating=serializers.CharField()
 
 # d_originalmodel
 class d_original_serializer(serializers.Serializer):
@@ -1310,7 +1312,16 @@ class d_original_productlistserializer(serializers.Serializer):
     product = serializers.JSONField()
     district = serializers.CharField()
     business_status=serializers.CharField()
+    rating=serializers.CharField()
 
 
 
-
+class notificationlistSerializer(serializers.Serializer):
+    notify_id=serializers.CharField()
+    recipient = serializers.CharField()
+    sender_id = serializers.CharField()
+    message_title = serializers.CharField()
+    message_desc = serializers.CharField()
+    notify_date = serializers.DateField()
+    is_read=serializers.BooleanField()
+    

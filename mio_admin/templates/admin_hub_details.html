@@ -241,7 +241,13 @@
                         <input type="email" placeholder="Enter E-mail" name="email" id="number7" required><br>
 
                         <label for="number3"><strong>HUB:</strong></label>
-                        <input type="text" placeholder="Enter Hub" name="hub" id="number3" required><br>
+                        <select name="hub" id="number3" style="" required>
+                          {% for i in hub %}
+                          <option value="{{i.zone}}">{{i.zone}}</option>
+                          {% endfor %}
+                        </select>
+                          <br>
+
                         <label for="number5"><strong>DOOR NO:</strong></label>
                         <textarea class="styled-textarea" type="text" placeholder="Enter Door No" name="door_no" id="number5" required></textarea><br>
                         <label for="number5"><strong>STREET:</strong></label>

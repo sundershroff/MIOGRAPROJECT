@@ -220,7 +220,7 @@
                     <!-- Delivery live trackibg -->
                     <div class="dropdown">
                       <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-                        REGION
+                        {{region_area}}
                       </button>
                       <form method="POST" class="dropdown-menu">
                         {% csrf_token %}
@@ -249,7 +249,11 @@
         <div class="card-body px-0">
           <h4 class="card-title text-white">Todo</h4>
           <div class="add-items px-2" style="margin-bottom: 0;">
-            <h2 id="orderlist">Order List</h2>
+            <h2 id="orderlist">Order List
+
+              <input type="text" name="filter" style="width: 30%;float: inline-end;padding: 8px;border-radius: 6px;font-size: 18px;" id="filter" placeholder="Type to Filter">
+
+            </h2>
           </div>
           <div class="list-wrapper">
             <div class="container mt-0">
@@ -283,7 +287,7 @@
               <div class="tab-content">
                 <div id="SHOPPING" class="container tab-pane active"><br>
                   <div class="table-responsive">
-                    <table class="table">
+                    <table class="table" id="dataTable">
                       <thead>
                         <tr>
                           <th> No </th>
@@ -294,7 +298,7 @@
                           <th> Order Id </th>
                           <th> Payment Method </th>
                           <th> Status </th>
-                          <th> Action </th>
+                          <th> Invoice </th>
                         </tr>
                       </thead>
                       <tbody>
@@ -319,9 +323,9 @@
                                 border: 0px;
                                 background-color: transparent;">
                                 <i class="fa fa-eye" style="font-size:20px"></i></button>
-                            <a href="" class="px-2" style="
+                            <!-- <a href="" class="px-2" style="
                             text-decoration: none;
-                            font-size: large;">Invoice</a></td>
+                            font-size: large;">Invoice</a></td> -->
                         </tr>
 
                         {% endfor %}
@@ -373,7 +377,7 @@
                           <th> Order Id </th>
                           <th> Payment Method </th>
                           <th> Status </th>
-                          <th> Action </th>
+                          <!-- <th> Action </th> -->
                         </tr>
                       </thead>
                       <tbody>
@@ -393,14 +397,14 @@
                           <td> {{i.payment_type}}</td>
                           <td style="color: green;">{{i.status}}</td>
                           
-                          <td style="">
+                          <!-- <td style="">
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal{{i.order_id}}" style="text-decoration: none;color: #8B1874;
                                 border: 0px;
                                 background-color: transparent;">
                                 <i class="fa fa-eye" style="font-size:20px"></i></button>
                             <a href="" class="px-2" style="
                             text-decoration: none;
-                            font-size: large;">Invoice</a></td>
+                            font-size: large;">Invoice</a></td> -->
                         </tr>
 
                         {% endfor %}
@@ -408,6 +412,7 @@
 
                       </tbody>
                     </table>
+                    
                   </div>
 
                 </div>
@@ -424,7 +429,7 @@
                           <th> Order Id </th>
                           <th> Payment Method </th>
                           <th> Status </th>
-                          <th> Action </th>
+                        
                         </tr>
                       </thead>
                       <tbody>
@@ -444,14 +449,7 @@
                           <td> {{i.payment_type}}</td>
                           <td style="color: green;">{{i.status}}</td>
                           
-                          <td style="">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal{{i.order_id}}" style="text-decoration: none;color: #8B1874;
-                                border: 0px;
-                                background-color: transparent;">
-                                <i class="fa fa-eye" style="font-size:20px"></i></button>
-                            <a href="" class="px-2" style="
-                            text-decoration: none;
-                            font-size: large;">Invoice</a></td>
+                       
                         </tr>
 
                         {% endfor %}
@@ -475,7 +473,7 @@
                           <th> Order Id </th>
                           <th> Payment Method </th>
                           <th> Status </th>
-                          <th> Action </th>
+                        
                         </tr>
                       </thead>
                       <tbody>
@@ -495,14 +493,7 @@
                           <td> {{i.payment_type}}</td>
                           <td style="color: green;">{{i.status}}</td>
                           
-                          <td style="">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal{{i.order_id}}" style="text-decoration: none;color: #8B1874;
-                                border: 0px;
-                                background-color: transparent;">
-                                <i class="fa fa-eye" style="font-size:20px"></i></button>
-                            <a href="" class="px-2" style="
-                            text-decoration: none;
-                            font-size: large;">Invoice</a></td>
+                         
                         </tr>
 
                         {% endfor %}
@@ -526,7 +517,7 @@
                           <th> Order Id </th>
                           <th> Payment Method </th>
                           <th> Status </th>
-                          <th> Action </th>
+                          
                         </tr>
                       </thead>
                       <tbody>
@@ -546,14 +537,7 @@
                           <td> {{i.payment_type}}</td>
                           <td style="color: green;">{{i.status}}</td>
                           
-                          <td style="">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal{{i.order_id}}" style="text-decoration: none;color: #8B1874;
-                                border: 0px;
-                                background-color: transparent;">
-                                <i class="fa fa-eye" style="font-size:20px"></i></button>
-                            <a href="" class="px-2" style="
-                            text-decoration: none;
-                            font-size: large;">Invoice</a></td>
+                          
                         </tr>
 
                         {% endfor %}
@@ -602,9 +586,10 @@
                                 border: 0px;
                                 background-color: transparent;">
                                 <i class="fa fa-eye" style="font-size:20px"></i></button>
-                            <a href="" class="px-2" style="
+                            <!-- <a href="" class="px-2" style="
                             text-decoration: none;
-                            font-size: large;">Invoice</a></td>
+                            font-size: large;">Invoice</a> -->
+                            </td>
                         </tr>
 
                         {% endfor %}
@@ -612,6 +597,35 @@
 
                       </tbody>
                     </table>
+                    {% for i in d_original %}
+                    <!-- The Modal -->
+                    <div class="modal" id="myModal{{i.order_id}}">
+                     <div class="modal-dialog modal-fullscreen" style="margin-top: 0px;">
+                       <div class="modal-content">
+                   
+                         <!-- Modal Header -->
+                         <div class="modal-header">
+                           <h4 class="modal-title">Invoice</h4>
+                           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                         </div>
+                   
+                         <!-- Modal body -->
+                         <div class="modal-body">
+                           {% include 'invoice.html' %}
+                         </div>
+                   
+                   
+                   
+                         <!-- Modal footer -->
+                         <div class="modal-footer">
+                           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                         </div>
+                   
+                       </div>
+                     </div>
+                   </div>
+                {% endfor %}   
+
                   </div>
 
                 </div>
@@ -663,6 +677,35 @@
 
                       </tbody>
                     </table>
+                    {% for i in jwellery %}
+                    <!-- The Modal -->
+                    <div class="modal" id="myModal{{i.order_id}}">
+                     <div class="modal-dialog modal-fullscreen" style="margin-top: 0px;">
+                       <div class="modal-content">
+                   
+                         <!-- Modal Header -->
+                         <div class="modal-header">
+                           <h4 class="modal-title">Invoice</h4>
+                           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                         </div>
+                   
+                         <!-- Modal body -->
+                         <div class="modal-body">
+                           {% include 'invoice.html' %}
+                         </div>
+                   
+                   
+                   
+                         <!-- Modal footer -->
+                         <div class="modal-footer">
+                           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                         </div>
+                   
+                       </div>
+                     </div>
+                   </div>
+                {% endfor %}   
+
                   </div>
 
                 </div>

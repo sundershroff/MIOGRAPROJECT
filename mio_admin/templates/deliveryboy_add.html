@@ -1,5 +1,7 @@
 {% include "admin_header.html" %}
-
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
       <!-- partial:partials/_settings-panel.html -->
@@ -222,39 +224,190 @@
 
 
           <div class="form">
-            <form method="POST" enctype="multipart/form-data">
-              {% csrf_token %}
-              <center><h1 style="color: red;width: 126%;" >{{error}}</h1></center>
+            <h1 style="color: red;width: 126%;" >{{error}}</h1>
                 <h1 style="text-align: center;">Form</h1>
+            <form method="POST"  id="myForm">
+              {% csrf_token %}
+              <label for="number2"><strong>Phone Number:</strong></label>
+              <input type="number" value="{{data.phone_number}}" placeholder="Enter Phone Number" name="phone_number" id="phone_number" required>
+              {% if error1 == "Invalid OTP" %}
+              <script>
+                $(document).ready(function(){
+                    $("#myModal").modal('show');
+                });
+            </script>
+            {% elif data.phone_number %}
+            <button type="button"  name="otp" style="background-color: green;color: white;width: 50%;height: 40px;border-radius: 8px;">VERIFIED</button>
+
+              {% else %}
+              <button type="submit" data-bs-toggle="modal" data-bs-target="#myModal" name="otp" style="background-color: green;color: white;">VERIFY NUMBER</button>
+
+              {% endif %}
+            </form>
+            <h4 style="color:red;">{{error1}}</h4>
+            <!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title"></h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <style>
+          /* body {
+              font-family: Arial, sans-serif;
+              margin: 0;
+              padding: 0;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+              background-color: #f0f0f0;
+          } */
+          .otp-container {
+              text-align: center;
+          }
+          .otp-input {
+              width: 40px;
+              height: 40px;
+              text-align: center;
+              margin: 0 5px;
+              font-size: 18px;
+              border: 1px solid #ccc;
+              border-radius: 5px;
+              outline: none;
+          }
+          @media (max-width: 600px) {
+              .otp-input {
+                  width: 30px;
+                  height: 30px;
+                  font-size: 14px;
+              }
+          }
+      </style>
+      <div class="otp-container">
+          <h2>Enter OTP</h2>
+          <form id="otpForm" method="POST">
+              {% csrf_token %}
+              <input type="text" maxlength="1" class="otp-input" name="otp" id="digit1" required>
+              <input type="text" maxlength="1" class="otp-input" name="otp" id="digit2" required>
+              <input type="text" maxlength="1" class="otp-input" name="otp" id="digit3" required>
+              <input type="text" maxlength="1" class="otp-input" name="otp" id="digit4" required><br><br>
+              <button type="submit"  name="" id="" style="
+              padding: 10px;
+              width: 57%;
+              background-color: #8B1874;
+              color: white;
+              font-weight: 500;
+          ">VERIFY</button>
+           <h2 style="color: red;" id="pin"></h2>
+          </form>
+        
+      </div>
+      <script>
+          $(document).ready(function(){
+              $('#').submit(function(event) {
+                  // Prevent default form submission
+                  event.preventDefault();
+          
+                  // Serialize form data
+                  var formData = $(this).serialize();
+          
+                  // Send AJAX request
+                  $.ajax({
+                      type: 'POST',
+                      url: 'http://127.0.0.1:3000/admin/delivery_boy_add/<add>', // Replace with your server-side script URL
+                      data: formData,
+                      success: function(response) {
+                          // Handle the response from the server
+                          // alert('Form submitted successfully!');
+                          // You can update UI or do anything with the response here
+                      },
+                      error: function(xhr, status, error) {
+                          // Handle errors
+                          console.error(xhr.responseText);
+                      }
+                  });
+              });
+          });
+          </script>
+      
+      <script>
+          // Automatically move focus to the next input field when a digit is entered
+          document.querySelectorAll('.otp-input').forEach(item => {
+              item.addEventListener('input', event => {
+                  if (event.target.value.length >= 1) {
+                      const index = Array.prototype.indexOf.call(item.parentElement.children, item);
+                      if (index < 5) {
+                          item.parentElement.children[index + 1].focus();
+                      }
+                  }
+              });
+              item.addEventListener('keydown', event => {
+                  if (event.key === 'Backspace') {
+                      const index = Array.prototype.indexOf.call(item.parentElement.children, item);
+                      if (index > 0) {
+                          item.parentElement.children[index - 1].focus();
+                          // item.parentElement.children[index - 1].focus();
+                      }
+                      
+                  }
+              });
+          });
+      </script>
+      
+        <h4 style="color: red;text-align: center;">{{error1}}</h4>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+            <br>
+            <form method="POST"  enctype="multipart/form-data">
+              {% csrf_token %}
+              
                 <div class="formcontainer">
                     <hr/>
                     <div class="container">
                         <label for="number1"><strong>Name:</strong></label>
-                        <input type="text" placeholder="Enter Name" name="name" id="number1" required><br>
-                        <label for="number2"><strong>Phone Number:</strong></label>
-                        <input type="number" placeholder="Enter Phone Number" name="phone_number" id="number2" required><br>
+                        <input type="text" placeholder="Enter Name" value="{{data.name}}" name="name" id="number1" required><br>
+                       
+                        
+                        
                         <label for="number2"><strong>Whats app Number:</strong></label>
-                        <input type="number" placeholder="Enter Whats app Number" name="wp_number" id="number2" required><br>
+                        <input type="number" placeholder="Enter Whats app Number" value="{{data.wp_number}}" name="wp_number" id="number2" required><br>
                         <label for="number7"><strong>E-MAIL:</strong></label>
-                        <input type="email" placeholder="Enter E-mail" name="email" id="email" required><br>
+                        <input type="email" placeholder="Enter E-mail" name="email" value="{{data.email}}"  id="email" required><br>
                         <label for="number2"><strong>Aadhar Number:</strong></label>
-                        <input type="number" placeholder="Enter Aadhar Number" name="aadhar_number" id="number2" required><br>
+                        <input type="number" placeholder="Enter Aadhar Number" value="{{data.aadhar_number}}"  name="aadhar_number" id="number2" required><br>
                         <label for="number2"><strong>Pan Number:</strong></label>
-                        <input type="number" placeholder="Enter Pan Number" name="pan_number" id="number2" required><br>
+                        <input type="number" placeholder="Enter Pan Number" value="{{data.pan_number}}" name="pan_number" id="number2" required><br>
                         <label for="number2"><strong>Driving License Number:</strong></label>
-                        <input type="number" placeholder="Enter Driving License Number" name="driving_licensenum" id="number2" required><br>
+                        <input type="number" placeholder="Enter Driving License Number" value="{{data.driving_licensenum}}" name="driving_licensenum" id="number2" required><br>
                         <label for="number3"><strong>Profile Picture:</strong></label>
-                        <input type="file"  name="profile_picture" id="number3" required><br>
+                        <input type="file" value="{{data.profile_picture}}"  name="profile_picture" id="number3" required><br>
+    
+                        
                         <label for="number4"><strong>Bank Name:</strong></label>
-                        <input type="text" placeholder="Enter Bank Name" name="bank_name" id="number4" required><br>
+                        <input type="text" placeholder="Enter Bank Name" value="{{data.bank_name}}" name="bank_name" id="number4" required><br>
                         <label for="number2"><strong>Account Number:</strong></label>
-                        <input type="number" placeholder="Enter Account  Number" name="acc_number" id="number2" required><br>
+                        <input type="number" placeholder="Enter Account  Number" value="{{data.acc_number}}" name="acc_number" id="number2" required><br>
                         <label for="number2"><strong>Name Asper Passbook :</strong></label>
-                        <input type="number" placeholder="Enter Name Asper Passbook" name="name_asper_passbook" id="number2" required><br>
+                        <input type="number" placeholder="Enter Name Asper Passbook" value="{{data.name_asper_passbook}}" name="name_asper_passbook" id="number2" required><br>
                         <label for="number2"><strong>Ifsc Code:</strong></label>
-                        <input type="number" placeholder="Enter Ifsc code" name="ifsc_code" id="number2" required><br>
+                        <input type="number" placeholder="Enter Ifsc code" value="{{data.ifsc_code}}" name="ifsc_code" id="number2" required><br>
                         <label for="number3"><strong>Bank passbook Picture:</strong></label>
-                        <input type="file"  name="bank_passbok_pic" id="bank_passbok_pic" required><br>
+                        <input type="file"  name="bank_passbok_pic" value="{{data.bank_passbok_pic}}" id="bank_passbok_pic" required><br>
                         <label for="number3"><strong>Aadhar Card Picture:</strong></label>
                         <input type="file"  name="aadhar_pic" id="aadhar_pic" required><br>
                         <label for="number3"><strong>Pan Card Picture:</strong></label>
@@ -268,6 +421,7 @@
                         border-radius: 10px;
                         text-align: center;
                     ">
+                          <option value="{{data.delivery_type}}" style="text-align: center;">{{data.delivery_type}}</option>
                           <option value="quick" style="text-align: center;">Quick Delivery</option>
                           <option value="Normal">Normal Delivery</option>
                         </select><br>
@@ -278,6 +432,7 @@
                         border-radius: 10px;
                         text-align: center;
                     ">
+                         <option value="{{data.region}}" style="text-align: center;">{{data.region}}</option>
                           <option value="nagercoil" style="text-align: center;">Nagercoil</option>
                           <option value="kanniyakumari">kanniyakumari</option>
                           <option value="thuckalay">Thuckalay</option>
@@ -286,7 +441,18 @@
                           <option value="nithiravilai">Nithiravilai</option>
                         </select><br>
 
-                        <button class="my-4" type="submit" style="display: block;">Submit</button><br><br>
+                        <span id="subbutton"></span>
+                        <script>
+                          phone = document.getElementById("phone_number").value;
+                          if (phone == ""){
+                            document.getElementById("subbutton").innerHTML = "<button class=my-4 type=button style=background-color:grey;display:block;opacity:30%;width:50%;height:40px;border-radius:8px;>Register Phone Number First</button><br><br>";
+
+                          }
+                          else{
+                            document.getElementById("subbutton").innerHTML = "<button class=my-4 type=submit style=display: block;>Submit</button><br><br>";
+
+                          }
+                        </script>
                       </div>
                     <br>
                     <div>
@@ -297,7 +463,34 @@
             </form>
         </div>
 
-        
+        <script>
+          $(document).ready(function(){
+              $('#myForm').submit(function(event) {
+                  // Prevent default form submission
+                  event.preventDefault();
+          
+                  // Serialize form data
+                  var formData = $(this).serialize();
+                  alert(formData);
+                  // Send AJAX request
+                  $.ajax({
+                      type: 'POST',
+                      url: '', // Replace with your server-side script URL
+                      data: formData,
+                      success: function(response) {
+                          // Handle the response from the server
+                          // alert('Form submitted successfully!');
+                          // You can update UI or do anything with the response here
+                      },
+                      error: function(xhr, status, error) {
+                          // Handle errors
+                          console.error(xhr.responseText);
+                      }
+                  });
+              });
+          });
+          </script>
+          
         {% include "admin_footer.html" %}
       <!-- main-panel ends -->
     </div>

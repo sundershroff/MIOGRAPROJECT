@@ -89,35 +89,14 @@
                                         </a>
                                     </div>
                                     {% endfor %}
-                                    {% comment %} <div class="lg-image">
-                                        <a class="popup-img venobox vbox-item" href="images/fresh_cuts/chicken.jpg" data-gall="myGallery">
-                                            <img src="images/fresh_cuts/chicken.jpg" alt="product image">
-                                        </a>
-                                    </div> {% endcomment %}
-                                    <!-- <div class="lg-image">
-                                        <a class="popup-img venobox vbox-item" href="images/fresh_cuts/chicken.jpg" data-gall="myGallery">
-                                            <img src="images/fresh_cuts/chicken.jpg" alt="product image">
-                                        </a>
-                                    </div>
-                                    <div class="lg-image">
-                                        <a class="popup-img venobox vbox-item" href="images/fresh_cuts/chicken.jpg" data-gall="myGallery">
-                                            <img src="images/fresh_cuts/chicken.jpg" alt="product image">
-                                        </a>
-                                    </div>
-                                    <div class="lg-image">
-                                        <a class="popup-img venobox vbox-item" href="images/product/large-size/6.jpg" data-gall="myGallery">
-                                            <img src="images/product/large-size/6.jpg" alt="product image">
-                                        </a>
-                                    </div> -->
+                                    
                                 </div>
                                 <div class="product-details-thumbs slider-thumbs-1">                                        
                                     <div class="sm-image"><img src="{{fresh_cuts.product.primary_image}}" alt="product image thumb"></div>
                                     {% for image in fresh_cuts.product.other_images %}
                                     <div class="sm-image"><img src="{{image}}" alt="product image thumb"></div>
                                     {% endfor %}
-                                    {% comment %} <div class="sm-image"><img src="images/fresh_cuts/chicken.jpg" alt="product image thumb"></div>
-                                    <div class="sm-image"><img src="" alt=""></div> 
-                                    <div class="sm-image"><img src="" alt=""></div> {% endcomment %}
+                                    
                                    <div class="sm-image"><img src="" alt=""></div>
                                 </div>
                             </div>
@@ -127,21 +106,63 @@
                         <div class="col-lg-7 col-md-6">
                             <div class="product-details-view-content pt-60">
                                 <div class="product-info">
-                                    <h2>Fresh Chicken</h2>
-                                    <span class="product-details-ref">1 Kg</span>
+                                    <h2>{{fresh_cuts.product.model_name}}</h2>
+                                    <span class="product-details-ref">{{fresh_cuts.product.weight}}Kg</span>
                                     <div class="rating-box pt-20">
+                                        {% if fresh_cuts.rating == "2.0" %}
+                                        <ul class="rating rating-with-review-item">
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="review-item"><a href="#reviews">Read Review</a></li>
+                                            <li class="review-item"><a href="#">Write Review</a></li>
+                                        </ul>
+                                        {% elif fresh_cuts.rating == "3.0" %}
                                         <ul class="rating rating-with-review-item">
                                             <li><i class="fa fa-star-o"></i></li>
                                             <li><i class="fa fa-star-o"></i></li>
                                             <li><i class="fa fa-star-o"></i></li>
                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                            <li class="review-item"><a href="#">Read Review</a></li>
+                                            <li class="review-item"><a href="#reviews">Read Review</a></li>
                                             <li class="review-item"><a href="#">Write Review</a></li>
                                         </ul>
+                                        {% elif fresh_cuts.rating == "4.0" %}
+                                        <ul class="rating rating-with-review-item">
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="review-item"><a href="#reviews">Read Review</a></li>
+                                            <li class="review-item"><a href="#">Write Review</a></li>
+                                        </ul>
+                                        {% elif fresh_cuts.rating == "5.0" %}
+                                        <ul class="rating rating-with-review-item">
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li class="review-item"><a href="#reviews">Read Review</a></li>
+                                            <li class="review-item"><a href="#">Write Review</a></li>
+                                        </ul>
+                                        {% else %}
+                                        <ul class="rating rating-with-review-item">
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="review-item"><a href="#reviews">Read Review</a></li>
+                                            <li class="review-item"><a href="#">Write Review</a></li>
+                                        </ul>
+                                        {% endif %}
                                     </div>
                                     <div class="price-box pt-20">
-                                        <span class="new-price new-price-2">&#8377 120.98</span>
+                                        <span class="new-price new-price-2">&#8377 {{fresh_cuts.product.selling_price}}</span>
                                     </div>
                                     <!-- <div class="product-desc">
                                         <p>
@@ -236,22 +257,34 @@
                     <div class="tab-content">
                         <div id="description" class="tab-pane active show" role="tabpanel">
                             <div class="product-description">
-                                <span>The best is yet to come! Give your walls a voice with a framed poster. This aesthethic, optimistic poster will look great in your desk or in an open-space office. Painted wooden frame with passe-partout for more depth.</span>
+                                <span>{{fresh_cuts.product.description}}.</span>
                             </div>
                         </div>
                         <div id="product-details" class="tab-pane" role="tabpanel">
                             <div class="product-details-manufacturer">
-                                <a href="#">
-                                    <img src="images/product-details/1.jpg" alt="Product Manufacturer Image">
-                                </a>
-                                <p><span>Reference</span> demo_7</p>
-                                <p><span>Reference</span> demo_7</p>
+                                
+                                <p><span>Product Name :</span> {{fresh_cuts.product.model_name}}</p>
+                                <p><span>Category :</span> {{fresh_cuts.product.subcategory}}</p>
+                                <p><span>Brand</span> {{fresh_cuts.product.brand}}</p>
+                                <p><span>Actual Price</span> {{fresh_cuts.product.actual_price}}</p>
+                                <p><span>Selling Price (+ GST)</span> {{fresh_cuts.product.selling_price}}</p>
                             </div>
                         </div>
                         <div id="reviews" class="tab-pane" role="tabpanel">
                             <div class="product-reviews">
                                 <div class="product-details-comment-block">
+                                    {% for x in reviews %}
                                     <div class="comment-review">
+                                        {% if x.rating == "2.0" %}
+                                        <span>Grade</span>
+                                        <ul class="rating">
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                        </ul>
+                                        {% elif x.rating == "3.0" %}
                                         <span>Grade</span>
                                         <ul class="rating">
                                             <li><i class="fa fa-star-o"></i></li>
@@ -260,17 +293,46 @@
                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                         </ul>
+                                        {% elif x.rating == "4.0" %}
+                                        <span>Grade</span>
+                                        <ul class="rating">
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                        </ul>
+                                        {% elif x.rating == "5.0" %}
+                                        <span>Grade</span>
+                                        <ul class="rating">
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                        </ul>
+                                        {% else %}
+                                        <span>Grade</span>
+                                        <ul class="rating">
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                        </ul>
+                                        {% endif %}
                                     </div>
                                     <div class="comment-author-infos pt-25">
-                                        <span>HTML 5</span>
-                                        <em>01-12-18</em>
+                                        <span>{{x.user.fullname }}</span>
+                                        <em>{{x.created_date }}</em>
                                     </div>
                                     <div class="comment-details">
-                                        <h4 class="title-block">Demo</h4>
-                                        <p>Plaza</p>
+                                        <h4 class="title-block">Comment</h4>
+                                        <p>{{x.comment}}</p>
                                     </div>
+                                    {% endfor %}
                                     <div class="review-btn">
-                                        <a class="review-links" href="#" data-toggle="modal" data-target="#mymodal">Write Your Review!</a>
+                                        <a class="review-links" href="#">Write Your Review!</a>
                                     </div>
                                     <!-- Begin Quick View | Modal Area -->
                                     <div class="modal fade modal-wrapper" id="mymodal" >

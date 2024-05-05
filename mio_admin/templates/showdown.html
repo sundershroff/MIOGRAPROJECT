@@ -235,17 +235,22 @@
                   </tr>
                 </thead>
                 <tbody>
+
                   <tr>
                     <td>
                       1
                     </td>
                     <td>
-                      <a href="demo" rel="stylesheet"> SHOPPING</a>
+                      <a  rel="stylesheet"> SHOPPING</a>
                     </td>
                  <td>
                   <form method="POST">
                     {% csrf_token %}
-                   <button class="action_a" name = "shopping" value="1">showdown</button>
+                    {% if data.shopping  == 0 %}
+                   <button type="submit" class="action_a" name = "shopping" value="1" style="background-color: red;">shutdown</button>
+                   {% else %}
+                   <button type="submit" class="action_a" name = "shopping" value="0">on</button>
+                   {% endif %}
                   </form>
                   </td>
                   </tr>
@@ -254,59 +259,114 @@
                       2
                     </td>
                     <td>
-                      <a href="demo" rel="stylesheet"> FOOD</a>
+                      <a  rel="stylesheet"> FOOD</a>
                     </td>
-                    <td> <button class="action_a">showdown</button></td>
+                    <td> 
+                      <form method="POST">
+                        {% csrf_token %}
+                        {% if data.food  == 0 %}
+                       <button type="submit" class="action_a" name = "food" value="1" style="background-color: red;">shutdown</button>
+                       {% else %}
+                       <button type="submit" class="action_a" name = "food" value="0">on</button>
+                       {% endif %}
+                      </form>
+                    </td>
 
                   </tr>
                   <tr>
                       <td>
-                        2
+                        3
                       </td>
                       <td>
-                        <a href="demo" rel="stylesheet"> FRESH CUTS</a>
+                        <a  rel="stylesheet"> FRESH CUTS</a>
                       </td>
-                      <td> <button class="action_a">showdown</button></td>
+                      <td>
+                        <form method="POST">
+                          {% csrf_token %}
+                          {% if data.fresh_cuts  == 0 %}
+                         <button type="submit" class="action_a" name = "fresh_cuts" value="1" style="background-color: red;">shutdown</button>
+                         {% else %}
+                         <button type="submit" class="action_a" name = "fresh_cuts" value="0">on</button>
+                         {% endif %}
+                        </form>
+
+                        </td>
 
                     </tr>
                     <tr>
                       <td>
-                        2
+                        4
                       </td>
                       <td>
-                        <a href="demo" rel="stylesheet"> DAILY MIO</a>
+                        <a  rel="stylesheet"> DAILY MIO</a>
                       </td>
-                      <td> <button class="action_a">showdown</button></td>
+                      <td>
+                        <form method="POST">
+                          {% csrf_token %}
+                          {% if data.daily_mio  == 0 %}
+                         <button type="submit" class="action_a" name = "daily_mio" value="1" style="background-color: red;">shutdown</button>
+                         {% else %}
+                         <button type="submit" class="action_a" name = "daily_mio" value="0">on</button>
+                         {% endif %}
+                        </form>
+                        </td>
 
                     </tr>
                     <tr>
                       <td>
-                        2
+                        5
                       </td>
                       <td>
-                        <a href="demo" rel="stylesheet"> PHARMACY</a>
+                        <a  rel="stylesheet"> PHARMACY</a>
                       </td>
-                      <td> <button class="action_a">showdown</button></td>
+                      <td> 
+                        <form method="POST">
+                          {% csrf_token %}
+                          {% if data.pharmacy  == 0 %}
+                         <button type="submit" class="action_a" name = "pharmacy" value="1" style="background-color: red;">shutdown</button>
+                         {% else %}
+                         <button type="submit" class="action_a" name = "pharmacy" value="0">on</button>
+                         {% endif %}
+                        </form>
+                      </td>
 
                     </tr>
                     <tr>
                       <td>
-                        2
+                        6
                       </td>
                       <td>
-                        <a href="demo" rel="stylesheet"> D-ORIGINAL</a>
+                        <a  rel="stylesheet"> D-ORIGINAL</a>
                       </td>
-                      <td> <button class="action_a">showdown</button></td>
+                      <td>
+                        <form method="POST">
+                          {% csrf_token %}
+                          {% if data.d_original  == 0 %}
+                         <button type="submit" class="action_a" name = "d_original" value="1" style="background-color: red;">shutdown</button>
+                         {% else %}
+                         <button type="submit" class="action_a" name = "d_original" value="0">on</button>
+                         {% endif %}
+                        </form>
+                        </td>
 
                     </tr>
                     <tr>
                       <td>
-                        2
+                        7
                       </td>
                       <td>
-                        <a href="demo" rel="stylesheet"> JEWELLERY</a>
+                        <a  rel="stylesheet"> JEWELLERY</a>
                       </td>
-                      <td> <button class="action_a">showdown</button></td>
+                      <td>
+                        <form method="POST">
+                          {% csrf_token %}
+                          {% if data.jewellery  == 0 %}
+                         <button type="submit" class="action_a" name = "jewellery" value="1" style="background-color: red;">shutdown</button>
+                         {% else %}
+                         <button type="submit" class="action_a" name = "jewellery" value="0">on</button>
+                         {% endif %}
+                        </form>
+                        </td>
 
                     </tr>
                     
@@ -324,19 +384,10 @@
 
 
 
-          <div class="row">
-            <!-- Delivery live trackibg -->
-            <div class="col-md-12 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title text-white">Todo</h4>
-                  <div class="list-wrapper">
+       
                     {% include "admin_footer.html" %}
 
-                    <!-- main-panel ends -->
-                  </div>
-                  <!-- page-body-wrapper ends -->
-                </div>
+          
                 <!-- container-scroller -->
                 {% include "script.html" %}
               </body>

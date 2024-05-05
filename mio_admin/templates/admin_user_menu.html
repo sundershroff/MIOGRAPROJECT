@@ -211,10 +211,14 @@
                 </ul>
               </nav> -->
           </div>
+          <h1>User Details</h1>
           <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
-                    <div class="card-body">
+                  <div class="card-head pt-2 px-5">
+                    <input type="text" name="filter" style="width: 30%;float: inline-end;" id="filter" placeholder="Type to Filter">
+                    </div>
+                    <div class="card-body pt-0">
                         <h4 class="card-title text-white">Todo</h4>
                         <div class="list-wrapper">
                             <div class="table-responsive">
@@ -239,7 +243,7 @@
                                       <td>{{i.phonenumber}}</td>
                                     
                                       <td>
-                                        <a href="/admin_user_update/{{i.id}}"><i class="fa fa-edit" style="font-size:24px;color: #8B1874 !important;"></i></a>
+                                        <a href="/admin_user_update/{{i.id}}/{{authenticate.username}}"><i class="fa fa-edit" style="font-size:24px;color: #8B1874 !important;"></i></a>
                                         <form method="POST" style="
                                         display: contents;
                                     ">

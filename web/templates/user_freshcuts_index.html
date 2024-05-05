@@ -43,6 +43,7 @@
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
         <!-- Modernizr js -->
         <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
     <body>
     <!--[if lt IE 8]>
@@ -51,7 +52,7 @@
         <!-- Begin Body Wrapper -->
         <div class="body-wrapper" style="padding: 0px 15px;">
             <!-- Begin Header Area -->
-            {% include "header.html" %}
+            {% include "enduser_header.html" %}
             <!-- Header Area End Here -->
             <!-- Begin Slider With Banner Area -->
             <div class="slider-with-banner">
@@ -65,29 +66,29 @@
                             <div class="slider-area">
                                 <div class="slider-active owl-carousel">
                                     <!-- Begin Single Slide Area -->
-                                    <div class="single-slide align-center-left  animation-style-01 bg-1">
+                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(/media/{{banner.banner1}});">
                                         <div class="slider-progress"></div>
-                                        <div class="slider-content">
+                                        {% comment %} <div class="slider-content">
                                             <h5>Sale Offer <span>-20% Off</span> This Week</h5>
                                             <h2>Chicken </h2>
                                             <h3>Starting at <span>&#8377;150.00</span></h3>
                                             <div class="default-btn slide-btn">
                                                 <a class="links" href="fresh_cuts-left-sidebar.html">Shopping Now</a>
                                             </div>
-                                        </div>
+                                        </div> {% endcomment %}
                                     </div>
                                     <!-- Single Slide Area End Here -->
                                     <!-- Begin Single Slide Area -->
-                                    <div class="single-slide align-center-left animation-style-02 bg-2">
+                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(/media/{{banner.banner2}});">
                                         <div class="slider-progress"></div>
-                                        <div class="slider-content">
+                                        {% comment %} <div class="slider-content">
                                             <h5>Sale Offer <span>Black Friday</span> This Week</h5>
                                             <h2>Sea Fish</h2>
                                             <h3>Starting at <span>&#8377;224.00</span></h3>
                                             <div class="default-btn slide-btn">
                                                 <a class="links" href="fresh_cuts-left-sidebar.html">Shopping Now</a>
                                             </div>
-                                        </div>
+                                        </div> {% endcomment %}
                                     </div>
                                     <!-- Single Slide Area End Here -->
                                     <!-- Begin Single Slide Area -->
@@ -148,14 +149,14 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="/freshproducts/fresh_cuts/category/chicken/">
+                                                <a href="/products/freshproducts/fresh_cuts_category/{{key.uid}}/chicken/">
                                                     <img src="{% static 'images/fresh_cuts/chicken.jpg' %}" alt="Li's Product Image">
                                                 </a>
                                             </div>
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="fresh_cuts_single-product.html">Chicken</a></h1>
+                                                    <h1><a class="product_name" href="freshproducts/fresh_cuts_category/{{key.uid}}.chicken/">Chicken</a></h1>
                                                     
                                                 </div>
                                                 
@@ -167,14 +168,14 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="/freshproducts/fresh_cuts/category/mutton/">
+                                                <a href="/products/freshproducts/fresh_cuts_category/{{key.uid}}/mutton/">
                                                     <img src="{% static 'images/fresh_cuts/mutton.jpg' %}" alt="Li's Product Image">
                                                 </a>
                                             </div>
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="fresh_cuts-left-sidebar.html">Mutton</a></h1>
+                                                    <h1><a class="product_name" href="/freshproducts/fresh_cuts_category/{{key.uid}}/mutton/">Mutton</a></h1>
                                                     
                                                 </div>
                                                 
@@ -186,14 +187,14 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="/freshproducts/fresh_cuts/category/beef/">
+                                                <a href="/products/freshproducts/fresh_cuts_category/{{key.uid}}/beef/">
                                                     <img src="{% static 'images/fresh_cuts/beef.jpg' %}" alt="Li's Product Image">
                                                 </a>
                                             </div>
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="fresh_cuts-left-sidebar.html">Beef</a></h1>
+                                                    <h1><a class="product_name" href="/freshproducts/fresh_cuts_category/{{key.uid}}/beef/">Beef</a></h1>
                                                     
                                                 </div>
                                                 
@@ -205,14 +206,14 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="/freshproducts/fresh_cuts/category/sea_food/">
+                                                <a href="/products/freshproducts/fresh_cuts_category/{{key.uid}}/sea_food/">
                                                     <img src="{% static 'images/fresh_cuts/fish.jpg' %}" alt="Li's Product Image">
                                                 </a>
                                             </div>
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="fresh_cuts-left-sidebar.html">Fish & Sea foods </a></h1>
+                                                    <h1><a class="product_name" href="/freshproducts/fresh_cuts_category/{{key.uid}}/sea_food/">Fish & Sea foods </a></h1>
                                                     
                                                 </div>
                                                 
@@ -224,14 +225,14 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="/freshproducts/fresh_cuts/category/dry_fish/">
+                                                <a href="/products/freshproducts/fresh_cuts_category/{{key.uid}}/dry_fish/">
                                                     <img src="{% static 'images/fresh_cuts/dry fish.jpg' %}" alt="Li's Product Image">
                                                 </a>
                                             </div>
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="fresh_cuts-left-sidebar.html">Dry Fish</a></h1>
+                                                    <h1><a class="product_name" href="/freshproducts/fresh_cuts_category/{{key.uid}}/dry_fish/">Dry Fish</a></h1>
                                                     
                                                 </div>
                                                 
@@ -243,14 +244,14 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="/freshproducts/fresh_cuts/category/prawns/">
+                                                <a href="/products/freshproducts/fresh_cuts_category/{{key.uid}}/prawns/">
                                                     <img src="{% static 'images/fresh_cuts/pranws.jpg' %}" alt="Li's Product Image">
                                                 </a>
                                             </div>
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="fresh_cuts-left-sidebar.html    ">Prawns</a></h1>
+                                                    <h1><a class="product_name" href="/freshproducts/fresh_cuts_category/{{key.uid}}/prawns/">Prawns</a></h1>
                                                     
                                                 </div>
                                                 
@@ -263,14 +264,14 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="/freshproducts/fresh_cuts/category/egg/">
+                                                <a href="/products/freshproducts/fresh_cuts_category/{{key.uid}}/egg/">
                                                     <img src="{% static 'images/fresh_cuts/egg.jpg' %}" alt="Li's Product Image">
                                                 </a>
                                             </div>
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="fresh_cuts_single-product.html">Egg</a></h1>
+                                                    <h1><a class="product_name" href="f/freshproducts/fresh_cuts_category/{{key.uid}}/egg/">Egg</a></h1>
                                                     
                                                 </div>
                                                 
@@ -283,14 +284,14 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="/freshproducts/fresh_cuts/category/pond/">
+                                                <a href="/products/freshproducts/fresh_cuts_category/{{key.uid}}/pond/">
                                                     <img src="{% static 'images/fresh_cuts/pond fish.jpg' %}" alt="Li's Product Image">
                                                 </a>
                                             </div>
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="fresh_cuts_single-product.html">Pond Fish</a></h1>
+                                                    <h1><a class="product_name" href="/freshproducts/fresh_cuts_category/{{key.uid}}/pond/">Pond Fish</a></h1>
                                                     
                                                 </div>
                                                 
@@ -303,14 +304,14 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="/freshproducts/fresh_cuts/category/meat_masala/">
+                                                <a href="/products/freshproducts/fresh_cuts_category/{{key.uid}}/meat_masala/">
                                                     <img src="{% static 'images/fresh_cuts/masalas.jpg' %}" alt="Li's Product Image">
                                                 </a>
                                             </div>
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="fresh_cuts_single-product.html">Meat Masalas</a></h1>
+                                                    <h1><a class="product_name" href="/freshproducts/fresh_cuts_category/{{key.uid}}//meat_masala/">Meat Masalas</a></h1>
                                                     
                                                 </div>
                                                 
@@ -322,14 +323,14 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="/freshproducts/fresh_cuts/category/combo/">
+                                                <a href="/products/freshproducts/fresh_cuts_category/{{key.uid}}/combo/">
                                                     <img src="{% static 'images/fresh_cuts/combo.jfif' %}" alt="Li's Product Image">
                                                 </a>
                                             </div>
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="fresh_cuts_single-product.html">Combo</a></h1>
+                                                    <h1><a class="product_name" href="/freshproducts/fresh_cuts_category/{{key.uid}}/combo/">Combo</a></h1>
                                                     
                                                 </div>
                                                 
@@ -341,27 +342,22 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="/freshproducts/fresh_cuts/category/chopped_veg/">
+                                                <a href="/products/freshproducts/fresh_cuts_category/{{key.uid}}/chopped_veg/">
                                                     <img src="{% static 'images/fresh_cuts/chopped_vegitables.jpg' %}" alt="Li's Product Image">
                                                 </a>
                                             </div>
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="fresh_cuts_single-product.html">Chopped Vegitables</a></h1>
+                                                    <h1><a class="product_name" href="/freshproducts/fresh_cuts_category/{{key.uid}}/chopped_veg">Chopped Vegitables</a></h1>
                                                     
                                                 </div>
                                                 
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
-                                    </div>
-                                   
-                            
-                                   
-
-
-
+                                    </div>                                   
+            
 
                                 </div>
                             </div>
@@ -906,259 +902,171 @@
                                     </div>
                                     <div class="row">
                                         <div class="product-active owl-carousel">
+                                           {% for i in fresh%}
+                                            <div class="col-lg-12">
+                                                <!-- single-product-wrap start -->
+                                                <div class="single-product">
+                                                    <div class="product-image">
+                                                        <a href="/products/freshproducts/single_product/{{key.uid}}/{{i.fresh_id}}/{{i.product_id}}">
+                                                            <img src="{{i.product.primary_image}}" alt="Li's Product Image">
+                                                        </a>
+                                                        <span class="sticker">New</span>
+                                        
+                                                    </div>
+                                                    <div class="product_desc" style="border-top: 1px solid black;">
+                                                        <div class="product_desc_info">
+                                                            <div class="product-review">
+                                                               <h5 class="manufacturer">
+                                                                    <a href="/products/freshproducts/fresh_cuts_category/{{key.uid}}/{{i.product.subcategory}}/">{{i.product.subcategory}}</a>
+                                                                </h5> 
+                                                                <div class="rating-box">
+                                                                    <span>{{i.rating}}</span>
+                                                                    {% if i.rating == "2.0" %}
+                                                                    <ul class="rating">
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                    </ul>
+                                                                    {% elif i.rating == "3.0" %}
+                                                                    <ul class="rating">
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                    </ul>
+                                                                    {% elif i.rating == "4.0" %}
+                                                                    <ul class="rating">
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                    </ul>
+                                                                    {% elif i.rating == "5.0" %}
+                                                                    <ul class="rating">
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                    </ul>
+                                                                    {% else %}
+                                                                    <ul class="rating">
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                    </ul>
+
+                                                                    {% endif %}
+                                                                </div> 
+                                                            </div>
+                                                            <h4><a class="product_name" href="/products/freshproducts/single_product/{{key.uid}}/{{i.fresh_id}}/{{i.product_id}}">{{i.product.model_name}}</a></h4>
+                                                            <div class="price-box">
+                                                                <span class="new-price">&#8377;{{i.product.selling_price}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <!-- <div class="add-actions">
+                                                            <ul class="add-actions-link">
+                                                                <li class="add-cart active"><a href="#">Add to cart</a></li>
+                                                                <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
+                                                                <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
+                                                            </ul>
+                                                        </div> -->
+                                                    </div>
+                                                </div>
+                                                <!-- single-product-wrap end -->
+                                            </div>
+                                            {% endfor %}
+                                            {% comment %} <div class="col-lg-12">
+                                                <!-- single-product-wrap start -->
+                                                <div class="single-product">
+                                                    <div class="product-image">
+                                                        <a href="fresh_cuts_single-product.html">
+                                                            <img src="/static/images/fresh_cuts/beef.jpg" alt="Li's Product Image">
+                                                        </a>
+                                                        <span class="sticker">New</span>
+                                                    </div>
+                                                    <div class="product_desc" style="border-top: 1px solid black;">
+                                                        <div class="product_desc_info">
+                                                            <div class="product-review">
+                                                                <!-- <h5 class="manufacturer">
+                                                                    <a href="shop-left-sidebar.html">Graphic Corner</a>
+                                                                </h5> -->
+                                                                <!-- <div class="rating-box">
+                                                                    <span>4.2</span>
+                                                                    <ul class="rating">
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                    </ul>
+                                                                </div> -->
+                                                            </div>
+                                                            <h4><a class="product_name" href="fresh_cuts_single-product.html">Red Beef</a></h4>
+                                                            <div class="price-box">
+                                                                <span class="new-price">&#8377;200.00</span>
+                                                            </div>
+                                                        </div>
+                                                        <!-- <div class="add-actions">
+                                                            <ul class="add-actions-link">
+                                                                <li class="add-cart active"><a href="#">Add to cart</a></li>
+                                                                <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
+                                                                <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
+                                                            </ul>
+                                                        </div> -->
+                                                    </div>
+                                                </div>
+                                                <!-- single-product-wrap end -->
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <!-- single-product-wrap start -->
+                                                <div class="single-product">
+                                                    <div class="product-image">
+                                                        <a href="fresh_cuts_single-product.html">
+                                                            <img src="/static/images/fresh_cuts/chicken.jpg" alt="Li's Product Image">
+                                                        </a>
+                                                        <span class="sticker">New</span>
+                                                    </div>
+                                                    <div class="product_desc" style="border-top: 1px solid black;">
+                                                        <div class="product_desc_info">
+                                                            <div class="product-review">
+                                                                <!-- <h5 class="manufacturer">
+                                                                    <a href="shop-left-sidebar.html">Graphic Corner</a>
+                                                                </h5> -->
+                                                                <!-- <div class="rating-box">
+                                                                    <span>4.2</span>
+                                                                    <ul class="rating">
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                    </ul>
+                                                                </div> -->
+                                                            </div>
+                                                            <h4><a class="product_name" href="fresh_cuts_single-product.html">Fresh Chicken</a></h4>
+                                                            <div class="price-box">
+                                                                <span class="new-price">&#8377;100.80</span>
+                                                            </div>
+                                                        </div>
+                                                        <!-- <div class="add-actions">
+                                                            <ul class="add-actions-link">
+                                                                <li class="add-cart active"><a href="#">Add to cart</a></li>
+                                                                <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
+                                                                <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
+                                                            </ul>
+                                                        </div> -->
+                                                    </div>
+                                                </div>
+                                                <!-- single-product-wrap end -->
+                                            </div> {% endcomment %}
                                            
-                                            <div class="col-lg-12">
-                                                <!-- single-product-wrap start -->
-                                                <div class="single-product">
-                                                    <div class="product-image">
-                                                        <a href="fresh_cuts_single-product.html">
-                                                            <img src="/static/images/fresh_cuts/chicken.jpg" alt="Li's Product Image">
-                                                        </a>
-                                                        <span class="sticker">New</span>
-                                                    </div>
-                                                    <div class="product_desc" style="border-top: 1px solid black;">
-                                                        <div class="product_desc_info">
-                                                            <div class="product-review">
-                                                                <!-- <h5 class="manufacturer">
-                                                                    <a href="shop-left-sidebar.html">Graphic Corner</a>
-                                                                </h5> -->
-                                                                <!-- <div class="rating-box">
-                                                                    <span>4.2</span>
-                                                                    <ul class="rating">
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                    </ul>
-                                                                </div> -->
-                                                            </div>
-                                                            <h4><a class="product_name" href="fresh_cuts_single-product.html">Fresh Chicken</a></h4>
-                                                            <div class="price-box">
-                                                                <span class="new-price">&#8377;100.80</span>
-                                                            </div>
-                                                        </div>
-                                                        <!-- <div class="add-actions">
-                                                            <ul class="add-actions-link">
-                                                                <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                                <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                            </ul>
-                                                        </div> -->
-                                                    </div>
-                                                </div>
-                                                <!-- single-product-wrap end -->
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <!-- single-product-wrap start -->
-                                                <div class="single-product">
-                                                    <div class="product-image">
-                                                        <a href="fresh_cuts_single-product.html">
-                                                            <img src="/static/images/fresh_cuts/beef.jpg" alt="Li's Product Image">
-                                                        </a>
-                                                        <span class="sticker">New</span>
-                                                    </div>
-                                                    <div class="product_desc" style="border-top: 1px solid black;">
-                                                        <div class="product_desc_info">
-                                                            <div class="product-review">
-                                                                <!-- <h5 class="manufacturer">
-                                                                    <a href="shop-left-sidebar.html">Graphic Corner</a>
-                                                                </h5> -->
-                                                                <!-- <div class="rating-box">
-                                                                    <span>4.2</span>
-                                                                    <ul class="rating">
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                    </ul>
-                                                                </div> -->
-                                                            </div>
-                                                            <h4><a class="product_name" href="fresh_cuts_single-product.html">Red Beef</a></h4>
-                                                            <div class="price-box">
-                                                                <span class="new-price">&#8377;200.00</span>
-                                                            </div>
-                                                        </div>
-                                                        <!-- <div class="add-actions">
-                                                            <ul class="add-actions-link">
-                                                                <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                                <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                            </ul>
-                                                        </div> -->
-                                                    </div>
-                                                </div>
-                                                <!-- single-product-wrap end -->
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <!-- single-product-wrap start -->
-                                                <div class="single-product">
-                                                    <div class="product-image">
-                                                        <a href="fresh_cuts_single-product.html">
-                                                            <img src="/static/images/fresh_cuts/chicken.jpg" alt="Li's Product Image">
-                                                        </a>
-                                                        <span class="sticker">New</span>
-                                                    </div>
-                                                    <div class="product_desc" style="border-top: 1px solid black;">
-                                                        <div class="product_desc_info">
-                                                            <div class="product-review">
-                                                                <!-- <h5 class="manufacturer">
-                                                                    <a href="shop-left-sidebar.html">Graphic Corner</a>
-                                                                </h5> -->
-                                                                <!-- <div class="rating-box">
-                                                                    <span>4.2</span>
-                                                                    <ul class="rating">
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                    </ul>
-                                                                </div> -->
-                                                            </div>
-                                                            <h4><a class="product_name" href="fresh_cuts_single-product.html">Fresh Chicken</a></h4>
-                                                            <div class="price-box">
-                                                                <span class="new-price">&#8377;100.80</span>
-                                                            </div>
-                                                        </div>
-                                                        <!-- <div class="add-actions">
-                                                            <ul class="add-actions-link">
-                                                                <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                                <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                            </ul>
-                                                        </div> -->
-                                                    </div>
-                                                </div>
-                                                <!-- single-product-wrap end -->
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <!-- single-product-wrap start -->
-                                                <div class="single-product">
-                                                    <div class="product-image">
-                                                        <a href="fresh_cuts_single-product.html">
-                                                            <img src="/static/images/fresh_cuts/beef.jpg" alt="Li's Product Image">
-                                                        </a>
-                                                        <span class="sticker">New</span>
-                                                    </div>
-                                                    <div class="product_desc" style="border-top: 1px solid black;">
-                                                        <div class="product_desc_info">
-                                                            <div class="product-review">
-                                                                <!-- <h5 class="manufacturer">
-                                                                    <a href="shop-left-sidebar.html">Graphic Corner</a>
-                                                                </h5> -->
-                                                                <!-- <div class="rating-box">
-                                                                    <span>4.2</span>
-                                                                    <ul class="rating">
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                    </ul>
-                                                                </div> -->
-                                                            </div>
-                                                            <h4><a class="product_name" href="fresh_cuts_single-product.html">Red Beef</a></h4>
-                                                            <div class="price-box">
-                                                                <span class="new-price">&#8377;200.00</span>
-                                                            </div>
-                                                        </div>
-                                                        <!-- <div class="add-actions">
-                                                            <ul class="add-actions-link">
-                                                                <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                                <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                            </ul>
-                                                        </div> -->
-                                                    </div>
-                                                </div>
-                                                <!-- single-product-wrap end -->
-                                         </div>
-                                         <div class="col-lg-12">
-                                            <!-- single-product-wrap start -->
-                                            <div class="single-product">
-                                                <div class="product-image">
-                                                    <a href="fresh_cuts_single-product.html">
-                                                        <img src="/static/images/fresh_cuts/chicken.jpg" alt="Li's Product Image">
-                                                    </a>
-                                                    <span class="sticker">New</span>
-                                                </div>
-                                                <div class="product_desc" style="border-top: 1px solid black;">
-                                                    <div class="product_desc_info">
-                                                        <div class="product-review">
-                                                            <!-- <h5 class="manufacturer">
-                                                                <a href="shop-left-sidebar.html">Graphic Corner</a>
-                                                            </h5> -->
-                                                            <!-- <div class="rating-box">
-                                                                <span>4.2</span>
-                                                                <ul class="rating">
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                </ul>
-                                                            </div> -->
-                                                        </div>
-                                                        <h4><a class="product_name" href="fresh_cuts_single-product.html">Fresh Chicken</a></h4>
-                                                        <div class="price-box">
-                                                            <span class="new-price">&#8377;100.80</span>
-                                                        </div>
-                                                    </div>
-                                                    <!-- <div class="add-actions">
-                                                        <ul class="add-actions-link">
-                                                            <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                            <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                            <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                        </ul>
-                                                    </div> -->
-                                                </div>
-                                            </div>
-                                            <!-- single-product-wrap end -->
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <!-- single-product-wrap start -->
-                                            <div class="single-product">
-                                                <div class="product-image">
-                                                    <a href="fresh_cuts_single-product.html">
-                                                        <img src="/static/images/fresh_cuts/beef.jpg" alt="Li's Product Image">
-                                                    </a>
-                                                    <span class="sticker">New</span>
-                                                </div>
-                                                <div class="product_desc" style="border-top: 1px solid black;">
-                                                    <div class="product_desc_info">
-                                                        <div class="product-review">
-                                                            <!-- <h5 class="manufacturer">
-                                                                <a href="shop-left-sidebar.html">Graphic Corner</a>
-                                                            </h5> -->
-                                                            <!-- <div class="rating-box">
-                                                                <span>4.2</span>
-                                                                <ul class="rating">
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                </ul>
-                                                            </div> -->
-                                                        </div>
-                                                        <h4><a class="product_name" href="fresh_cuts_single-product.html">Red Beef</a></h4>
-                                                        <div class="price-box">
-                                                            <span class="new-price">&#8377;200.00</span>
-                                                        </div>
-                                                    </div>
-                                                    <!-- <div class="add-actions">
-                                                        <ul class="add-actions-link">
-                                                            <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                            <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                            <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                        </ul>
-                                                    </div> -->
-                                                </div>
-                                            </div>
-                                            <!-- single-product-wrap end -->
-                                        </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1180,19 +1088,22 @@
                                     <span>Combo Offer</span>
                                 </h2>
                                 <ul class="li-sub-category-list">
-                                    <li class="active"><a href="fresh_cuts-left-sidebar.html">View All</a></li>
+                                    <li class="active"><a href="/products/freshproducts/fresh_cuts_category/{{key.uid}}/combo/">View All</a></li>
                                     <!-- <li><a href="fresh_cuts-left-sidebar.html">Computers</a></li>
                                     <li><a href="fresh_cuts-left-sidebar.html">Electronics</a></li> -->
                                 </ul>
                             </div>
+
                             <div class="row">
                                 <div class="product-active owl-carousel">
                                     <div class="col-lg-12">
                                         <!-- single-product-wrap start -->
+                                        {% for i in fresh_cuts %}
+                                        {% if i.item.product.sub_category == "combo"%}
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="food_fresh_cuts_single-product.html">
-                                                    <img src="/static/images/fresh_cuts/combo.jfif" alt="Li's Product Image">
+                                                <a href="/products/freshproducts/single_product/{{key.uid}}/{{i.item.product.fresh_id}}/{{i.item.product.product_id}}">
+                                                    <img src="{{i.item.product.primary_image}}" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">New</span>
                                             </div>
@@ -1200,9 +1111,18 @@
                                                 <div class="product_desc_info">
                                                     <div class="product-review">
                                                         <h5 class="manufacturer">
-                                                            <a href="product-details.html"></a>
+                                                            <a href="/products/fresh_cuts/shops_products/{{key.uid}}/{{i.shop.fresh_id}}/">{{i.shop.business_name}}</a>
                                                         </h5>
-                                                        <!-- <div class="rating-box">
+                                                        <div class="rating-box">
+                                                            {% if i.item.rating == "2.0" %}
+                                                            <ul class="rating">
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                            </ul>
+                                                            {% elif i.item.rating == "3.0" %}
                                                             <ul class="rating">
                                                                 <li><i class="fa fa-star-o"></i></li>
                                                                 <li><i class="fa fa-star-o"></i></li>
@@ -1210,20 +1130,45 @@
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                             </ul>
-                                                        </div> -->
+                                                            {% elif i.item.rating == "4.0" %}
+                                                            <ul class="rating">
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                            </ul>
+                                                            {% elif i.item.rating == "5.0" %}
+                                                            <ul class="rating">
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                            </ul>
+                                                            {% else %}
+                                                            <ul class="rating">
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                            </ul>
+                                                            {% endif %}
+                                                        </div> 
                                                     </div>
-                                                    <h4><a class="product_name" href="food_fresh_cuts_single-product.html">Special Combo</a></h4>
+                                                    <h4><a class="product_name" href="/products/freshproducts/single_product/{{key.uid}}/{{i.item.product.fresh_id}}/{{i.item.product.product_id}}">{{i.item.product.model_name}}</a></h4>
                                                     <div class="price-box" style="display: flex;">
-                                                        <span class="new-price" style="width: 54%;"> <strike style="font-size: 21px;">&#8377;2000</strike> &nbsp; &#8377;1,250</span>
+                                                        <span class="new-price" style="width: 54%;"> <strike style="font-size: 21px;">&#8377;{{i.item.product.actual_price}}</strike> &nbsp; &#8377;{{i.item.product.selling_price}}</span>
                                                         <span style=" display: flex;width: 100%;justify-content: end;">
                                                         <td class="quantity">
                                                         
-                                                            <div class="cart-plus-minus">
+                                                            {% comment %} <div class="cart-plus-minus">
                                                                 <input class="cart-plus-minus-box" value="1" type="text">
                                                                 <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
                                                                 <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                                                 
-                                                            </div>
+                                                            </div> {% endcomment %}
                                                         </td></span>
                                                     </div>
                                                     
@@ -1231,16 +1176,18 @@
                                                 <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         
-                                                        <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
+                                                        <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.item.product.category.0}}/products/{{i.shop.fresh_id}}/{{i.item.product.product_id}}/">Add to cart</a></li>
+                                                        <li><a href="/products/freshproducts/single_product/{{key.uid}}/{{i.item.product.fresh_id}}/{{i.item.product.product_id}}" title="quick view" class="quick-view-btn" ><i class="fa fa-eye"></i></a></li>
+                                                        <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.item.product.category.0}}/{{i.item.product.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
                                                     </ul>
                                                 </div>
                                             </div>
                                         </div>
+                                        {% endif %}
+                                        {% endfor %}
                                         <!-- single-product-wrap end -->
                                     </div>
-                                    <div class="col-lg-12">
+                                    {% comment %} <div class="col-lg-12">
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
@@ -1255,7 +1202,7 @@
                                                         <h5 class="manufacturer">
                                                             <a href="product-details.html"></a>
                                                         </h5>
-                                                        <!-- <div class="rating-box">
+                                                         <div class="rating-box">
                                                             <ul class="rating">
                                                                 <li><i class="fa fa-star-o"></i></li>
                                                                 <li><i class="fa fa-star-o"></i></li>
@@ -1263,7 +1210,7 @@
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                             </ul>
-                                                        </div> -->
+                                                        </div> 
                                                     </div>
                                                     <h4><a class="product_name" href="food_fresh_cuts_single-product.html">Special Combo</a></h4>
                                                     <div class="price-box" style="display: flex;">
@@ -1292,8 +1239,8 @@
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
-                                    </div>
-                                      
+                                    </div> {% endcomment %}
+                                       
                                 </div>
                             </div>
                         </div>

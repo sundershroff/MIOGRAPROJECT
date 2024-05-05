@@ -123,6 +123,8 @@ class foodmodel(models.Model):
     monthly_revenue = models.TextField(null=True)
     latitude = models.TextField(null=True)
     longitude = models.TextField(null=True)
+    rating=models.FloatField(validators=[MinValueValidator(1),MaxValueValidator(5)],null=True)
+
 
 class freshcutsmodel(models.Model):
     fresh_id = models.TextField(null=True)
@@ -266,13 +268,14 @@ class shop_productsmodel(models.Model):
     product_id = models.TextField(null=True)
     shop_id = models.TextField(null=True)
     status = models.TextField(default=False,null=True)
-    business_status=models.TextField(null=True)
+    business_status=models.TextField(default="golive",null=True)
     category = models.TextField(null=True)
     subcategory = models.TextField(null=True)
     subcategory1 = models.TextField(null=True)
     product= models.JSONField(null=True)
     created_date=models.DateField(auto_now_add=True,null=True)
-   
+    rating=models.FloatField(validators=[MinValueValidator(1),MaxValueValidator(5)],null=True)
+
 
 # jewellery
 class jewel_productsmodel(models.Model):
@@ -282,8 +285,9 @@ class jewel_productsmodel(models.Model):
     category = models.TextField(null=True)
     subcategory = models.TextField(null=True)
     product= models.JSONField(null=True)
-    business_status=models.TextField(null=True)
+    business_status=models.TextField(default="golive",null=True)
     created_date=models.DateField(auto_now_add=True,null=True)
+    rating=models.FloatField(validators=[MinValueValidator(1),MaxValueValidator(5)],null=True)
 
 # food
 class food_productsmodel(models.Model):
@@ -294,7 +298,8 @@ class food_productsmodel(models.Model):
     subcategory = models.TextField(null=True)
     product= models.JSONField(null=True)
     created_date=models.DateField(auto_now_add=True,null=True)
-    business_status=models.TextField(null=True)
+    business_status=models.TextField(default="golive",null=True)
+    rating=models.FloatField(validators=[MinValueValidator(1),MaxValueValidator(5)],null=True)
 
 #freshcutsproductmodel
 
@@ -306,7 +311,8 @@ class fresh_productsmodel(models.Model):
     subcategory = models.TextField(null=True)
     product= models.JSONField(null=True)
     created_date=models.DateField(auto_now_add=True,null=True)
-    business_status=models.TextField(null=True)
+    business_status=models.TextField(default="golive",null=True)
+    rating=models.FloatField(validators=[MinValueValidator(1),MaxValueValidator(5)],null=True)
 
 # dailymioproducts
 
@@ -318,7 +324,8 @@ class dmio_productsmodel(models.Model):
     subcategory = models.TextField(null=True)
     product= models.JSONField(null=True)
     created_date=models.DateField(auto_now_add=True,null=True)
-    business_status=models.TextField(null=True)
+    business_status=models.TextField(default="golive",null=True)
+    rating=models.FloatField(validators=[MinValueValidator(1),MaxValueValidator(5)],null=True)
 
 #pharmacy products
 
@@ -330,7 +337,8 @@ class pharmacy_productsmodel(models.Model):
     subcategory = models.TextField(null=True)
     product= models.JSONField(null=True)
     created_date=models.DateField(auto_now_add=True,null=True)
-    business_status=models.TextField(null=True)
+    business_status=models.TextField(default="golive",null=True)
+    rating=models.FloatField(validators=[MinValueValidator(1),MaxValueValidator(5)],null=True)
 
 # d_originalproducts
     
@@ -343,7 +351,8 @@ class d_original_productsmodel(models.Model):
     product= models.JSONField(null=True)
     created_date=models.DateField(auto_now_add=True,null=True)
     district = models.TextField(null=True)
-    business_status=models.TextField(null=True)
+    business_status=models.TextField(default="golive",null=True)
+    rating=models.FloatField(validators=[MinValueValidator(1),MaxValueValidator(5)],null=True)
 
 
 
@@ -400,7 +409,11 @@ class Delivery_model(models.Model):
     user_otp=models.IntegerField(null=True)
     total_order_amount=models.TextField(null=True)
     has_withdrawn = models.BooleanField(default=False)
+    floating_status=models.BooleanField(default=False)
+    float_amount=models.TextField(null=True)
     notification_status=models.BooleanField(default=False,null=True)
+    emergency = models.BooleanField(default=0)
+
 
 class deliverylogintable_model(models.Model):
     today_date=models.DateField(auto_now_add=True,null=True)
@@ -412,11 +425,6 @@ class deliverylogintable_model(models.Model):
     delivery_status = models.TextField(null=True)
     delivery_type = models.TextField(null=True)
     region = models.TextField(null=True)
-
-
-
-
-
 
 
 # order table
@@ -448,7 +456,7 @@ class Product_Ordermodel(models.Model):
     expDate= orderdate + datetime.timedelta(days=7)
     expected_deliverydate=models.DateField(default=expDate,null=True)   
     delivery_date = models.DateField(null=True)
-    payment_status = models.TextField(null=True)
+    payment_status = models.TextField(default="",null=True)
     delivery_type= models.TextField(null=True)
     category_data = models.TextField(null=True)
     payment_type = models.TextField(null=True)
@@ -461,12 +469,15 @@ class Product_Ordermodel(models.Model):
     region =models.TextField(null=True)
     emergency_optional = models.TextField(null=True)
     distance = models.TextField(null=True)
-    business_pickup = models.BooleanField(null=True)
+    business_pickup = models.BooleanField(null=True,default=False)
     order_total=models.TextField(null=True)
     # business_status=models.TextField(null=True)
     incentive =models.TextField(null=True)
     ready_to_pick_up = models.BooleanField(default=0)
     ship_to_other_region = models.TextField(null=True)
+    float_cash = models.TextField(null=True)
+    admin_commission_amount=models.TextField(null=True)
+
     
     def save(self, *args, **kwargs):
         if self.status == 'delivered' and not self.delivery_date:
@@ -517,6 +528,7 @@ class Reviews(models.Model):
     comment=models.TextField(null=True)
     rating=models.FloatField(validators=[MinValueValidator(1),MaxValueValidator(5)])
     created_date = models.DateField(auto_now_add=True,null=True)
+    product_id=models.TextField(null=True)
     def __str__(self):
         return self.comment
 
@@ -549,11 +561,25 @@ class used_productsmodel(models.Model):
     created_date=models.DateField(auto_now_add=True,null=True)
 
 
-
 class Notification(models.Model):
+
     notify_id=models.TextField(null=True)
-    sender_id=models.TextField(null=True)
-    notify_message=models.TextField(null=True)
-    recever_id=models.TextField(null=True)
+    recipient = models.TextField(null=True)
+    # sender_id = models.ForeignKey(Businessmodel,on_delete=models.CASCADE,null=True)
+    sender_id =models.TextField(null=True)
+    message_title = models.TextField(null=True)
+    message_desc = models.TextField(null=True)
+    notify_date = models.DateField(auto_now_add=True)
     is_read=models.BooleanField(default=False,null=True)
-    notify_date=models.DateField(auto_now_add=True,null=True)
+
+# class Notification(models.Model):
+#     notify_id=models.TextField(null=True)
+#     sender_id=models.TextField(null=True)
+#     notify_message=models.TextField(null=True)
+#     recever_id=models.TextField(null=True)
+#     is_read=models.BooleanField(default=False,null=True)
+#     notify_date=models.DateField(auto_now_add=True,null=True)
+
+
+
+

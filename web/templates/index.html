@@ -68,33 +68,33 @@
                             <div class="slider-area">
                                 <div class="slider-active owl-carousel">
                                     <!-- Begin Single Slide Area -->
-                                    <div class="single-slide align-center-left  animation-style-01 bg-1">
+                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(/media/{{banner.banner1}});">
                                         <div class="slider-progress"></div>
-                                        <div class="slider-content">
+                                        {% comment %} <div class="slider-content">
                                             <h5>Sale Offer <span>-20% Off</span> This Week</h5>
                                             <h2>Chamcham Galaxy S9 | S9+</h2>
                                             <h3>Starting at <span>&#8377;1209.00</span></h3>
                                             <div class="default-btn slide-btn">
                                                 <a class="links" href="/shopproducts/shop_products">Shopping Now</a>
                                             </div>
-                                        </div>
+                                        </div> {% endcomment %}
                                     </div>
                                     <!-- Single Slide Area End Here -->
                                     <!-- Begin Single Slide Area -->
-                                    <div class="single-slide align-center-left animation-style-02 bg-2">
+                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(/media/{{banner.banner2}});">
                                         <div class="slider-progress"></div>
-                                        <div class="slider-content">
+                                        {% comment %} <div class="slider-content">
                                             <h5>Sale Offer <span>Black Friday</span> This Week</h5>
                                             <h2>Work Desk Surface Studio 2018</h2>
                                             <h3>Starting at <span>&#8377;824.00</span></h3>
                                             <div class="default-btn slide-btn">
                                                 <a class="links" href="/shopproducts/shop_products">Shopping Now</a>
                                             </div>
-                                        </div>
+                                        </div> {% endcomment %}
                                     </div>
                                     <!-- Single Slide Area End Here -->
                                     <!-- Begin Single Slide Area -->
-                                    <div class="single-slide align-center-left animation-style-01 bg-3">
+                                    {% comment %} <div class="single-slide align-center-left animation-style-01 bg-3">
                                         <div class="slider-progress"></div>
                                         <div class="slider-content">
                                             <h5>Sale Offer <span>-10% Off</span> This Week</h5>
@@ -104,7 +104,7 @@
                                                 <a class="links" href="/shopproducts/shop_products">Shopping Now</a>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> {% endcomment %}
                                     <!-- Single Slide Area End Here -->
                                 </div>
                             </div>
@@ -152,14 +152,14 @@
                                         <div class="single-product-wrap">
                                             <div class="product-image">
                                                 <a href="/shopproducts/shop_products/electronics">
-                                                {{key.product}}
+                                                
                                                     <img src="{% static 'images/product/large-size/1.jpg' %}" alt="Li's Product Image">
                                                 </a>
                                             </div>
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="single-product.html">Electronics</a></h1>
+                                                    <h1><a class="product_name" href="/shopproducts/shop_products/electronics">Electronics</a></h1>
                                                     
                                                 </div>
                                                 
@@ -178,7 +178,7 @@
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="/shopproducts/shop_products">Fashion</a></h1>
+                                                    <h1><a class="product_name" href="/shopproducts/shop_products/fashion">Fashion</a></h1>
                                                     
                                                 </div>
                                                 
@@ -197,7 +197,7 @@
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="/shopproducts/shop_products">Kitchen</a></h1>
+                                                    <h1><a class="product_name" href="/shopproducts/shop_products/kitchen">Kitchen</a></h1>
                                                     
                                                 </div>
                                                 
@@ -216,7 +216,7 @@
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="/shopproducts/shop_products">Appliances</a></h1>
+                                                    <h1><a class="product_name" href="/shopproducts/shop_products/appliances">Appliances</a></h1>
                                                     
                                                 </div>
                                                 
@@ -235,7 +235,7 @@
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="/shopproducts/shop_products">Mobiles</a></h1>
+                                                    <h1><a class="product_name" href="/shopproducts/shop_products/mobiles">Mobiles</a></h1>
                                                     
                                                 </div>
                                                 
@@ -254,7 +254,7 @@
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="/shopproducts/shop_products    ">Furniture</a></h1>
+                                                    <h1><a class="product_name" href="/shopproducts/shop_products/furniture">Furniture</a></h1>
                                                     
                                                 </div>
                                                 
@@ -274,7 +274,7 @@
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="/shopproducts/shop_products">Toys</a></h1>
+                                                    <h1><a class="product_name" href="/shopproducts/shop_products/toys">Toys</a></h1>
                                                     
                                                 </div>
                                                 
@@ -294,7 +294,7 @@
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="/shopproducts/shop_products">Sports & Fitness</a></h1>
+                                                    <h1><a class="product_name" href="/shopproducts/shop_products/sports_and_fitness">Sports & Fitness</a></h1>
                                                     
                                                 </div>
                                                 
@@ -314,7 +314,7 @@
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="/shopproducts/shop_products">Health Care</a></h1>
+                                                    <h1><a class="product_name" href="/shopproducts/shop_products/health_care">Health Care</a></h1>
                                                     
                                                 </div>
                                                 
@@ -333,7 +333,7 @@
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="/shopproducts/shop_products">Books</a></h1>
+                                                    <h1><a class="product_name" href="/shopproducts/shop_products/books">Books</a></h1>
                                                     
                                                 </div>
                                                 
@@ -352,7 +352,7 @@
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="/shopproducts/shop_products">Personal Care</a></h1>
+                                                    <h1><a class="product_name" href="/shopproducts/shop_products/personal_care">Personal Care</a></h1>
                                                     
                                                 </div>
                                                 
@@ -371,7 +371,7 @@
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="/shopproducts/shop_products">Pet Supplies</a></h1>
+                                                    <h1><a class="product_name" href="/shopproducts/shop_products/pet_supplies">Pet Supplies</a></h1>
                                                     
                                                 </div>
                                                 
@@ -390,7 +390,7 @@
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="/shopproducts/shop_products">Groceries</a></h1>
+                                                    <h1><a class="product_name" href="/shopproducts/shop_products/groceries">Groceries</a></h1>
                                                     
                                                 </div>
                                                 
@@ -409,7 +409,7 @@
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="/shopproducts/shop_products">Auto Accessories</a></h1>
+                                                    <h1><a class="product_name" href="/shopproducts/shop_products/auto_accessories">Auto Accessories</a></h1>
                                                     
                                                 </div>
                                                 
@@ -998,12 +998,13 @@
                             </div>
                             <div class="row">
                                 <div class="product-active owl-carousel">
+                                    {% for item in shop%}
                                     <div class="col-lg-12">
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="single-product.html">
-                                                    <img src="{% static 'images/product/large-size/1.jpg' %}" alt="Li's Product Image">
+                                                <a href="/shopproducts/single_products/{{item.product.shop_id}}/{{item.product.product_id}}">
+                                                    <img src="{{item.product.primary_image}}" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">New</span>
                                             </div>
@@ -1011,7 +1012,7 @@
                                                 <div class="product_desc_info">
                                                     <div class="product-review">
                                                         <h5 class="manufacturer">
-                                                            <a href="shop-left-sidebar.html">Graphic Corner</a>
+                                                            <a href="/shopproducts/shop_products/{{item.product.category}}">{{item.product.subcategory}}</a>
                                                         </h5>
                                                         <div class="rating-box">
                                                             <span>4.2</span>
@@ -1024,27 +1025,26 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <h4><a class="product_name" href="single-product.html">Accusantium dolorem1</a></h4>
+                                                    <h4><a class="product_name" href="/shopproducts/single_products/{{item.product.shop_id}}/{{item.product.product_id}}">{{item.product.model_name}}</a></h4>
                                                     <div class="price-box">
-                                                        <span class="new-price">&#8377;46.80</span>
+                                                        <span class="new-price">&#8377;{{item.product.selling_price}}</span>
                                                     </div>
                                                 </div>
                                                 <div class="add-actions">
                                                     <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
+                                                        <li class="add-cart active"><a href="/enduser/usersignin">Add to cart</a></li>
+                                                        <li><a class="links-details" href="/enduser/usersignin"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                    </ul>
+                                                    </ul>                                                
                                                    
-                                                    
-                                                    <button class="add-cart-button active" >Buy Now</button>
-                                                    
+                                                           
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
                                     </div>
-                                    <div class="col-lg-12">
+                                    {% endfor %}
+                                    {% comment %} <div class="col-lg-12">
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
@@ -1259,7 +1259,7 @@
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
-                                    </div>
+                                    </div> {% endcomment %}
                                 </div>
                             </div>
                         </div>
@@ -1286,6 +1286,7 @@
                             </div>
                             <div class="row">
                                 <div class="product-active owl-carousel">
+                        
                                     <div class="col-lg-12">
                                         <!-- single-product-wrap start -->
                                         <div class="single-product">
@@ -1328,6 +1329,7 @@
                                         </div>
                                         <!-- single-product-wrap end -->
                                     </div>
+                                
                                     <div class="col-lg-12">
                                         <!-- single-product-wrap start -->
                                         <div class="single-product">

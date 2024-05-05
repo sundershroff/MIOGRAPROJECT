@@ -242,7 +242,7 @@
                                                         <div class="col-sm-6 col-6">
                                                             <div class="dropdown">
                                                                 <button type="button"
-                                                                    class="btn btn-primary dropdown-toggle"
+                                                                    class="btn btn-primary dropdown-toggle mx-2"
                                                                     data-bs-toggle="dropdown">
                                                                     Customer Service
                                                                 </button>
@@ -259,28 +259,30 @@
                                                                 </ul>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-6 col-6">
+                                                        <!-- <div class="col-sm-6 col-6">
                                                             <div class="input">
                                                                 <input type="text" 
                                                                     style="border-radius: 10px; border-style:groove; border-color: rgb(183, 109, 253);">
                                                                 <button type="submit" class="btn btn-primary btn-sm">Click
                                                                     Me</button>
                                                             </div>
-                                                        </div>
+                                                        </div> -->
                                                         <div class="container" style="margin-top: 20px;">
                                                             <div id="add3"
-                                                                style="text-align: center; border: 1px solid black; padding: 100px;">
+                                                                style="text-align: center; padding: 100px;">
                                                                 <h2>Order Details</h2><br>
-                                                                <button type="submit" class="btn btn-success btn-lg"
+                                                                <form method="POST">
+                                                                <button type="button" style="margin-bottom: 5px;" class="btn btn-success btn-lg py-3"
                                                                     id="track">Track Me</button>
-                                                                <button type="submit" id="cencel" class="btn btn-danger btn-lg"
+                                                                <button type="button" id="cencel" class="btn btn-danger btn-lg"
                                                                     id="cencel">Cancel Order</button>
+                                                                </form>
                                                             </div>
                                                             <div id="otp" style="text-align: center; border: 1px solid black; padding: 100px;">
                                                                 <h1>OTP verification</h1>
                                                                 <form id="otp-form">
                                                                     <input type="text" id="otp-input"  style="border-radius: 10px; border-style:groove; border-color: rgb(183, 109, 253);">
-                                                                    <button type="submit" 
+                                                                    <button type="submit" style="margin-bottom: 10px;"
                                                                     class="btn btn-danger btn-sm">Verify OTP</button><br>
                                                                     <button type="submit" 
                                                                     class="btn btn-danger btn-sm" id="back">Back</button>
@@ -290,58 +292,67 @@
                                                                 style="text-align: center; border: 1px solid black; padding: 100px;">
                                                                 <h2>Tracking ID</h2><br>
                                                                 <input type="text" id="otp-input"  style="border-radius: 10px; border-style:groove; border-color: rgb(183, 109, 253);">
-                                                                <button type="submit" class="btn btn-success btn-sm "
+                                                                <button type="submit" style="margin-bottom: 5px;" class="btn btn-success btn-sm py-3"
                                                                     id="track2">Track</button><br>
-                                                                <button type="submit" id="back2" class="btn btn-danger btn-sm"
+                                                                <button type="button" id="back2" class="btn btn-danger btn-sm"
                                                                     id="cencel1">back</button>
                                                             </div>
                                                                 </div>
                                                             <div id="add1"
-                                                                style="text-align: center; border: 1px solid black; padding: 100px;">
+                                                                style="text-align: center; padding: 100px;">
                                                                 <h2>Product Details</h2>
-                                                                <input type="text" 
+                                                                <form method="POST">
+                                                                    {% csrf_token %}
+                                                                <input type="text" name="product_id"
                                                                     style="border-radius: 10px; border-style:groove; border-color: rgb(183, 109, 253);">
-                                                                <button type="submit" id="product"
+                                                                <button type="submit" name="product" id="product"
                                                                     class="btn btn-danger btn-sm">Click
                                                                     Me</button>
-                                                                <div class="tab-content" id="tpro">
+                                                                </form>
+                                                                <div class="tab-content" id="">
                                                                     <div class="container tab-pane active"><br>
                                                                         <div class="table-responsive">
                                                                             <table class="table">
                                                                                 <thead>
+                                                                                   
                                                                                     <tr>
                                                                                         <th> No </th>
-                                                                                        <th> Business Id </th>
                                                                                         <th> Shop Id </th>
                                                                                         <th> Product Id </th>
                                                                                         <th> Product Name </th>
+                                                                                        <th> Region </th>
                                                                                         <th> Created Date </th>
-                                                                                        <th> Edit </th>
-                                                                                        <th> Action </th>
+                                                                                        <!-- <th> Edit </th> -->
+                                                                                      
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
+                                                                                    {% if "Product Not Available" ==  product %}
+                                                                                    <p style="color: red;text-align: center;font-size">{{product}}</p>
+                                                                                    {% else %}
+                                                                                    {% for i in product %}
                                                                                     <tr>
                                                                                         <td>
-                                                                                            1
+                                                                                            {{forloop.counter}}
                                                                                         </td>
-                                                                                        <td> #12AWSE </td>
-                                                                                        <td>
-                                                                                            #Shop1234
-                                                                                        </td>
-                                                                                        <td> #12345 </td>
+                                                                                       
+                                                                                       
+                                                                                            <td> {{i.shop_id}}{{i.food_id}}{{i.fresh_id}}{{i.dmio_id}}{{i.pharm_id}}{{i.d_id}}{{i.jewel_id}} </td>
+
+                                                                                    
+                                                                                        <td> {{i.product_id}} </td>
                                                                                         <td
                                                                                             style="width: 15%;white-space: normal;">
-                                                                                            Redmi Note 9</td>
-                                                                                        <td>Feb,25,2024</td>
-                                                                                        <td> <i class='fa fa-edit'
+                                                                                            {{i.product.model_name}}</td>
+                                                                                            <td>{{i.region}}</td>
+                                                                                        <td>{{i.created_date}}</td>
+                                                                                        <!-- <td> <i class='fa fa-edit'
                                                                                                 style="font-size: 20px;color: #8B1874;"></i>
-                                                                                        </td>
-                                                                                        <td>
-
-                                                                                            <button type="submit"
-                                                                                                class="btn btn-primary btn-sm">resend</button>
+                                                                                        </td> -->
+                                                                                      
                                                                                     </tr>
+                                                                                    {% endfor %}
+                                                                                    {% endif %}
                                                                                 </tbody>
                                                                             </table>
                                                                         </div>
@@ -350,117 +361,122 @@
 
                                                             </div>
                                                             <div id="add2"
-                                                                style="text-align: center; border: 1px solid black; padding: 100px;">
+                                                                style="text-align: center; padding: 100px;">
                                                                 <h2>Business ID</h2>
-                                                                <input type="text" 
+                                                                <form method="POST">
+                                                                    {% csrf_token %}
+                                                                <input type="text" name="business_id"
                                                                     style="border-radius: 10px; border-style:groove; border-color: rgb(183, 109, 253);">
-                                                                <button type="submit" id="business"
+                                                                <button type="submit" name="business" id="business"
                                                                     class="btn btn-danger btn-sm">click me</button>
-                                                                <div class="tab-content" id="tbuss">
+                                                                </form>
+                                                                <div class="tab-content" id="">
                                                                     <div class="container tab-pane active"><br>
                                                                         <div class="table-responsive">
                                                                             <table class="table">
                                                                                 <thead>
+                                                                                  
                                                                                     <tr>
                                                                                         <th> No </th>
-                                                                                        <th> Business Id </th>
-                                                                                        <th> Shop Id </th>
-                                                                                        <th> Product Id </th>
-                                                                                        <th> Product Name </th>
+                                                                                        <th> Uid </th>
+                                                                                        <th> Name </th>
+                                                                                        <th> Email </th>
                                                                                         <th> Created Date </th>
-                                                                                        <th> Edit </th>
-                                                                                        <th> Action </th>
+                                                                                        <th> Phone Number </th>
+                                                                                        <!-- <th> Edit </th> -->
+                                                                                        <!-- <th> Action </th> -->
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
+                                                                                    {% if "User Not Available" ==  business %}
+                                                                                    <p style="color: red;text-align: center;font-size">{{business}}</p>
+                                                                                    {% else %}
+                                                                                    {% for i in business %}
                                                                                     <tr>
                                                                                         <td>
-                                                                                            1
+                                                                                            {{forloop.counter}}
                                                                                         </td>
-                                                                                        <td> #12AWSE </td>
+                                                                                        <td> {{i.uid}} </td>
                                                                                         <td>
-                                                                                            #Shop1234
+                                                                                          {{i.full_name}}
                                                                                         </td>
-                                                                                        <td> #12345 </td>
+                                                                                        <td> {{i.email}} </td>
                                                                                         <td
                                                                                             style="width: 15%;white-space: normal;">
-                                                                                            Redmi Note 9</td>
-                                                                                        <td>Feb,25,2024</td>
-                                                                                        <td> <i class='fa fa-edit'
+                                                                                           {{i.created_date}}</td>
+                                                                                        <td>{{i.phone_number}}</td>
+                                                                                        <!-- <td> <i class='fa fa-edit'
                                                                                                 style="font-size: 20px;color: #8B1874;"></i>
-                                                                                        </td>
-                                                                                        <td>
+                                                                                        </td> -->
+                                                                                        <!-- <td>
 
                                                                                             <button
                                                                                                 class="action_a">Accept</button>
                                                                                             <button
                                                                                                 class="action_r">Reject</button>
+                                                                                        </td> -->
                                                                                     </tr>
+                                                                                    {% endfor %}
+                                                                                    {% endif %}
                                                                                 </tbody>
                                                                             </table>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                    
-                                                        <div id="add"
-                                                            style="text-align: center; border: 1px solid black; padding: 100px;">
-                                                            <h2>Seller ID</h2>
-                                                            <input type="text"
-                                                                style="border-radius: 10px; border-style:groove; border-color: rgb(183, 109, 253);">
-                                                            <button type="submit" id="seller"
-                                                                class="btn btn-danger btn-sm">click me</button>
 
-                                                            <div class="tab-content" id="tsell">
+                                                        <div id="add"
+                                                            style="text-align: center; padding: 100px;">
+                                                            <h2>Seller ID</h2>
+                                                            <form method="POST">
+                                                                {% csrf_token %}
+                                                            <input type="text" name="seller_id"
+                                                                style="border-radius: 10px; border-style:groove; border-color: rgb(183, 109, 253);">
+                                                            <button type="submit" name="seller" id="seller"
+                                                                class="btn btn-danger btn-sm">click me</button>
+                                                            </form>
+                                                            <div class="tab-content" id="">
                                                                 <div class="container tab-pane active"><br>
                                                                     <div class="table-responsive">
                                                                         <table class="table">
                                                                             <thead>
                                                                                 <tr>
                                                                                     <th> No </th>
-                                                                                    <th> Business Id </th>
-                                                                                    <th> Store Id </th>
+                                                                                    <th> Shop Id </th>
+                                                                                    <th> Seller Name</th>
                                                                                     <th> store Name </th>
+                                                                                    <th> Region </th>
                                                                                     <th> Location </th>
+                                                                                    <th> Category</th>
                                                                                     <th> Mobile no</th>
 
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody>
+                                                                                {% if "Seller Not Available" ==  seller %}
+                                                                                <p style="color: red;text-align: center;font-size">{{seller}}</p>
+                                                                                {% else %}
+                                                                                {% for i in seller %}
                                                                                 <tr>
                                                                                     <td>
-                                                                                        1
+                                                                                        {{forloop.counter}}
                                                                                     </td>
-                                                                                    <td> #12AWSE </td>
+                                                                                    <td> {{i.shop_id}}{{i.food_id}}{{i.fresh_id}}{{i.dmio_id}}{{i.pharm_id}}{{i.d_id}}{{i.jewel_id}} </td>
                                                                                     <td>
-                                                                                        <a href="demo" rel="stylesheet">
-                                                                                            #Shop1234</a>
+                                                                                        <a href="" rel="stylesheet">
+                                                                                            {{i.name}}</a>
                                                                                     </td>
-                                                                                    <td> nilla </td>
+                                                                                    <td> {{i.business_name}} </td>
+                                                                                    <td> {{i.region}} </td>
                                                                                     <td
                                                                                         style="width: 15%;white-space: normal;">
-                                                                                        madurai</td>
-                                                                                    <td>9876543210</td>
+                                                                                        {{i.door_number}},{{i.street_name}},{{i.area}}</td>
+                                                                                        <td>{{i.category}}</td>
+                                                                                    <td>{{i.contact}}</td>
 
                                                                                 </tr>
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        2
-                                                                                    </td>
-                                                                                    <td> #12AWSE </td>
-                                                                                    <td>
-                                                                                        <a href="demo" rel="stylesheet">
-                                                                                            #Shop1234</a>
-                                                                                    </td>
-                                                                                    <td> aswin </td>
-                                                                                    <td
-                                                                                        style="width: 15%;white-space: normal;">
-                                                                                        <p>chennai </p>
-                                                                                    </td>
-                                                                                    <td>7890654321</td>
-
-                                                                                </tr>
-
+                                                                                {% endfor %}
+                                                                                {% endif %}
                                                                             </tbody>
                                                                         </table>
                                                                     </div>
@@ -484,6 +500,7 @@
                         </div>
 
 
+                       
 
 
                         {% include "admin_footer.html" %}
@@ -575,7 +592,36 @@
 
     });
 </script>
-
+{% if seller != "" %}
+<script>
+    $(document).ready(function(){
+       $("#add").show();
+   });
+   
+</script>
+{% else %}
+        
+{% endif %}
+{% if product != "" %}
+<script>
+    $(document).ready(function(){
+       $("#add1").show();
+   });
+   
+</script>
+{% else %}
+        
+{% endif %}
+{% if business != "" %}
+<script>
+    $(document).ready(function(){
+       $("#add2").show();
+   });
+   
+</script>
+{% else %}
+        
+{% endif %}
 
 </body>
 

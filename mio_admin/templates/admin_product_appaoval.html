@@ -227,7 +227,7 @@
                                 <!-- Delivery live trackibg -->
                                 <div class="dropdown">
                                   <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-                                    REGION
+                                    {{region_area}}
                                   </button>
                                   <form method="POST" class="dropdown-menu">
                                     {% csrf_token %}
@@ -258,7 +258,11 @@
                       <h4 class="card-title text-white">Todo</h4>
                       <div class="add-items px-2" style="margin-bottom: 0;">
                         
-                        <h2 id="orderlist">Product Approval List</h2>
+                        <h2 id="orderlist">Product Approval List
+
+                          <input type="text" name="filter" style="width: 30%;float: inline-end;padding: 8px;border-radius: 6px;font-size: 18px;" id="filter" placeholder="Type to Filter">
+
+                        </h2>
                       </div>
                       <div class="list-wrapper">
                         <div class="container mt-0">
@@ -292,7 +296,7 @@
                                 <div class="tab-content">
                                   <div id="SHOPPING" class="container tab-pane active"><br>
                                     <div class="table-responsive">
-                                      <table class="table">
+                                      <table class="table" id="dataTable">
                                         <thead>
                                           <tr>
                                             <th> No </th>
@@ -315,9 +319,9 @@
                                               {{i.shop_id}}
                                             </td>
                                             <td> {{i.product_id}} </td>
-                                            <td style="width: 15%;white-space: normal;"> {{i.product.name.0}}</td>
+                                            <td style="width: 15%;white-space: normal;"> {{i.product.name}}</td>
                                             <td>{{i.created_date}}</td>
-                                            <td> <a href="/admin/edit_product/{{i.product_id}}/{{i.category}}"><i class='fa fa-edit' style="font-size: 20px;color: #8B1874;"></i></a></td>
+                                            <td> <a href="/admin/edit_product/{{i.product_id}}/{{i.category}}/{{authenticate.username}}"><i class='fa fa-edit' style="font-size: 20px;color: #8B1874;"></i></a></td>
                                             <td>
                                               {% if i.status == "False"  %}
                                               <form method="POST">
@@ -396,9 +400,9 @@
                                               {{i.food_id}}
                                             </td>
                                             <td> {{i.product_id}} </td>
-                                            <td style="width: 15%;white-space: normal;"> {{i.product.name.0}}</td>
+                                            <td style="width: 15%;white-space: normal;"> {{i.product.name}}</td>
                                             <td>{{i.created_date}}</td>
-                                            <td> <a href="/admin/edit_product/{{i.product_id}}/{{i.category}}"><i class='fa fa-edit' style="font-size: 20px;color: #8B1874;"></i></a></td>
+                                            <td> <a href="/admin/edit_product/{{i.product_id}}/{{i.category}}/{{authenticate.username}}"><i class='fa fa-edit' style="font-size: 20px;color: #8B1874;"></i></a></td>
                                             <td>
                                               {% if i.status == "False"  %}
                                               <form method="POST">
@@ -482,9 +486,9 @@
                                               {{i.fresh_id}}
                                             </td>
                                             <td> {{i.product_id}} </td>
-                                            <td style="width: 15%;white-space: normal;"> {{i.product.name.0}}</td>
+                                            <td style="width: 15%;white-space: normal;"> {{i.product.name}}</td>
                                             <td>{{i.created_date}}</td>
-                                            <td> <a href="/admin/edit_product/{{i.product_id}}/{{i.category}}"><i class='fa fa-edit' style="font-size: 20px;color: #8B1874;"></i></a></td>
+                                            <td> <a href="/admin/edit_product/{{i.product_id}}/{{i.category}}/{{authenticate.username}}"><i class='fa fa-edit' style="font-size: 20px;color: #8B1874;"></i></a></td>
                                             <td>
                                               {% if i.status == "False"  %}
                                               <form method="POST">
@@ -567,9 +571,9 @@
                                               {{i.dmio_id}}
                                             </td>
                                             <td> {{i.product_id}} </td>
-                                            <td style="width: 15%;white-space: normal;"> {{i.product.name.0}}</td>
+                                            <td style="width: 15%;white-space: normal;"> {{i.product.name}}</td>
                                             <td>{{i.created_date}}</td>
-                                            <td> <a href="/admin/edit_product/{{i.product_id}}/{{i.category}}"><i class='fa fa-edit' style="font-size: 20px;color: #8B1874;"></i></a></td>
+                                            <td> <a href="/admin/edit_product/{{i.product_id}}/{{i.category}}/{{authenticate.username}}"><i class='fa fa-edit' style="font-size: 20px;color: #8B1874;"></i></a></td>
                                             <td>
                                               {% if i.status == "False"  %}
                                               <form method="POST">
@@ -652,9 +656,9 @@
                                               {{i.pharm_id}}
                                             </td>
                                             <td> {{i.product_id}} </td>
-                                            <td style="width: 15%;white-space: normal;"> {{i.product.name.0}}</td>
+                                            <td style="width: 15%;white-space: normal;"> {{i.product.name}}</td>
                                             <td>{{i.created_date}}</td>
-                                            <td> <a href="/admin/edit_product/{{i.product_id}}/{{i.category}}"><i class='fa fa-edit' style="font-size: 20px;color: #8B1874;"></i></a></td>
+                                            <td> <a href="/admin/edit_product/{{i.product_id}}/{{i.category}}/{{authenticate.username}}"><i class='fa fa-edit' style="font-size: 20px;color: #8B1874;"></i></a></td>
                                             <td>
                                               {% if i.status == "False"  %}
                                               <form method="POST">
@@ -738,9 +742,9 @@
                                               {{i.d_id}}
                                             </td>
                                             <td> {{i.product_id}} </td>
-                                            <td style="width: 15%;white-space: normal;"> {{i.product.name.0}}</td>
+                                            <td style="width: 15%;white-space: normal;"> {{i.product.name}}</td>
                                             <td>{{i.created_date}}</td>
-                                            <td> <a href="/admin/edit_product/{{i.product_id}}/{{i.category}}"><i class='fa fa-edit' style="font-size: 20px;color: #8B1874;"></i></a></td>
+                                            <td> <a href="/admin/edit_product/{{i.product_id}}/{{i.category}}/{{authenticate.username}}"><i class='fa fa-edit' style="font-size: 20px;color: #8B1874;"></i></a></td>
                                             <td>
                                               {% if i.status == "False"  %}
                                               <form method="POST">
@@ -826,9 +830,9 @@
                                               {{i.jewel_id}}
                                             </td>
                                             <td> {{i.product_id}} </td>
-                                            <td style="width: 15%;white-space: normal;"> {{i.product.name.0}}</td>
+                                            <td style="width: 15%;white-space: normal;"> {{i.product.name}}</td>
                                             <td>{{i.created_date}}</td>
-                                            <td> <a href="/admin/edit_product/{{i.product_id}}/{{i.category}}"><i class='fa fa-edit' style="font-size: 20px;color: #8B1874;"></i></a></td>
+                                            <td> <a href="/admin/edit_product/{{i.product_id}}/{{i.category}}/{{authenticate.username}}"><i class='fa fa-edit' style="font-size: 20px;color: #8B1874;"></i></a></td>
                                             <td>
                                               {% if i.status == "False"  %}
                                               <form method="POST">

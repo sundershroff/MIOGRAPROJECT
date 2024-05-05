@@ -1,0 +1,120 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+{% load static %}
+<!-- wishlist31:27-->
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Miogra</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- address.css -->
+       <link rel="stylesheet" href="{% static 'css/address.css' %}">
+       <!-- Favicon -->
+       <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/icon.jpeg' %}">
+       <!-- Material Design Iconic Font-V2.2.0 -->
+       <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
+       <!-- Font Awesome -->
+       <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+       <!-- Font Awesome Stars-->
+       <link rel="stylesheet" href="{% static 'css/fontawesome-stars.css' %}">
+       <!-- Meanmenu CSS -->
+       <link rel="stylesheet" href="{% static 'css/meanmenu.css' %}">
+       <!-- owl carousel CSS -->
+       <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+       <!-- Slick Carousel CSS -->
+       <link rel="stylesheet" href="{% static 'css/slick.css' %}">
+       <!-- Animate CSS -->
+       <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+       <!-- Jquery-ui CSS -->
+       <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
+       <!-- Venobox CSS -->
+       <link rel="stylesheet" href="{% static 'css/venobox.css' %}">
+       <!-- Nice Select CSS -->
+       <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
+       <!-- Magnific Popup CSS -->
+       <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+       <!-- Bootstrap V4.1.3 Fremwork CSS -->
+       <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+       <!-- Helper CSS -->
+       <link rel="stylesheet" href="{% static 'css/helper.css' %}">
+       <!-- Main Style CSS -->
+       <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+       <!-- Responsive CSS -->
+       <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+       <!-- Modernizr js -->
+       <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
+    </head>
+    <body>
+    <!--[if lt IE 8]>
+		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+	<![endif]-->
+        <!-- Begin Body Wrapper -->
+        <div class="body-wrapper">
+            <!-- Begin Header Area -->
+            {% include "enduser_header.html" %}
+            <!-- Header Area End Here -->
+            <!-- Begin Li's Breadcrumb Area -->
+            <div class="breadcrumb-area">
+                <div class="container-fluid">
+                    <div class="breadcrumb-content">
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li class="active">Address-form</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class='container address-form'>
+                <h1 class='text-center mt-4 mb-4'>Address Form</h1>
+                <form method="POST" id="myform">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="{{key.full_name}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="number">Number</label>
+                        <input type="number" class="form-control" id="number" placeholder="{{key.phone_number}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="altNumber">Alternative Number</label>
+                        <input type="number" class="form-control" name="altnumber" id="altNumber" placeholder="Enter Alternative Number">
+                    </div>
+                    <div class="form-group">
+                        <label for="pincode">Pincode</label>
+                        <input type="number" class="form-control" name="pincode" id="pincode" placeholder="Enter Pincode" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="doorNo">Door no/Flat no</label>
+                        <input type="text" class="form-control" name="doorno" id="doorNo" placeholder="Enter Door no/Flat no" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="area">Area/Colony/Road Name</label>
+                        <input type="text" class="form-control" name="area" id="area" placeholder="Enter Area/Colony/Road Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="landmark">Landmark</label>
+                        <input type="text" class="form-control" name="landmark" id="landmark" placeholder="Enter Landmark" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="place">Place</label>
+                        <input type="text" class="form-control" name="place" id="place" placeholder="Enter Place" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="district">District</label>
+                        <input type="text" class="form-control" name="district" id="district" placeholder="Enter District" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <input type="text" class="form-control" name="state" id="state" placeholder="Enter State" required>
+                    </div>
+                    <center><button type="submit" class="btn btn-purple mt-3 mb-4">Save Address</button></center>
+                </form>
+                
+            </div>
+        </div>
+        {% include "footer.html" %}
+    </body>
+</html>

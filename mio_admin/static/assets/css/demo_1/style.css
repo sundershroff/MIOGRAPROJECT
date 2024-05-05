@@ -15497,6 +15497,7 @@ code {
 .stretch-card > .card {
   width: 100%;
   min-width: 100%;
+  box-shadow: 0px 0px 1px black;
 }
 
 @media (min-width: 576px) {
@@ -20319,12 +20320,15 @@ dl li {
 /* Tables */
 .table, .jsgrid .jsgrid-table {
   margin-bottom: 0;
+  border: 1px inset lightgrey;
+    border-radius: 10px;
 }
 .table thead th, .jsgrid .jsgrid-table thead th {
   border-top: 0;
   border-bottom-width: 1px;
   font-family: "ubuntu-medium", sans-serif;
   font-weight: initial;
+  border: 1px solid lightgrey;
 }
 .table thead th i, .jsgrid .jsgrid-table thead th i {
   margin-left: 0.325rem;
@@ -20337,6 +20341,7 @@ dl li {
   line-height: 1;
   white-space: nowrap;
   padding: 0.9375rem;
+  border: 1px solid lightgray;
 }
 .table th img, .jsgrid .jsgrid-table th img,
 .table td img,
@@ -27016,7 +27021,7 @@ span.count_order {
 }
 span.delivery_key {
     display: inline-block;
-    width: 85px;
+    width: 119px;
     text-align: end;
 }
 span.delivery_value {

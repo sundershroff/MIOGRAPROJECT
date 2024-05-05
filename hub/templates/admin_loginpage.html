@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login</title>
+    <!-- Include Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+            /* Note: Ensure 'Poppins' font is properly imported */
+        }
+
+        body {
+            background-image: linear-gradient(rgba(8, 8, 41, 0.8),
+                    rgba(110, 110, 196, 0.8)),
+                url(images/pexels-photo-1519088.jpeg);
+            background-position: center;
+            background-size: cover;
+            color: #fff;
+            /* Set text color to white for better visibility */
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-box {
+            width: 90%;
+            max-width: 450px;
+            background-color: rgba(0, 0, 50, 0);
+            padding: 50px 60px 70px;
+            text-align: center;
+            border-radius: 10px;
+            /* Add border radius for better aesthetics */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            /* Add shadow for depth */
+        }
+
+
+        .form-box h1 {
+            font-size: 30px;
+            margin-bottom: 60px;
+            color: #14add3;
+            position: relative;
+        }
+
+        .form-box h1::after {
+            content: "";
+            width: 30px;
+            height: 4px;
+            border-radius: 3px;
+            background-color: #138cc4;
+            /* Use background-color instead of color */
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            /* Position the pseudo-element at 50% of its parent */
+            transform: translateX(-50%);
+            /* Translate it back by half its width to center it horizontally */
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            /* Add margin below the input group */
+        }
+
+        .input-field {
+            background-color: #eaeaea;
+            margin: 15px 0;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            max-height: 65px;
+            transition: max-height 0.5s;
+            overflow: hidden;
+        }
+
+        input {
+            width: 100%;
+            background: transparent;
+            border: 0;
+            outline: 0;
+            padding: 15px 15px;
+        }
+
+        form {
+            text-align: left;
+            font-size: 13px;
+        }
+
+        form p a {
+            text-decoration: none;
+            color: #6beb17;
+        }
+
+        .btn-field {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn-field button {
+            flex-basis: 48%;
+            background: #3c00a0;
+            color: #fff;
+            height: 40px;
+            border-radius: 20px;
+            border: 0;
+            outline: 0;
+            cursor: pointer;
+            transition: background 1s;
+        }
+
+        .btn-field button.disable {
+            background: #eaeaea;
+            color: #555;
+        }
+
+        .button-sumbmit {
+            position: relative;
+            margin-left: 100px;
+            margin-top: 12px;
+            padding-right: 40px;
+            padding-left: 40px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-radius: 30px;
+            border-style: none;
+            background-color: rgba(108, 137, 214, 0.856);
+            color: white;
+        }
+
+        .button-sumbmit:hover {
+            background-color: rgb(173, 13, 179);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" >
+        <div class="admin form-box" id="mk">
+            <p style="color: red;font-weight: 700;font-size: 24px;">{{error}}</p>
+            <h1 id="title">Admin</h1>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="input-group" id="main-1">
+                    <div class="input-field" id="namefield">
+                        <i class="fas fa-user"></i>
+                        <!-- Correct class for Font Awesome user icon -->
+                        <input type="text" name="username" placeholder="user name">
+                    </div>
+
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <!-- Correct class for Font Awesome lock icon -->
+                        <input type="password" name="password" placeholder="Password">
+                    </div>
+                    <div>
+                        <button type="submit" name="admin" class="button-sumbmit">Submit</button>
+                    </div>
+                </form>
+                </div>
+                <form method="POST">
+                    {% csrf_token %}
+                <div class="input-group" id="main-2" style="display: none;">
+                    <div class="input-field" id="namefield-1">
+                        <i class="fas fa-user"></i>
+
+                        <input type="text" name="username" placeholder="Username">
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+
+                        <input type="text" name="password" placeholder="password" id="password">
+                    </div>
+                    <div>
+                        <button type="submit" name="hub" class="button-sumbmit">Submit</button>
+                    </div>
+                </div>
+                <div class="btn-field">
+                    <button type="button" id="signupbtn">admin</button>
+                    <button type="button" class="disable" id="signinbtn" id="mh">Hub</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        signupbtn = document.getElementById("signupbtn");
+        signinbtn = document.getElementById("signinbtn");
+        namefield = document.getElementById("namefield");
+        title = document.getElementById("title");
+
+        signinbtn.onclick = function () {
+            // namefield.style.maxHeight="0";
+            title.innerText = "Hub"; // Change the title
+            signupbtn.classList.add("disable"); // Disable signup button
+            signinbtn.classList.remove("disable"); // Enable signin button
+
+        }
+        signupbtn.onclick = function () {
+            // namefield.style.maxHeight="50px";
+            title.innerText = "Admin"; // Change the title
+            signupbtn.classList.remove("disable"); // Disable signup button
+            signinbtn.classList.add("disable"); // Enable signin bu
+        }
+
+        $(document).ready(function () {
+            $("#signupbtn").click(function () {
+                $("#main-1").show();
+                $("#main-2").hide();
+            });
+            $("#signinbtn").click(function () {
+                $("#main-1").hide();
+                $("#main-2").show();
+            });
+        });
+    </script>
+
+</body>
+
+</html>

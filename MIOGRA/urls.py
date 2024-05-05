@@ -39,9 +39,14 @@ urlpatterns = [
     path('get_normalproduct_order/<id>/',business_views.get_normalproduct_order),
     path('get_allproducts_order/<id>/<str:prostatus>/',business_views.get_allproducts_order),
     path('business_status_pickedUp/<order_id>',business_views.business_status_pickedUp),
+    path('business_order_dispatch/<order_id>',business_views.business_order_dispatch),
     path('product_status_golivePause/<id>/<str:business_status>/',business_views.product_status_golivePause),
     path('businessnotify_status_true/<id>',business_views.businessnotify_status_true),
     path('business_notify_status_false/<id>',business_views.business_notify_status_false),
+    path('get_notification_data/<id>/',business_views.get_notification_data),
+    path('single_notify_delete/<id>/',business_views.single_notify_delete),
+    path('business_delete_all_notification/<id>/',business_views.business_delete_all_notification),
+
 # shopping
     path('shopping/<id>',business_views.shopping),
     path('shopping_alldata',business_views.shopping_alldata),
@@ -52,17 +57,23 @@ urlpatterns = [
     path('shop_total_revenue/<id>',business_views.shop_total_revenue),
     path('shop_mon_revenue/<id>',business_views.shop_mon_revenue),
     path('shop_orderstatus/<id>',business_views.shop_orderstatus),
+    path('update_product_order_status_reject/<id>/<product_id>/<order_id>/',business_views.update_product_order_status_reject),
+    path('update_product_order_status_accept/<id>/<product_id>/<order_id>/',business_views.update_product_order_status_accept),
+    
     # shop_product 
+
+
     path('shop_products/<id>',business_views.shop_products),
     path('shop_product_save/<id>',business_views.shop_product_save),
     path('shop_get_products/<id>',business_views.shop_get_products),
     path('shop_get_my_product/<id>/product/<product_id>',business_views.shop_get_my_product),
     path('shop_delete_product/<id>/product/<product_id>',business_views.shop_delete_product),
     path('shop_update_product/<id>/product/<product_id>',business_views.shop_update_product),
+    path('shop_imgupdate_product/<id>/<product_id>/<index_value>',business_views.shop_imgupdate_product),
     path('shop_productorder_date/<id>',business_views.shop_productorder_date),
     path('shop_get_subcategoryproducts/<id>/<str:subcategory>/',business_views.shop_get_subcategoryproducts),
-    path('update_product_order_status_reject/<id>/<product_id>/<order_id>/',business_views.update_product_order_status_reject),
-    path('update_product_order_status_accept/<id>/<product_id>/<order_id>/',business_views.update_product_order_status_accept),
+    path('dashboardproduct_count/<id>/',business_views.dashboardproduct_count),
+
 # jewellery
     path('jewellery/<id>',business_views.jewellery),
     path('jewellery_alldata',business_views.jewellery_alldata),
@@ -74,14 +85,17 @@ urlpatterns = [
     path('jewel_mon_revenue/<id>',business_views.jewel_mon_revenue),
     path('jewel_orderstatus/<id>',business_views.jewel_orderstatus),
     # jewellery_product gold
+
     path('jewel_products/<id>',business_views.jewel_products),
     path('jewel_product_save/<id>',business_views.jewel_product_save),
     path('jewel_get_products/<id>',business_views.jewel_get_products),
     path('jewel_get_my_product/<id>/product/<product_id>',business_views.jewel_get_my_product),
     path('jewel_delete_product/<id>/product/<product_id>',business_views.jewel_delete_product),
     path('jewel_update_product/<id>/product/<product_id>',business_views.jewel_update_product),
+    path('jewel_imgupdate_product/<id>/<product_id>/<index_value>',business_views.jewel_imgupdate_product),
     path('jewel_productorder_date/<id>',business_views.jewel_productorder_date),
     path('jewel_get_subcategoryproducts/<id>/<str:subcategory>/',business_views.jewel_get_subcategoryproducts),
+    
 # food
     path('food/<id>',business_views.food),
     path('food_alldata',business_views.food_alldata), 
@@ -99,8 +113,10 @@ urlpatterns = [
     path('food_get_my_product/<id>/product/<product_id>',business_views.food_get_my_product),
     path('food_delete_product/<id>/product/<product_id>',business_views.food_delete_product),
     path('food_update_product/<id>/product/<product_id>',business_views.food_update_product),
+    path('food_imgupdate_product/<id>/<product_id>/<index_value>',business_views.food_imgupdate_product),
     path('food_productorder_date/<id>',business_views.food_productorder_date),
     path('food_get_subcategoryproducts/<id>/<str:subcategory>/',business_views.food_get_subcategoryproducts),
+    path('restautant/review/<id>',business_views.add_review_restaurant),
 # freshcuts
     path('freshcuts/<id>',business_views.freshcuts),
     path('freshcuts_alldata',business_views.freshcuts_alldata),
@@ -118,6 +134,7 @@ urlpatterns = [
     path('fresh_get_my_product/<id>/product/<product_id>',business_views.fresh_get_my_product),
     path('fresh_delete_product/<id>/product/<product_id>',business_views.fresh_delete_product),
     path('fresh_update_product/<id>/product/<product_id>',business_views.fresh_update_product),
+    path('fresh_imgupdate_product/<id>/<product_id>/<index_value>',business_views.fresh_imgupdate_product),
     path('fresh_productorder_date/<id>',business_views.fresh_productorder_date),
     path('fresh_get_subcategoryproducts/<id>/<str:subcategory>/',business_views.fresh_get_subcategoryproducts),
 # dailymio
@@ -138,6 +155,7 @@ urlpatterns = [
     path('dmio_get_my_product/<id>/product/<product_id>',business_views.dmio_get_my_product),
     path('dmio_delete_product/<id>/product/<product_id>',business_views.dmio_delete_product),
     path('dmio_update_product/<id>/product/<product_id>',business_views.dmio_update_product),
+    path('dmio_imgupdate_product/<id>/<product_id>/<index_value>',business_views.dmio_imgupdate_product),
     path('dmio_productorder_date/<id>',business_views.dmio_productorder_date),
     path('dmio_get_subcategoryproducts/<id>/<str:subcategory>/',business_views.dmio_get_subcategoryproducts),
 # pharmacy
@@ -157,6 +175,7 @@ urlpatterns = [
     path('pharmacy_get_my_product/<id>/product/<product_id>',business_views.pharmacy_get_my_product),
     path('pharmacy_delete_product/<id>/product/<product_id>',business_views.pharmacy_delete_product),
     path('pharmacy_update_product/<id>/product/<product_id>',business_views.pharmacy_update_product),
+    path('pharm_imgupdate_product/<id>/<product_id>/<index_value>',business_views.pharm_imgupdate_product),
     path('pharmacy_productorder_date/<id>',business_views.pharmacy_productorder_date),
     path('pharmacy_get_subcategoryproducts/<id>/<str:subcategory>/',business_views.pharmacy_get_subcategoryproducts),
 # d_original
@@ -177,9 +196,10 @@ urlpatterns = [
     path('d_original_get_my_product/<id>/product/<product_id>',business_views.d_original_get_my_product),
     path('d_original_delete_product/<id>/product/<product_id>',business_views.d_original_delete_product),
     path('d_original_update_product/<id>/product/<product_id>',business_views.d_original_update_product),
+    path('d_original_imgupdate_product/<id>/<product_id>/<index_value>',business_views.d_original_imgupdate_product),
     path('d_original_productorder_date/<id>',business_views.d_original_productorder_date),
     path('d_original_get_subcategoryproducts/<id>/<str:subcategory>/',business_views.d_original_get_subcategoryproducts),
-
+    path('d_original_district_based_product/<str:district>/',business_views.dorigin_district_products_only),
 
 
 # ..............end_user........
@@ -196,7 +216,7 @@ urlpatterns = [
     path('update_end_user_address/<id>/',end_user_views.update_end_user_address),
     path('single_users_data/<id>',end_user_views.single_users_data),
     path('locationupdate/<id>',end_user_views.locationupdate),
-
+    path('user_product_order_status_return/<id>/<order_id>/',end_user_views.user_product_order_status_return),
 
 
     # before login
@@ -273,19 +293,26 @@ urlpatterns = [
     path('cartupdate/<id>',end_user_views.cartupdate),
     path('create_reviews_for_delivered_products/<id>/<product_id>/',end_user_views.create_reviews_for_delivered_products),
     path('get_all_reviews/',end_user_views.get_all_reviews),
+    path('get_product_all_reviews/<product_id>',end_user_views.get_product_all_reviews),
+    path('calculate_average_ratings/<str:category>',end_user_views.calculate_average_ratings),
 
     # whishlist
     path('whishlist_product/<id>/<product_id>/<str:category>/',end_user_views.whishlist_product),
     path('all_wishlist/<id>',end_user_views.all_wishlist),
     path('remove_wish/<id>/<product_id>/',end_user_views.remove_wish),
 
+    # timeline
+    path('user_product_timeline/<id>',end_user_views.user_product_timeline),
+
+
 # usedproducts
     path('used_products/<id>',end_user_views.used_products),
+    path('get_allused_products/',end_user_views.get_allused_products),
     path('get_used_products/<id>',end_user_views.get_used_products),
     path('get_single_used_products/<product_id>',end_user_views.get_single_used_products),
-    path('used_update_product/<id>/<product_id>',end_user_views.used_update_product),
-    path('get_allused_products/',end_user_views.get_allused_products),
     path('get_used_products_category/<str:subcategory>/',end_user_views.get_used_products_category),
+    path('user_single_used_products/<id>/<product_id>',end_user_views.user_single_used_products),
+    path('used_update_product/<id>/<product_id>',end_user_views.used_update_product),
 
 
 # # ..............enduser_web................
@@ -321,6 +348,10 @@ urlpatterns = [
     path('delivery_withdraw_status/<id>',delivery_views.delivery_withdraw_status),
     path('deliverynotify_status_true/<id>',delivery_views.deliverynotify_status_true),
     path('delivery_notify_status_false/<id>',delivery_views.delivery_notify_status_false),
+    path('delivery_floating_cash/<id>',delivery_views.delivery_floating_cash),
+    path('delivery_floating_status/<id>',delivery_views.delivery_floating_status),
+
+
 # notification
     path('delivery_notification/',delivery_views.delivery_notification),
     path('notification_data/<id>/',delivery_views.notification_data),

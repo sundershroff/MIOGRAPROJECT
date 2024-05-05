@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OTP Verification</title>
+<style>
+    /* body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+    } */
+    .otp-container {
+        text-align: center;
+    }
+    .otp-input {
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        margin: 0 5px;
+        font-size: 18px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        outline: none;
+    }
+    @media (max-width: 600px) {
+        .otp-input {
+            width: 30px;
+            height: 30px;
+            font-size: 14px;
+        }
+    }
+</style>
+</head>
+<body>
+<div class="otp-container">
+    <h2>Enter OTP</h2>
+    <form id="otpForm" method="POST">
+        {% csrf_token %}
+        <input type="text" maxlength="1" class="otp-input" name="otp" id="digit1" required>
+        <input type="text" maxlength="1" class="otp-input" name="otp" id="digit2" required>
+        <input type="text" maxlength="1" class="otp-input" name="otp" id="digit3" required>
+        <input type="text" maxlength="1" class="otp-input" name="otp" id="digit4" required><br><br>
+        <button type="submit" data-bs-toggle="modal" data-bs-target="#myModal" name="" id="" style="
+        padding: 10px;
+        width: 57%;
+        background-color: #8B1874;
+        color: white;
+        font-weight: 500;
+    ">VERIFY</button>
+     <h2 style="color: red;">{{pin}}</h2>
+    </form>
+   
+</div>
+<script>
+    $(document).ready(function(){
+        $('#otpForm').submit(function(event) {
+            // Prevent default form submission
+            event.preventDefault();
+    
+            // Serialize form data
+            var formData = $(this).serialize();
+    
+            // Send AJAX request
+            $.ajax({
+                type: 'POST',
+                url: 'http://127.0.0.1:3000/admin/delivery_boy_add/<add>', // Replace with your server-side script URL
+                data: formData,
+                success: function(response) {
+                    // Handle the response from the server
+                    // alert('Form submitted successfully!');
+                    // You can update UI or do anything with the response here
+                },
+                error: function(xhr, status, error) {
+                    // Handle errors
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    });
+    </script>
+
+<script>
+    // Automatically move focus to the next input field when a digit is entered
+    document.querySelectorAll('.otp-input').forEach(item => {
+        item.addEventListener('input', event => {
+            if (event.target.value.length >= 1) {
+                const index = Array.prototype.indexOf.call(item.parentElement.children, item);
+                if (index < 5) {
+                    item.parentElement.children[index + 1].focus();
+                }
+            }
+        });
+        item.addEventListener('keydown', event => {
+            if (event.key === 'Backspace') {
+                const index = Array.prototype.indexOf.call(item.parentElement.children, item);
+                if (index > 0) {
+                    item.parentElement.children[index - 1].focus();
+                    // item.parentElement.children[index - 1].focus();
+                }
+                
+            }
+        });
+    });
+</script>
+</body>
+</html>

@@ -125,8 +125,8 @@
          <!-- begin invoice-company -->
          <div class="invoice-company text-inverse f-w-600">
             <span class="pull-right hidden-print">
-            <a href="javascript:;" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-file t-plus-1 text-danger fa-fw fa-lg"></i> Export as PDF</a>
-            <a href="javascript:;" onclick="window.print()" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-print t-plus-1 fa-fw fa-lg"></i> Print</a>
+            <!-- <a href="javascript:;" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-file t-plus-1 text-danger fa-fw fa-lg"></i> Export as PDF</a>
+            <a href="javascript:;" onclick="window.print()" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-print t-plus-1 fa-fw fa-lg"></i> Print</a> -->
             </span>
             Miogra
          </div>
@@ -136,18 +136,18 @@
             <div class="invoice-from">
                <small>from</small>
                <address class="m-t-5 m-b-5">
-                  <strong class="text-inverse">{{i.shop_id.seller_name}}</strong><br>
-                  {{i.shop_id.door_number}}<br>
-                  {{i.shop_id.street_name}}<br>
-                  {{i.shop_id.region}}, {{i.shop_id.pin_number}}<br>
-                  Phone: (+91) {{i.shop_id.contact}}<br>
+                  <strong class="text-inverse">{{i.shop_id.seller_name}}{{i.jewel_id.seller_name}}{{i.d_id.seller_name}}</strong><br>
+                  {{i.shop_id.door_number}} {{i.jewel_id.door_number}} {{i.d_id.door_number}}<br>
+                  {{i.shop_id.street_name}}{{i.jewel_id.street_name}}{{i.d_id.street_name}}<br>
+                  {{i.shop_id.region}}{{i.jewel_id.region}}{{i.d_id.region}}, {{i.shop_id.pin_number}} {{i.jewel_id.pin_number}} {{i.d_id.pin_number}}<br>
+                  Phone: (+91) {{i.shop_id.contact}}{{i.jewel_id.contact}}{{i.d_id.contact}}<br>
                </address>
             </div>
             <div class="invoice-to">
                <small>to</small>
                <address class="m-t-5 m-b-5">
                   <strong class="text-inverse">{{i.end_user.full_name}}</strong><br>
-                  Street Address<br>
+                  {{i.delivery_address}}<br>
                   City, Zip Code<br>
                   Phone: (123) 456-7890<br>
                   Fax: (123) 456-7890
@@ -155,10 +155,12 @@
             </div>
             <div class="invoice-date">
                <small>Invoice</small>
-               <div class="date text-inverse m-t-5">August 3,2012</div>
+               <div class="date text-inverse m-t-5">{{i.order_date}}</div>
+               <small>Tracking Id</small>
                <div class="invoice-detail">
+              
                   {{i.track_id}}<br>
-                  Services Product
+                 
                </div>
             </div>
          </div>
@@ -170,39 +172,29 @@
                <table class="table table-invoice">
                   <thead>
                      <tr>
-                        <th>TASK DESCRIPTION</th>
-                        <th class="text-center" width="10%">RATE</th>
-                        <th class="text-center" width="10%">HOURS</th>
-                        <th class="text-right" width="20%">LINE TOTAL</th>
+                        <th>PRODUCT DESCRIPTION</th>
+                        <th class="text-center" width="10%">PRODUCT PRICE</th>
+                        <th class="text-center" width="10%">QUANTITY</th>
+                        <th class="text-right" width="20%">TOTAL</th>
                      </tr>
                   </thead>
                   <tbody>
                      <tr>
                         <td>
-                           <span class="text-inverse">Website design &amp; development</span><br>
+                           <span class="text-inverse">{{i.shop_product.product.model_name}}
+                            {{i.jewel_product.product.model_name}}
+                            {{i.d_original_product.product.model_name}}
+                            
+                            ({{i.shop_product.product.brand}} 
+                            {{i.jewel_product.product.brand}}
+                            {{i.d_original_product.product.brand}})
+                        
+                        </span><br>
                            <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id sagittis arcu.</small>
                         </td>
-                        <td class="text-center">₹50.00</td>
-                        <td class="text-center">50</td>
-                        <td class="text-right">₹2,500.00</td>
-                     </tr>
-                     <tr>
-                        <td>
-                           <span class="text-inverse">Branding</span><br>
-                           <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id sagittis arcu.</small>
-                        </td>
-                        <td class="text-center">₹50.00</td>
-                        <td class="text-center">40</td>
-                        <td class="text-right">₹2,000.00</td>
-                     </tr>
-                     <tr>
-                        <td>
-                           <span class="text-inverse">Redesign Service</span><br>
-                           <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id sagittis arcu.</small>
-                        </td>
-                        <td class="text-center">₹50.00</td>
-                        <td class="text-center">50</td>
-                        <td class="text-right">₹2,500.00</td>
+                        <td class="text-center">₹{{i.shop_product.product.selling_price}}{{i.jewel_product.product.selling_price}}{{i.d_original_product.product.selling_price}}</td>
+                        <td class="text-center">{{i.quantity}}</td>
+                        <td class="text-right">₹{{i.total_amount}}</td>
                      </tr>
                   </tbody>
                </table>
@@ -213,41 +205,41 @@
                <div class="invoice-price-left">
                   <div class="invoice-price-row">
                      <div class="sub-price">
-                        <small>SUBTOTAL</small>
-                        <span class="text-inverse">₹4,500.00</span>
+                        <!-- <small>SUBTOTAL</small> -->
+                        <!-- <span class="text-inverse">₹4,500.00</span> -->
                      </div>
                      <div class="sub-price">
-                        <i class="fa fa-plus text-muted"></i>
+                        <!-- <i class="fa fa-plus text-muted"></i> -->
                      </div>
                      <div class="sub-price">
-                        <small>PAYPAL FEE (5.4%)</small>
-                        <span class="text-inverse">₹108.00</span>
+                        <!-- <small>PAYPAL FEE (5.4%)</small>
+                        <span class="text-inverse">₹108.00</span> -->
                      </div>
                   </div>
                </div>
                <div class="invoice-price-right">
-                  <small>TOTAL</small> <span class="f-w-600">₹4508.00</span>
+                  <small>TOTAL</small> <span class="f-w-600">₹{{i.total_amount}}</span>
                </div>
             </div>
             <!-- end invoice-price -->
          </div>
          <!-- end invoice-content -->
          <!-- begin invoice-note -->
-         <div class="invoice-note">
+         <!-- <div class="invoice-note">
             * Make all cheques payable to Miogra<br>
-            <!-- * Payment is due within 30 days<br> -->
+   
             * If you have any questions concerning this invoice, contact  [Name, Phone Number, Email]
-         </div>
+         </div> -->
          <!-- end invoice-note -->
          <!-- begin invoice-footer -->
          <div class="invoice-footer">
             <p class="text-center m-b-5 f-w-600">
-               THANK YOU FOR YOUR BUSINESS
+               THANK YOU FOR YOUR PURCHASE
             </p>
             <p class="text-center">
-               <span class="m-r-10"><i class="fa fa-fw fa-lg fa-globe"></i> example.com</span>
-               <span class="m-r-10"><i class="fa fa-fw fa-lg fa-phone-volume"></i> T:016-18192302</span>
-               <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i> example@gmail.com</span>
+               <span class="m-r-10"><i class="fa fa-fw fa-lg fa-globe"></i> miogra.com</span>
+               <span class="m-r-10"><i class="fa fa-fw fa-lg fa-phone-volume"></i> +91 </span>
+               <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i> miogra@gmail.com</span>
             </p>
          </div>
          <!-- end invoice-footer -->

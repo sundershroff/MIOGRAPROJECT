@@ -1,119 +1,166 @@
         <!-- partial:partials/_sidebar.html -->
         <nav class="sidebar sidebar-offcanvas" id="sidebar" >
-            <ul class="nav" style="position: fixed;width: inherit;">
+            <ul class="nav" style="position: fixed;width: inherit;height: 100%;">
+              {% if 'Home' in access_priveleges %}
               <li class="nav-item">
-                  <a class="nav-link" href="/admin_index/">
-                    <span class="menu-title">Home</span>
-                    <i class="mdi mdi-home menu-icon"></i>
-                  </a>
-                </li>
+                
+                <a class="nav-link" href="/admin_index/{{authenticate.username}}">
+                  <span class="menu-title">Home</span>
+                  <i class="mdi mdi-home menu-icon"></i>
+                </a>
+              </li>
+              {% endif %}
+              {% if 'Dashboard' in access_priveleges %}
               <li class="nav-item">
-                <a class="nav-link" href="/admin_dashboard/">
+                <a class="nav-link" href="/admin_dashboard/{{authenticate.username}}">
                   <span class="menu-title">Dashboard</span>
                   <i class="mdi mdi-home menu-icon"></i>
                 </a>
               </li>
+              {% endif %}
+              {% if 'Store_Details' in access_priveleges %}
               <li class="nav-item">
-                  <a class="nav-link" href="/admin_product_details/">
-                    <span class="menu-title">Store Details</span>
-                    <i class="mdi mdi-home menu-icon"></i>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/admin_order_details/">
-                    <span class="menu-title">Order Details</span>
-                    <i class="mdi mdi-home menu-icon"></i>
-                  </a>
-                </li>
-                <!-- <li class="nav-item">
-                  <a class="nav-link" href="">
-                    <span class="menu-title">Invoice Details</span>
-                    <i class="mdi mdi-home menu-icon"></i>
-                  </a>
-                </li> -->
-                <li class="nav-item">
-                  <a class="nav-link" href="/admin_banner/">
-                    <span class="menu-title">Banner</span>
-                    <i class="mdi mdi-home menu-icon"></i>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/admin_customer_service/">
-                    <span class="menu-title">Customer Service</span>
-                    <i class="mdi mdi-home menu-icon"></i>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/admin_product_appaoval/">
-                    <span class="menu-title">Product Appaoval</span>
-                    <i class="mdi mdi-home menu-icon"></i>
-                  </a>
-                </li>
-              
-                <li class="nav-item">
-                  <div class="dropdown">
-                      <span class="nav-link" data-bs-toggle="dropdown">
-                          HUB <i class="mdi mdi-home menu-icon"></i>
-                      </span>
-                      <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="/admin_hub_details/">ADD</a></li>
-                          <li><a class="dropdown-item" href="/admin_hub_menu1/">MENU</a></li>
-                      </ul>
-                  </div>
+                <a class="nav-link" href="/admin_product_details/{{authenticate.username}}">
+                  <span class="menu-title">Store Details</span>
+                  <i class="mdi mdi-home menu-icon"></i>
+                </a>
               </li>
+              {% endif %}
+              {% if 'Order_Details' in access_priveleges %}
+              <li class="nav-item">
+                <a class="nav-link" href="/admin_order_details/{{authenticate.username}}">
+                  <span class="menu-title">Order Details</span>
+                  <i class="mdi mdi-home menu-icon"></i>
+                </a>
+              </li>
+              {% endif %}
+              {% if 'Banner' in access_priveleges %}
+              <li class="nav-item">
+                <a class="nav-link" href="/admin_banner/{{authenticate.username}}">
+                  <span class="menu-title">Banner</span>
+                  <i class="mdi mdi-home menu-icon"></i>
+                </a>
+              </li>
+              {% endif %}
+              {% if 'Custom_Service' in access_priveleges %}
+              <li class="nav-item">
+                <a class="nav-link" href="/admin_customer_service/{{authenticate.username}}">
+                  <span class="menu-title">Customer Service</span>
+                  <i class="mdi mdi-home menu-icon"></i>
+                </a>
+              </li>
+              {% endif %}
+              {% if 'Product_Approval' in access_priveleges %}
+              <li class="nav-item">
+                <a class="nav-link" href="/admin_product_appaoval/{{authenticate.username}}">
+                  <span class="menu-title">Product Appaoval</span>
+                  <i class="mdi mdi-home menu-icon"></i>
+                </a>
+              </li>
+              {% endif %}
+              {% if 'Hub' in access_priveleges %}
+              <li class="nav-item">
+                <div class="dropdown">
+                    <span class="nav-link" data-bs-toggle="dropdown">
+                        HUB <i class="mdi mdi-home menu-icon"></i>
+                    </span>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/admin_hub_details/{{authenticate.username}}">ADD</a></li>
+                        <li><a class="dropdown-item" href="/admin_hub_menu1/{{authenticate.username}}">MENU</a></li>
+                    </ul>
+                </div>
+            </li>
+            {% endif %}
+              {% if 'User' in access_priveleges %}
+              <li class="nav-item">
+                <div class="dropdown">
+                  <span class="nav-link" data-bs-toggle="dropdown">
+                      USER <i class="mdi mdi-home menu-icon"></i>
+                  </span>
+                    <ul class="dropdown-menu" >
+                      <li><a class="dropdown-item" href="/admin_user_add/{{authenticate.username}}">ADD</a></li>
+                      <li><a class="dropdown-item" href="/admin_user_menu/{{authenticate.username}}">MANU</a></li>
+                      
+                    </ul>
+                  </div></li>
+                  {% endif %}
+              {% if 'Customer' in access_priveleges %}
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/customer/{{authenticate.username}}">
+                  <span class="menu-title">customer</span>
+                  <i class="mdi mdi-home menu-icon"></i>
+                </a>
+              </li>
+              {% endif %}
+              {% if 'Delivery_Boy' in access_priveleges %}
+              <li class="nav-item">
+                <div class="dropdown">
+                  <span class="nav-link" data-bs-toggle="dropdown">
+                      deliveryBoy <i class="mdi mdi-home menu-icon"></i>
+                  </span>
+                    <ul class="dropdown-menu" >
+                      <li><a class="dropdown-item" href="/admin/delivery_boy_add/add/{{authenticate.username}}">ADD</a></li>
+                      <li><a class="dropdown-item" href="/admin/delivery_boy_manage/{{authenticate.username}}">MANU</a></li>
+                      
+                    </ul>
+                  </div></li>
+                  {% endif %}
+              {% if 'Delivery_Commision' in access_priveleges %}
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/delivery_Commision/{{authenticate.username}}">
+                  <span class="menu-title">Delivery Commision</span>
+                  <i class="mdi mdi-home menu-icon"></i>
+                </a>
+              </li>
+              {% endif %}
+              {% if 'business_Commision' in access_priveleges %}
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/business_Commision/{{authenticate.username}}">
+                  <span class="menu-title">Business Commision</span>
+                  <i class="mdi mdi-home menu-icon"></i>
+                </a>
+              </li>
+              {% endif %}
+              {% if 'Shut_Down' in access_priveleges %}
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/shutdown/{{authenticate.username}}">
+                  <span class="menu-title">shutdown</span>
+                  <i class="mdi mdi-home menu-icon"></i>
+                </a>
+              </li>
+              {% endif %} 
+              {% if 'Zone' in access_priveleges %}
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/zone/{{authenticate.username}}">
+                  <span class="menu-title">Zone</span>
+                  <i class="mdi mdi-home menu-icon"></i>
+                </a>
+              </li> 
+              {% endif %}
+              {% if 'Hsn' in access_priveleges %}
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/hsn/{{authenticate.username}}">
+                  <span class="menu-title">Hsn</span>
+                  <i class="mdi mdi-home menu-icon"></i>
+                </a>
+              </li> 
+              {% endif %}
               
-                  <li class="nav-item">
-                    <div class="dropdown">
-                      <span class="nav-link" data-bs-toggle="dropdown">
-                          USER <i class="mdi mdi-home menu-icon"></i>
-                      </span>
-                        <ul class="dropdown-menu" >
-                          <li><a class="dropdown-item" href="/admin_user_add/">ADD</a></li>
-                          <li><a class="dropdown-item" href="/admin_user_menu/">MANU</a></li>
+              
+              
+               
+               
+               
+              
+                
+              
+                  
+                     
+                     
+                         
+                         
+                         
                           
-                        </ul>
-                      </div></li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="/admin/customer/">
-                          <span class="menu-title">customer</span>
-                          <i class="mdi mdi-home menu-icon"></i>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <div class="dropdown">
-                          <span class="nav-link" data-bs-toggle="dropdown">
-                              deliveryBoy <i class="mdi mdi-home menu-icon"></i>
-                          </span>
-                            <ul class="dropdown-menu" >
-                              <li><a class="dropdown-item" href="/admin/delivery_boy_add/">ADD</a></li>
-                              <li><a class="dropdown-item" href="/admin/delivery_boy_manage/">MANU</a></li>
-                              
-                            </ul>
-                          </div></li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="/admin/delivery_Commision/">
-                              <span class="menu-title">Delivery Commision</span>
-                              <i class="mdi mdi-home menu-icon"></i>
-                            </a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="/admin/business_Commision/">
-                              <span class="menu-title">Business Commision</span>
-                              <i class="mdi mdi-home menu-icon"></i>
-                            </a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="/admin/shutdown/">
-                              <span class="menu-title">shutdown</span>
-                              <i class="mdi mdi-home menu-icon"></i>
-                            </a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="/admin/zone/">
-                              <span class="menu-title">Zone</span>
-                              <i class="mdi mdi-home menu-icon"></i>
-                            </a>
-                          </li>
         
             </ul>
           </nav>

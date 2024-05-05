@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Miogra</title>
+     <!-- Favicon -->
+     <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/icon.jpeg' %}">
+     <!-- Material Design Iconic Font-V2.2.0 -->
+     <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
+     <!-- Font Awesome -->
+     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+     <!-- Font Awesome Stars-->
+     <link rel="stylesheet" href="{% static 'css/fontawesome-stars.css' %}">
+     <!-- Meanmenu CSS -->
+     <link rel="stylesheet" href="{% static 'css/meanmenu.css' %}">
+     <!-- owl carousel CSS -->
+     <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+     <!-- Slick Carousel CSS -->
+     <link rel="stylesheet" href="{% static 'css/slick.css' %}">
+     <!-- Animate CSS -->
+     <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+     <!-- Jquery-ui CSS -->
+     <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
+     <!-- Venobox CSS -->
+     <link rel="stylesheet" href="{% static 'css/venobox.css' %}">
+     <!-- Nice Select CSS -->
+     <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
+     <!-- Magnific Popup CSS -->
+     <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+     <!-- Bootstrap V4.1.3 Fremwork CSS -->
+     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+     <!-- Helper CSS -->
+     <link rel="stylesheet" href="{% static 'css/helper.css' %}">
+     <!-- Main Style CSS -->
+     <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+     <!-- Responsive CSS -->
+     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+     <!-- Modernizr js -->
+     <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
+
+    <link rel="stylesheet" href="{% static 'css/track.css' %}">
+</head>
+
+<body>
+    <div class="container px-1 px-md-4 py-5 mx-auto">
+        <div class="card">
+            <div class="row d-flex justify-content-between px-3 top">
+                <div class="d-flex">
+                    <h5>ORDER <span class="text-primary font-weight-bold">#{{order.order_id}}</span></h5>
+                </div>
+                <div class="d-flex flex-column text-sm-right">
+                    <p class="mb-0">Expected Arrival <span>{{order.expected_deliverydate}}</span></p>
+                    <p>USPS <span class="font-weight-bold">234094567242423422898</span></p>
+                </div>
+            </div>
+            <!-- Add class 'active' to progress -->
+            <div class="row d-flex justify-content-center">
+                {% if order.status == "cancelled" %}
+                <h2> Order Cancelled</h2>
+                {% else %}
+                {% endif %}
+                <div class="col-12">
+                    {% if order.status == "accepted" %}
+                    <ul id="progressbar" class="text-center">
+                        <li class="step0 one active"></li>
+                        <li class="step0 two"></li>
+                        <li class="step0 three"></li>
+                        <li class="step0 four"></li>
+                    </ul>
+                    {% elif order.status == "order_confirmed" %}
+                    <ul id="progressbar" class="text-center">
+                        <li class="step0 one active"></li>
+                        <li class="step0 two active"></li>
+                        <li class="step0 three"></li>
+                        <li class="step0 four"></li>
+                    </ul>
+                    {% elif order.status == "order_picked"%}
+                    <ul id="progressbar" class="text-center">
+                        <li class="step0 one active"></li>
+                        <li class="step0 two active"></li>
+                        <li class="step0 three active"></li>
+                        <li class="step0 four"></li>
+                    </ul>
+                    {% elif order.status == "delivered"%}
+                    <ul id="progressbar" class="text-center">
+                        <li class="step0 one active"></li>
+                        <li class="step0 two active"></li>
+                        <li class="step0 three active"></li>
+                        <li class="step0 four active"></li>
+                    </ul>
+                    {% else %}
+                    <ul id="progressbar" class="text-center">
+                        <li class="step0 one"></li>
+                        <li class="step0 two"></li>
+                        <li class="step0 three"></li>
+                        <li class="step0 four"></li>
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row justify-content-between top" >
+                <div class="col-lg-3 col-md-6 col-sm-6" >
+                    <div class="row d-flex icon-content icon-column">
+                        <div class="d-flex flex-column">
+                        <img class="icon" src="https://i.imgur.com/9nnc9Et.png">
+                       
+                            <p class="font-weight-bold">Order<br>Processed</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6" style="padding-left: 50px;">
+                    <div class="row d-flex icon-content icon-column">
+                        <div class="d-flex flex-column">
+                        <img class="icon" src="https://i.imgur.com/u1AzR7w.png">
+                        
+                            <p class="font-weight-bold">Order<br>Shipped</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6" style="padding-left: 115px;">
+                    <div class="row d-flex icon-content icon-column">
+                        <div class="d-flex flex-column">
+                        <img class="icon" src="https://i.imgur.com/TkPm63y.png">
+                       
+                            <p class="font-weight-bold">Order<br>En Route</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6"style="padding-left: 148px;">
+                    <div class="row d-flex icon-content icon-column">
+                        <div class="d-flex flex-column">
+                        <img class="icon" src="https://i.imgur.com/HdsziHP.png">
+                        
+                            <p class="font-weight-bold">Order<br>Arrived</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const steps = document.querySelectorAll('#progressbar li');
+
+        // Add click event listeners to each step
+        steps.forEach((step, index) => {
+            step.addEventListener('click', () => {
+                // Remove 'active' class from all steps
+                steps.forEach((s, i) => {
+                    if (i <= index) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+    <!-- jQuery-V1.12.4 -->
+    <script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
+    <!-- Popper js -->
+    <script src="{% static 'js/vendor/popper.min.js' %}"></script>
+    <!-- Bootstrap V4.1.3 Fremwork js -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- Ajax Mail js -->
+    <script src="{% static 'js/ajax-mail.js' %}"></script>
+    <!-- Meanmenu js -->
+    <script src="{% static 'js/jquery.meanmenu.min.js' %}"></script>
+    <!-- Wow.min js -->
+    <script src="{% static 'js/wow.min.js' %}"></script>
+    <!-- Slick Carousel js -->
+    <script src="{% static 'js/slick.min.js' %}"></script>
+    <!-- Owl Carousel-2 js -->
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <!-- Magnific popup js -->
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <!-- Isotope js -->
+    <script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
+    <!-- Imagesloaded js -->
+    <script src="{% static 'js/imagesloaded.pkgd.min.js' %}"></script>
+    <!-- Mixitup js -->
+    <script src="{% static 'js/jquery.mixitup.min.js' %}"></script>
+    <!-- Countdown -->
+    <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+    <!-- Counterup -->
+    <script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+    <!-- Waypoints -->
+    <script src="{% static 'js/waypoints.min.js' %}"></script>
+    <!-- Barrating -->
+    <script src="{% static 'js/jquery.barrating.min.js' %}"></script>
+    <!-- Jquery-ui -->
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <!-- Venobox -->
+    <script src="{% static 'js/venobox.min.js' %}"></script>
+    <!-- Nice Select js -->
+    <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+    <!-- ScrollUp js -->
+    <script src="{% static 'js/scrollUp.min.js' %}"></script>
+    <!-- Main/Activator js -->
+    <script src="{% static 'js/main.js' %}"></script> 
+</body>
+</html>

@@ -201,12 +201,44 @@
                 </ul>
               </nav> -->
             </div>
+            
 <div class="row">
+  
 <!-- Delivery live trackibg -->
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
                 <h4 class="card-title text-white">Todo</h4>
+                <div class="row my-5">
+                  <!-- Delivery live trackibg -->
+                  <div class="dropdown">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                      {{region_area}}
+                    </button>
+                    <form method="POST" class="dropdown-menu">
+                      {% csrf_token %}
+                    <select name="region_select" style="
+                    width: 100%;
+                    height: 100%;
+                    border: 0px;
+                " onchange="this.form.submit()">
+                <option value="">Select</option>
+                      <option value="nagercoil">Nagercoil</option>
+                      <option value="kanniyakumari">Kanyakumari</option>
+                      <option value="thuckalay">Tuckalay</option>
+                      <option value="marthandam">Marthandam</option>
+                      <option value="karungal">Karungal</option>
+                      <option value="nithiravilai">Nithiravilai</option>
+                    </select>
+                    <script>
+
+                    </script>
+                  </form>
+                  <!-- <input type="text" name="filter" style="width: 30%;float: inline-end;" id="search" placeholder="Type to Filter"> -->
+
+                  </div>
+                </div>
+
 				<div class="row">
 					<div class="col-md-4 py-2">
 						<div class="deliviry man widget px-2 py-2">
@@ -214,83 +246,43 @@
 							<p style="
 							font-size: 30px;
 							font-weight: 700;
-						">100</p>
+						">{{quick_delivery|length}}</p>
 						</div>
 					</div>
 					<div class="col-md-4 py-2">
 						<div class="deliviry man widget2 px-2 py-2">
-							<h2>Total Delivery Man</h2>
+							<h2>Online Delivery Man</h2>
 							<p style="
 							font-size: 30px;
 							font-weight: 700;
-						">50</p>
+						">{{delivery_online|length}}</p>
 						</div>
 					</div>
 					<div class="col-md-4 py-2">
 						<div class="deliviry man widget3 px-2 py-2">
-							<h2>Total Delivery Man</h2>
+							<h2>Offline Delivery Man</h2>
 							<p style="
 							font-size: 30px;
 							font-weight: 700;
-						">50</p>
+						">{{delivery_offline|length}}</p>
 						</div>
 					</div>
 
 				</div>
-                <div class="add-items">
+                <!-- <div class="add-items">
                   <h2>Delivery Status</h2>
                   <input type="text" class="form-control todo-list-input" placeholder="District"><br>
                   <input type="text" class="form-control todo-list-input" placeholder="Local Area"><br>
                   <button class="add btn btn-gradient-primary font-weight-bold todo-list-add-btn" style="margin-left: 0px;" id="add-task">Search</button>
-                </div>
+                </div> -->
                 <div class="list-wrapper">
                   <ul class="d-flex flex-column todo-list todo-list-custom" style="row-gap: 5px;">
-                    <span style="color:red"><span style="height: 12px;width: 12px;background-color: red;border-radius: 50%;display: inline-block;"></span >&nbsp;&nbsp;On-Delivery</span>
-                    <li class="delivery_boy_list px-2 py-2">
-                        <div class="row" style="
-                        align-items: ;
-                        width: -webkit-fill-available;
-                        text-align: center;
-                    ">
-                            <div class="col-lg-6 col-md-12">
-                              <div class="row" style="align-items: center;justify-content: center;">
-                                <div class="col-lg-2">1</div>
-                                <div class="col-lg-10">
-                                  <a href="/delivery_user_detail.html" style="text-decoration: none;">
-                                  <div class="row">
-                                <p style="display: flex;justify-content: center;"><span class="key">Name:</span><span class="value">A.Sunderavel</span></p>
-                              </div>
-                              <div class="row">
-                                <p style="display: flex;justify-content: center;"><span class="key">Id:</span><span class="value">12WES23</span></p>
-                              </div>
-                            </a>
-                              </div>                          
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-12"> 
-                                  <div class="row" style="row-gap: 15px;align-items: center;justify-content: center;height: 100%;">
-                                    <div class="col-lg-5 col-md-12"><img src="./assets/images/siren.png" style="width: 35px;opacity: 50%;" alt=""></div>
-                                        <div class="col-lg-5 col-md-12" style="text-align: center;">
-                                          <div class="row" style="justify-content: center;">
-                                          ₹2000
-                                        </div>
-                                        </div>
-                                        <div class="col-lg-2 col-md-12">
-                                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" 
-                                          style="border: 0px solid white;background-color: transparent;color: black;/* margin-left: -20px; */display: contents;"> <i class="fa fa-ellipsis-v" style="font-size: 20px;"></i></button>                   
-                                          </div>
-                          
-                                </div>
-                                
-                                
-                            </div>
-                        </div>
-                     
-                    </li>
-                    <span style="color:green"><span style="height: 12px;width: 12px;background-color: green;border-radius: 50%;display: inline-block;"></span >&nbsp;&nbsp;Free</span>
-                    <li class="delivery_boy_list px-2 py-2">
+                 
+                    {% for i in delivery_online %}
+                    <span style="color:green"><span style="height: 12px;width: 12px;background-color: green;border-radius: 50%;display: inline-block;"></span >&nbsp;&nbsp;Online</span>
+                    <li id="item" class="delivery_boy_list px-2 py-2">
                       <div class="row" style="
-                      align-items: ;
+                     
                       width: -webkit-fill-available;
                       text-align: center;
                   ">
@@ -299,24 +291,38 @@
                               <div class="col-lg-2">2</div>
                               <div class="col-lg-10">
                                 <div class="row">
-                              <p style="display: flex;justify-content: center;"><span class="key">Name:</span><span class="value">A.Sunderavel</span></p>
+                              <p style="display: flex;justify-content: center;"><span class="key">Name:</span><span class="value">{{i.deliveryperson.name}}</span></p>
                             </div>
                             <div class="row">
-                              <p style="display: flex;justify-content: center;"><span class="key">Id:</span><span class="value">12WES23</span></p>
+                              <p style="display: flex;justify-content: center;"><span class="key">Id:</span><span class="value">{{i.deliveryperson.uid}}</span></p>
                             </div>
                             </div>                          
                               </div>
                           </div>
+                          
                           <div class="col-lg-6 col-md-12"> 
                                 <div class="row" style="row-gap: 15px;align-items: center;justify-content: center;height: 100%;">
-                                  <div class="col-lg-5 col-md-12"><img src="./assets/images/siren1.png" style="width: 35px;" alt=""></div>
+                                  {% if i.deliveryperson.emergency == True %}
+                                  <div class="col-lg-5 col-md-12"><img src="/static/assets/images/siren1.png" style="width: 35px;" alt="">
+                                    {% comment %} <audio controls autoplay>
+                                      <source src="/static/assets/music/military-alarm-129017.mp3" type="audio/mp3">
+                                    </audio> {% endcomment %}
+                                   
+                                  </div>
+                                 
+                               
+                                  {% else %}
+                                  <div class="col-lg-5 col-md-12"><img src="/static/assets/images/siren.png" style="width: 35px;" alt=""></div>
+
+                                  {% endif %}
                                       <div class="col-lg-5 col-md-12" style="text-align: center;">
                                         <div class="row" style="justify-content: center;">
-                                        ₹44000
+                                       
+                                        ₹{{i.deliveryperson.today_earnings}}
                                       </div>
                                       </div>
                                       <div class="col-lg-2 col-md-12">
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" 
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#{{i.region}}" 
                                         style="border: 0px solid white;background-color: transparent;color: black;/* margin-left: -20px; */display: contents;"> <i class="fa fa-ellipsis-v" style="font-size: 20px;"></i></button>                   
                                     </div>
                         
@@ -327,8 +333,11 @@
                       </div>
                    
                   </li>
-                  <span style="color:gray"><span style="height: 12px;width: 12px;background-color: gray;border-radius: 50%;display: inline-block;"></span >&nbsp;&nbsp;Offline</span>
-                  <li class="delivery_boy_list px-2 py-2" style="color: gray;">
+                  {% endfor %}
+                  {% for i in delivery_offline %}
+                  <div id="item">
+                    <span id="delivery_status" style="color:gray"><span style="height: 12px;width: 12px;background-color: gray;border-radius: 50%;display: inline-block;"></span >&nbsp;&nbsp;Offline</span>
+                  <li id="id" class="delivery_boy_list px-2 py-2" style="color: gray;">
                     <div class="row" style="
                     align-items: ;
                     width: -webkit-fill-available;
@@ -336,23 +345,23 @@
                 ">
                         <div class="col-lg-6 col-md-12">
                           <div class="row" style="align-items: center;justify-content: center;">
-                            <div class="col-lg-2">3</div>
+                            <div class="col-lg-2">{{forloop.counter}}</div>
                             <div class="col-lg-10">
                               <div class="row">
-                            <p style="display: flex;justify-content: center;"><span class="key">Name:</span><span class="value">A.Sunderavel</span></p>
+                            <p style="display: flex;justify-content: center;"><span class="key">Name:</span><span class="value">{{i.deliveryperson.name}}</span></p>
                           </div>
                           <div class="row">
-                            <p style="display: flex;justify-content: center;"><span class="key">Id:</span><span class="value">12WES23</span></p>
+                            <p style="display: flex;justify-content: center;"><span class="key">Id:</span><span class="value">{{i.deliveryperson.uid}}</span></p>
                           </div>
                           </div>                          
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-12"> 
                               <div class="row" style="row-gap: 15px;align-items: center;justify-content: center;height: 100%;">
-                                <div class="col-lg-5 col-md-12"><img src="./assets/images/siren.png" style="width: 35px;opacity: 50%;" alt=""></div>
+                                <div class="col-lg-5 col-md-12"><img src="/static/assets/images/siren.png" style="width: 35px;opacity: 50%;" alt=""></div>
                                     <div class="col-lg-5 col-md-12" style="text-align: center;">
                                       <div class="row" style="justify-content: center;">
-                                      ₹4000
+                                        ₹{{i.today_earnings}}
                                     </div>
                                     </div>
                                     <div class="col-lg-2 col-md-12">
@@ -366,10 +375,12 @@
                     </div>
                  
                 </li>
-
+              </div>
+              {% endfor %}
                   </ul>
+                  {% for i in delivery_online %}
                   <!-- The Modal -->
-<div class="modal" id="myModal">
+<div class="modal" id="{{i.region}}">
   <div class="modal-dialog">
     <div class="modal-content">
 
@@ -407,11 +418,17 @@
       <!-- Modal body -->
       <div class="modal-body">
         <ul class="d-flex flex-column todo-list todo-list-custom" style="list-style: none;">
-          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal1"  style="border: 1px solid transparent;background-color: transparent;color: black;"><li class="delivery_boy_list px-2 py-2" style="text-align: center;">A.Sunder</li></button>
-          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal1"  style="border: 1px solid transparent;background-color: transparent;color: black;"><li class="delivery_boy_list px-2 py-2" style="text-align: center;">S.Abijith</li></button>
-          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal1"  style="border: 1px solid transparent;background-color: transparent;color: black;"><li class="delivery_boy_list px-2 py-2" style="text-align: center;">R.Remya</li></button>
-
-        </ul>
+         {% for j in delivery_without_emerged %}
+         {% if j.region == i.region %}
+         <form method="POST">
+          {% csrf_token %}
+         <input type="hidden" name="emerged_partner" value="{{i.deliveryperson.uid}}" id="">
+         <li><button type="submit" name="work_assign" value="{{j.deliveryperson.uid}}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal1"  style="border: 1px solid black;background-color: transparent;color: black;width:100%;">{{j.deliveryperson.name}}</button></li>
+        </form>
+         {% else %}
+         {% endif %}
+        {% endfor %}   
+      </ul>
       </div>
 
     
@@ -420,8 +437,27 @@
     </div>
   </div>
 </div>
+{% endfor %}
 <!-- END MODEL  -->
-
+<script>
+  $(document).ready(function(){
+      $('#search').keyup(function(){
+          var searchText = $(this).val().toLowerCase();
+          
+          // Loop through each list item
+          $('#item #delivery_status').each(function(){
+              var currentItemText = $(this).text().toLowerCase();
+              
+              // Check if the current item contains the search text
+              if(currentItemText.indexOf(searchText) !== -1){
+                  $(this).show(); // Show the item if it matches
+              } else {
+                  $(this).hide(); // Otherwise, hide it
+              }
+          });
+      });
+  });
+  </script>
           </div>
           <!-- content-wrapper ends -->
           <!-- partial -->

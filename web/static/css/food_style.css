@@ -81,10 +81,12 @@ body {
 }
 a {
 	color: #a4a4a4;
-	transition: 0.3s ease-in-out;
+	text-decoration: none;
 }
 a:hover {
 	color: #810081;
+	text-decoration: underline !important;
+	
 }
 .img {
 	max-width: 100%;
@@ -98,7 +100,8 @@ a:hover {
 a:focus,
 a:hover {
 	color: #810081;
-	text-decoration: none;
+		text-decoration: underline !important;
+
 }
 a,
 button,
@@ -1803,6 +1806,7 @@ textarea:focus {
 	line-height: 35px;
 	font-weight: 500;
 	padding: 8px 0;
+    text-decoration-style: none;
 }
 .hb-menu-2 nav > ul > li > a {
 	display: flex;
@@ -1818,7 +1822,7 @@ textarea:focus {
 		color: #ffffff;
 }
 .hb-menu nav > ul > li > a::after {
-	content: "\f107";
+	/*content: "\f107";*/
 	position: absolute;
 	top: 8px;
 	right: 15px;
@@ -2308,13 +2312,15 @@ textarea:focus {
 .signup{
 
 	background-color: #810081;
-    color: white;
-    border: 1px solid white;
-    width: auto;
-    border-radius: 7px;
-    font-size: 21px;
-    font-family: 'FontAwesome';
-    letter-spacing: 1px;
+	color: white;
+	border: 1px solid white;
+	width: auto;
+	border-radius: 7px;
+	font-size: 17px;
+	font-family: 'FontAwesome';
+	letter-spacing: 1px;
+	text-decoration: none !important;
+	padding: 7px;
 }
 
 .signup:hover{
@@ -2633,6 +2639,24 @@ textarea:focus {
 .product-active-3 .owl-nav button.owl-prev,.pos-product-active .owl-nav button.owl-prev,.latest-blog-active .owl-nav button.owl-prev{
   background: #ffffff none repeat scroll 0 0;
   padding: 0 0 0 15px !important;
+}
+.proceed{
+	background-color:white ;
+	position: sticky;
+	font-weight: 50px;
+	font-size: 30px;
+	bottom: 0px;
+	color: #810081;
+	z-index: 1;
+
+}
+#proceed{
+	background-color:#810081 ;
+	color:white;
+	border:none;
+	/* position: sticky;
+	z-index: 1;
+	top: 0; */
 }
 /*----------------------------------------*/
 /*  2.5 Li's Banner

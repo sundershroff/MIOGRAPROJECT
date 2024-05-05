@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Floating Label Form</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{% static 'css/registration.css' %}">
+</head>
+<body>
+    <div class="form-container">
+        <h2 style="color: #8B1874;">Product Details</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+           <div class="form-group" style="display:none;">
+                <input type="text" id="category" name="category"  value="Used Product" placeholder="Used Product">
+                <label for="category">Used Product</label>
+            </div>
+            <div class="form-group">
+                <select id="subcategory" name="subcategory">
+                    <option value="">Category</option>
+                    <option value="mobiles">Mobiles</option>
+                    <option value="cars">Cars</option>
+                    <option value="bikes">Bikes</option>
+                    <option value="properties">Properties</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="furnitures">Furnitures</option>
+                    <option value="commercial">Commercial Vechicles</option>
+                    <option value="auto_accessories">Auto Accessories</option>
+                    <option value="others">Others</option>
+                    <!-- Add more options as needed -->
+                </select>
+                <label for="subcategory"></label>
+            </div>
+            
+            <div class="form-group">
+                <input type="text" id="brand" name="brand" placeholder=" ">
+                <label for="brand">Brand</label>
+            </div>
+            <div class="form-group">
+                <input type="text" id="model_name" name="model_name" placeholder=" ">
+                <label for="model_name">Name</label>
+            </div>
+            <div class="form-group">
+                <input type="text" id="description" name="description" placeholder=" ">
+                <label for="description">Product Description</label>
+            </div>
+            <div class="form-group">
+                <input type="text" id="contact" name="contact" placeholder=" ">
+                <label for="contact">Contact</label>
+            </div>
+            <div class="form-group">
+                <input type="text" id="location" name="location" placeholder=" ">
+                <label for="location">Location</label>
+            </div>
+            <div class="form-group">
+                <input type="text" id="purchase" name="purchase" placeholder=" ">
+                <label for="purchase">Year and Month of Purchase</label>
+            </div>
+            <div class="zone">
+                <i class="fa fa-cloud-upload"></i>
+                <div>Primary image</div>                    
+                
+                <div class="selectFile">                       
+                  <input type="file" name="primary_image" id="file">
+                </div>
+            </div><br>
+            <div id="other_img">
+                <div class="zone">
+                    <i class="fa fa-cloud-upload"></i>
+                    <div>Other image</div>                    
+                    <div class="selectFile">                         
+                      <input type="file" name="other_images" id="file">
+                    </div>
+                </div>
+            </div>
+            
+            <span class="Add" id="img_add">ADD</span>
+            
+            <div class="custom">
+            <label for="number8"><strong>Custom Description:</strong> </label><i class="fa fa-plus-circle" style="font-size:24px;color: green;" id="flip"></i>
+            <div id="panel"></div></div>
+            <div class="form-group">
+                <input type="number" id="selling_price" name="selling_price" placeholder=" ">
+                <label for="selling_price">Selling Price</label>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#flip").click(function() {
+                var newDivContent = '<div class="custom"><input type="text" class="name1" name="heading" placeholder="Enter name" required><input type="text" class="name1" name="data" placeholder="Enter value" required><i class="fa fa-minus-circle delete-btn" style="font-size:24px;color:red;cursor:pointer;"></i></div><br>';
+                $("#panel").append(newDivContent);
+            });
+
+            $("#panel").on("click", ".delete-btn", function() {
+                $(this).parent().remove();
+            });
+            $("#img_add").click(function(){
+                var newImgContent=`<div class="zone">
+                    <i class="fa fa-cloud-upload"></i>
+                    <div>Other image</div>                    
+                    <div class="selectFile">                         
+                      <input type="file" name="other_images" id="file">
+                    </div>
+                    
+                </div>`;
+                $("#other_img").append(newImgContent);
+            });
+        });
+    </script>
+</body>
+</html>

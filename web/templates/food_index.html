@@ -10,7 +10,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/icon.jpeg' %}">
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/Mcolcor.png' %}">
         <!-- Material Design Iconic Font-V2.2.0 -->
         <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
         <!-- Font Awesome -->
@@ -67,43 +67,43 @@
                             <div class="slider-area">
                                 <div class="slider-active owl-carousel">
                                     <!-- Begin Single Slide Area -->
-                                    <div class="single-slide align-center-left  animation-style-01 bg-1">
+                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(media/{{banner.banner1}});">
                                         <div class="slider-progress"></div>
-                                        <div class="slider-content">
+                                        {% comment %} <div class="slider-content">
                                             <h5>Sale Offer <span>-20% Off</span> This Week</h5>
                                             <h2>Chicken Briyani</h2>
                                             <h3>Starting at <span>&#8377;150.00</span></h3>
                                             <div class="default-btn slide-btn">
-                                                <a class="links" href="food_shop-left-sidebar.html">Shopping Now</a>
+                                                <a class="links" href="/">Shopping Now</a>
                                             </div>
-                                        </div>
+                                        </div> {% endcomment %}
                                     </div>
                                     <!-- Single Slide Area End Here -->
                                     <!-- Begin Single Slide Area -->
-                                    <div class="single-slide align-center-left animation-style-02 bg-2">
+                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(media/{{banner.banner2}});">
                                         <div class="slider-progress"></div>
-                                        <div class="slider-content">
+                                        {% comment %} <div class="slider-content">
                                             <h5>Sale Offer <span>Black Friday</span> This Week</h5>
                                             <h2>Ham Burger</h2>
                                             <h3>Starting at <span>&#8377;224.00</span></h3>
                                             <div class="default-btn slide-btn">
-                                                <a class="links" href="food_shop-left-sidebar.html">Shopping Now</a>
+                                                <a class="links" href="">Shopping Now</a>
                                             </div>
-                                        </div>
-                                    </div>
+                                        </div> {% endcomment %}
+                                    </div> 
                                     <!-- Single Slide Area End Here -->
                                     <!-- Begin Single Slide Area -->
-                                    <div class="single-slide align-center-left animation-style-01 bg-3">
+                                    {% comment %} <div class="single-slide align-center-left animation-style-01 bg-3">
                                         <div class="slider-progress"></div>
                                         <div class="slider-content">
                                             <h5>Sale Offer <span>-10% Off</span> This Week</h5>
                                             <h2>Full Meals</h2>
                                             <h3>Starting at <span>&#8377;149.00</span></h3>
                                             <div class="default-btn slide-btn">
-                                                <a class="links" href="food_shop-left-sidebar.html">Shopping Now</a>
+                                                <a class="links" href="">Shopping Now</a>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> {% endcomment %}
                                     <!-- Single Slide Area End Here -->
                                 </div>
                             </div>
@@ -157,7 +157,7 @@
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="single-product.html">Tiffen</a></h1>
+                                                    <h1><a class="product_name" href="/food_products/tiffen">Tiffen</a></h1>
                                                     
                                                 </div>
                                                 
@@ -176,7 +176,7 @@
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="food_shop-left-sidebar.html">Meals</a></h1>
+                                                    <h1><a class="product_name" href="/food_products/meals">Meals</a></h1>
                                                     
                                                 </div>
                                                 
@@ -195,7 +195,7 @@
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="food_shop-left-sidebar.html">Briyani</a></h1>
+                                                    <h1><a class="product_name" href="/food_products/briyani">Briyani</a></h1>
                                                     
                                                 </div>
                                                 
@@ -214,7 +214,7 @@
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="food_shop-left-sidebar.html">Fried Chicken</a></h1>
+                                                    <h1><a class="product_name" href="/food_products/fried_chicken">Fried Chicken</a></h1>
                                                     
                                                 </div>
                                                 
@@ -233,7 +233,7 @@
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="food_shop-left-sidebar.html">Beef and Mutton</a></h1>
+                                                    <h1><a class="product_name" href="/food_products/beef">Beef and Mutton</a></h1>
                                                     
                                                 </div>
                                                 
@@ -252,7 +252,7 @@
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="food_shop-left-sidebar.html">Chinese</a></h1>
+                                                    <h1><a class="product_name" href="/food_products/chinese">Chinese</a></h1>
                                                     
                                                 </div>
                                                 
@@ -272,7 +272,7 @@
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="single-product.html">Pizza</a></h1>
+                                                    <h1><a class="product_name" href="/food_products/pizza">Pizza</a></h1>
                                                     
                                                 </div>
                                                 
@@ -292,7 +292,7 @@
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="single-product.html">Tea and Coffee</a></h1>
+                                                    <h1><a class="product_name" href="/food_products/tea_coffee">Tea and Coffee</a></h1>
                                                     
                                                 </div>
                                                 
@@ -312,7 +312,7 @@
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="single-product.html">Ice Creame & Snacks</a></h1>
+                                                    <h1><a class="product_name" href="/food_products/ice_cream">Ice Creame & Snacks</a></h1>
                                                     
                                                 </div>
                                                 
@@ -331,7 +331,7 @@
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="single-product.html">Fried Chicken</a></h1>
+                                                    <h1><a class="product_name" href="/food_products/fried_chicken">Fried Chicken</a></h1>
                                                     
                                                 </div>
                                                 
@@ -350,7 +350,7 @@
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="single-product.html">Burger & Sandwich</a></h1>
+                                                    <h1><a class="product_name" href="/food_products/burger">Burger & Sandwich</a></h1>
                                                     
                                                 </div>
                                                 
@@ -369,7 +369,7 @@
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="single-product.html">Cake</a></h1>
+                                                    <h1><a class="product_name" href="/food_products/cake">Cake</a></h1>
                                                     
                                                 </div>
                                                 
@@ -388,7 +388,7 @@
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="single-product.html">Bakery</a></h1>
+                                                    <h1><a class="product_name" href="/food_products/bakery">Bakery</a></h1>
                                                     
                                                 </div>
                                                 
@@ -396,10 +396,6 @@
                                         </div>
                                         <!-- single-product-wrap end -->
                                     </div>
-                                   
-
-
-
 
                                 </div>
                             </div>
@@ -411,7 +407,7 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="single-product.html">
+                                                <a href="">
                                                     <img src="/static/images/product/large-size/12.jpg" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">New</span>
@@ -420,7 +416,7 @@
                                                 <div class="product_desc_info">
                                                     <div class="product-review">
                                                         <h5 class="manufacturer">
-                                                            <a href="food_shop-left-sidebar.html">Graphic Corner</a>
+                                                            <a href="">Graphic Corner</a>
                                                         </h5>
                                                         <div class="rating-box">
                                                             
@@ -433,7 +429,7 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <h4><a class="product_name" href="single-product.html">Accusantium dolorem1</a></h4>
+                                                    <h4><a class="product_name" href="">Accusantium dolorem1</a></h4>
                                                     <div class="price-box">
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
@@ -453,7 +449,7 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="single-product.html">
+                                                <a href="">
                                                     <img src="/static/images/product/large-size/11.jpg" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">New</span>
@@ -462,7 +458,7 @@
                                                 <div class="product_desc_info">
                                                     <div class="product-review">
                                                         <h5 class="manufacturer">
-                                                            <a href="food_shop-left-sidebar.html">Studio Design</a>
+                                                            <a href="">Studio Design</a>
                                                         </h5>
                                                         <div class="rating-box">
                                                             <ul class="rating">
@@ -474,7 +470,7 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <h4><a class="product_name" href="single-product.html">Mug Today is a good day</a></h4>
+                                                    <h4><a class="product_name" href="">Mug Today is a good day</a></h4>
                                                     <div class="price-box">
                                                         <span class="new-price new-price-2">&#8377;71.80</span>
                                                         <span class="old-price">&#8377;77.22</span>
@@ -496,7 +492,7 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="single-product.html">
+                                                <a href="">
                                                     <img src="/static/images/product/large-size/10.jpg" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">New</span>
@@ -505,7 +501,7 @@
                                                 <div class="product_desc_info">
                                                     <div class="product-review">
                                                         <h5 class="manufacturer">
-                                                            <a href="food_shop-left-sidebar.html">Graphic Corner</a>
+                                                            <a href="">Graphic Corner</a>
                                                         </h5>
                                                         <div class="rating-box">
                                                             <ul class="rating">
@@ -517,7 +513,7 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <h4><a class="product_name" href="single-product.html">Accusantium dolorem1</a></h4>
+                                                    <h4><a class="product_name" href="">Accusantium dolorem1</a></h4>
                                                     <div class="price-box">
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
@@ -537,7 +533,7 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="single-product.html">
+                                                <a href="">
                                                     <img src="/static/images/product/large-size/9.jpg" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">New</span>
@@ -546,7 +542,7 @@
                                                 <div class="product_desc_info">
                                                     <div class="product-review">
                                                         <h5 class="manufacturer">
-                                                            <a href="food_shop-left-sidebar.html">Studio Design</a>
+                                                            <a href="">Studio Design</a>
                                                         </h5>
                                                         <div class="rating-box">
                                                             <ul class="rating">
@@ -558,7 +554,7 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <h4><a class="product_name" href="single-product.html">Mug Today is a good day</a></h4>
+                                                    <h4><a class="product_name" href="">Mug Today is a good day</a></h4>
                                                     <div class="price-box">
                                                         <span class="new-price new-price-2">&#8377;71.80</span>
                                                         <span class="old-price">&#8377;77.22</span>
@@ -580,7 +576,7 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="single-product.html">
+                                                <a href="">
                                                     <img src="/static/images/product/large-size/8.jpg" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">New</span>
@@ -589,7 +585,7 @@
                                                 <div class="product_desc_info">
                                                     <div class="product-review">
                                                         <h5 class="manufacturer">
-                                                            <a href="food_shop-left-sidebar.html">Graphic Corner</a>
+                                                            <a href="">Graphic Corner</a>
                                                         </h5>
                                                         <div class="rating-box">
                                                             <ul class="rating">
@@ -601,7 +597,7 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <h4><a class="product_name" href="single-product.html">Accusantium dolorem1</a></h4>
+                                                    <h4><a class="product_name" href="">Accusantium dolorem1</a></h4>
                                                     <div class="price-box">
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
@@ -621,7 +617,7 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="single-product.html">
+                                                <a href="">
                                                     <img src="/static/images/product/large-size/7.jpg" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">New</span>
@@ -630,7 +626,7 @@
                                                 <div class="product_desc_info">
                                                     <div class="product-review">
                                                         <h5 class="manufacturer">
-                                                            <a href="food_shop-left-sidebar.html">Studio Design</a>
+                                                            <a href="">Studio Design</a>
                                                         </h5>
                                                         <div class="rating-box">
                                                             <ul class="rating">
@@ -642,7 +638,7 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <h4><a class="product_name" href="single-product.html">Mug Today is a good day</a></h4>
+                                                    <h4><a class="product_name" href="">Mug Today is a good day</a></h4>
                                                     <div class="price-box">
                                                         <span class="new-price new-price-2">&#8377;71.80</span>
                                                         <span class="old-price">&#8377;77.22</span>
@@ -670,7 +666,7 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="single-product.html">
+                                                <a href="">
                                                     <img src="/static/images/product/large-size/3.jpg" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">New</span>
@@ -679,7 +675,7 @@
                                                 <div class="product_desc_info">
                                                     <div class="product-review">
                                                         <h5 class="manufacturer">
-                                                            <a href="food_shop-left-sidebar.html">Graphic Corner</a>
+                                                            <a href="">Graphic Corner</a>
                                                         </h5>
                                                         <div class="rating-box">
                                                             <ul class="rating">
@@ -691,7 +687,7 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <h4><a class="product_name" href="single-product.html">Accusantium dolorem1</a></h4>
+                                                    <h4><a class="product_name" href="">Accusantium dolorem1</a></h4>
                                                     <div class="price-box">
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
@@ -711,7 +707,7 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="single-product.html">
+                                                <a href="">
                                                     <img src="/static/images/product/large-size/5.jpg" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">New</span>
@@ -720,7 +716,7 @@
                                                 <div class="product_desc_info">
                                                     <div class="product-review">
                                                         <h5 class="manufacturer">
-                                                            <a href="food_shop-left-sidebar.html">Studio Design</a>
+                                                            <a href="">Studio Design</a>
                                                         </h5>
                                                         <div class="rating-box">
                                                             <ul class="rating">
@@ -732,7 +728,7 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <h4><a class="product_name" href="single-product.html">Mug Today is a good day</a></h4>
+                                                    <h4><a class="product_name" href="">Mug Today is a good day</a></h4>
                                                     <div class="price-box">
                                                         <span class="new-price new-price-2">&#8377;71.80</span>
                                                         <span class="old-price">&#8377;77.22</span>
@@ -754,7 +750,7 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="single-product.html">
+                                                <a href="">
                                                     <img src="/static/images/product/large-size/7.jpg" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">New</span>
@@ -763,7 +759,7 @@
                                                 <div class="product_desc_info">
                                                     <div class="product-review">
                                                         <h5 class="manufacturer">
-                                                            <a href="food_shop-left-sidebar.html">Graphic Corner</a>
+                                                            <a href="">Graphic Corner</a>
                                                         </h5>
                                                         <div class="rating-box">
                                                             <ul class="rating">
@@ -775,7 +771,7 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <h4><a class="product_name" href="single-product.html">Accusantium dolorem1</a></h4>
+                                                    <h4><a class="product_name" href="">Accusantium dolorem1</a></h4>
                                                     <div class="price-box">
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
@@ -795,7 +791,7 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="single-product.html">
+                                                <a href="">
                                                     <img src="/static/images/product/large-size/9.jpg" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">New</span>
@@ -804,7 +800,7 @@
                                                 <div class="product_desc_info">
                                                     <div class="product-review">
                                                         <h5 class="manufacturer">
-                                                            <a href="food_shop-left-sidebar.html">Studio Design</a>
+                                                            <a href="">Studio Design</a>
                                                         </h5>
                                                         <div class="rating-box">
                                                             <ul class="rating">
@@ -816,7 +812,7 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <h4><a class="product_name" href="single-product.html">Mug Today is a good day</a></h4>
+                                                    <h4><a class="product_name" href="">Mug Today is a good day</a></h4>
                                                     <div class="price-box">
                                                         <span class="new-price new-price-2">&#8377;71.80</span>
                                                         <span class="old-price">&#8377;77.22</span>
@@ -838,7 +834,7 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="single-product.html">
+                                                <a href="">
                                                     <img src="/static/images/product/large-size/11.jpg" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">New</span>
@@ -847,7 +843,7 @@
                                                 <div class="product_desc_info">
                                                     <div class="product-review">
                                                         <h5 class="manufacturer">
-                                                            <a href="food_shop-left-sidebar.html">Graphic Corner</a>
+                                                            <a href="">Graphic Corner</a>
                                                         </h5>
                                                         <div class="rating-box">
                                                             <ul class="rating">
@@ -859,7 +855,7 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <h4><a class="product_name" href="single-product.html">Accusantium dolorem1</a></h4>
+                                                    <h4><a class="product_name" href="">Accusantium dolorem1</a></h4>
                                                     <div class="price-box">
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
@@ -879,7 +875,7 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="single-product.html">
+                                                <a href="">
                                                     <img src="/static/images/product/large-size/12.jpg" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">New</span>
@@ -888,7 +884,7 @@
                                                 <div class="product_desc_info">
                                                     <div class="product-review">
                                                         <h5 class="manufacturer">
-                                                            <a href="food_shop-left-sidebar.html">Studio Design</a>
+                                                            <a href="">Studio Design</a>
                                                         </h5>
                                                         <div class="rating-box">
                                                             <ul class="rating">
@@ -900,7 +896,7 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <h4><a class="product_name" href="single-product.html">Mug Today is a good day</a></h4>
+                                                    <h4><a class="product_name" href="">Mug Today is a good day</a></h4>
                                                     <div class="price-box">
                                                         <span class="new-price new-price-2">&#8377;71.80</span>
                                                         <span class="old-price">&#8377;77.22</span>
@@ -939,19 +935,20 @@
                                     <span>Restaurants</span>
                                 </h2>
                                 <ul class="li-sub-category-list">
-                                    <li class="active"><a href="food_shop-left-sidebar.html">View All</a></li>
-                                    <!-- <li><a href="food_shop-left-sidebar.html">Computers</a></li>
-                                    <li><a href="food_shop-left-sidebar.html">Electronics</a></li> -->
+                                    <li class="active"><a href="">View All</a></li>
+                                    <!-- <li><a href="">Computers</a></li>
+                                    <li><a href="">Electronics</a></li> -->
                                 </ul>
                             </div>
                             <div class="row">
                                 <div class="product-active owl-carousel">
+                                    {% for shop in shops%}
                                     <div class="col-lg-12">
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="food_shop-left-sidebar.html">
-                                                    <img src="/static/images/food/restaurant.jpg" alt="Li's Product Image">
+                                                <a href="/food_products/Shop_based/{{shop.food_id}}">
+                                                    <img src="{{shop.profile}}" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">New</span>
                                             </div>
@@ -959,28 +956,55 @@
                                                 <div class="product_desc_info">
                                                     <div class="product-review">
                                                         <h5 class="manufacturer">
-                                                            <a href="food_shop-left-sidebar.html">Azagiyamandabam</a>
+                                                            <a href="/food_products/Shop_based/{{shop.food_id}}">{{shop.area}}</a>
                                                         </h5>
                                                         <div class="rating-box">
-                                                            <span>4.2</span>
+                                                            <span>{{shop.rating}}</span>
+                                                            {% if shop.rating == "2.0" %}
+                                                            <ul class="rating">
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                            </ul>
+                                                            {% elif shop.rating == "4.0" %}
                                                             <ul class="rating">
                                                                 <li><i class="fa fa-star-o"></i></li>
                                                                 <li><i class="fa fa-star-o"></i></li>
                                                                 <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                            </ul>
+                                                            {% elif shop.rating == "5.0" %}
+                                                            <ul class="rating">
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                            </ul>
+                                                            {% else %}
+                                                            <ul class="rating">
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                             </ul>
+                                                            {% endif %}
+
                                                         </div>
                                                     </div>
-                                                    <h4><a class="product_name" href="food_shop-left-sidebar.html">Mk's Chikk inn Restaurant</a></h4>
+                                                    <h4><a class="product_name" href="/food_products/Shop_based/{{shop.food_id}}">{{shop.business_name}}</a></h4>
                                                     <div class="price-box">
                                                         <span class="new-price">Delivery With in 10min - 15min</span>
                                                     </div>
                                                 </div>
                                                 <div class="add-actions">
                                                     <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
+                                                        <li class="add-cart active"><a href="/enduser/usersignin">Add to cart</a></li>
+                                                        <li><a class="links-details" href="/enduser/usersignin"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
                                                 </div>
@@ -988,175 +1012,8 @@
                                         </div>
                                         <!-- single-product-wrap end -->
                                     </div>
-                                    <div class="col-lg-12">
-                                        <!-- single-product-wrap start -->
-                                        <div class="single-product-wrap">
-                                            <div class="product-image">
-                                                <a href="food_shop-left-sidebar.html">
-                                                    <img src="/static/images/food/restaurant.jpg" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="food_shop-left-sidebar.html">Azagiyamandabam</a>
-                                                        </h5>
-                                                        <div class="rating-box">
-                                                            <span>4.2</span>
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <h4><a class="product_name" href="food_shop-left-sidebar.html">Mk's Chikk inn Restaurant</a></h4>
-                                                    <div class="price-box">
-                                                        <span class="new-price">Delivery With in 10min - 15min</span>
-                                                    </div>
-                                                </div>
-                                                <div class="add-actions">
-                                                    <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- single-product-wrap end -->
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <!-- single-product-wrap start -->
-                                        <div class="single-product-wrap">
-                                            <div class="product-image">
-                                                <a href="food_shop-left-sidebar.html">
-                                                    <img src="/static/images/food/restaurant.jpg" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="food_shop-left-sidebar.html">Azagiyamandabam</a>
-                                                        </h5>
-                                                        <div class="rating-box">
-                                                            <span>4.2</span>
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <h4><a class="product_name" href="food_shop-left-sidebar.html">Mk's Chikk inn Restaurant</a></h4>
-                                                    <div class="price-box">
-                                                        <span class="new-price">Delivery With in 10min - 15min</span>
-                                                    </div>
-                                                </div>
-                                                <div class="add-actions">
-                                                    <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- single-product-wrap end -->
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <!-- single-product-wrap start -->
-                                        <div class="single-product-wrap">
-                                            <div class="product-image">
-                                                <a href="single-product.html">
-                                                    <img src="/static/images/food/restaurant.jpg" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="food_shop-left-sidebar.html">Azagiyamandabam</a>
-                                                        </h5>
-                                                        <div class="rating-box">
-                                                            <span>4.2</span>
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <h4><a class="product_name" href="single-product.html">Mk's Chikk inn Restaurant</a></h4>
-                                                    <div class="price-box">
-                                                        <span class="new-price">Delivery With in 10min - 15min</span>
-                                                    </div>
-                                                </div>
-                                                <div class="add-actions">
-                                                    <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- single-product-wrap end -->
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <!-- single-product-wrap start -->
-                                        <div class="single-product-wrap">
-                                            <div class="product-image">
-                                                <a href="single-product.html">
-                                                    <img src="/static/images/food/restaurant.jpg" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="food_shop-left-sidebar.html">Azagiyamandabam</a>
-                                                        </h5>
-                                                        <div class="rating-box">
-                                                            <span>4.2</span>
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <h4><a class="product_name" href="single-product.html">Mk's Chikk inn Restaurant</a></h4>
-                                                    <div class="price-box">
-                                                        <span class="new-price">Delivery With in 10min - 15min</span>
-                                                    </div>
-                                                </div>
-                                                <div class="add-actions">
-                                                    <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- single-product-wrap end -->
-                                    </div>
-                                   
+                                    {% endfor %}
+
                                       
                                 </div>
                             </div>
@@ -1167,7 +1024,7 @@
             </section>
             <!-- Li's Laptop Product Area End Here -->
 
-            <section class="product-area li-laptop-product pt-60 pb-45">
+            {% comment %} <section class="product-area li-laptop-product pt-60 pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -1179,7 +1036,7 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="single-product.html">
+                                                <a href="">
                                                     <img src="/static/images/food/restaurant.jpg" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">New</span>
@@ -1188,7 +1045,7 @@
                                                 <div class="product_desc_info">
                                                     <div class="product-review">
                                                         <h5 class="manufacturer">
-                                                            <a href="food_shop-left-sidebar.html">Azagiyamandabam</a>
+                                                            <a href="">Azagiyamandabam</a>
                                                         </h5>
                                                         <div class="rating-box">
                                                             <span>4.2</span>
@@ -1201,7 +1058,7 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <h4><a class="product_name" href="single-product.html">Mk's Chikk inn Restaurant</a></h4>
+                                                    <h4><a class="product_name" href="">Mk's Chikk inn Restaurant</a></h4>
                                                     <div class="price-box">
                                                         <span class="new-price">Delivery With in 10min - 15min</span>
                                                     </div>
@@ -1221,7 +1078,7 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="single-product.html">
+                                                <a href="">
                                                     <img src="/static/images/food/restaurant.jpg" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">New</span>
@@ -1230,7 +1087,7 @@
                                                 <div class="product_desc_info">
                                                     <div class="product-review">
                                                         <h5 class="manufacturer">
-                                                            <a href="food_shop-left-sidebar.html">Azagiyamandabam</a>
+                                                            <a href="">Azagiyamandabam</a>
                                                         </h5>
                                                         <div class="rating-box">
                                                             <span>4.2</span>
@@ -1243,7 +1100,7 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <h4><a class="product_name" href="single-product.html">Mk's Chikk inn Restaurant</a></h4>
+                                                    <h4><a class="product_name" href="">Mk's Chikk inn Restaurant</a></h4>
                                                     <div class="price-box">
                                                         <span class="new-price">Delivery With in 10min - 15min</span>
                                                     </div>
@@ -1263,7 +1120,7 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="single-product.html">
+                                                <a href="">
                                                     <img src="/static/images/food/restaurant.jpg" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">New</span>
@@ -1272,7 +1129,7 @@
                                                 <div class="product_desc_info">
                                                     <div class="product-review">
                                                         <h5 class="manufacturer">
-                                                            <a href="food_shop-left-sidebar.html">Azagiyamandabam</a>
+                                                            <a href="">Azagiyamandabam</a>
                                                         </h5>
                                                         <div class="rating-box">
                                                             <span>4.2</span>
@@ -1285,7 +1142,7 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <h4><a class="product_name" href="single-product.html">Mk's Chikk inn Restaurant</a></h4>
+                                                    <h4><a class="product_name" href="">Mk's Chikk inn Restaurant</a></h4>
                                                     <div class="price-box">
                                                         <span class="new-price">Delivery With in 10min - 15min</span>
                                                     </div>
@@ -1305,7 +1162,7 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="single-product.html">
+                                                <a href="">
                                                     <img src="/static/images/food/restaurant.jpg" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">New</span>
@@ -1314,7 +1171,7 @@
                                                 <div class="product_desc_info">
                                                     <div class="product-review">
                                                         <h5 class="manufacturer">
-                                                            <a href="food_shop-left-sidebar.html">Azagiyamandabam</a>
+                                                            <a href="">Azagiyamandabam</a>
                                                         </h5>
                                                         <div class="rating-box">
                                                             <span>4.2</span>
@@ -1327,7 +1184,7 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <h4><a class="product_name" href="single-product.html">Mk's Chikk inn Restaurant</a></h4>
+                                                    <h4><a class="product_name" href="">Mk's Chikk inn Restaurant</a></h4>
                                                     <div class="price-box">
                                                         <span class="new-price">Delivery With in 10min - 15min</span>
                                                     </div>
@@ -1347,7 +1204,7 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="single-product.html">
+                                                <a href="">
                                                     <img src="/static/images/food/restaurant.jpg" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">New</span>
@@ -1356,7 +1213,7 @@
                                                 <div class="product_desc_info">
                                                     <div class="product-review">
                                                         <h5 class="manufacturer">
-                                                            <a href="food_shop-left-sidebar.html">Azagiyamandabam</a>
+                                                            <a href="">Azagiyamandabam</a>
                                                         </h5>
                                                         <div class="rating-box">
                                                             <span>4.2</span>
@@ -1369,7 +1226,7 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <h4><a class="product_name" href="single-product.html">Mk's Chikk inn Restaurant</a></h4>
+                                                    <h4><a class="product_name" href="">Mk's Chikk inn Restaurant</a></h4>
                                                     <div class="price-box">
                                                         <span class="new-price">Delivery With in 10min - 15min</span>
                                                     </div>
@@ -1393,7 +1250,7 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
 
                                                                         
             <!-- Begin Footer Area -->

@@ -1,0 +1,407 @@
+{% load static %}
+{% include "hub_header.html" %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<body><link rel="stylesheet" href="../../../../assests/css/font-awesome.min.css">
+<!-- New toolbar-->
+<style>
+* {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+
+#w3lDemoBar.w3l-demo-bar {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  padding: 40px 5px;
+  padding-top:70px;
+  margin-bottom: 70px;
+  background: #0D1326;
+  border-top-left-radius: 9px;
+  border-bottom-left-radius: 9px;
+}
+
+#w3lDemoBar.w3l-demo-bar a {
+  display: block;
+  color: #e6ebff;
+  text-decoration: none;
+  line-height: 24px;
+  opacity: .6;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#w3lDemoBar.w3l-demo-bar span.w3l-icon {
+  display: block;
+}
+
+#w3lDemoBar.w3l-demo-bar a:hover {
+  opacity: 1;
+}
+
+#w3lDemoBar.w3l-demo-bar .w3l-icon svg {
+  color: #e6ebff;
+}
+#w3lDemoBar.w3l-demo-bar .responsive-icons {
+  margin-top: 30px;
+  border-top: 1px solid #41414d;
+  padding-top: 40px;
+}
+#w3lDemoBar.w3l-demo-bar .demo-btns {
+  border-top: 1px solid #41414d;
+  padding-top: 30px;
+}
+#w3lDemoBar.w3l-demo-bar .responsive-icons a span.fa {
+  font-size: 26px;
+}
+#w3lDemoBar.w3l-demo-bar .no-margin-bottom{
+  margin-bottom:0;
+}
+.toggle-right-sidebar span {
+  background: #0D1326;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  color: #e6ebff;
+  border-radius: 50px;
+  font-size: 26px;
+  cursor: pointer;
+  opacity: .5;
+}
+.pull-right {
+  float: right;
+  position: fixed;
+  right: 0px;
+  top: 70px;
+  width: 90px;
+  z-index: 99999;
+  text-align: center;
+}
+/* ============================================================
+RIGHT SIDEBAR SECTION
+============================================================ */
+
+#right-sidebar {
+  width: 90px;
+  position: fixed;
+  height: 100%;
+  z-index: 1000;
+  right: 0px;
+  top: 0;
+  margin-top: 60px;
+  -webkit-transition: all .5s ease-in-out;
+  -moz-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+  overflow-y: auto;
+}
+
+
+/* ============================================================
+RIGHT SIDEBAR TOGGLE SECTION
+============================================================ */
+
+.hide-right-bar-notifications {
+  margin-right: -300px !important;
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
+}
+
+th{
+  text-align: center !important;
+}
+
+@media (max-width: 992px) {
+  #w3lDemoBar.w3l-demo-bar a.desktop-mode{
+      display: none;
+
+  }
+}
+@media (max-width: 767px) {
+  #w3lDemoBar.w3l-demo-bar a.tablet-mode{
+      display: none;
+
+  }
+}
+@media (max-width: 568px) {
+  #w3lDemoBar.w3l-demo-bar a.mobile-mode{
+      display: none;
+  }
+  #w3lDemoBar.w3l-demo-bar .responsive-icons {
+      margin-top: 0px;
+      border-top: none;
+      padding-top: 0px;
+  }
+  #right-sidebar,.pull-right {
+      width: 90px;
+  }
+  #w3lDemoBar.w3l-demo-bar .no-margin-bottom-mobile{
+      margin-bottom: 0;
+  }
+}
+.table-responsive {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color: #f5f5f5;
+}
+
+.table > thead > tr > th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #ddd;
+    text-align: left;
+}
+
+.table > tbody > tr > td {
+    vertical-align: middle;
+}
+
+
+</style>
+
+</div>
+	
+<div class="page-container" style="height: 44rem;">
+   <div class="left-content">
+	   <div class="mother-grid-inner">
+            <!--header start here-->
+				     <div class="clearfix"> </div>	
+				</div>
+<!--heder end here-->
+<!-- script-for sticky-nav -->
+		<script>
+		$(document).ready(function() {
+			 var navoffeset=$(".header-main").offset().top;
+			 $(window).scroll(function(){
+				var scrollpos=$(window).scrollTop(); 
+				if(scrollpos >=navoffeset){
+					$(".header-main").addClass("fixed");
+				}else{
+					$(".header-main").removeClass("fixed");
+				}
+			 });
+			 
+		});
+		</script>
+		<!-- /script-for sticky-nav -->
+<!--inner block start here-->
+<div class="inner-block" style="float: right;width: 98.5%;">
+<!--market updates updates-->
+<!--market updates end here-->
+<!---728x90--->
+
+<!--mainpage chit-chating-->
+<div class="chit-chat-layer1">
+	<div class="table-responsive">
+        <table class="table table-hover" id="dataTable" style="text-align: center;">
+            <div class="chit-chat-heading button">
+                delivery
+                <input type="text" name="filter" id="filter" placeholder="Type to Filter" style="width: 30%;float: inline-end;border-radius: 6px;height: 27px;">
+
+          </div>
+
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Order Id</th>
+                    <th>Product Name</th>
+                    <th>Product Id</th>
+                    <th>Price</th>
+                    <th>Payment Method</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>work assign to delivery man</th>
+                    <th>Status</th>
+                    <th>Invoice</th>
+                </tr>
+            </thead>
+            <tbody>
+              {% for i in ready_to_delivery %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.order.order_id}}</td>
+                    <td>{{i.order.shop_product.product.name}}{{i.order.jewel_product.product.name}}{{i.order.d_original_product.product.name}}</td>
+                    <td>{{i.order.shop_product.product_id}}{{i.order.jewel_product.product_id}}{{i.order.d_original_product.product_id}}</td>
+                    <td><span>₹{{i.order.total_amount}}</span></td>
+                    <td>{{i.payment_type}}</td>
+                    <td>{{i.order.jewel_id.region}}{{i.order.shop_id.region}}{{i.order.d_id.region}}</td>
+                    <td>{{i.order.region}}</td>
+                    <td style="
+                    justify-content: center;
+                    display: flex;
+                ">
+                {% if None == i.order.deliveryperson_id %}
+                      <form method="POST" style="width: 100%;">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{i.order.order_id}}" name="order_id" id="">
+                        <select name="assign_work" id="" onchange="this.form.submit()" style="text-align: center;width: 100%;padding: 5px;border-radius: 6px;">
+                          <option value="">select</option>
+                          {% for i in delivery_boy %}
+                          <option value="{{i.uid}}">{{i.name}}</option>
+                          {% endfor %}
+                          
+                        </select>
+                      </form>
+                      {% else %}
+                      <table border="1">
+                        <thead>
+                        <th>uid</th>
+                        <th>Name</th>
+                        <th>Phone number</th>
+                      </thead>
+                      <tbody>
+                        <td><span>{{i.order.deliveryperson.uid}}</span></td>
+                        <td> <span>{{i.order.deliveryperson.name}}</span></td>
+                        <td><span>{{i.order.deliveryperson.phone_number}}</span></td>
+                      </tbody>
+                      </table>
+                     
+                      {% endif %}
+                    </td>
+                    {% if "order-confirmed" == i.order.status %}
+                    <td style="color: red;">PENDING</td>
+                    {% elif "shipped" == i.order.status %}
+                    <td style="color: orange;">SHIPPED</td>
+                    {% elif "picked" == i.order.status %}
+                    <td style="color: blue;">OUT OF DELIVERY</td>
+                    {% elif "delivered" == i.order.status %}
+                    <td style="color: green;">DELIVERED</td>
+                    {% endif %}
+                    <td style="">
+                      <a href="/hub/invoice/{{i.id}}"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" style="text-decoration: none;color: #8B1874;
+                          border: 0px;
+                          background-color: transparent;">
+                          <i class="fa fa-eye" style="font-size:20px"></i></button></a>
+                      <a href="/hub/invoice/{{i.id}}" class="px-2" style="
+                      text-decoration: none;
+                      font-size: large;">Invoice</a></td>
+                </tr>
+                {% endfor %}
+                
+
+
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+        {% for i in ready_to_delivery %}
+        <!-- The Modal -->
+        <div class="modal" id="myModal{{i.order.order_id}}">
+         <div class="modal-dialog modal-fullscreen" style="margin-top: 0px;">
+           <div class="modal-content">
+       
+             <!-- Modal Header -->
+             <div class="modal-header">
+               <h4 class="modal-title">Invoice</h4>
+               <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+             </div>
+       
+             <!-- Modal body -->
+             <div class="modal-body">
+               {% include 'invoice_hub.html' %}
+             </div>
+       
+       
+       
+             <!-- Modal footer -->
+             <div class="modal-footer">
+               <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+             </div>
+       
+           </div>
+         </div>
+       </div>
+    {% endfor %}   
+
+         <!-- filter -->
+         <script>
+          $(document).ready(function(){
+            $("#filter").on("keyup", function() {
+              var value = $(this).val().toLowerCase();
+              $("#dataTable tbody tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+              });
+            });
+          });
+          </script>
+    </div>
+    
+     <div class="clearfix"> </div>
+</div>
+<!--main page chit chating end here-->
+<!---728x90--->
+<!--main page chart start here-->
+<div class="main-page-charts">
+  
+ </div>
+<!--main page chart layer2-->
+<div class="chart-layer-2">
+	
+	
+
+  <div class="clearfix"> </div>
+</div>
+
+<!--climate start here-->
+<div class="climate">
+	
+	<div class="clearfix"> </div>
+</div>
+<!--climate end here-->
+</div>
+<!--inner block end here-->
+<!---728x90--->
+<!--copy rights start here-->
+	
+<!--COPY rights end here-->
+</div>
+</div>
+<!--slider menu-->
+{% include "hub_sidebar.html" %}
+	<div class="clearfix"> </div>
+</div>
+<!--slide bar menu end here-->
+<script>
+var toggle = true;
+            
+$(".sidebar-icon").click(function() {                
+  if (toggle)
+  {
+    $(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
+    $("#menu span").css({"position":"absolute"});
+  }
+  else
+  {
+    $(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
+    setTimeout(function() {
+      $("#menu span").css({"position":"relative"});
+    }, 400);
+  }               
+                toggle = !toggle;
+            });
+</script>
+<!--scrolling js-->
+		<script src="js/jquery.nicescroll.js"></script>
+		<script src="js/scripts.js"></script>
+		<!--//scrolling js-->
+<script src="js/bootstrap.js"> </script>
+<!-- mother grid end here-->
+
+<script>(function(){var js = "window['__CF$cv$params']={r:'866415c8eff2898c',t:'MTcxMDc1Mjk4MC4xNTUwMDA='};_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='../../../../cdn-cgi/challenge-platform/h/b/scripts/jsd/ace796eb5511/main.js',document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+
+<!-- Mirrored from p.w3layouts.com/demos/28-03-2016/shoppy/web/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 18 Mar 2024 09:10:35 GMT -->
+</html>  

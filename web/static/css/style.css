@@ -17,7 +17,10 @@ body {
     -o-align-items: center;
     -ms-align-items: center;
     -moz-align-items: center;
-    -webkit-align-items: center
+    -webkit-align-items: center;
+    background: -webkit-linear-gradient(#880381, #d1b1d0);
+    background:    -moz-linear-gradient(#880381, #d1b1d0);
+    background:         linear-gradient(#880381, #d1b1d0);
 }
 
 .form-v5-content {

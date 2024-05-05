@@ -45,6 +45,7 @@
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
         <!-- Modernizr js -->
         <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
     <body>
     <!--[if lt IE 8]>
@@ -53,7 +54,7 @@
          <!-- Begin Body Wrapper -->
          <div class="body-wrapper">
             <!-- Begin Header Area -->
-            {% include "header.html" %}
+            {% include "enduser_header.html" %}
                 
             <!-- Header Area End Here -->
             <!-- Begin Li's Breadcrumb Area -->
@@ -89,36 +90,16 @@
                                         </a>
                                     </div>
                                     {% endfor %}
-                                    {% comment %} <div class="lg-image">
-                                        <a class="popup-img venobox vbox-item" href="images/fresh_cuts/chicken.jpg" data-gall="myGallery">
-                                            <img src="images/fresh_cuts/chicken.jpg" alt="product image">
-                                        </a>
-                                    </div> {% endcomment %}
-                                    <!-- <div class="lg-image">
-                                        <a class="popup-img venobox vbox-item" href="images/fresh_cuts/chicken.jpg" data-gall="myGallery">
-                                            <img src="images/fresh_cuts/chicken.jpg" alt="product image">
-                                        </a>
-                                    </div>
-                                    <div class="lg-image">
-                                        <a class="popup-img venobox vbox-item" href="images/fresh_cuts/chicken.jpg" data-gall="myGallery">
-                                            <img src="images/fresh_cuts/chicken.jpg" alt="product image">
-                                        </a>
-                                    </div>
-                                    <div class="lg-image">
-                                        <a class="popup-img venobox vbox-item" href="images/product/large-size/6.jpg" data-gall="myGallery">
-                                            <img src="images/product/large-size/6.jpg" alt="product image">
-                                        </a>
-                                    </div> -->
+                                    
+                                   
                                 </div>
                                 <div class="product-details-thumbs slider-thumbs-1">                                        
                                     <div class="sm-image"><img src="{{fresh_cuts.product.primary_image}}" alt="product image thumb"></div>
                                     {% for image in fresh_cuts.product.other_images %}
                                     <div class="sm-image"><img src="{{image}}" alt="product image thumb"></div>
                                     {% endfor %}
-                                    {% comment %} <div class="sm-image"><img src="images/fresh_cuts/chicken.jpg" alt="product image thumb"></div>
-                                    <div class="sm-image"><img src="" alt=""></div> 
-                                    <div class="sm-image"><img src="" alt=""></div> {% endcomment %}
-                                   <div class="sm-image"><img src="" alt=""></div>
+                                    
+                                   
                                 </div>
                             </div>
                             <!--// Product Details Left -->
@@ -127,8 +108,12 @@
                         <div class="col-lg-7 col-md-6">
                             <div class="product-details-view-content pt-60">
                                 <div class="product-info">
-                                    <h2>Fresh Chicken</h2>
+                                    <h2>{{fresh_cuts.product.model_name}}</h2>
+                                    {% if fresh_cuts.product.weight%}
+                                    <span class="product-details-ref">{{fresh_cuts.product.weight}}Kg</span>
+                                    {% else%}
                                     <span class="product-details-ref">1 Kg</span>
+                                    {% endif %}
                                     <div class="rating-box pt-20">
                                         <ul class="rating rating-with-review-item">
                                             <li><i class="fa fa-star-o"></i></li>
@@ -136,19 +121,18 @@
                                             <li><i class="fa fa-star-o"></i></li>
                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                            <li class="review-item"><a href="#">Read Review</a></li>
-                                            <li class="review-item"><a href="#">Write Review</a></li>
+                                            <li class="review-item"><a href="#reviews">Read Review</a></li>
+                                            <li class="review-item"><a href="#" data-toggle="modal" data-target="#mymodal">Write Review</a></li>
                                         </ul>
                                     </div>
                                     <div class="price-box pt-20">
-                                        <span class="new-price new-price-2">&#8377 120.98</span>
+                                        <span class="new-price new-price-2">&#8377 {{fresh_cuts.product.actual_price}}</span>
                                     </div>
-                                    <!-- <div class="product-desc">
+                                   <div class="product-desc">
                                         <p>
-                                            <span>100% cotton double printed dress. Black and white striped top and orange high waisted skater skirt bottom. Lorem ipsum dolor sit amet, consectetur adipisicing elit. quibusdam corporis, earum facilis et nostrum dolorum accusamus similique eveniet quia pariatur.
-                                            </span>
+                                            <span>{{fresh_cuts.product.description}} </span>
                                         </p>
-                                    </div> -->
+                                    </div>
                                     <!-- <div class="product-variants">
                                         <div class="produt-variants-size">
                                             <label>Dimension</label>
@@ -160,20 +144,21 @@
                                         </div>
                                     </div> -->
                                     <div class="single-add-to-cart">
-                                        <form action="#" class="cart-quantity">
+                                        <form method="POST" class="cart-quantity">
+                                            {% csrf_token %}
                                             <div class="quantity">
                                                 <label>Quantity</label>
                                                 <div class="cart-plus-minus">
-                                                    <input class="cart-plus-minus-box" value="1" type="text">
+                                                    <input class="cart-plus-minus-box" value="1" type="text" name="quantity">
                                                     <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
                                                     <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                                 </div>
                                             </div>
-                                            <button class="add-to-cart" type="submit">Add to cart</button>
+                                            <button class="add-to-cart" name="add_cart" type="submit" value="{{fresh_cuts.product.product_id}}">Add to cart</button></a>
                                         </form>
                                     </div>
                                     <div class="product-additional-info pt-25">
-                                        <a class="wishlist-btn" href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a>
+                                        <a class="wishlist-btn" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{fresh_cuts.product.category}}/{{fresh_cuts.product.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a>
                                         <div class="product-social-sharing pt-25">
                                             <ul>
                                                 <li class="facebook"><a href="#"><i class="fa fa-facebook"></i>Facebook</a></li>
@@ -236,23 +221,39 @@
                     <div class="tab-content">
                         <div id="description" class="tab-pane active show" role="tabpanel">
                             <div class="product-description">
-                                <span>The best is yet to come! Give your walls a voice with a framed poster. This aesthethic, optimistic poster will look great in your desk or in an open-space office. Painted wooden frame with passe-partout for more depth.</span>
+                                <span>{{fresh_cuts.product.description}}.</span>
                             </div>
                         </div>
                         <div id="product-details" class="tab-pane" role="tabpanel">
                             <div class="product-details-manufacturer">
-                                <a href="#">
+                                {% comment %} <a href="#">
                                     <img src="images/product-details/1.jpg" alt="Product Manufacturer Image">
-                                </a>
-                                <p><span>Reference</span> demo_7</p>
-                                <p><span>Reference</span> demo_7</p>
+                                </a> {% endcomment %}
+                                <p><span>Product Name :</span> {{fresh_cuts.product.model_name}}</p>
+                                <p><span>Brand :</span> {{fresh_cuts.product.brand}}</p>
+                                <p><span>Category :</span> {{fresh_cuts.product.subcategory}}</p>
+                                <p><span>Actual Price :</span> {{fresh_cuts.product.actual_price}}</p>
+                                <p><span>Selling Price (+ GST) :</span> {{fresh_cuts.product.selling_price}}</p>
                             </div>
                         </div>
                         <div id="reviews" class="tab-pane" role="tabpanel">
                             <div class="product-reviews">
                                 <div class="product-details-comment-block">
+                                    {% for x in reviews %}
                                     <div class="comment-review">
+                                        {% if x.reviews == "2.0"%}
                                         <span>Grade</span>
+                
+                                        <ul class="rating">
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                        </ul>
+                                        {% elif x.reviews == "3.0"%}
+                                        <span>Grade</span>
+                
                                         <ul class="rating">
                                             <li><i class="fa fa-star-o"></i></li>
                                             <li><i class="fa fa-star-o"></i></li>
@@ -260,15 +261,47 @@
                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                         </ul>
+                                        {% elif x.reviews == "4.0"%}
+                                        <span>Grade</span>
+                
+                                        <ul class="rating">
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                        </ul>
+                                        {% elif x.reviews == "5.0"%}
+                                        <span>Grade</span>
+                
+                                        <ul class="rating">
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                        </ul>
+                                        {% else%}
+                                        <span>Grade</span>
+                
+                                        <ul class="rating">
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                        </ul>
+                                        {% endif %}
                                     </div>
                                     <div class="comment-author-infos pt-25">
-                                        <span>HTML 5</span>
-                                        <em>01-12-18</em>
+                                        <span>{{x.user.full_name}}</span>
+                                        <em>{{x.created_date}}</em>
                                     </div>
                                     <div class="comment-details">
-                                        <h4 class="title-block">Demo</h4>
-                                        <p>Plaza</p>
+                                        <h4 class="title-block">Comment </h4>
+                                        <p>{{x.comment }}</p>
                                     </div>
+                                    {% endfor %}
                                     <div class="review-btn">
                                         <a class="review-links" href="#" data-toggle="modal" data-target="#mymodal">Write Your Review!</a>
                                     </div>
@@ -281,11 +314,11 @@
                                                     <div class="modal-inner-area row">
                                                         <div class="col-lg-6">
                                                            <div class="li-review-product">
-                                                               <img src="images/product/large-size/3.jpg" alt="Li's Product">
+                                                               <img src="{{fresh_cuts.product.primary_image}}" alt="Li's Product">
                                                                <div class="li-review-product-desc">
-                                                                   <p class="li-product-name">Today is a good day Framed poster</p>
+                                                                   <p class="li-product-name">{{fresh_cuts.product.model_name}}</p>
                                                                    <p>
-                                                                       <span>Beach Camera Exclusive Bundle - Includes Two Samsung Radiant 360 R3 Wi-Fi Bluetooth Speakers. Fill The Entire Room With Exquisite Sound via Ring Radiator Technology. Stream And Control R3 Speakers Wirelessly With Your Smartphone. Sophisticated, Modern Design </span>
+                                                                       <span>{{fresh_cuts.product.description}} </span>
                                                                    </p>
                                                                </div>
                                                            </div>
@@ -296,11 +329,12 @@
                                                                 <div class="feedback-area">
                                                                     <div class="feedback">
                                                                         <h3 class="feedback-title">Our Feedback</h3>
-                                                                        <form action="#">
+                                                                        <form  method = "POST">
+                                                                            {% csrf_token %}
                                                                             <p class="your-opinion">
                                                                                 <label>Your Rating</label>
                                                                                 <span>
-                                                                                    <select class="star-rating">
+                                                                                    <select name="rating" class="star-rating">
                                                                                       <option value="1">1</option>
                                                                                       <option value="2">2</option>
                                                                                       <option value="3">3</option>
@@ -325,9 +359,10 @@
                                                                                     <input id="email" name="email" value="" size="30" aria-required="true" type="text">
                                                                                     <span class="required"><sub>*</sub> Required fields</span>
                                                                                 </p>
+                                                                                <input name="productId" value="{{fresh_cuts.product.product_id}}" type="text" style="display:none;">
                                                                                 <div class="feedback-btn pb-15">
-                                                                                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">Close</a>
-                                                                                    <a href="#">Submit</a>
+                                                                                    <button class="close" data-dismiss="modal" aria-label="Close">Close</button>
+                                                                                    <button type="submit" name="reviewsubmit" value={{fresh_cuts.product.product_id}}>Submit</button>
                                                                                 </div>
                                                                             </div>
                                                                         </form>

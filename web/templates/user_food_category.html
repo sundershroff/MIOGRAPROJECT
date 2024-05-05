@@ -44,6 +44,7 @@
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
         <!-- Modernizr js -->
         <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
     
     <body>
@@ -53,7 +54,7 @@
         <!-- Begin Body Wrapper -->
         <div class="body-wrapper">
             <!-- Begin Header Area -->
-            {% include "header.html" %}
+            {% include "enduser_header.html" %}
             <!-- Header Area End Here -->
             <!-- Begin Li's Breadcrumb Area -->
             <div class="breadcrumb-area">
@@ -69,12 +70,14 @@
             <!-- Li's Breadcrumb Area End Here -->
             <!-- Begin Li's Content Wraper Area -->
             <div class="content-wraper pt-60 pb-60 pt-sm-30">
+                
                 <div class="container-fluid">
+                    
                     <div class="row">
-                        <div class="col-lg-9 order-1 order-lg-2">
+                        
+                        <div class="col-lg-10 order-1 order-lg-2">
                             <!-- Begin Li's Banner Area -->
-                            <div class="single-banner shop-page-banner" style="
-                            text-align: center;">
+                            {% comment %} <div class="single-banner shop-page-banner" style="text-align: center;">
                                 <a href="#">
                                     <img src="images/food/hotel_logo.jpg" alt="Li's Static Banner">
                                 </a>
@@ -87,7 +90,7 @@
                                     <span class="fa fa-star-o" style="color: #810081;"></span>
                                     <span class="fa fa-star-o" style="color: #810081;"></span>
                                 <h5 style="font-weight: 500;">Delivery With In <span style="color: red;">10min</span> to <span style="color: red;">15min</span></h5>
-                            </div>
+                            </div> {% endcomment %}
                             <!-- Li's Banner Area End Here -->
                             <!-- shop-top-bar start -->
                             <div class="shop-top-bar mt-30">
@@ -127,14 +130,15 @@
                                 <div class="tab-content">
                                     <div id="grid-view" class="tab-pane fade active show" role="tabpanel">
                                         <div class="product-area shop-product-area">
+                                            
                                             <div class="row">
                                                 {% for i in foods %}
                                                 <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
                                                     <!-- single-product-wrap start -->
                                                     <div class="single-product-wrap">
                                                         <div class="product-image">
-                                                            <a href="/food_products/single_food/{{i.food_id}}/{{i.product_id}}/">
-                                                                <img src="{{i.product.primary_image}}" alt="Li's Product Image">
+                                                            <a href="/products/food_products/single_food/{{key.uid}}/{{i.item.food_id}}/{{i.item.product_id}}/">
+                                                                <img src="{{i.item.product.primary_image}}" alt="Li's Product Image">
                                                             </a>
                                                             <span class="sticker">New</span>
                                                         </div>
@@ -142,9 +146,18 @@
                                                             <div class="product_desc_info">
                                                                 <div class="product-review">
                                                                     <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Chicken Briyani</a>
+                                                                        <a href="/products/food_restaurant/{{key.uid}}/{{i.shop.food_id}}/">{{i.shop.business_name}}</a>
                                                                     </h5>
-                                                                    <!-- <div class="rating-box">
+                                                                    <div class="rating-box">
+                                                                        {% if i.item.rating == "2.0" %}
+                                                                        <ul class="rating">
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        </ul>
+                                                                        {% elif i.item.rating == "3.0" %}
                                                                         <ul class="rating">
                                                                             <li><i class="fa fa-star-o"></i></li>
                                                                             <li><i class="fa fa-star-o"></i></li>
@@ -152,37 +165,65 @@
                                                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                         </ul>
-                                                                    </div> -->
+                                                                        {% elif i.item.rating == "4.0" %}
+                                                                        <ul class="rating">
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        </ul>
+                                                                        {% elif i.item.rating == "5.0" %}
+                                                                        <ul class="rating">
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                        </ul>
+                                                                        {% else %}
+                                                                        <ul class="rating">
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        </ul>
+                                                                        {% endif %}
+                                                                    </div> 
+                                                                    
                                                                 </div>
-                                                                <h4><a class="product_name" href="food_single-product.html">{{i.product.name|join:", "}}</a></h4>
+                                                                <h4><a class="product_name" href="/products/food_products/single_food/{{key.uid}}/{{i.item.food_id}}/{{i.item.product_id}}/">{{i.item.product.model_name}}</a></h4>
                                                                 <div class="price-box" style="display: flex;">
-                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;{{i.product.actual_price|join:","}}</span>
+                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;{{i.item.product.selling_price}}</span>
                                                                     <span style=" display: flex;width: 100%;justify-content: end;">
                                                                     <td class="quantity">
-                                                                    
                                                                         <div class="cart-plus-minus">
-                                                                            <input class="cart-plus-minus-box" value="1" type="text">
-                                                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                                                           <input class="cart-plus-minus-box" name="quantity" value="0" type="text" data-product-id="{{ i.item.product_id }}" data-user-id="{{ key.uid }}" data-selling-price="{{ i.item.product.selling_price }}" data-category="food">
+                                                                            <button class="dec qtybutton"id="increase" ><i class="fa fa-angle-down"></i></button>
+                                                                            <button class="inc qtybutton" id="decrease" ><i class="fa fa-angle-up"></i></button>
+                                                                           
+                                                                            
                                                                         </div>
                                                                     </td></span>
-                                                                </div>
-                                                                
+                                                                </div> 
+                                                                                                                      
                                                             </div>
-                                                            <div class="add-actions">
-                                                                <ul class="add-actions-link">
+                                                             <div class="add-actions ">
+                                                                <ul class="add-actions-link ">
                                                                     
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
+                                                                    {% comment %} <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.shop.category.0}}/products/{{i.shop.food_id}}/{{i.item.product_id}}/">Add to cart</a></li> {% endcomment %}
+                                                                    {% comment %} <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li> {% endcomment %}
+                                                                    <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i> Add to Wishlist</a></li>
                                                                 </ul>
                                                             </div>
+
                                                         </div>
                                                     </div>
                                                     <!-- single-product-wrap end -->
                                                 </div>
                                                 {% endfor %}
-                                                  <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
+                                                  {% comment %} <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
                                                     <!-- single-product-wrap start -->
                                                     <div class="single-product-wrap">
                                                         <div class="product-image">
@@ -195,7 +236,7 @@
                                                             <div class="product_desc_info">
                                                                 <div class="product-review">
                                                                     <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Chicken Briyani + salad</a>
+                                                                        <a href="">Chicken Briyani + salad</a>
                                                                     </h5>
                                                                     <!-- <div class="rating-box">
                                                                         <ul class="rating">
@@ -225,9 +266,9 @@
                                                             <div class="add-actions">
                                                                 <ul class="add-actions-link">
                                                                     
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
+                                                                    <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.shop.category.0}}/products/{{i.shop.food_id}}/{{i.item.product_id}}/">Add to cart</a></li>
                                                                     <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
+                                                                    <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -247,7 +288,7 @@
                                                             <div class="product_desc_info">
                                                                 <div class="product-review">
                                                                     <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Chicken Briyani + salad</a>
+                                                                        <a href="">Chicken Briyani + salad</a>
                                                                     </h5>
                                                                     <!-- <div class="rating-box">
                                                                         <ul class="rating">
@@ -277,9 +318,9 @@
                                                             <div class="add-actions">
                                                                 <ul class="add-actions-link">
                                                                     
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
+                                                                    <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.shop.category.0}}/products/{{i.shop.food_id}}/{{i.item.product_id}}/">Add to cart</a></li>
                                                                     <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
+                                                                    <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -299,7 +340,7 @@
                                                             <div class="product_desc_info">
                                                                 <div class="product-review">
                                                                     <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Chicken Briyani + salad</a>
+                                                                        <a href="">Chicken Briyani + salad</a>
                                                                     </h5>
                                                                     <!-- <div class="rating-box">
                                                                         <ul class="rating">
@@ -329,9 +370,9 @@
                                                             <div class="add-actions">
                                                                 <ul class="add-actions-link">
                                                                     
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
+                                                                    <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.shop.category.0}}/products/{{i.shop.food_id}}/{{i.item.product_id}}/">Add to cart</a></li>
                                                                     <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
+                                                                    <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -351,7 +392,7 @@
                                                             <div class="product_desc_info">
                                                                 <div class="product-review">
                                                                     <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Chicken Briyani + salad</a>
+                                                                        <a href="">Chicken Briyani + salad</a>
                                                                     </h5>
                                                                     <!-- <div class="rating-box">
                                                                         <ul class="rating">
@@ -381,9 +422,9 @@
                                                             <div class="add-actions">
                                                                 <ul class="add-actions-link">
                                                                     
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
+                                                                    <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.shop.category.0}}/products/{{i.shop.food_id}}/{{i.item.product_id}}/">Add to cart</a></li>
                                                                     <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
+                                                                    <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -403,7 +444,7 @@
                                                             <div class="product_desc_info">
                                                                 <div class="product-review">
                                                                     <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Chicken Briyani + salad</a>
+                                                                        <a href="">Chicken Briyani + salad</a>
                                                                     </h5>
                                                                     <!-- <div class="rating-box">
                                                                         <ul class="rating">
@@ -433,16 +474,16 @@
                                                             <div class="add-actions">
                                                                 <ul class="add-actions-link">
                                                                     
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
+                                                                    <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.shop.category.0}}/products/{{i.shop.food_id}}/{{i.item.product_id}}/">Add to cart</a></li>
                                                                     <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
+                                                                    <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <!-- single-product-wrap end -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
+                                                </div> {% endcomment %}
+                                                {% comment %} <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
                                                     <!-- single-product-wrap start -->
                                                     <div class="single-product-wrap">
                                                         <div class="product-image">
@@ -455,7 +496,7 @@
                                                             <div class="product_desc_info">
                                                                 <div class="product-review">
                                                                     <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Chicken Briyani + salad</a>
+                                                                        <a href="">Chicken Briyani + salad</a>
                                                                     </h5>
                                                                     <!-- <div class="rating-box">
                                                                         <ul class="rating">
@@ -485,9 +526,9 @@
                                                             <div class="add-actions">
                                                                 <ul class="add-actions-link">
                                                                     
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
+                                                                    <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.shop.category.0}}/products/{{i.shop.food_id}}/{{i.item.product_id}}/">Add to cart</a></li>
                                                                     <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
+                                                                    <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -506,7 +547,7 @@
                                                             <div class="product_desc_info">
                                                                 <div class="product-review">
                                                                     <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Chicken Briyani + salad</a>
+                                                                        <a href="">Chicken Briyani + salad</a>
                                                                     </h5>
                                                                     <!-- <div class="rating-box">
                                                                         <ul class="rating">
@@ -536,9 +577,9 @@
                                                             <div class="add-actions">
                                                                 <ul class="add-actions-link">
                                                                     
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
+                                                                    <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.shop.category.0}}/products/{{i.shop.food_id}}/{{i.item.product_id}}/">Add to cart</a></li>
                                                                     <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
+                                                                    <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -557,7 +598,7 @@
                                                             <div class="product_desc_info">
                                                                 <div class="product-review">
                                                                     <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Chicken Briyani + salad</a>
+                                                                        <a href="">Chicken Briyani + salad</a>
                                                                     </h5>
                                                                     <!-- <div class="rating-box">
                                                                         <ul class="rating">
@@ -587,9 +628,9 @@
                                                             <div class="add-actions">
                                                                 <ul class="add-actions-link">
                                                                     
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
+                                                                    <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.shop.category.0}}/products/{{i.shop.food_id}}/{{i.item.product_id}}/">Add to cart</a></li>
                                                                     <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
+                                                                    <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -609,7 +650,7 @@
                                                             <div class="product_desc_info">
                                                                 <div class="product-review">
                                                                     <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Chicken Briyani + salad</a>
+                                                                        <a href="">Chicken Briyani + salad</a>
                                                                     </h5>
                                                                     <!-- <div class="rating-box">
                                                                         <ul class="rating">
@@ -639,9 +680,61 @@
                                                             <div class="add-actions">
                                                                 <ul class="add-actions-link">
                                                                     
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
+                                                                    <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.shop.category.0}}/products/{{i.shop.food_id}}/{{i.item.product_id}}/">Add to cart</a></li>
                                                                     <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
+                                                                    <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- single-product-wrap end -->
+                                                </div>  {% endcomment %}
+                                                 {% comment %} <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
+                                                    <!-- single-product-wrap start -->
+                                                    <div class="single-product-wrap">
+                                                        <div class="product-image">
+                                                            <a href="food_single-product.html">
+                                                                <img src="images/food/briyani.jpg" alt="Li's Product Image">
+                                                            </a>
+                                                            <span class="sticker">New</span>
+                                                        </div>
+                                                        <div class="product_desc">
+                                                            <div class="product_desc_info">
+                                                                <div class="product-review">
+                                                                    <h5 class="manufacturer">
+                                                                        <a href="">Chicken Briyani + salad</a>
+                                                                    </h5>
+                                                                    <!-- <div class="rating-box">
+                                                                        <ul class="rating">
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        </ul>
+                                                                    </div> -->
+                                                                </div>
+                                                                <h4><a class="product_name" href="food_single-product.html">Chicken Briyani</a></h4>
+                                                                <div class="price-box" style="display: flex;">
+                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
+                                                                    <span style=" display: flex;width: 100%;justify-content: end;">
+                                                                    <td class="quantity">
+                                                                    
+                                                                        <div class="cart-plus-minus">
+                                                                            <input class="cart-plus-minus-box" value="1" type="text">
+                                                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                                                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                                                        </div>
+                                                                    </td></span>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                            <div class="add-actions">
+                                                                <ul class="add-actions-link">
+                                                                    
+                                                                    <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.shop.category.0}}/products/{{i.shop.food_id}}/{{i.item.product_id}}/">Add to cart</a></li>
+                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
+                                                                    <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -660,7 +753,7 @@
                                                             <div class="product_desc_info">
                                                                 <div class="product-review">
                                                                     <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Chicken Briyani + salad</a>
+                                                                        <a href="">Chicken Briyani + salad</a>
                                                                     </h5>
                                                                     <!-- <div class="rating-box">
                                                                         <ul class="rating">
@@ -690,66 +783,15 @@
                                                             <div class="add-actions">
                                                                 <ul class="add-actions-link">
                                                                     
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
+                                                                    <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.shop.category.0}}/products/{{i.shop.food_id}}/{{i.item.product_id}}/">Add to cart</a></li>
                                                                     <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
+                                                                    <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <!-- single-product-wrap end -->
-                                                </div>  <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="food_single-product.html">
-                                                                <img src="images/food/briyani.jpg" alt="Li's Product Image">
-                                                            </a>
-                                                            <span class="sticker">New</span>
-                                                        </div>
-                                                        <div class="product_desc">
-                                                            <div class="product_desc_info">
-                                                                <div class="product-review">
-                                                                    <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Chicken Briyani + salad</a>
-                                                                    </h5>
-                                                                    <!-- <div class="rating-box">
-                                                                        <ul class="rating">
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        </ul>
-                                                                    </div> -->
-                                                                </div>
-                                                                <h4><a class="product_name" href="food_single-product.html">Chicken Briyani</a></h4>
-                                                                <div class="price-box" style="display: flex;">
-                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                                    <span style=" display: flex;width: 100%;justify-content: end;">
-                                                                    <td class="quantity">
-                                                                    
-                                                                        <div class="cart-plus-minus">
-                                                                            <input class="cart-plus-minus-box" value="1" type="text">
-                                                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                                        </div>
-                                                                    </td></span>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            <div class="add-actions">
-                                                                <ul class="add-actions-link">
-                                                                    
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>
+                                                </div> {% endcomment %}
                                             </div>
                                         </div>
                                     </div>
@@ -770,7 +812,7 @@
                                                             <div class="product_desc_info">
                                                                 <div class="product-review">
                                                                     <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Graphic Corner</a>
+                                                                        <a href="">Graphic Corner</a>
                                                                     </h5>
                                                                     <div class="rating-box">
                                                                         <ul class="rating">
@@ -794,7 +836,7 @@
                                                         <div class="shop-add-action mb-xs-30">
                                                             <ul class="add-actions-link">
                                                                 <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                                <li class="wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
+                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
                                                                 <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
                                                             </ul>
                                                         </div>
@@ -814,7 +856,7 @@
                                                             <div class="product_desc_info">
                                                                 <div class="product-review">
                                                                     <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Graphic Corner</a>
+                                                                        <a href="">Graphic Corner</a>
                                                                     </h5>
                                                                     <div class="rating-box">
                                                                         <ul class="rating">
@@ -838,7 +880,7 @@
                                                         <div class="shop-add-action mb-xs-30">
                                                             <ul class="add-actions-link">
                                                                 <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                                <li class="wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
+                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
                                                                 <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
                                                             </ul>
                                                         </div>
@@ -858,7 +900,7 @@
                                                             <div class="product_desc_info">
                                                                 <div class="product-review">
                                                                     <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Graphic Corner</a>
+                                                                        <a href="">Graphic Corner</a>
                                                                     </h5>
                                                                     <div class="rating-box">
                                                                         <ul class="rating">
@@ -882,7 +924,7 @@
                                                         <div class="shop-add-action mb-xs-30">
                                                             <ul class="add-actions-link">
                                                                 <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                                <li class="wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
+                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
                                                                 <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
                                                             </ul>
                                                         </div>
@@ -902,7 +944,7 @@
                                                             <div class="product_desc_info">
                                                                 <div class="product-review">
                                                                     <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Graphic Corner</a>
+                                                                        <a href="">Graphic Corner</a>
                                                                     </h5>
                                                                     <div class="rating-box">
                                                                         <ul class="rating">
@@ -926,7 +968,7 @@
                                                         <div class="shop-add-action mb-xs-30">
                                                             <ul class="add-actions-link">
                                                                 <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                                <li class="wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
+                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
                                                                 <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
                                                             </ul>
                                                         </div>
@@ -946,7 +988,7 @@
                                                             <div class="product_desc_info">
                                                                 <div class="product-review">
                                                                     <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Graphic Corner</a>
+                                                                        <a href="">Graphic Corner</a>
                                                                     </h5>
                                                                     <div class="rating-box">
                                                                         <ul class="rating">
@@ -970,7 +1012,7 @@
                                                         <div class="shop-add-action mb-xs-30">
                                                             <ul class="add-actions-link">
                                                                 <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                                <li class="wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
+                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
                                                                 <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
                                                             </ul>
                                                         </div>
@@ -990,7 +1032,7 @@
                                                             <div class="product_desc_info">
                                                                 <div class="product-review">
                                                                     <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Graphic Corner</a>
+                                                                        <a href="">Graphic Corner</a>
                                                                     </h5>
                                                                     <div class="rating-box">
                                                                         <ul class="rating">
@@ -1014,7 +1056,7 @@
                                                         <div class="shop-add-action mb-xs-30">
                                                             <ul class="add-actions-link">
                                                                 <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                                <li class="wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
+                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
                                                                 <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
                                                             </ul>
                                                         </div>
@@ -1034,7 +1076,7 @@
                                                             <div class="product_desc_info">
                                                                 <div class="product-review">
                                                                     <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Graphic Corner</a>
+                                                                        <a href="">Graphic Corner</a>
                                                                     </h5>
                                                                     <div class="rating-box">
                                                                         <ul class="rating">
@@ -1058,7 +1100,7 @@
                                                         <div class="shop-add-action mb-xs-30">
                                                             <ul class="add-actions-link">
                                                                 <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                                <li class="wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
+                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
                                                                 <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
                                                             </ul>
                                                         </div>
@@ -1078,7 +1120,7 @@
                                                             <div class="product_desc_info">
                                                                 <div class="product-review">
                                                                     <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Graphic Corner</a>
+                                                                        <a href="">Graphic Corner</a>
                                                                     </h5>
                                                                     <div class="rating-box">
                                                                         <ul class="rating">
@@ -1102,7 +1144,7 @@
                                                         <div class="shop-add-action mb-xs-30">
                                                             <ul class="add-actions-link">
                                                                 <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                                <li class="wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
+                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
                                                                 <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
                                                             </ul>
                                                         </div>
@@ -1122,7 +1164,7 @@
                                                             <div class="product_desc_info">
                                                                 <div class="product-review">
                                                                     <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Graphic Corner</a>
+                                                                        <a href="">Graphic Corner</a>
                                                                     </h5>
                                                                     <div class="rating-box">
                                                                         <ul class="rating">
@@ -1146,7 +1188,7 @@
                                                         <div class="shop-add-action mb-xs-30">
                                                             <ul class="add-actions-link">
                                                                 <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                                <li class="wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
+                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
                                                                 <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
                                                             </ul>
                                                         </div>
@@ -1166,7 +1208,7 @@
                                                             <div class="product_desc_info">
                                                                 <div class="product-review">
                                                                     <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Graphic Corner</a>
+                                                                        <a href="">Graphic Corner</a>
                                                                     </h5>
                                                                     <div class="rating-box">
                                                                         <ul class="rating">
@@ -1190,7 +1232,7 @@
                                                         <div class="shop-add-action mb-xs-30">
                                                             <ul class="add-actions-link">
                                                                 <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                                <li class="wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
+                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
                                                                 <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
                                                             </ul>
                                                         </div>
@@ -1210,7 +1252,7 @@
                                                             <div class="product_desc_info">
                                                                 <div class="product-review">
                                                                     <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Graphic Corner</a>
+                                                                        <a href="">Graphic Corner</a>
                                                                     </h5>
                                                                     <div class="rating-box">
                                                                         <ul class="rating">
@@ -1234,7 +1276,7 @@
                                                         <div class="shop-add-action mb-xs-30">
                                                             <ul class="add-actions-link">
                                                                 <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                                <li class="wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
+                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
                                                                 <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
                                                             </ul>
                                                         </div>
@@ -1254,7 +1296,7 @@
                                                             <div class="product_desc_info">
                                                                 <div class="product-review">
                                                                     <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Graphic Corner</a>
+                                                                        <a href="">Graphic Corner</a>
                                                                     </h5>
                                                                     <div class="rating-box">
                                                                         <ul class="rating">
@@ -1278,7 +1320,7 @@
                                                         <div class="shop-add-action">
                                                             <ul class="add-actions-link">
                                                                 <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                                <li class="wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
+                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
                                                                 <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
                                                             </ul>
                                                         </div>
@@ -1310,9 +1352,9 @@
                             </div>
                             <!-- shop-products-wrapper end -->
                         </div>
-                        <div class="col-lg-3 order-2 order-lg-1">
+                        <div class="col-lg-1 order-2 order-lg-1">
                             <!--sidebar-categores-box start  -->
-                            <div class="sidebar-categores-box mt-sm-30 mt-xs-30">
+                            {% comment %} <div class="sidebar-categores-box mt-sm-30 mt-xs-30">
                                 <div class="sidebar-title">
                                     <h2>Laptop</h2>
                                 </div>
@@ -1452,7 +1494,7 @@
                                     </ul>
                                 </div>
                                 <!-- category-sub-menu end -->
-                            </div>
+                            </div> {% endcomment %}
                         </div>
                     </div>
                 </div>
@@ -1460,6 +1502,12 @@
             <!-- Content Wraper Area End Here -->
             <!-- Begin Footer Area -->
             {% include "footer.html" %}
+            <div class="proceed" style="display: none;" d-flex>
+                <span id="itemCount">0 <span>Items:</span></span>
+                <span>Total Price:&#8377<span id="totalPrice"><b>0</b></span></span>
+                <button id="proceed">Proceed</button>
+            </div>
+
             <!-- Footer Area End Here -->
             <!-- Begin Quick View | Modal Area -->
             <div class="modal fade modal-wrapper" id="exampleModalCenter" >
@@ -1554,7 +1602,7 @@
                                                 </form>
                                             </div>
                                             <div class="product-additional-info pt-25">
-                                                <a class="wishlist-btn" href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a>
+                                                <a class="wishlist-btn" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a>
                                                 <div class="product-social-sharing pt-25">
                                                     <ul>
                                                         <li class="facebook"><a href="#"><i class="fa fa-facebook"></i>Facebook</a></li>
@@ -1617,6 +1665,130 @@
    <script src="{% static 'js/scrollUp.min.js' %}"></script>
    <!-- Main/Activator js -->
    <script src="{% static 'js/main.js' %}"></script>
+    <script>
+        $(".cart-plus-minus").append('<button class="dec qtybutton" id="increase"><i class="fa fa-angle-down"></i></button><button class="inc qtybutton" id="decrease"><i class="fa fa-angle-up"></i></button>');
+        $(document).ready(function() {
+            const Items=[];
+            const category ="food";
+            let totalPrice = 0; // Variable to store total price
+            let itemCount = 0;
+
+            function updateUI() {
+                if (totalPrice > 1) {
+                    $(".proceed").show();
+                    price=parseFloat(totalPrice);
+                $("#totalPrice").text(price.toFixed(2));
+                $("#itemCount").text(itemCount);
+                console.log("totalPrice",totalPrice);
+                }
+                else{
+                    $(".proceed").hide();
+                }
+                
+            }
+
+            $(".qtybutton").on("click", function() {
+                var $button = $(this);
+                const quantity = $(this).siblings(".cart-plus-minus-box").val();
+                const productId = $(this).siblings(".cart-plus-minus-box").data("product-id");
+                const sellingPrice = parseFloat($(this).siblings(".cart-plus-minus-box").data("selling-price"));
+                
+                const userId = "{{key.uid|safe}}";
+                const existingItemIndex = Items.findIndex(item => item.productId === productId);
+                if ($button.hasClass('inc')) {
+                    var newVal = parseInt(quantity) + 1;
+                    if (existingItemIndex !== -1) {
+                            Items[existingItemIndex].quantity ++;
+                        
+
+                            } else {
+                                    Items.push({ productId, userId, category, quantity, sellingPrice });
+                                    }
+                                    totalPrice += Items[existingItemIndex].sellingPrice;
+                                    itemCount++;
+                                    updateUI();
+                    
+                } else {
+                    // Don't allow decrementing below zero
+                    if (quantity > 0) {
+                    var newVal = parseInt(quantity) - 1;
+                    if (existingItemIndex !== -1) {
+                        Items[existingItemIndex].quantity --;
+                        totalPrice -= Items[existingItemIndex].sellingPrice;
+                        itemCount--;
+                    
+                        if(Items[existingItemIndex].quantity === 0)  
+                            {
+                                Items.splice(existingItemIndex, 1);
+                                
+                            }  
+                                }
+
+                            }
+                        
+                    else {
+                        newVal = 0;
+                        totalPrice = 0;
+                            itemCount = 0;
+                            updateUI();
+                        
+                        
+                        }
+                    }
+                $button.parent().find("input").val(newVal);
+                console.log(Items)
+                updateUI();
+                
+                
+            });
+
+            $('#proceed').on("click", function(){
+                Items.forEach(function(item) {
+                    const userId = item.userId;
+                    const productId = item.productId;
+                    const category = item.category;
+                    const quantity = item.quantity;
+                    
+                    // Construct the URL with the values from the current item
+                    const url = `/cart_product/${userId}/${productId}/${category}/`;
+                
+                    // Use the URL as needed (e.g., send a request to the server)
+                    console.log(url);
+                
+                    // Pass the quantity as data (example: sending a request to the server)
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: { quantity: quantity },
+                        success: function(response) {
+                            console.log("Quantity successfully passed as data.");
+                            location.reload();
+                            selectedItems = [];
+                            // Clear the UI (optional)
+                            totalPrice = 0;
+                            itemCount = 0;
+                            updateUI();
+                            // Handle success response if needed
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Failed to pass quantity as data:", error);
+                            location.reload();
+                            // Handle error if needed
+                        }
+                    });
+                });
+                
+            })
+            
+
+        }); 
+                
+            
+
+        
+    </script> 
+
+    
     </body>
 
 <!-- shop-left-sidebar31:48-->

@@ -229,42 +229,49 @@
                             <img src="{{shop_product.product.primary_image}}" class="py-1 px-1" id="imagePreviewfresh4" style="position:absolute;width: 100%;height: 100%;border-radius: 10px;object-fit: contain;"  alt="">
                         </div>
                       <label for="number2"><strong>Other images:</strong></label>
-                      <div class="row">
+                      <div class="row py-2" style="border:1px solid black">
+                        <div class="col-md-4">
+                          <div class="input-group" style="justify-content: center;align-items: center;height: 100%;border: 1px solid black;border-radius: 10px;">
+                          <p style="font-size: 50px;position: absolute;opacity: 80%;color: #8B1874;"><i class="fa fa-upload" ></i></p>
+                          <p style="font-size: 20px;position:absolute;opacity: 80%;color: #8B1874;bottom: 40px;">Upload Image</p>
+
+                          <input type="file" name="other_images" id="" style="height: 100%;opacity: 0%;">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                        <div class="row">
+
+                        
                         {% for i in shop_product.product.other_images %}
                         <div class="col-md-4" style="padding-bottom: 15px;">
-                          <div class="input-group" style="justify-content: center;align-items: center;">
-                              <div class="banner"></div>
-                              <p style="font-size: 50px;position: absolute;opacity: 80%;color: #8B1874;"><i class="fa fa-upload" ></i></p>
-                              <p style="font-size: 20px;position:absolute;opacity: 80%;color: #8B1874;bottom: 40px;">Upload Image</p>
-                              <input type="file" class="imagebanner" name="other_images" id="imageInputfresh4" onchange="previewImagefresh4()">
+                          <div class="input-group" style="justify-content: center;align-items: center;text-align: end;">
+                              <div class="banner">
+                               <a href="/delete_other_image/{{shop_product.product_id}}/{{ forloop.counter0 }}/{{authenticate.username}}" class="my-2" style="color: red;font-size: larger;padding-right: 5px;position: absolute;"><i class="fa fa-trash"></i></a  > 
+                              </div>
                               <img src="{{i}}" class="py-1 px-1" id="imagePreviewfresh4" style="position:absolute;width: 100%;height: 100%;border-radius: 10px;object-fit: contain;"  alt="">
                           </div>
                       </div>
   
                         {% endfor %}
-                    <div class="col-md-4" style="padding-bottom: 15px;">
-                      <div class="input-group" style="justify-content: center;align-items: center;">
-                          <div class="banner"></div>
-                          <p style="font-size: 50px;position: absolute;opacity: 80%;color: #8B1874;"><i class="fa fa-upload" ></i></p>
-                          <p style="font-size: 20px;position:absolute;opacity: 80%;color: #8B1874;bottom: 40px;">Upload Image</p>
-                          <input type="file" class="imagebanner" name="" id="imageInputfresh4" onchange="previewImagefresh4()">
-                          <img class="py-1 px-1" id="imagePreviewfresh4" style="position:absolute;width: 100%;height: 100%;border-radius: 10px;object-fit: contain;"  alt="">
                       </div>
-                  </div>
-                  <div class="col-md-4" style="padding-bottom: 15px;">
-                    <div class="input-group" style="justify-content: center;align-items: center;">
-                        <div class="banner"></div>
-                        <p style="font-size: 50px;position: absolute;opacity: 80%;color: #8B1874;"><i class="fa fa-upload" ></i></p>
-                        <p style="font-size: 20px;position:absolute;opacity: 80%;color: #8B1874;bottom: 40px;">Upload Image</p>
-                        <input type="file" class="imagebanner" name="" id="imageInputfresh4" onchange="previewImagefresh4()">
-                        <img class="py-1 px-1" id="imagePreviewfresh4" style="position:absolute;width: 100%;height: 100%;border-radius: 10px;object-fit: contain;"  alt="">
                     </div>
                 </div>
-                </div>
                           <label><strong>Brand</strong></label>
-                          <input type="text" name="brand" value="{{shop_product.product.brand.0}}" placeholder="Enter brand name"  required><br>
+                          <input type="text" name="brand" value="{{shop_product.product.brand}}" placeholder="Enter brand name"  required><br>
                           <label ><strong>Model Name:</strong></label>
-                          <input type="text" name="model_name" value="{{shop_product.product.model_name.0}}" placeholder="Enter model name" required><br>
+                          <input type="text" name="name" value="{{shop_product.product.name}}" placeholder="Enter model name" required><br>
+                            <!-- category -->
+                            <label ><strong>Category:</strong></label>
+                            <input type="text" name="category" value="{{shop_product.category}}" placeholder="Enter model name" required><br>
+                            <label ><strong>Sub Category:</strong></label>
+                            <input type="text" name="subcategory" value="{{shop_product.subcategory}}" placeholder="Enter model name" required><br>
+                            {% if shop_product.subcategory1 == None %}
+                              
+                            {% else %}
+                            <label ><strong>Below Sub Category:</strong></label>
+                            <input type="text" name="subcategory1" value="{{shop_product.subcategory1}}" placeholder="Enter model name" required><br>
+
+                            {% endif %}
 
                           <label for="number8"><strong>Custom Description:</strong> </label>
                           <div class="custom" id="panel" style=" display: block;">
@@ -273,7 +280,7 @@
                             <div class="print" style="width: 100%;">
                               <div class="custom" style="display: flex;column-gap: 10px;">
                                   <input type="text" value="{{key}}" class="name1" placeholder="Enter key" required="" fdprocessedid="r9jxhm" style="width: 70%;">
-                                  <input type="text" name="{{key}}" value="{{values.0}}" class="name1" placeholder="Enter value" required="" fdprocessedid="yzt6b" style="width: 70%;">
+                                  <input type="text" name="{{key}}" value="{{values}}" class="name1" placeholder="Enter value" required="" fdprocessedid="yzt6b" style="width: 70%;">
                                   <i class="fa fa-minus-circle delete-btn" style="font-size:34px;color:red;cursor:pointer;"></i>
                               </div></div>
                             {% endfor %}
@@ -281,30 +288,41 @@
                               </div>
                               <i class="fa fa-plus-circle" style="font-size: 31px;color: green;padding-top: 10px;padding-bottom: 10px;font-weight: 600;" id="flip">ADD</i> 
                             
-                          
+                            
                     <div class="buttons">
-                          
-                          <input type="checkbox" name="delivery_type" value="paid_delivery" class="btn-check " id="btn-check" autocomplete="off" style="width: 8%;height: 50px;opacity: 0%;">
-                          <label class="btn btn-danger" for="btn-check" style="padding: 12px;">Paid Delivery</label>  
-
-                          <input type="checkbox" name="delivery_type" value="free_delivery" class="btn-check " id="btn-check" autocomplete="off" style="width: 8%;height: 50px;opacity: 0%;">
+                          {% if shop_product.product.delivery_type == "paid_delivery" %}
+                          <input type="radio" checked name="delivery_type" value="paid_delivery" class="btn-check " id="btn-check" autocomplete="off" style="width: 8%;height: 50px;opacity: 0%;">
+                          <label class="btn btn-danger" for="btn-check" style="padding: 12px;" >Paid Delivery</label>  
+                          <input type="radio" name="delivery_type" value="free_delivery" class="btn-check " id="btn-check" autocomplete="off" style="width: 8%;height: 50px;opacity: 0%;">
                           <label class="btn btn-info" for="btn-check" style="padding: 12px;">Free Delivery</label>  
+
+                          {% elif  shop_product.product.delivery_type == "free_delivery" %}
+                          <input type="radio" name="delivery_type" value="paid_delivery" class="btn-check " id="btn-check" autocomplete="off" style="width: 8%;height: 50px;opacity: 0%;">
+                          <label class="btn btn-danger" for="btn-check" style="padding: 12px;" >Paid Delivery</label>  
+                          <input type="radio" checked name="delivery_type" value="free_delivery" class="btn-check " id="btn-check" autocomplete="off" style="width: 8%;height: 50px;opacity: 0%;">
+                          <label class="btn btn-info" for="btn-check" style="padding: 12px;" >Free Delivery</label>  
+
+                          {% endif %}
+
                         </div>
                           <div class="pricing">
                             <label for="number6"><strong>Actual Price:</strong></label>
-                            <input type="number" name="actual_price" value="{{shop_product.product.actual_price.0}}" placeholder="Enter price" required><br>
+                            <input type="number" name="actual_price" value="{{shop_product.product.actual_price}}" placeholder="Enter price" required><br>
                             <label for="number6"><strong>Discount Price:</strong></label>
-                            <input type="number" name="discount_price" value="{{shop_product.product.discount_price.0}}" placeholder="Enter Price" required><br>
+                            <input type="number" name="discount_price" value="{{shop_product.product.discount_price}}" placeholder="Enter Price" required><br>
                             {% comment %} <label for="number6"><strong>GST:</strong></label>
                             <input type="number"  placeholder="Enter name" required><br> {% endcomment %}
                             <label for="number6"><strong>Sellin Price:</strong></label>
                             <input type="number" name="selling_price" value="{{shop_product.product.selling_price}}" placeholder="Enter name" required><br>
+                            <input type="hidden" name="category" value="{{shop_product.category}}" id="">
+                            <input type="hidden" name="subcategory" value="{{shop_product.subcategory}}" id="">
+                            <input type="hidden" name="status" value="{{shop_product.status}}" id="">
                           </div>&nbsp;&nbsp;
 
                       </div>
                       <br>
                       <div>
-                          <button type="submit" href="edit-menu.html">update</button><br><br>
+                          <button type="submit">update</button><br><br>
                       
                       </div>
                   </div>
@@ -317,29 +335,8 @@
 
 
 
-          <div class="row">
-            <!-- Delivery live trackibg -->
-            <div class="col-md-12 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title text-white">Todo</h4>
-                  <div class="list-wrapper">
-                    <footer class="footer my-0 ">
-                        <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                          <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2024 <a href="https://www.bootstrapdash.com/" target="_blank">Clovion Tech Solution pvt Ltd </a>. All rights reserved.</span>
-                          <!-- <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Clovion Tech Solution pvt Ltd <i class="mdi mdi-heart text-danger"></i></span> -->
-                        </div>
-                      </footer>
-                    <!-- main-panel ends -->
-                  </div>
-                  <!-- page-body-wrapper ends -->
-                </div>
-             <!-- container-scroller -->
-    <!-- plugins:js -->
-    <!-- JavaScript imports -->
-    </div>
-    </div>
-    </div>
+          {% include "admin_footer.html" %}
+
     </div>
     </div>
   
@@ -352,8 +349,8 @@
         var newDivContent = `
         <div class="print" style="width: 100%;">
     <div class="custom" style="display: flex;column-gap: 10px;">
-        <input type="text" class="name1" placeholder="Enter Key" required>
-        <input type="text" class="name1" placeholder="Enter value" required>
+        <input type="text" name="key" class="name1" placeholder="Enter Key" required>
+        <input type="text" name="value" class="name1" placeholder="Enter value" required>
         <i class="fa fa-minus-circle delete-btn" style="font-size:34px;color:red;cursor:pointer;"></i>
     </div></div>`; // Note the <br> here for extra separation
 

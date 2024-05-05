@@ -45,6 +45,7 @@
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
         <!-- Modernizr js -->
         <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
     <body>
     <!--[if lt IE 8]>
@@ -53,7 +54,7 @@
         <!-- Begin Body Wrapper -->
         <div class="body-wrapper" style="padding: 0px 15px;">
             <!-- Begin Header Area -->
-            {% include "header.html" %}
+            {% include "enduser_header.html" %}
             <!-- Header Area End Here -->
             <!-- Begin Slider With Banner Area -->
             <div class="slider-with-banner">
@@ -67,30 +68,30 @@
                             <div class="slider-area">
                                 <div class="slider-active owl-carousel">
                                     <!-- Begin Single Slide Area -->
-                                    <div class="single-slide align-center-left  animation-style-01 bg-1">
+                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(/media/{{banner.banner1}});">
                                         <div class="slider-progress"></div>
-                                        <div class="slider-content">
+                                        {% comment %} <div class="slider-content">
                                             <h5>Sale Offer <span>-20% Off</span> This Week</h5>
                                             <h2>Dairy Products</h2>
                                             <h3>Starting at <span>&#8377;150.00</span></h3>
                                             <div class="default-btn slide-btn">
                                                 <a class="links" href="food_shop-left-sidebar.html">Shopping Now</a>
                                             </div>
-                                        </div>
+                                        </div> {% endcomment %}
                                     </div>
                                     <!-- Single Slide Area End Here -->
                                     <!-- Begin Single Slide Area -->
-                                    <!-- <div class="single-slide align-center-left animation-style-02 bg-2">
+                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(/media/{{banner.banner2}});">
                                         <div class="slider-progress"></div>
-                                        <div class="slider-content">
+                                        {% comment %} <div class="slider-content">
                                             <h5>Sale Offer <span>Black Friday</span> This Week</h5>
                                             <h2>Ham Burger</h2>
                                             <h3>Starting at <span>&#8377;224.00</span></h3>
                                             <div class="default-btn slide-btn">
                                                 <a class="links" href="food_shop-left-sidebar.html">Shopping Now</a>
                                             </div>
-                                        </div>
-                                    </div> -->
+                                        </div> {% endcomment %}
+                                    </div> 
                                     <!-- Single Slide Area End Here -->
                                     <!-- Begin Single Slide Area -->
                                     <!-- <div class="single-slide align-center-left animation-style-01 bg-3">
@@ -150,14 +151,14 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="/dailymioproducts/daily_mio/category/grocery/">
+                                                <a href="/products/dailymioproducts/daily_mio/{{key.uid}}/grocery/">
                                                     <img src="{% static 'images/daily-mio/grocery.jpg' %}" alt="Li's Product Image">
                                                 </a>
                                             </div>
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="daily_mio_single_product.html">Grocery</a></h1>
+                                                    <h1><a class="product_name" href="/dailymioproducts/daily_mio/{{key.uid}}/grocery/">Grocery</a></h1>
                                                     
                                                 </div>
                                                 
@@ -169,14 +170,14 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="/dailymioproducts/daily_mio/category/meat/">
+                                                <a href="/products/dailymioproducts/daily_mio/{{key.uid}}/meat/">
                                                     <img src="{% static 'images/daily-mio/meat.png' %}" alt="Li's Product Image">
                                                 </a>
                                             </div>
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="daily_mio_shop-left-sidebar.html">Meat</a></h1>
+                                                    <h1><a class="product_name" href="/dailymioproducts/daily_mio/{{key.uid}}/meat/">Meat</a></h1>
                                                     
                                                 </div>
                                                 
@@ -188,14 +189,14 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="/dailymioproducts/daily_mio/category/fish/">
+                                                <a href="/products/dailymioproducts/daily_mio/{{key.uid}}/fish/">
                                                     <img src="{% static 'images/daily-mio/fish.jpg' %}" alt="Li's Product Image">
                                                 </a>
                                             </div>
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="daily_mio_shop-left-sidebar.html">Fish</a></h1>
+                                                    <h1><a class="product_name" href="/dailymioproducts/daily_mio/{{key.uid}}/fish/">Fish</a></h1>
                                                     
                                                 </div>
                                                 
@@ -207,14 +208,14 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="/dailymioproducts/daily_mio/category/egg/">
+                                                <a href="/products/dailymioproducts/daily_mio/{{key.uid}}/egg/">
                                                     <img src="{% static 'images/daily-mio/Eggs.png' %}" alt="Li's Product Image">
                                                 </a>
                                             </div>
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="daily_mio_shop-left-sidebar.html">Eggs</a></h1>
+                                                    <h1><a class="product_name" href="/dailymioproducts/daily_mio/{{key.uid}}/egg/">Eggs</a></h1>
                                                     
                                                 </div>
                                                 
@@ -226,14 +227,14 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="/dailymioproducts/daily_mio/category/fruits/">
+                                                <a href="/products/dailymioproducts/daily_mio/{{key.uid}}/fruits/">
                                                     <img src="{% static 'images/daily-mio/Fruits.jpg' %}" alt="Li's Product Image">
                                                 </a>
                                             </div>
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="daily_mio_shop-left-sidebar.html">Fruits</a></h1>
+                                                    <h1><a class="product_name" href="/dailymioproducts/daily_mio/{{key.uid}}/fruits/">Fruits</a></h1>
                                                     
                                                 </div>
                                                 
@@ -245,14 +246,14 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="/dailymioproducts/daily_mio/category/vegitables/">
+                                                <a href="/products/dailymioproducts/daily_mio/{{key.uid}}/vegitables/">
                                                     <img src="{% static 'images/daily-mio/Vegitables.webp' %}" alt="Li's Product Image">
                                                 </a>
                                             </div>
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="daily_mio_shop-left-sidebar.html    ">Vegitables</a></h1>
+                                                    <h1><a class="product_name" href="/dailymioproducts/daily_mio/{{key.uid}}/vegitables/">Vegitables</a></h1>
                                                     
                                                 </div>
                                                 
@@ -265,14 +266,14 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="/dailymioproducts/daily_mio/category/dairy/">
+                                                <a href="/products/dailymioproducts/daily_mio/{{key.uid}}/dairy/">
                                                     <img src="{% static 'images/daily-mio/Dairy.jpg' %}" alt="Li's Product Image">
                                                 </a>
                                             </div>
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="daily_mio_single_product.html">Dairy</a></h1>
+                                                    <h1><a class="product_name" href="/dailymioproducts/daily_mio/{{key.uid}}/dairy/">Dairy</a></h1>
                                                     
                                                 </div>
                                                 
@@ -285,14 +286,14 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="daily_mio_single_product.html">
+                                                <a href="/dailymioproducts/daily_mio/{{key.uid}}/mylist/>
                                                     <img src="{% static 'images/daily-mio/My list.webp' %}" alt="Li's Product Image">
                                                 </a>
                                             </div>
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
                                                    
-                                                    <h1><a class="product_name" href="daily_mio_single_product.html">My list</a></h1>
+                                                    <h1><a class="product_name" href="/dailymioproducts/daily_mio/{{key.uid}}/mylist/">My list</a></h1>
                                                     
                                                 </div>
                                                 
@@ -1128,7 +1129,61 @@
                             </div>
                             <div class="row">
                                 <div class="product-active owl-carousel">
+                                    {% for item in dmio %}
                                     <div class="col-lg-12">
+                                        <!-- single-product-wrap start -->
+                                        <div class="single-product-wrap">
+                                            <div class="product-image">
+                                                <a href="/products/dailymioproducts/dmio_singleproduct/{{key.uid}}/{{item.dmio_id}}/{{item.product_id}}">
+                                                    <img src="{{item.product.primary_image}}" alt="Li's Product Image">
+                                                </a>
+                                                <span class="sticker">New</span>
+                                            </div>
+                                            <div class="product_desc">
+                                                <div class="product_desc_info">
+                                                    <div class="product-review">
+                                                        <h5 class="manufacturer">
+                                                            <a href="/products/dailymioproducts/daily_mio/{{key.uid}}/{{item.product.subcategory}}/">{{item.product.subcategory}}</a>
+                                                        </h5>
+                                                        <!-- <div class="rating-box">
+                                                            <ul class="rating">
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                            </ul>
+                                                        </div> -->
+                                                    </div>
+                                                    <h4><a class="product_name" href="/products/dailymioproducts/dmio_singleproduct/{{key.uid}}/{{item.dmio_id}}/{{item.product_id}}">{{item.product.model_name}}</a></h4>
+                                                    <div class="price-box" style="display: flex;">
+                                                        <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;{{item.product.selling_price}}</span>
+                                                        <span style=" display: flex;width: 100%;justify-content: end;">
+                                                        <td class="quantity">
+                                                        
+                                                            {% comment %} <div class="cart-plus-minus">
+                                                                <input class="cart-plus-minus-box" value="1" type="text">
+                                                                <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                                                                <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                                            </div> {% endcomment %}
+                                                        </td></span>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="add-actions">
+                                                    <ul class="add-actions-link">
+                                                        
+                                                        <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/dailymio/products/{{item.dmio_id}}/{{item.product_id}}">Add to cart</a></li>
+                                                        <li><a href="#" title="quick view" class="quick-view-btn" ><i class="fa fa-eye"></i></a></li>
+                                                        <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/dailmio/{{item.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- single-product-wrap end -->
+                                    </div>
+                                    {% endfor%}
+                                    {% comment %} <div class="col-lg-12">
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
@@ -1179,215 +1234,8 @@
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <!-- single-product-wrap start -->
-                                        <div class="single-product-wrap">
-                                            <div class="product-image">
-                                                <a href="daily_mio_single_product.html">
-                                                    <img src="/static/images/daily-mio/Meat.jpg" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="product-details.html"></a>
-                                                        </h5>
-                                                        <!-- <div class="rating-box">
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div> -->
-                                                    </div>
-                                                    <h4><a class="product_name" href="daily_mio_single_product.html">Meat</a></h4>
-                                                    <div class="price-box" style="display: flex;">
-                                                        <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                        <span style=" display: flex;width: 100%;justify-content: end;">
-                                                        <td class="quantity">
-                                                        
-                                                            <div class="cart-plus-minus">
-                                                                <input class="cart-plus-minus-box" value="1" type="text">
-                                                                <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                            </div>
-                                                        </td></span>
-                                                    </div>
-                                                    
-                                                </div>
-                                                <div class="add-actions">
-                                                    <ul class="add-actions-link">
-                                                        
-                                                        <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- single-product-wrap end -->
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <!-- single-product-wrap start -->
-                                        <div class="single-product-wrap">
-                                            <div class="product-image">
-                                                <a href="daily_mio_single_product.html">
-                                                    <img src="/static/images/daily-mio/Meat.jpg" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="product-details.html"></a>
-                                                        </h5>
-                                                        <!-- <div class="rating-box">
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div> -->
-                                                    </div>
-                                                    <h4><a class="product_name" href="daily_mio_single_product.html">Meat</a></h4>
-                                                    <div class="price-box" style="display: flex;">
-                                                        <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                        <span style=" display: flex;width: 100%;justify-content: end;">
-                                                        <td class="quantity">
-                                                        
-                                                            <div class="cart-plus-minus">
-                                                                <input class="cart-plus-minus-box" value="1" type="text">
-                                                                <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                            </div>
-                                                        </td></span>
-                                                    </div>
-                                                    
-                                                </div>
-                                                <div class="add-actions">
-                                                    <ul class="add-actions-link">
-                                                        
-                                                        <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- single-product-wrap end -->
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <!-- single-product-wrap start -->
-                                        <div class="single-product-wrap">
-                                            <div class="product-image">
-                                                <a href="daily_mio_single_product.html">
-                                                    <img src="/static/images/daily-mio/Meat.jpg" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="product-details.html"></a>
-                                                        </h5>
-                                                        <!-- <div class="rating-box">
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div> -->
-                                                    </div>
-                                                    <h4><a class="product_name" href="daily_mio_single_product.html">Meat</a></h4>
-                                                    <div class="price-box" style="display: flex;">
-                                                        <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                        <span style=" display: flex;width: 100%;justify-content: end;">
-                                                        <td class="quantity">
-                                                        
-                                                            <div class="cart-plus-minus">
-                                                                <input class="cart-plus-minus-box" value="1" type="text">
-                                                                <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                            </div>
-                                                        </td></span>
-                                                    </div>
-                                                    
-                                                </div>
-                                                <div class="add-actions">
-                                                    <ul class="add-actions-link">
-                                                        
-                                                        <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- single-product-wrap end -->
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <!-- single-product-wrap start -->
-                                        <div class="single-product-wrap">
-                                            <div class="product-image">
-                                                <a href="daily_mio_single_product.html">
-                                                    <img src="/static/images/daily-mio/Meat.jpg" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="product-details.html"></a>
-                                                        </h5>
-                                                        <!-- <div class="rating-box">
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div> -->
-                                                    </div>
-                                                    <h4><a class="product_name" href="daily_mio_single_product.html">Meat</a></h4>
-                                                    <div class="price-box" style="display: flex;">
-                                                        <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                        <span style=" display: flex;width: 100%;justify-content: end;">
-                                                        <td class="quantity">
-                                                        
-                                                            <div class="cart-plus-minus">
-                                                                <input class="cart-plus-minus-box" value="1" type="text">
-                                                                <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                            </div>
-                                                        </td></span>
-                                                    </div>
-                                                    
-                                                </div>
-                                                <div class="add-actions">
-                                                    <ul class="add-actions-link">
-                                                        
-                                                        <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- single-product-wrap end -->
-                                    </div>
+                                    </div> {% endcomment %}
+                                    
                                    
                                       
                                 </div>

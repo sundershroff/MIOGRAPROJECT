@@ -73,7 +73,7 @@
             <div class="content-wraper pt-60 pb-60 pt-sm-30">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-9 order-1 order-lg-2">
+                        <div class="col-lg-10 order-1 order-lg-2">
                             <!-- Begin Li's Banner Area -->
                             <!-- <div class="single-banner shop-page-banner" style="
                             text-align: center;">
@@ -135,8 +135,8 @@
                                                     <!-- single-product-wrap start -->
                                                     <div class="single-product-wrap">
                                                         <div class="product-image">
-                                                            <a href="/dailymioproducts/dmio_singleproduct/{{i.dmio_id}}/{{i.product_id}}">
-                                                                <img src="{{i.product.primary_image}}" alt="Li's Product Image">
+                                                            <a href="/dailymioproducts/dmio_singleproduct/{{i.item.dmio_id}}/{{i.item.product_id}}">
+                                                                <img src="{{i.item.product.primary_image}}" alt="Li's Product Image">
                                                             </a>
                                                             <span class="sticker">New</span>
                                                         </div>
@@ -144,7 +144,7 @@
                                                             <div class="product_desc_info">
                                                                 <div class="product-review">
                                                                     <h5 class="manufacturer">
-                                                                        <a href="product-details.html"></a>
+                                                                        <a href=""> {{i.item.product.brand}}</a>
                                                                     </h5>
                                                                     <!-- <div class="rating-box">
                                                                         <ul class="rating">
@@ -156,9 +156,9 @@
                                                                         </ul>
                                                                     </div> -->
                                                                 </div>
-                                                                <h4><a class="product_name" href="food_single-product.html">{{i.product.name|join:","}}</a></h4>
+                                                                <h4><a class="product_name" href="food_single-product.html">{{i.item.product.model_name}}</a></h4>
                                                                 <div class="price-box" style="display: flex;">
-                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;{{i.product.actual_proice|join:","}}</span>
+                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;{{i.item.product.selling_price}}</span>
                                                                     <span style=" display: flex;width: 100%;justify-content: end;">
                                                                     <td class="quantity">
                                                                     
@@ -174,9 +174,9 @@
                                                             <div class="add-actions">
                                                                 <ul class="add-actions-link">
                                                                     
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
+                                                                    <li class="add-cart active"><a href="/enduser/usersignin">Add to cart</a></li>
                                                                     <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
+                                                                    <li><a class="links-details" href="/enduser/usersignin"><i class="fa fa-heart-o"></i></a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -236,522 +236,7 @@
                                                     </div>
                                                     <!-- single-product-wrap end -->
                                                 </div>
-                                                <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="food_single-product.html">
-                                                                <img src="images/daily-mio/Meat.jpg" alt="Li's Product Image">
-                                                            </a>
-                                                            <span class="sticker">New</span>
-                                                        </div>
-                                                        <div class="product_desc">
-                                                            <div class="product_desc_info">
-                                                                <div class="product-review">
-                                                                    <h5 class="manufacturer">
-                                                                        <a href="product-details.html"></a>
-                                                                    </h5>
-                                                                    <!-- <div class="rating-box">
-                                                                        <ul class="rating">
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        </ul>
-                                                                    </div> -->
-                                                                </div>
-                                                                <h4><a class="product_name" href="food_single-product.html">Meat</a></h4>
-                                                                <div class="price-box" style="display: flex;">
-                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                                    <span style=" display: flex;width: 100%;justify-content: end;">
-                                                                    <td class="quantity">
-                                                                    
-                                                                        <div class="cart-plus-minus">
-                                                                            <input class="cart-plus-minus-box" value="1" type="text">
-                                                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                                        </div>
-                                                                    </td></span>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            <div class="add-actions">
-                                                                <ul class="add-actions-link">
-                                                                    
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="food_single-product.html">
-                                                                <img src="images/daily-mio/Meat.jpg" alt="Li's Product Image">
-                                                            </a>
-                                                            <span class="sticker">New</span>
-                                                        </div>
-                                                        <div class="product_desc">
-                                                            <div class="product_desc_info">
-                                                                <div class="product-review">
-                                                                    <h5 class="manufacturer">
-                                                                        <a href="product-details.html"></a>
-                                                                    </h5>
-                                                                    <!-- <div class="rating-box">
-                                                                        <ul class="rating">
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        </ul>
-                                                                    </div> -->
-                                                                </div>
-                                                                <h4><a class="product_name" href="food_single-product.html">Meat</a></h4>
-                                                                <div class="price-box" style="display: flex;">
-                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                                    <span style=" display: flex;width: 100%;justify-content: end;">
-                                                                    <td class="quantity">
-                                                                    
-                                                                        <div class="cart-plus-minus">
-                                                                            <input class="cart-plus-minus-box" value="1" type="text">
-                                                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                                        </div>
-                                                                    </td></span>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            <div class="add-actions">
-                                                                <ul class="add-actions-link">
-                                                                    
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="food_single-product.html">
-                                                                <img src="images/daily-mio/Meat.jpg" alt="Li's Product Image">
-                                                            </a>
-                                                            <span class="sticker">New</span>
-                                                        </div>
-                                                        <div class="product_desc">
-                                                            <div class="product_desc_info">
-                                                                <div class="product-review">
-                                                                    <h5 class="manufacturer">
-                                                                        <a href="product-details.html"></a>
-                                                                    </h5>
-                                                                    <!-- <div class="rating-box">
-                                                                        <ul class="rating">
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        </ul>
-                                                                    </div> -->
-                                                                </div>
-                                                                <h4><a class="product_name" href="food_single-product.html">Meat</a></h4>
-                                                                <div class="price-box" style="display: flex;">
-                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                                    <span style=" display: flex;width: 100%;justify-content: end;">
-                                                                    <td class="quantity">
-                                                                    
-                                                                        <div class="cart-plus-minus">
-                                                                            <input class="cart-plus-minus-box" value="1" type="text">
-                                                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                                        </div>
-                                                                    </td></span>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            <div class="add-actions">
-                                                                <ul class="add-actions-link">
-                                                                    
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="food_single-product.html">
-                                                                <img src="images/daily-mio/Meat.jpg" alt="Li's Product Image">
-                                                            </a>
-                                                            <span class="sticker">New</span>
-                                                        </div>
-                                                        <div class="product_desc">
-                                                            <div class="product_desc_info">
-                                                                <div class="product-review">
-                                                                    <h5 class="manufacturer">
-                                                                        <a href="product-details.html"></a>
-                                                                    </h5>
-                                                                    <!-- <div class="rating-box">
-                                                                        <ul class="rating">
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        </ul>
-                                                                    </div> -->
-                                                                </div>
-                                                                <h4><a class="product_name" href="food_single-product.html">Meat</a></h4>
-                                                                <div class="price-box" style="display: flex;">
-                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                                    <span style=" display: flex;width: 100%;justify-content: end;">
-                                                                    <td class="quantity">
-                                                                    
-                                                                        <div class="cart-plus-minus">
-                                                                            <input class="cart-plus-minus-box" value="1" type="text">
-                                                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                                        </div>
-                                                                    </td></span>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            <div class="add-actions">
-                                                                <ul class="add-actions-link">
-                                                                    
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="food_single-product.html">
-                                                                <img src="images/daily-mio/Meat.jpg" alt="Li's Product Image">
-                                                            </a>
-                                                            <span class="sticker">New</span>
-                                                        </div>
-                                                        <div class="product_desc">
-                                                            <div class="product_desc_info">
-                                                                <div class="product-review">
-                                                                    <h5 class="manufacturer">
-                                                                        <a href="product-details.html"></a>
-                                                                    </h5>
-                                                                    <!-- <div class="rating-box">
-                                                                        <ul class="rating">
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        </ul>
-                                                                    </div> -->
-                                                                </div>
-                                                                <h4><a class="product_name" href="food_single-product.html">Meat</a></h4>
-                                                                <div class="price-box" style="display: flex;">
-                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                                    <span style=" display: flex;width: 100%;justify-content: end;">
-                                                                    <td class="quantity">
-                                                                    
-                                                                        <div class="cart-plus-minus">
-                                                                            <input class="cart-plus-minus-box" value="1" type="text">
-                                                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                                        </div>
-                                                                    </td></span>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            <div class="add-actions">
-                                                                <ul class="add-actions-link">
-                                                                    
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>  <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="food_single-product.html">
-                                                                <img src="images/daily-mio/Meat.jpg" alt="Li's Product Image">
-                                                            </a>
-                                                            <span class="sticker">New</span>
-                                                        </div>
-                                                        <div class="product_desc">
-                                                            <div class="product_desc_info">
-                                                                <div class="product-review">
-                                                                    <h5 class="manufacturer">
-                                                                        <a href="product-details.html"></a>
-                                                                    </h5>
-                                                                    <!-- <div class="rating-box">
-                                                                        <ul class="rating">
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        </ul>
-                                                                    </div> -->
-                                                                </div>
-                                                                <h4><a class="product_name" href="food_single-product.html">Meat</a></h4>
-                                                                <div class="price-box" style="display: flex;">
-                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                                    <span style=" display: flex;width: 100%;justify-content: end;">
-                                                                    <td class="quantity">
-                                                                    
-                                                                        <div class="cart-plus-minus">
-                                                                            <input class="cart-plus-minus-box" value="1" type="text">
-                                                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                                        </div>
-                                                                    </td></span>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            <div class="add-actions">
-                                                                <ul class="add-actions-link">
-                                                                    
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>  <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="food_single-product.html">
-                                                                <img src="images/daily-mio/Meat.jpg" alt="Li's Product Image">
-                                                            </a>
-                                                            <span class="sticker">New</span>
-                                                        </div>
-                                                        <div class="product_desc">
-                                                            <div class="product_desc_info">
-                                                                <div class="product-review">
-                                                                    <h5 class="manufacturer">
-                                                                        <a href="product-details.html"></a>
-                                                                    </h5>
-                                                                    <!-- <div class="rating-box">
-                                                                        <ul class="rating">
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        </ul>
-                                                                    </div> -->
-                                                                </div>
-                                                                <h4><a class="product_name" href="food_single-product.html">Meat</a></h4>
-                                                                <div class="price-box" style="display: flex;">
-                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                                    <span style=" display: flex;width: 100%;justify-content: end;">
-                                                                    <td class="quantity">
-                                                                    
-                                                                        <div class="cart-plus-minus">
-                                                                            <input class="cart-plus-minus-box" value="1" type="text">
-                                                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                                        </div>
-                                                                    </td></span>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            <div class="add-actions">
-                                                                <ul class="add-actions-link">
-                                                                    
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="food_single-product.html">
-                                                                <img src="images/daily-mio/Meat.jpg" alt="Li's Product Image">
-                                                            </a>
-                                                            <span class="sticker">New</span>
-                                                        </div>
-                                                        <div class="product_desc">
-                                                            <div class="product_desc_info">
-                                                                <div class="product-review">
-                                                                    <h5 class="manufacturer">
-                                                                        <a href="product-details.html"></a>
-                                                                    </h5>
-                                                                    <!-- <div class="rating-box">
-                                                                        <ul class="rating">
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        </ul>
-                                                                    </div> -->
-                                                                </div>
-                                                                <h4><a class="product_name" href="food_single-product.html">Meat</a></h4>
-                                                                <div class="price-box" style="display: flex;">
-                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                                    <span style=" display: flex;width: 100%;justify-content: end;">
-                                                                    <td class="quantity">
-                                                                    
-                                                                        <div class="cart-plus-minus">
-                                                                            <input class="cart-plus-minus-box" value="1" type="text">
-                                                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                                        </div>
-                                                                    </td></span>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            <div class="add-actions">
-                                                                <ul class="add-actions-link">
-                                                                    
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>  <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="food_single-product.html">
-                                                                <img src="images/daily-mio/Meat.jpg" alt="Li's Product Image">
-                                                            </a>
-                                                            <span class="sticker">New</span>
-                                                        </div>
-                                                        <div class="product_desc">
-                                                            <div class="product_desc_info">
-                                                                <div class="product-review">
-                                                                    <h5 class="manufacturer">
-                                                                        <a href="product-details.html"></a>
-                                                                    </h5>
-                                                                    <!-- <div class="rating-box">
-                                                                        <ul class="rating">
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        </ul>
-                                                                    </div> -->
-                                                                </div>
-                                                                <h4><a class="product_name" href="food_single-product.html">Meat</a></h4>
-                                                                <div class="price-box" style="display: flex;">
-                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                                    <span style=" display: flex;width: 100%;justify-content: end;">
-                                                                    <td class="quantity">
-                                                                    
-                                                                        <div class="cart-plus-minus">
-                                                                            <input class="cart-plus-minus-box" value="1" type="text">
-                                                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                                        </div>
-                                                                    </td></span>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            <div class="add-actions">
-                                                                <ul class="add-actions-link">
-                                                                    
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>  <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="food_single-product.html">
-                                                                <img src="images/daily-mio/Meat.jpg" alt="Li's Product Image">
-                                                            </a>
-                                                            <span class="sticker">New</span>
-                                                        </div>
-                                                        <div class="product_desc">
-                                                            <div class="product_desc_info">
-                                                                <div class="product-review">
-                                                                    <h5 class="manufacturer">
-                                                                        <a href="product-details.html"></a>
-                                                                    </h5>
-                                                                    <!-- <div class="rating-box">
-                                                                        <ul class="rating">
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        </ul>
-                                                                    </div> -->
-                                                                </div>
-                                                                <h4><a class="product_name" href="food_single-product.html">Meat</a></h4>
-                                                                <div class="price-box" style="display: flex;">
-                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                                    <span style=" display: flex;width: 100%;justify-content: end;">
-                                                                    <td class="quantity">
-                                                                    
-                                                                        <div class="cart-plus-minus">
-                                                                            <input class="cart-plus-minus-box" value="1" type="text">
-                                                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                                        </div>
-                                                                    </td></span>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            <div class="add-actions">
-                                                                <ul class="add-actions-link">
-                                                                    
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -1312,8 +797,8 @@
                             </div>
                             <!-- shop-products-wrapper end -->
                         </div>
-                        <div class="col-lg-3 order-2 order-lg-1">
-                            <!--sidebar-categores-box start  -->
+                        <div class="col-lg-1 order-2 order-lg-1">
+                            {% comment %} <!--sidebar-categores-box start  -->
                             <div class="sidebar-categores-box mt-sm-30 mt-xs-30">
                                 <div class="sidebar-title">
                                     <h2>Laptop</h2>
@@ -1454,7 +939,7 @@
                                     </ul>
                                 </div>
                                 <!-- category-sub-menu end -->
-                            </div>
+                            </div> {% endcomment %}
                         </div>
                     </div>
                 </div>

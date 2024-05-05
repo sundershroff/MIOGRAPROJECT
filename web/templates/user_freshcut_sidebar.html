@@ -45,6 +45,7 @@
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
         <!-- Modernizr js -->
         <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
     
     <body>
@@ -56,7 +57,7 @@
             <!-- Begin Header Area -->
            
                 <!-- Begin Header Top Area -->
-                {% include "header.html" %}
+                {% include "enduser_header.html" %}
                 
             <!-- Header Area End Here -->
             <!-- Begin Li's Breadcrumb Area -->
@@ -75,7 +76,7 @@
             <div class="content-wraper pt-60 pb-60 pt-sm-30">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-9 order-1 order-lg-2">
+                        <div class="col-lg-10 order-1 order-lg-2">
                             <!-- Begin Li's Banner Area -->
                             <!-- <div class="single-banner shop-page-banner" style="
                             text-align: center;">
@@ -134,13 +135,12 @@
 
                                             <div class="row">
                                                 {% for i in fresh_cuts %}
-                                                {{i.product}}
                                                 <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
                                                     <!-- single-product-wrap start -->
                                                     <div class="single-product-wrap">
                                                         <div class="product-image">
-                                                            <a href="/freshproducts/fresh_single_product/{{i.fresh_id}}/{{i.product_id}}">
-                                                                <img src="{{i.product.primary_image}}" alt="Li's Product Image">
+                                                            <a href="/products/freshproducts/single_product/{{key.uid}}/{{i.item.fresh_id}}/{{i.item.product_id}}">
+                                                                <img src="{{i.item.product.primary_image}}" alt="Li's Product Image">
                                                             </a>
                                                             <span class="sticker">New</span>
                                                         </div>
@@ -148,9 +148,18 @@
                                                             <div class="product_desc_info">
                                                                 <div class="product-review">
                                                                     <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Fresh Chicken + salad</a>
+                                                                        <a href="/products/freshproducts/single_product/{{key.uid}}/{{i.item.fresh_id}}/{{i.item.product_id}}">{{i.item.product.subcategory}}</a>
                                                                     </h5>
-                                                                    <!-- <div class="rating-box">
+                                                                    <div class="rating-box">
+                                                                        {% if i.item.rating == "2.0" %}
+                                                                        <ul class="rating">
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        </ul>
+                                                                        {% elif i.item.rating == "3.0" %}
                                                                         <ul class="rating">
                                                                             <li><i class="fa fa-star-o"></i></li>
                                                                             <li><i class="fa fa-star-o"></i></li>
@@ -158,18 +167,47 @@
                                                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                         </ul>
-                                                                    </div> -->
+                                                                        {% elif i.item.rating == "4.0" %}
+                                                                        <ul class="rating">
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        </ul>
+                                                                        {% elif i.item.rating == "5.0" %}
+                                                                        <ul class="rating">
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                        </ul>
+                                                                        {% else %}
+                                                                        <ul class="rating">
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        </ul>
+                                                                        {% endif %}
+                                                                    </div> 
                                                                 </div>
-                                                                <h4><a class="product_name" href="fresh_cuts_single-product.html">{{i.product.name|join:","}}</a></h4>
+                                                                <h4><a class="product_name" href="/freshproducts/fresh_single_product/{{key.uid}}/{{i.item.fresh_id}}/{{i.item.product_id}}">{{i.item.product.model_name}}</a></h4>
                                                                 <div class="price-box" style="display: flex;">
-                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;{{i.product.actual_price|join:","}}</span>
+                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;{{i.item.product.selling_price}}</span>
                                                                     <span style=" display: flex;width: 100%;justify-content: end;">
                                                                     <td class="quantity">
                                                                     
-                                                                        <div class="cart-plus-minus">
-                                                                            <input class="cart-plus-minus-box" value="1" type="text">
-                                                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                                                        <div class="cart-plus-minus" >
+                                                                            
+                                                                            <!-- <input class="cart-plus-minus-box" name="quantity" value="0" type="text" data-user-id="{{key.uid}}" data-product-id="{{i.product_id}}" data-selling-price="{{i.product.selling_price}}" data-category="food"> -->
+                                                                            <input class="cart-plus-minus-box" name="quantity" value="0" type="text" data-product-id="{{ i.item.product_id }}" data-user-id="{{ key.uid }}" data-selling-price="{{ i.item.product.selling_price }}" data-category="freshcuts">
+                                                                            <button class="dec qtybutton"id="increase" ><i class="fa fa-angle-down"></i></button>
+                                                                            <button class="inc qtybutton" id="decrease" ><i class="fa fa-angle-up"></i></button>
+                                                                           
+                                                                            
                                                                         </div>
                                                                     </td></span>
                                                                 </div>
@@ -178,9 +216,9 @@
                                                             <div class="add-actions">
                                                                 <ul class="add-actions-link">
                                                                     
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
+                                                                    {% comment %} <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.item.category}}/products/{{i.item.fresh_id}}/{{i.item.category}}/">Add to cart</a></li> {% endcomment %}
+                                                                    {% comment %} <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li> {% endcomment %}
+                                                                    <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.item.category}}/{{i.item.category}}"><i class="fa fa-heart-o"></i> Add to Wishlist </a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -188,7 +226,7 @@
                                                     <!-- single-product-wrap end -->
                                                 </div>
                                                 {% endfor %}
-                                                  <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
+                                                  {% comment %} <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
                                                     <!-- single-product-wrap start -->
                                                     <div class="single-product-wrap">
                                                         <div class="product-image">
@@ -291,471 +329,9 @@
                                                         </div>
                                                     </div>
                                                     <!-- single-product-wrap end -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="fresh_cuts_single-product.html">
-                                                                <img src="images/fresh_cuts/chicken.jpg" alt="Li's Product Image">
-                                                            </a>
-                                                            <span class="sticker">New</span>
-                                                        </div>
-                                                        <div class="product_desc">
-                                                            <div class="product_desc_info">
-                                                                <div class="product-review">
-                                                                    <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Fresh Chicken + salad</a>
-                                                                    </h5>
-                                                                    <!-- <div class="rating-box">
-                                                                        <ul class="rating">
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        </ul>
-                                                                    </div> -->
-                                                                </div>
-                                                                <h4><a class="product_name" href="fresh_cuts_single-product.html">Fresh Chicken</a></h4>
-                                                                <div class="price-box" style="display: flex;">
-                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                                    <span style=" display: flex;width: 100%;justify-content: end;">
-                                                                    <td class="quantity">
-                                                                    
-                                                                        <div class="cart-plus-minus">
-                                                                            <input class="cart-plus-minus-box" value="1" type="text">
-                                                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                                        </div>
-                                                                    </td></span>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            <div class="add-actions">
-                                                                <ul class="add-actions-link">
-                                                                    
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="fresh_cuts_single-product.html">
-                                                                <img src="images/fresh_cuts/chicken.jpg" alt="Li's Product Image">
-                                                            </a>
-                                                            <span class="sticker">New</span>
-                                                        </div>
-                                                        <div class="product_desc">
-                                                            <div class="product_desc_info">
-                                                                <div class="product-review">
-                                                                    <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Fresh Chicken + salad</a>
-                                                                    </h5>
-                                                                    <!-- <div class="rating-box">
-                                                                        <ul class="rating">
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        </ul>
-                                                                    </div> -->
-                                                                </div>
-                                                                <h4><a class="product_name" href="fresh_cuts_single-product.html">Fresh Chicken</a></h4>
-                                                                <div class="price-box" style="display: flex;">
-                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                                    <span style=" display: flex;width: 100%;justify-content: end;">
-                                                                    <td class="quantity">
-                                                                    
-                                                                        <div class="cart-plus-minus">
-                                                                            <input class="cart-plus-minus-box" value="1" type="text">
-                                                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                                        </div>
-                                                                    </td></span>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            <div class="add-actions">
-                                                                <ul class="add-actions-link">
-                                                                    
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="fresh_cuts_single-product.html">
-                                                                <img src="images/fresh_cuts/chicken.jpg" alt="Li's Product Image">
-                                                            </a>
-                                                            <span class="sticker">New</span>
-                                                        </div>
-                                                        <div class="product_desc">
-                                                            <div class="product_desc_info">
-                                                                <div class="product-review">
-                                                                    <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Fresh Chicken + salad</a>
-                                                                    </h5>
-                                                                    <!-- <div class="rating-box">
-                                                                        <ul class="rating">
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        </ul>
-                                                                    </div> -->
-                                                                </div>
-                                                                <h4><a class="product_name" href="fresh_cuts_single-product.html">Fresh Chicken</a></h4>
-                                                                <div class="price-box" style="display: flex;">
-                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                                    <span style=" display: flex;width: 100%;justify-content: end;">
-                                                                    <td class="quantity">
-                                                                    
-                                                                        <div class="cart-plus-minus">
-                                                                            <input class="cart-plus-minus-box" value="1" type="text">
-                                                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                                        </div>
-                                                                    </td></span>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            <div class="add-actions">
-                                                                <ul class="add-actions-link">
-                                                                    
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="fresh_cuts_single-product.html">
-                                                                <img src="images/fresh_cuts/chicken.jpg" alt="Li's Product Image">
-                                                            </a>
-                                                            <span class="sticker">New</span>
-                                                        </div>
-                                                        <div class="product_desc">
-                                                            <div class="product_desc_info">
-                                                                <div class="product-review">
-                                                                    <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Fresh Chicken + salad</a>
-                                                                    </h5>
-                                                                    <!-- <div class="rating-box">
-                                                                        <ul class="rating">
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        </ul>
-                                                                    </div> -->
-                                                                </div>
-                                                                <h4><a class="product_name" href="fresh_cuts_single-product.html">Fresh Chicken</a></h4>
-                                                                <div class="price-box" style="display: flex;">
-                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                                    <span style=" display: flex;width: 100%;justify-content: end;">
-                                                                    <td class="quantity">
-                                                                    
-                                                                        <div class="cart-plus-minus">
-                                                                            <input class="cart-plus-minus-box" value="1" type="text">
-                                                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                                        </div>
-                                                                    </td></span>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            <div class="add-actions">
-                                                                <ul class="add-actions-link">
-                                                                    
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>  <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="fresh_cuts_single-product.html">
-                                                                <img src="images/fresh_cuts/chicken.jpg" alt="Li's Product Image">
-                                                            </a>
-                                                            <span class="sticker">New</span>
-                                                        </div>
-                                                        <div class="product_desc">
-                                                            <div class="product_desc_info">
-                                                                <div class="product-review">
-                                                                    <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Fresh Chicken + salad</a>
-                                                                    </h5>
-                                                                    <!-- <div class="rating-box">
-                                                                        <ul class="rating">
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        </ul>
-                                                                    </div> -->
-                                                                </div>
-                                                                <h4><a class="product_name" href="fresh_cuts_single-product.html">Fresh Chicken</a></h4>
-                                                                <div class="price-box" style="display: flex;">
-                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                                    <span style=" display: flex;width: 100%;justify-content: end;">
-                                                                    <td class="quantity">
-                                                                    
-                                                                        <div class="cart-plus-minus">
-                                                                            <input class="cart-plus-minus-box" value="1" type="text">
-                                                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                                        </div>
-                                                                    </td></span>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            <div class="add-actions">
-                                                                <ul class="add-actions-link">
-                                                                    
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>  <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="fresh_cuts_single-product.html">
-                                                                <img src="images/fresh_cuts/chicken.jpg" alt="Li's Product Image">
-                                                            </a>
-                                                            <span class="sticker">New</span>
-                                                        </div>
-                                                        <div class="product_desc">
-                                                            <div class="product_desc_info">
-                                                                <div class="product-review">
-                                                                    <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Fresh Chicken + salad</a>
-                                                                    </h5>
-                                                                    <!-- <div class="rating-box">
-                                                                        <ul class="rating">
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        </ul>
-                                                                    </div> -->
-                                                                </div>
-                                                                <h4><a class="product_name" href="fresh_cuts_single-product.html">Fresh Chicken</a></h4>
-                                                                <div class="price-box" style="display: flex;">
-                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                                    <span style=" display: flex;width: 100%;justify-content: end;">
-                                                                    <td class="quantity">
-                                                                    
-                                                                        <div class="cart-plus-minus">
-                                                                            <input class="cart-plus-minus-box" value="1" type="text">
-                                                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                                        </div>
-                                                                    </td></span>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            <div class="add-actions">
-                                                                <ul class="add-actions-link">
-                                                                    
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="fresh_cuts_single-product.html">
-                                                                <img src="images/fresh_cuts/chicken.jpg" alt="Li's Product Image">
-                                                            </a>
-                                                            <span class="sticker">New</span>
-                                                        </div>
-                                                        <div class="product_desc">
-                                                            <div class="product_desc_info">
-                                                                <div class="product-review">
-                                                                    <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Fresh Chicken + salad</a>
-                                                                    </h5>
-                                                                    <!-- <div class="rating-box">
-                                                                        <ul class="rating">
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        </ul>
-                                                                    </div> -->
-                                                                </div>
-                                                                <h4><a class="product_name" href="fresh_cuts_single-product.html">Fresh Chicken</a></h4>
-                                                                <div class="price-box" style="display: flex;">
-                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                                    <span style=" display: flex;width: 100%;justify-content: end;">
-                                                                    <td class="quantity">
-                                                                    
-                                                                        <div class="cart-plus-minus">
-                                                                            <input class="cart-plus-minus-box" value="1" type="text">
-                                                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                                        </div>
-                                                                    </td></span>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            <div class="add-actions">
-                                                                <ul class="add-actions-link">
-                                                                    
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>  <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="fresh_cuts_single-product.html">
-                                                                <img src="images/fresh_cuts/chicken.jpg" alt="Li's Product Image">
-                                                            </a>
-                                                            <span class="sticker">New</span>
-                                                        </div>
-                                                        <div class="product_desc">
-                                                            <div class="product_desc_info">
-                                                                <div class="product-review">
-                                                                    <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Fresh Chicken + salad</a>
-                                                                    </h5>
-                                                                    <!-- <div class="rating-box">
-                                                                        <ul class="rating">
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        </ul>
-                                                                    </div> -->
-                                                                </div>
-                                                                <h4><a class="product_name" href="fresh_cuts_single-product.html">Fresh Chicken</a></h4>
-                                                                <div class="price-box" style="display: flex;">
-                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                                    <span style=" display: flex;width: 100%;justify-content: end;">
-                                                                    <td class="quantity">
-                                                                    
-                                                                        <div class="cart-plus-minus">
-                                                                            <input class="cart-plus-minus-box" value="1" type="text">
-                                                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                                        </div>
-                                                                    </td></span>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            <div class="add-actions">
-                                                                <ul class="add-actions-link">
-                                                                    
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>  <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="fresh_cuts_single-product.html">
-                                                                <img src="images/fresh_cuts/chicken.jpg" alt="Li's Product Image">
-                                                            </a>
-                                                            <span class="sticker">New</span>
-                                                        </div>
-                                                        <div class="product_desc">
-                                                            <div class="product_desc_info">
-                                                                <div class="product-review">
-                                                                    <h5 class="manufacturer">
-                                                                        <a href="product-details.html">Fresh Chicken + salad</a>
-                                                                    </h5>
-                                                                    <!-- <div class="rating-box">
-                                                                        <ul class="rating">
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        </ul>
-                                                                    </div> -->
-                                                                </div>
-                                                                <h4><a class="product_name" href="fresh_cuts_single-product.html">Fresh Chicken</a></h4>
-                                                                <div class="price-box" style="display: flex;">
-                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                                    <span style=" display: flex;width: 100%;justify-content: end;">
-                                                                    <td class="quantity">
-                                                                    
-                                                                        <div class="cart-plus-minus">
-                                                                            <input class="cart-plus-minus-box" value="1" type="text">
-                                                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                                        </div>
-                                                                    </td></span>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            <div class="add-actions">
-                                                                <ul class="add-actions-link">
-                                                                    
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>
+                                                </div> {% endcomment %}
+                                                
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -1316,8 +892,8 @@
                             </div>
                             <!-- shop-products-wrapper end -->
                         </div>
-                        <div class="col-lg-3 order-2 order-lg-1">
-                            <!--sidebar-categores-box start  -->
+                        <div class="col-lg-1 order-2 order-lg-1">
+                            {% comment %} <!--sidebar-categores-box start  -->
                             <div class="sidebar-categores-box mt-sm-30 mt-xs-30">
                                 <div class="sidebar-title">
                                     <h2>Laptop</h2>
@@ -1458,7 +1034,7 @@
                                     </ul>
                                 </div>
                                 <!-- category-sub-menu end -->
-                            </div>
+                            </div> {% endcomment %}
                         </div>
                     </div>
                 </div>
@@ -1466,6 +1042,11 @@
             <!-- Content Wraper Area End Here -->
             <!-- Begin Footer Area -->
             {% include "footer.html" %}
+            <div class="proceed" style="display: none;" d-flex>
+                <span id="itemCount">0 <span>Items:</span></span>
+                <span>Total Price:&#8377<span id="totalPrice"><b>0</b></span></span>
+                <button id="proceed">Proceed</button>
+            </div>
             <!-- Begin Quick View | Modal Area -->
             <div class="modal fade modal-wrapper" id="exampleModalCenter" >
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -1622,7 +1203,130 @@
    <script src="{% static 'js/scrollUp.min.js' %}"></script>
    <!-- Main/Activator js -->
    <script src="{% static 'js/main.js' %}"></script>
-    </body>
+   <script>
+    $(".cart-plus-minus").append('<button class="dec qtybutton" id="increase"><i class="fa fa-angle-down"></i></button><button class="inc qtybutton" id="decrease"><i class="fa fa-angle-up"></i></button>');
+    $(document).ready(function() {
+        const Items=[];
+        const category ="food";
+        let totalPrice = 0; // Variable to store total price
+        let itemCount = 0;
+
+        function updateUI() {
+            if (totalPrice > 1) {
+                $(".proceed").show();
+                price=parseFloat(totalPrice);
+            $("#totalPrice").text(price.toFixed(2));
+            $("#itemCount").text(itemCount);
+            console.log("totalPrice",totalPrice);
+            }
+            else{
+                $(".proceed").hide();
+            }
+            
+        }
+
+        $(".qtybutton").on("click", function() {
+            var $button = $(this);
+            const quantity = $(this).siblings(".cart-plus-minus-box").val();
+            const productId = $(this).siblings(".cart-plus-minus-box").data("product-id");
+            const sellingPrice = parseFloat($(this).siblings(".cart-plus-minus-box").data("selling-price"));
+            
+            const userId = "{{key.uid|safe}}";
+            const existingItemIndex = Items.findIndex(item => item.productId === productId);
+            if ($button.hasClass('inc')) {
+                var newVal = parseInt(quantity) + 1;
+                if (existingItemIndex !== -1) {
+                        Items[existingItemIndex].quantity ++;
+                    
+
+                        } else {
+                                Items.push({ productId, userId, category, quantity, sellingPrice });
+                                }
+                                totalPrice += Items[existingItemIndex].sellingPrice;
+                                itemCount++;
+                                updateUI();
+                
+            } else {
+                // Don't allow decrementing below zero
+                if (quantity > 0) {
+                var newVal = parseInt(quantity) - 1;
+                if (existingItemIndex !== -1) {
+                    Items[existingItemIndex].quantity --;
+                    totalPrice -= Items[existingItemIndex].sellingPrice;
+                    itemCount--;
+                
+                    if(Items[existingItemIndex].quantity === 0)  
+                        {
+                            Items.splice(existingItemIndex, 1);
+                            
+                        }  
+                            }
+
+                        }
+                    
+                else {
+                    newVal = 0;
+                    totalPrice = 0;
+                        itemCount = 0;
+                        updateUI();
+                    
+                    
+                    }
+                }
+            $button.parent().find("input").val(newVal);
+            console.log(Items)
+            updateUI();
+            
+            
+        });
+
+        $('#proceed').on("click", function(){
+            Items.forEach(function(item) {
+                const userId = item.userId;
+                const productId = item.productId;
+                const category = item.category;
+                const quantity = item.quantity;
+                
+                // Construct the URL with the values from the current item
+                const url = `/cart_product/${userId}/${productId}/${category}/`;
+            
+                // Use the URL as needed (e.g., send a request to the server)
+                console.log(url);
+            
+                // Pass the quantity as data (example: sending a request to the server)
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: { quantity: quantity },
+                    success: function(response) {
+                        console.log("Quantity successfully passed as data.");
+                        location.reload();
+                        selectedItems = [];
+                        // Clear the UI (optional)
+                        totalPrice = 0;
+                        itemCount = 0;
+                        updateUI();
+                        // Handle success response if needed
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Failed to pass quantity as data:", error);
+                        location.reload();
+                        // Handle error if needed
+                    }
+                });
+            });
+            
+        })
+        
+
+    }); 
+            
+        
+
+    
+   </script> 
+
+</body>
 
 <!-- shop-left-sidebar31:48-->
 </html>

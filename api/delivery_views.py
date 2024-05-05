@@ -7,7 +7,7 @@ from django.core.files.storage import FileSystemStorage
 from api import delivery_extension
 from rest_framework.decorators import api_view
 from api import models
-from mio_admin.models import comission_Editing,zone
+from mio_admin.models import comission_Editing,zone,admin_to_business_payment
 import json
 import datetime
 from django.http import HttpRequest
@@ -21,11 +21,11 @@ import random
 from django.utils.timezone import now
 from django.db.models import Q
 from django.db.models import Sum
-
+from django.db.models import Sum, F
 client = MongoClient('localhost', 27017)
 all_image_url = "http://127.0.0.1:3000/"
 
-def send_notification(registration_ids , message_title , message_desc):
+def send_notification(message_title , message_desc):
     fcm_api = "AAAAbIibZeo:APA91bEHlJFNQjqRjMjX2N-YfgDAjOU_fXdt8HkQiQYhOYbGcv9B6MqGykeaG7zQVdrMOEQrOGckrUwKbl4XWdEOboEY9uDUSALHdzbpdW-DJbUxlVzCG_ayQJIPJfAnEPcCeKX86sqg"
     url = "https://fcm.googleapis.com/fcm/send"
     
@@ -39,24 +39,26 @@ def send_notification(registration_ids , message_title , message_desc):
         ex_registration_ids.append((i.deliveryperson.device_id))
 
     print(ex_registration_ids)
-    payload = {
-        "registration_ids" :ex_registration_ids,
-        "priority" : "high",
-        "notification" : {
-            "body" : message_desc,
-            "title" : message_title,
-            "image" : "https://i.ytimg.com/vi/m5WUPHRgdOA/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDwz-yjKEdwxvKjwMANGk5BedCOXQ",
-            "icon": "https://yt3.ggpht.com/ytc/AKedOLSMvoy4DeAVkMSAuiuaBdIGKC7a5Ib75bKzKO3jHg=s900-c-k-c0x00ffffff-no-rj",
-            
+    for x in ex_registration_ids:
+
+        payload = {
+            "registration_ids" :x,
+            "priority" : "high",
+            "notification" : {
+                "body" : message_desc,
+                "title" : message_title,
+                "image" : "https://i.ytimg.com/vi/m5WUPHRgdOA/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDwz-yjKEdwxvKjwMANGk5BedCOXQ",
+                "icon": "https://yt3.ggpht.com/ytc/AKedOLSMvoy4DeAVkMSAuiuaBdIGKC7a5Ib75bKzKO3jHg=s900-c-k-c0x00ffffff-no-rj",
+                
+            }
         }
-    }
 
-    result = requests.post(url,  data=json.dumps(payload), headers=headers )
-    print(result.status_code)
-    print(result.json())
+        result = requests.post(url,  data=json.dumps(payload), headers=headers )
+        print(result.status_code)
+        print(result.json())
 
 
-# send_notification("resgistration_ids" , 'hi' , 'hello world')
+# send_notification('hi' , 'hello world')
 
 @api_view(['POST'])
 def delivery_person_signup(request,id):
@@ -391,7 +393,7 @@ def delivery_product_order_status_accept(request,id,product_id,order_id):
         if product_orders.exists():
             for product_order in product_orders:
                 # Update the status field with the new value
-                product_order.status = "order-confirmed"
+                product_order.status = "order_confirmed"
                 product_order.deliveryperson = delivery
 
                 product_order.save()
@@ -412,12 +414,51 @@ def product_status_delivered(request,id,order_id):
         pro=get_object_or_404(models.Product_Ordermodel,order_id=order_id)
         print(pro)
         pro.status="delivered"
-
         pro.save()
+        payable_amount_of_seller = models.Product_Ordermodel.objects.get(order_id=order_id)
+        print(payable_amount_of_seller.shop_id.shop_id)
+        if payable_amount_of_seller.shop_id is not None:
+            seller_id = payable_amount_of_seller.shop_id.shop_id
+        elif payable_amount_of_seller.food_id is not None:
+            pass
+        
+        #add payment
+        if admin_to_business_payment.objects.filter(seller = seller_id).exists() == True:
+            #add
+            print("Add")
+            seller_payable_data = admin_to_business_payment.objects.get(seller = seller_id)
+            balance_amount = seller_payable_data.balance_amount
+            
+            balance_amount += float(payable_amount_of_seller.total_amount) - (float(payable_amount_of_seller.total_amount) / int(payable_amount_of_seller.admin_commission_amount))
+            print(balance_amount)
+            if type(balance_amount) is float:
+                # Convert the decimal number to a string
+                decimal_string = str(balance_amount)
+
+                # Find the index of the decimal point
+                decimal_point_index = decimal_string.index('.')
+
+                # Get the decimal value with the last two digits
+                decimal_last_two_digits = decimal_string[:decimal_point_index + 3]
+            else:
+                decimal_last_two_digits = balance_amount
+            print(decimal_last_two_digits)
+            seller_payable_data.balance_amount = decimal_last_two_digits
+            seller_payable_data.save()
+        else:
+            #create
+            balance_amount = float(payable_amount_of_seller.total_amount) - (float(payable_amount_of_seller.total_amount) / int(payable_amount_of_seller.admin_commission_amount))
+            seller_payable_data = admin_to_business_payment.objects.create(
+                balance_amount = balance_amount,
+                seller = seller_id,
+                order = payable_amount_of_seller,
+            )
+            seller_payable_data.save()
+                    
+# send_notification('hii' , 'order_delivered')
         return Response("success",status=status.HTTP_200_OK)
     except:
         return Response("nostatus",status=status.HTTP_400_BAD_REQUEST)
-
 
 @api_view(["POST"])
 def product_status(request,id,order_id,orderstatus):
@@ -460,7 +501,7 @@ def delivery_product_order_status_reject(request,id,product_id,order_id):
 
 
 # emergency
-
+ 
 
 @api_view(["POST"])
 def delivery_produt_emergency(request,id,order_id):
@@ -595,7 +636,7 @@ def todays_incencentiveorder(request,id,delivery_date):
         return Response({"no orders found"},status=status.HTTP_400_BAD_REQUEST)
 
 
-from django.db.models import Sum, F
+
 
 @api_view(["POST"])
 def delivery_payableamount(request, id):
@@ -672,7 +713,7 @@ def delivery_notification(request):
 @api_view(['GET'])
 def notification_data(request,id):
     if request.method == 'GET':
-       allDataa = models.Notification.objects.filter(sender_id = id).order_by('-notify_date')
+       allDataa = models.Notification.objects.filter(recever_id = id).order_by('-notify_date')
        alldataserializer = delivery_serializers.notificationlistSerializer(allDataa,many=True)
     return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
 
@@ -724,3 +765,50 @@ def delivery_notify_status_false(request,id):
         return Response("success",status=status.HTTP_200_OK)
     except:
         return Response("nostatus",status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["POST"])
+def delivery_floating_status(request,id):
+    if request.method == "POST":
+        delivery_person = models.Delivery_model.objects.get(uid=id)
+        print(delivery_person)
+        orders = models.Product_Ordermodel.objects.filter(deliveryperson_id__uid=delivery_person.uid, status="delivered")
+        if orders:
+            delivery_person.floating_status = 1
+            delivery_person.save()
+            return Response(id,status=status.HTTP_200_OK)
+        else:
+            return Response("amount not found",status=status.HTTP_404_NOT_FOUND)
+    else:
+        return Response("withdraw not updated",status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["POST"])
+def delivery_floating_cash(request, id):
+    try:
+        delivery_person = models.Delivery_model.objects.get(uid=id)
+        print(delivery_person)
+        orders = models.Product_Ordermodel.objects.filter(deliveryperson_id__uid=delivery_person.uid, status="delivered")
+        print(orders)
+        total_amount_today = orders.aggregate(total=Sum('float_cash')).get('total', 0)
+        print(total_amount_today)
+
+        if total_amount_today is not None:
+            if delivery_person.floating_status == 1:
+                orders.update(float_cash=0)
+
+                delivery_person.float_amount = 0
+            else:
+                orders.exclude(deliveryperson_id=delivery_person.id).update(float_cash=F('float_cash') + total_amount_today)
+
+                float_amount = models.Product_Ordermodel.objects.filter(deliveryperson_id__uid=delivery_person.uid, status="delivered").aggregate(total=Sum('float_cash')).get('total', 0)
+                delivery_person.float_amount = float_amount
+            delivery_person.save()
+        return JsonResponse({'daily_total': delivery_person.float_amount}, status=status.HTTP_200_OK)
+    except models.Delivery_model.DoesNotExist:
+        return Response({"error": "Delivery person not found"}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+
+    

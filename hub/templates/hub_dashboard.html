@@ -1,0 +1,358 @@
+{% load static %}
+{% include "hub_header.html" %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<body><link rel="stylesheet" href="../../../../assests/css/font-awesome.min.css">
+<!-- New toolbar-->
+<style>
+* {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+
+#w3lDemoBar.w3l-demo-bar {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  padding: 40px 5px;
+  padding-top:70px;
+  margin-bottom: 70px;
+  background: #0D1326;
+  border-top-left-radius: 9px;
+  border-bottom-left-radius: 9px;
+}
+
+#w3lDemoBar.w3l-demo-bar a {
+  display: block;
+  color: #e6ebff;
+  text-decoration: none;
+  line-height: 24px;
+  opacity: .6;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#w3lDemoBar.w3l-demo-bar span.w3l-icon {
+  display: block;
+}
+
+#w3lDemoBar.w3l-demo-bar a:hover {
+  opacity: 1;
+}
+
+#w3lDemoBar.w3l-demo-bar .w3l-icon svg {
+  color: #e6ebff;
+}
+#w3lDemoBar.w3l-demo-bar .responsive-icons {
+  margin-top: 30px;
+  border-top: 1px solid #41414d;
+  padding-top: 40px;
+}
+#w3lDemoBar.w3l-demo-bar .demo-btns {
+  border-top: 1px solid #41414d;
+  padding-top: 30px;
+}
+#w3lDemoBar.w3l-demo-bar .responsive-icons a span.fa {
+  font-size: 26px;
+}
+#w3lDemoBar.w3l-demo-bar .no-margin-bottom{
+  margin-bottom:0;
+}
+.toggle-right-sidebar span {
+  background: #0D1326;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  color: #e6ebff;
+  border-radius: 50px;
+  font-size: 26px;
+  cursor: pointer;
+  opacity: .5;
+}
+.pull-right {
+  float: right;
+  position: fixed;
+  right: 0px;
+  top: 70px;
+  width: 90px;
+  z-index: 99999;
+  text-align: center;
+}
+/* ============================================================
+RIGHT SIDEBAR SECTION
+============================================================ */
+
+#right-sidebar {
+  width: 90px;
+  position: fixed;
+  height: 100%;
+  z-index: 1000;
+  right: 0px;
+  top: 0;
+  margin-top: 60px;
+  -webkit-transition: all .5s ease-in-out;
+  -moz-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+  overflow-y: auto;
+}
+
+
+/* ============================================================
+RIGHT SIDEBAR TOGGLE SECTION
+============================================================ */
+
+.hide-right-bar-notifications {
+  margin-right: -300px !important;
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
+}
+
+
+
+@media (max-width: 992px) {
+  #w3lDemoBar.w3l-demo-bar a.desktop-mode{
+      display: none;
+
+  }
+}
+@media (max-width: 767px) {
+  #w3lDemoBar.w3l-demo-bar a.tablet-mode{
+      display: none;
+
+  }
+}
+@media (max-width: 568px) {
+  #w3lDemoBar.w3l-demo-bar a.mobile-mode{
+      display: none;
+  }
+  #w3lDemoBar.w3l-demo-bar .responsive-icons {
+      margin-top: 0px;
+      border-top: none;
+      padding-top: 0px;
+  }
+  #right-sidebar,.pull-right {
+      width: 90px;
+  }
+  #w3lDemoBar.w3l-demo-bar .no-margin-bottom-mobile{
+      margin-bottom: 0;
+  }
+}
+</style>
+
+</div>
+	
+        
+<!--heder end here-->
+<!-- script-for sticky-nav -->
+		<script>
+		$(document).ready(function() {
+			 var navoffeset=$(".header-main").offset().top;
+			 $(window).scroll(function(){
+				var scrollpos=$(window).scrollTop(); 
+				if(scrollpos >=navoffeset){
+					$(".header-main").addClass("fixed");
+				}else{
+					$(".header-main").removeClass("fixed");
+				}
+			 });
+			 
+		});
+		</script>
+		<!-- /script-for sticky-nav -->
+<!--inner block start here-->
+<div class="inner-block" style="
+width: 85.5%;
+float: right;
+">
+<!--market updates updates-->
+	 <div class="market-updates">
+			<div class="col-md-4 market-update-gd">
+				<div class="market-update-block clr-block-1">
+					<div class="col-md-8 market-update-left">
+						<h3>₹85</h3>
+						<h4>Today Earnings</h4>
+					</div>
+					<div class="col-md-4 market-update-right">
+						<i class="fa fa-file-text-o"> </i>
+					</div>
+				  <div class="clearfix"> </div>
+				</div>
+			</div>
+			<div class="col-md-4 market-update-gd">
+				<div class="market-update-block clr-block-2">
+				 <div class="col-md-8 market-update-left">
+					<h3>135</h3>
+					<h4>Total Product</h4>
+				  </div>
+					<div class="col-md-4 market-update-right">
+						<i class="fa fa-eye"> </i>
+					</div>
+				  <div class="clearfix"> </div>
+				</div>
+			</div>
+			<div class="col-md-4 market-update-gd">
+				<div class="market-update-block clr-block-3">
+					<div class="col-md-8 market-update-left">
+						<h3>23</h3>
+						<h4>Total Delivery</h4>
+					</div>
+					<div class="col-md-4 market-update-right">
+						<i class="fa fa-envelope-o"> </i>
+					</div>
+				  <div class="clearfix"> </div>
+				</div>
+			</div>
+		   <div class="clearfix"> </div>
+		</div>
+<!--market updates end here-->
+<!---728x90--->
+
+<!--mainpage chit-chating-->
+<div class="chit-chat-layer1">
+	<div class="col-md-12 chit-chat-layer1-left">
+               <div class="work-progres">
+                            <div class="chit-chat-heading">
+                                  Order Prouducts
+                                  <input type="text" name="filter" id="filter" placeholder="Type to Filter" style="width: 30%;float: inline-end;border-radius: 6px;height: 27px;">
+
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover" id="dataTable">
+                                  <thead>
+                                    <tr>
+                                      <th>S.No</th>
+                                      <th>Product Id</th>
+                                      <th>Prouduct Name</th>                                   
+                                      <th>Seller Id</th>
+                                      <th>Seller Name</th> 
+                                      <th>Seller Location</th> 
+                                      <th>Price</th>
+                                      <th>Order Id</th>                               
+                                      <th>Tracking Id</th> 
+                                      <th>Status</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                {% for i in order_products %}
+                                <tr>
+                                  <td>{{forloop.counter}}</td>
+                                  <td>{{i.shop_product.shop_id}}{{i.jewel_product.jewel_id}}{{i.d_original_product.d_id}}</td>
+                                  <td>{{i.shop_product.product.name}}{{i.jewel_product.product.name}}{{i.d_original_product.product.name}}</td>                                 
+                                                             
+                                  <td><span>{{i.shop_id.shop_id}}{{i.jewel_id.jewel_id}}{{i.d_id.d_id}}</span></td>
+                                  <td><span >{{i.shop_id.seller_name}}{{i.jewel_id.seller_name}}{{i.d_id.seller_name}}</span></td>
+                                  <td><span >
+                                    {{i.shop_id.door_number}}{{i.shop_id.street_name}}{{i.shop_id.area}}
+                                    {{i.jewel_id.door_number}}{{i.jewel_id.street_name}}{{i.jewel_id.area}}
+                                    {{i.d_id.door_number}}{{i.d_id.street_name}}{{i.d_id.area}}
+                                  </span></td>
+                                  <td>₹{{i.shop_product.product.selling_price}}{{i.jewel_product.product.selling_price}}{{i.d_original_product.product.selling_price}}</td>
+                                  <td>{{i.order_id}}</td>
+                                  <td>{{i.track_id}}</td>
+                                  <td>
+                                  <form method="POST" id="">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="order_id" value="{{i.order_id}}" id="">
+                                    <!-- <button type="submit"  class="btn btn-success">pick up</button> -->
+                                    <select name="assign_to_delivery_person" id="" onchange="this.form.submit()" style="
+                                    background-color: green;
+                                    color: white;
+                                    text-align: center;
+                                    border-radius: 6px;
+                                ">
+                                      <option value="">Select</option>
+                                      {% for i in delivery_boy %}
+                                      <option value="{{i.uid}}">{{i.name}}</option>
+                                      {% endfor %}
+                                    </select>
+                                  </form>
+                                  </td>
+                              </tr>
+                           {% endfor %}
+                          </tbody>
+                      </table>
+                        <!-- filter -->
+         <script>
+          $(document).ready(function(){
+            $("#filter").on("keyup", function() {
+              var value = $(this).val().toLowerCase();
+              $("#dataTable tbody tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+              });
+            });
+          });
+          </script>
+                  </div>
+             </div>
+      </div>
+     <div class="clearfix"> </div>
+</div>
+<!--main page chit chating end here-->
+<!---728x90--->
+<!--main page chart start here-->
+<div class="main-page-charts">
+  
+ </div>
+<!--main page chart layer2-->
+<div class="chart-layer-2">
+	
+	
+
+  <div class="clearfix"> </div>
+</div>
+
+<!--climate start here-->
+<div class="climate">
+	
+	<div class="clearfix"> </div>
+</div>
+<!--climate end here-->
+</div>
+<!--inner block end here-->
+<!---728x90--->
+<!--copy rights start here-->
+	
+<!--COPY rights end here-->
+</div>
+</div>
+<!--slider menu-->
+{% include "hub_sidebar.html" %}
+	<div class="clearfix"> </div>
+</div>
+<!--slide bar menu end here-->
+<script>
+var toggle = true;
+            
+$(".sidebar-icon").click(function() {                
+  if (toggle)
+  {
+    $(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
+    $("#menu span").css({"position":"absolute"});
+  }
+  else
+  {
+    $(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
+    setTimeout(function() {
+      $("#menu span").css({"position":"relative"});
+    }, 400);
+  }               
+                toggle = !toggle;
+            });
+</script>
+<!--scrolling js-->
+		<script src="{% static 'jss/jquery.nicescroll.js' %}"></script>
+		<script src="{% static 'jss/scripts.js' %}"></script>
+		<!--//scrolling js-->
+<script src="{% static 'jss/bootstrap.js' %}"> </script>
+<!-- mother grid end here-->
+
+<script>(function(){var js = "window['__CF$cv$params']={r:'866415c8eff2898c',t:'MTcxMDc1Mjk4MC4xNTUwMDA='};_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='../../../../cdn-cgi/challenge-platform/h/b/scripts/jsd/ace796eb5511/main.js',document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+
+<!-- Mirrored from p.w3layouts.com/demos/28-03-2016/shoppy/web/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 18 Mar 2024 09:10:35 GMT -->
+</html>                     

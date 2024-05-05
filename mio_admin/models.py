@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser,Permission
+from django.contrib.auth.models import User,auth
+from api.models import *
 
 class admin_CustomUser(models.Model):
     username=models.TextField(null=True)
@@ -26,14 +28,12 @@ class Hub_CustomUser(models.Model):
 class comission_Editing(models.Model):
     per_km = models.IntegerField(null = True)
     incentive = models.IntegerField(null = True)
-    normal_delivery_commision=models.IntegerField(null=True)
+    normal_delivery_commision = models.IntegerField(null = True)
     
 class business_commision(models.Model):
     commission =models.TextField(null=True)
     gst = models.TextField(null=True)
     
-
-
 class banner(models.Model):
     category =models.TextField(null=True)
     banner1 = models.ImageField(upload_to="banner",null=True)
@@ -53,3 +53,18 @@ class shutdown(models.Model):
     pharmacy = models.BooleanField(null=True,default=0)
     d_original = models.BooleanField(null=True,default=0)
     jewellery = models.BooleanField(null=True,default=0)
+    
+class hsn_code(models.Model):
+    hsn_code = models.TextField(null=True)
+    goods = models.TextField(null=True)
+    gst = models.TextField(null=True)
+
+class admin_to_business_payment(models.Model):
+    balance_amount = models.FloatField(default=0)
+    paid_amount = models.FloatField(default=0)
+    seller = models.TextField(null=True)
+    order = models.ForeignKey(Product_Ordermodel, on_delete=models.CASCADE,null=True)
+    
+class new(models.Model):
+    pass
+    

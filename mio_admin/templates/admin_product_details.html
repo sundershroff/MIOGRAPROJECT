@@ -231,7 +231,7 @@
                     <!-- Delivery live trackibg -->
                     <div class="dropdown">
                       <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-                        REGION
+                        {{region_area}}
                       </button>
                       <form method="POST" class="dropdown-menu">
                         {% csrf_token %}
@@ -266,10 +266,10 @@
                             <img
                               src="https://demo.bootstrapdash.com/purple/jquery/template/assets/images/dashboard/circle.svg"
                               class="card-img-absolute" alt="circle-image" />
-                            <h4 class="font-weight-normal mb-3">Today Sales count <i
+                            <h4 class="font-weight-normal mb-3">Today Sales Amount <i
                                 class="mdi mdi-chart-line mdi-24px float-end"></i>
                             </h4>
-                            <h2 class="mb-5">₹ 15,0000</h2>
+                            <h2 class="mb-5">₹{{today_sales_amount}}</h2>
                           </div>
                         </div>
                       </div>
@@ -279,10 +279,10 @@
                             <img
                               src="https://demo.bootstrapdash.com/purple/jquery/template/assets/images/dashboard/circle.svg"
                               class="card-img-absolute" alt="circle-image" />
-                            <h4 class="font-weight-normal mb-3">commistion Addmin count <i
+                            <h4 class="font-weight-normal mb-3">Admin commision count <i
                                 class="mdi mdi-bookmark-outline mdi-24px float-end"></i>
                             </h4>
-                            <h2 class="mb-5">45,63</h2>
+                            <h2 class="mb-5">₹{{admin_commision}}</h2>
                           </div>
                         </div>
                       </div>
@@ -291,7 +291,11 @@
                           <div class="card-body px-0">
                             <h4 class="card-title text-white">Todo</h4>
                             <div class="add-items px-2" style="margin-bottom: 0;">
-                              <h2 id="orderlist">Store Details</h2>
+                              <h2 id="orderlist">Store Details
+
+                                <input type="text" name="filter" style="width: 30%;float: inline-end;padding: 8px;border-radius: 6px;font-size: 18px;" id="filter" placeholder="Type to Filter">
+
+                              </h2>
                             </div>
 
                             <div class="list-wrapper">
@@ -328,7 +332,7 @@
                                     <div class="table-responsive">
                               
 
-                                      <table class="table">
+                                      <table class="table" id="dataTable">
                                         <thead>
                                           <tr>
                                             <th> No </th>
@@ -338,7 +342,7 @@
                                             <th> store Name </th>
                                             <th> Location </th>
                                             <th> Mobile no</th>
-
+                                            <th>Action</th>
                                           </tr>
                                         </thead>
                                         <tbody>
@@ -355,7 +359,7 @@
                                             <td> {{i.business_name}} </td>
                                             <td style="width: 15%;white-space: normal;">{{i.door_number}},{{i.street_name}},{{i.area}},{{i.pin_number}} </td>
                                             <td>+91 {{i.contact}}</td>
-
+                                            <td><a href="/admin_single_store_details/shopping/{{i.shop_id}}/{{authenticate.username}}"><i class="fa fa-eye" style="font-size:20px;color: #8B1874 !important;"></i></a></td>
                                           </tr>
                                           {% endfor %}
                                         </tbody>
@@ -374,7 +378,7 @@
                                             <th> store Name </th>
                                             <th> Location </th>
                                             <th> Mobile no</th>
-
+                                            <th>Action</th>
                                           </tr>
                                         </thead>
                                         <tbody>
@@ -391,6 +395,7 @@
                                             <td> {{i.business_name}} </td>
                                             <td style="width: 15%;white-space: normal;">{{i.door_number}},{{i.street_name}},{{i.area}},{{i.pin_number}} </td>
                                             <td>+91 {{i.contact}}</td>
+                                            <td><a href="/admin_single_store_details/food/{{i.food_id}}/{{authenticate.username}}"><i class="fa fa-eye" style="font-size:20px;color: #8B1874 !important;"></i></a></td>
 
                                           </tr>
                                           {% endfor %}
@@ -412,7 +417,7 @@
                                           <th> store Name </th>
                                           <th> Location </th>
                                           <th> Mobile no</th>
-
+                                          <th>Action</th>
                                         </tr>
                                       </thead>
                                       <tbody>
@@ -429,6 +434,7 @@
                                           <td> {{i.business_name}} </td>
                                           <td style="width: 15%;white-space: normal;">{{i.door_number}},{{i.street_name}},{{i.area}},{{i.pin_number}} </td>
                                           <td>+91 {{i.contact}}</td>
+                                          <td><a href="/admin_single_store_details/fresh_cuts/{{i.fresh_id}}/{{authenticate.username}}"><i class="fa fa-eye" style="font-size:20px;color: #8B1874 !important;"></i></a></td>
 
                                         </tr>
                                         {% endfor %}
@@ -450,7 +456,7 @@
                                             <th> store Name </th>
                                             <th> Location </th>
                                             <th> Mobile no</th>
-
+                                            <th>Action</th>
                                           </tr>
                                         </thead>
                                         <tbody>
@@ -467,6 +473,7 @@
                                             <td> {{i.business_name}} </td>
                                             <td style="width: 15%;white-space: normal;">{{i.door_number}},{{i.street_name}},{{i.area}},{{i.pin_number}} </td>
                                             <td>+91 {{i.contact}}</td>
+                                            <td><a href="/admin_single_store_details/daily_mio/{{i.dmio_id}}/{{authenticate.username}}"><i class="fa fa-eye" style="font-size:20px;color: #8B1874 !important;"></i></a></td>
 
                                           </tr>
                                           {% endfor %}
@@ -491,7 +498,7 @@
                                             <th> store Name </th>
                                             <th> Location </th>
                                             <th> Mobile no</th>
-
+                                            <th>Action</th>
                                           </tr>
                                         </thead>
                                         <tbody>
@@ -508,6 +515,7 @@
                                             <td> {{i.business_name}} </td>
                                             <td style="width: 15%;white-space: normal;">{{i.door_number}},{{i.street_name}},{{i.area}},{{i.pin_number}} </td>
                                             <td>+91 {{i.contact}}</td>
+                                            <td><a href="/admin_single_store_details/pharmacy/{{i.pharm_id}}/{{authenticate.username}}"><i class="fa fa-eye" style="font-size:20px;color: #8B1874 !important;"></i></a></td>
 
                                           </tr>
                                           {% endfor %}
@@ -528,7 +536,7 @@
                                             <th> store Name </th>
                                             <th> Location </th>
                                             <th> Mobile no</th>
-
+                                            <th>Action</th>
                                           </tr>
                                         </thead>
                                         <tbody>
@@ -545,6 +553,7 @@
                                             <td> {{i.business_name}} </td>
                                             <td style="width: 15%;white-space: normal;">{{i.door_number}},{{i.street_name}},{{i.area}},{{i.pin_number}} </td>
                                             <td>+91 {{i.contact}}</td>
+                                            <td><a href="/admin_single_store_details/d_original/{{i.d_id}}/{{authenticate.username}}"><i class="fa fa-eye" style="font-size:20px;color: #8B1874 !important;"></i></a></td>
 
                                           </tr>
                                           {% endfor %}
@@ -582,6 +591,7 @@
                                             <td> {{i.business_name}} </td>
                                             <td style="width: 15%;white-space: normal;">{{i.door_number}},{{i.street_name}},{{i.area}},{{i.pin_number}} </td>
                                             <td>+91 {{i.contact}}</td>
+                                            <td><a href="/admin_single_store_details/jewellery/{{i.jewel_id}}/{{authenticate.username}}"><i class="fa fa-eye" style="font-size:20px;color: #8B1874 !important;"></i></a></td>
 
                                           </tr>
                                           {% endfor %}

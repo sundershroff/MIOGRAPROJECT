@@ -1,0 +1,57 @@
+.address {
+  padding: 2rem 0;
+}
+
+h1 {
+  padding-bottom: 3rem;
+}
+
+.row {
+  padding-bottom: 15px;
+}
+
+input[type='radio'] {
+  height: 16px;
+  width: 16px;
+  vertical-align: middle;
+  margin: 5px 10px 0 0;
+}
+
+h3 {
+  color: #333;
+  font-size: 1.2em;
+}
+
+p {
+  color: #666;
+  font-size: 1em;
+}
+
+small {
+  color: purple;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  margin: 5px 0 0 23rem;
+  text-decoration: underline;
+}
+
+.btn-purple {
+  background-color: purple;
+  border-color: purple;
+  color: white;
+}
+
+.btn-purple:hover {
+  color: white;
+}
+
+.select {
+  padding-top: 4rem;
+}
+
+.btn-select {
+  background-color: purple;
+  border-color: purple;
+  color: white;
+  padding: 8px 50px !important;
+}

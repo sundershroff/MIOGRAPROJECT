@@ -256,10 +256,11 @@ class product_orderlistSerializer(serializers.Serializer):
     distance=serializers.CharField()
     region=serializers.CharField()
     business_pickup=serializers.CharField()
-    business_status=serializers.CharField()
+    # business_status=serializers.CharField()
     ready_to_pick_up = serializers.CharField()
     incentive = serializers.CharField()
     ship_to_other_region = serializers.CharField()
+    order_date = serializers.DateField()
 
 
 class review_serializer(serializers.Serializer):
@@ -273,6 +274,7 @@ class review_serializer(serializers.Serializer):
     freshcut_product=fresh_productlistserializer()
     comment=serializers.CharField()
     rating=serializers.CharField()
+    product_id=serializers.CharField()
 
 class used_productserializer(serializers.Serializer):
     user = serializers.CharField()
