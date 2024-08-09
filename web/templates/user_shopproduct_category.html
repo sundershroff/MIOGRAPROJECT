@@ -9,8 +9,10 @@
         <title>Miogra</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/icon.jpeg' %}">
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo/Miogra_logo.png' %}">
         <!-- Material Design Iconic Font-V2.2.0 -->
         <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
         <!-- Font Awesome -->
@@ -54,18 +56,7 @@
             <!-- Begin Header Area -->
             {% include "enduser_header.html" %}
             <!-- Header Area End Here -->
-            <!-- Begin Li's Breadcrumb Area -->
-            <div class="breadcrumb-area">
-                <div class="container">
-                    <div class="breadcrumb-content">
-                        <ul>
-                            <li><a href="products/shopproducts/shop/{{key.uid}}">Home</a></li>
-                            <li class="active">Shop Left Sidebar</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- Li's Breadcrumb Area End Here -->
+           
             <!-- Begin Li's Content Wraper Area -->
             <div class="content-wraper pt-60 pb-60 pt-sm-30">
                 <div class="container-fluid">
@@ -204,7 +195,7 @@
                                                                     
                                                                     {% comment %} <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.shop.category.0}}/products/{{i.shop.food_id}}/{{i.item.product_id}}/">Add to cart</a></li> {% endcomment %}
                                                                     {% comment %} <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li> {% endcomment %}
-                                                                    <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i> Add to Wishlist </a> </li>
+                                                                    <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category}}/{{i.items.product_id}}/"><i class="fa fa-heart-o"></i> Add to Wishlist </a> </li>
                                                                    
                                                                 </ul>
                                                             </div>
@@ -259,7 +250,7 @@
                                                         <div class="shop-add-action mb-xs-30">
                                                             <ul class="add-actions-link">
                                                                 <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.items.category.0}}>/<{{i.items.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
+                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.items.category}}>/<{{i.items.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
                                                                 <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
                                                             </ul>
                                                         </div>
@@ -303,7 +294,7 @@
                                                         <div class="shop-add-action mb-xs-30">
                                                             <ul class="add-actions-link">
                                                                 <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.items.category.0}}>/<{{i.items.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
+                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.items.category}}>/<{{i.items.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
                                                                 <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
                                                             </ul>
                                                         </div>
@@ -347,7 +338,7 @@
                                                         <div class="shop-add-action mb-xs-30">
                                                             <ul class="add-actions-link">
                                                                 <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.items.category.0}}>/<{{i.items.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
+                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.items.category}}>/<{{i.items.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
                                                                 <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
                                                             </ul>
                                                         </div>
@@ -391,7 +382,7 @@
                                                         <div class="shop-add-action mb-xs-30">
                                                             <ul class="add-actions-link">
                                                                 <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.items.category.0}}>/<{{i.items.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
+                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.items.category}}>/<{{i.items.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
                                                                 <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
                                                             </ul>
                                                         </div>
@@ -435,7 +426,7 @@
                                                         <div class="shop-add-action mb-xs-30">
                                                             <ul class="add-actions-link">
                                                                 <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.items.category.0}}>/<{{i.items.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
+                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.items.category}}>/<{{i.items.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
                                                                 <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
                                                             </ul>
                                                         </div>
@@ -479,7 +470,7 @@
                                                         <div class="shop-add-action mb-xs-30">
                                                             <ul class="add-actions-link">
                                                                 <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.items.category.0}}>/<{{i.items.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
+                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.items.category}}>/<{{i.items.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
                                                                 <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
                                                             </ul>
                                                         </div>
@@ -523,7 +514,7 @@
                                                         <div class="shop-add-action mb-xs-30">
                                                             <ul class="add-actions-link">
                                                                 <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.items.category.0}}>/<{{i.items.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
+                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.items.category}}>/<{{i.items.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
                                                                 <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
                                                             </ul>
                                                         </div>
@@ -567,7 +558,7 @@
                                                         <div class="shop-add-action mb-xs-30">
                                                             <ul class="add-actions-link">
                                                                 <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.items.category.0}}>/<{{i.items.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
+                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.items.category}}>/<{{i.items.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
                                                                 <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
                                                             </ul>
                                                         </div>
@@ -611,7 +602,7 @@
                                                         <div class="shop-add-action mb-xs-30">
                                                             <ul class="add-actions-link">
                                                                 <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.items.category.0}}>/<{{i.items.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
+                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.items.category}}>/<{{i.items.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
                                                                 <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
                                                             </ul>
                                                         </div>
@@ -655,7 +646,7 @@
                                                         <div class="shop-add-action mb-xs-30">
                                                             <ul class="add-actions-link">
                                                                 <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.items.category.0}}>/<{{i.items.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
+                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.items.category}}>/<{{i.items.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
                                                                 <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
                                                             </ul>
                                                         </div>
@@ -699,7 +690,7 @@
                                                         <div class="shop-add-action mb-xs-30">
                                                             <ul class="add-actions-link">
                                                                 <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.items.category.0}}>/<{{i.items.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
+                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.items.category}}>/<{{i.items.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
                                                                 <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
                                                             </ul>
                                                         </div>
@@ -743,7 +734,7 @@
                                                         <div class="shop-add-action">
                                                             <ul class="add-actions-link">
                                                                 <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.items.category.0}}>/<{{i.items.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
+                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.items.category}}>/<{{i.items.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
                                                                 <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
                                                             </ul>
                                                         </div>
@@ -1023,7 +1014,7 @@
                                                 </form>
                                             </div>
                                             <div class="product-additional-info pt-25">
-                                                <a class="wishlist-btn" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.items.category.0}}>/<{{i.items.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a>
+                                                <a class="wishlist-btn" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.items.category}}>/<{{i.items.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a>
                                                 <div class="product-social-sharing pt-25">
                                                     <ul>
                                                         <li class="facebook"><a href="#"><i class="fa fa-facebook"></i>Facebook</a></li>
@@ -1090,7 +1081,7 @@
     $(".cart-plus-minus").append('<button class="dec qtybutton" id="increase"><i class="fa fa-angle-down"></i></button><button class="inc qtybutton" id="decrease"><i class="fa fa-angle-up"></i></button>');
     $(document).ready(function() {
         const Items=[];
-        const category ="food";
+        const category ="shopping";
         let totalPrice = 0; // Variable to store total price
         let itemCount = 0;
         

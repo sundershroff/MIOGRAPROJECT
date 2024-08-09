@@ -1,0 +1,129 @@
+body {
+    
+    padding: 0;
+    margin: 0;
+    background: #eceffc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+.form-container {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background: white;
+    border-radius: 8px;
+    text-align: center;
+}
+.form-group {
+    position: relative;
+    margin-bottom: 15px;
+}
+.form-group input,.form-group input[type="file"] {
+    width: 95%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #8B1874;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+    outline: none;
+}
+.form-group select {
+    width: 99%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #8B1874;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+    outline: none;
+
+}
+.form-group input:focus,
+.form-group input:not(:placeholder-shown) {
+    border-color: #5c0d51;
+}
+.form-group label {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8B1874;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    background: white;
+    padding: 0 5px;
+}
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label {
+    top: -10px;
+    font-size: 12px;
+    color: #5c0d51;
+}
+button {
+    padding: 8px 20px;
+    border: none;
+    background-color: #8B1874;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+button:hover {
+    background-color: #5c0d51;
+}
+.zone {      
+    margin: auto;
+    background: radial-gradient(ellipse at center,#EB6A5A 0,#c9402f 100%);
+    width:30%;
+    padding: 20px;
+    text-align:center;
+    border:5px dashed white;
+    color: white;
+    transition: all 0.3s ease-out;
+    font-size: 20px; /* Updated font size */
+}
+.selectFile {
+    position: relative;
+    width: 150px;
+    height: 50px;
+    margin: 20px auto;
+}
+.selectFile label, .selectFile input {
+    cursor: pointer;
+    display: block;
+    height: 50px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.selectFile label {
+    background: #fff;
+    color: #EB6A5A;
+    font-size: 1.2em;
+    line-height: 50px;
+    text-align: center;
+    box-shadow: 0 1px 1px gray;
+}
+.selectFile input[type="file"] {
+    opacity: 0;
+}
+.Add{
+    border:1px solid;
+    padding:5px;
+    background-color: #8B1874;
+    color:#eceffc;
+
+}
+.hm-cart-btn{
+	border-radius: 2px;
+    background: #810081;
+    color: #fff;
+    height: 45px;
+    cursor: pointer;
+    display: block;
+    position: relative;
+    padding: 0 15px 0 28px;
+}

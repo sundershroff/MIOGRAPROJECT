@@ -73,7 +73,7 @@
             <div class="footer-logo-wrap pt-50 pb-35 p-2">
                 <div class="row">
                     <!-- Begin Footer Logo Area -->
-                    <div class="col-lg-4 col-md-6"style="">
+                    <div class="col-lg-5 col-md-6"style="">
                         <div class="footer-logo">
                             <img src="{% static 'images/menu/logo/header.png' %}" alt="Footer Logo">
                             <p class="info" style="text-align:justify;"><b>"Explore Miogra - your one-stop destination for fashion, food, groceries, and more. Elevate your style and stock up on essentials, all in one convenient place."</b>
@@ -83,7 +83,7 @@
                         <ul class="des">
                             <li>
                                 <span>Address: </span>
-                                R.B Complex, Karumaram, oorambu, Kollemcode p.o 629160
+                                R.B Complex, Karumaram, Oorambu, Kollemcode p.o, 629160
                             </li>
                             <li>
                                 <span>Phone: </span>
@@ -97,7 +97,7 @@
                     </div>
                     <!-- Footer Logo Area End Here -->
                     <!-- Begin Footer Block Area -->
-                    <div class="col-lg-2 col-md-3 col-sm-6">
+                    {% comment %} <div class="col-lg-2 col-md-3 col-sm-6">
                         <div class="footer-block">
                             <h3 class="footer-block-title">Product</h3>
                             <ul>
@@ -107,18 +107,31 @@
                                 <li><a href="#">Contact us</a></li>
                             </ul>
                         </div>
-                    </div>
+                    </div> {% endcomment %}
                     <!-- Footer Block Area End Here -->
                     <!-- Begin Footer Block Area -->
-                    <div class="col-lg-2 col-md-3 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-6">
                         <div class="footer-block">
                             <h3 class="footer-block-title">Our company</h3>
+                            {% if key.uid %}
                             <ul>
-                                <li><a href="#">Delivery</a></li>
-                                <li><a href="#">Legal Notice</a></li>
-                                <li><a href="#">About us</a></li>
-                                <li><a href="#">Contact us</a></li>
+                                <li><a href="/terms_and_condition/{{key.uid}}">Terms and Conditions</a></li>
+                                <li><a href="/miogra_privacy_policy/{{key.uid}}">Privacy Policy</a></li>
+                                <li><a href="/miogra/refund_policies/{{key.uid}}">Cancellation & Refund</a></li>
+                                <li><a href="/miogra_shipping_delivery_policy/{{key.uid}}">Shipping and Delivery Policy</a></li>
+                                <li><a href="/aboutUs_miogra/{{key.uid}}">About us</a></li>
+                                <li><a href="/enduser/contact/{{key.uid}}">Contact us</a></li>
                             </ul>
+                            {% else %}
+                            <ul>
+                                <li><a href="/terms_condition/">Terms and Conditions</a></li>
+                                <li><a href="/privacy_policy/">Privacy Policy</a></li>
+                                <li><a href="/miogra_refund_policies/">Cancellation & Refund</a></li>
+                                <li><a href="/shipping_delivery_policy/">Shipping and Delivery Policy</a></li>
+                                <li><a href="/about_miogra/">About us</a></li> 
+                                <li><a href="/miogra/contact/">Contact us</a></li>
+                            </ul>
+                            {% endif %}
                         </div>
                     </div>
                     <!-- Footer Block Area End Here -->

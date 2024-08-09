@@ -33,11 +33,13 @@ class comission_Editing(models.Model):
 class business_commision(models.Model):
     commission =models.TextField(null=True)
     gst = models.TextField(null=True)
-    
+        
 class banner(models.Model):
     category =models.TextField(null=True)
     banner1 = models.ImageField(upload_to="banner",null=True)
     banner2 = models.ImageField(upload_to="banner",null=True)
+    banner_list1 = models.JSONField(null=True)
+    banner_list2 = models.JSONField(null=True)
     ad1 = models.ImageField(upload_to="banner",null=True)
     ad2 = models.ImageField(upload_to="banner",null=True)
     
@@ -53,6 +55,9 @@ class shutdown(models.Model):
     pharmacy = models.BooleanField(null=True,default=0)
     d_original = models.BooleanField(null=True,default=0)
     jewellery = models.BooleanField(null=True,default=0)
+    used_products = models.BooleanField(null=True,default=0)
+    cod = models.BooleanField(null=True,default=0)
+    online_payment = models.BooleanField(null=True,default=0)
     
 class hsn_code(models.Model):
     hsn_code = models.TextField(null=True)
@@ -64,7 +69,3 @@ class admin_to_business_payment(models.Model):
     paid_amount = models.FloatField(default=0)
     seller = models.TextField(null=True)
     order = models.ForeignKey(Product_Ordermodel, on_delete=models.CASCADE,null=True)
-    
-class new(models.Model):
-    pass
-    

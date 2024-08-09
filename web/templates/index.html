@@ -11,7 +11,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/icon.jpeg' %}">
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo/Miogra_logo.png' %}">
         <!-- Material Design Iconic Font-V2.2.0 -->
         <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
         <!-- Font Awesome -->
@@ -46,6 +46,24 @@
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
         <!-- Modernizr js -->
         <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
+        <style>
+           
+             .wishlist-item-count{
+                    position: absolute;
+                    top: -11px;
+                    left: -13px;
+                    display: block;
+                    overflow: hidden;
+                    min-width: 26px;
+                    line-height: 26px;
+                    font-size: 12px;
+                    font-weight: 700;
+                    color: white;
+                    background: #13b436;
+                    text-align: center;
+                    border-radius: 100%;
+             }
+        </style>
     </head>
     <body>
     <!--[if lt IE 8]>
@@ -63,45 +81,46 @@
                         <!-- Begin Slider Area -->
                         <div class="col-lg-12 col-md-12" style="
                         padding-left: 0;
-                        padding-right: 0;
-                    ">
+                        padding-right: 0; ">
                             <div class="slider-area">
                                 <div class="slider-active owl-carousel">
+                                    {% for x in banner.banner_list1 %}
                                     <!-- Begin Single Slide Area -->
-                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(/media/{{banner.banner1}});">
+                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url({{x}});">
                                         <div class="slider-progress"></div>
                                         {% comment %} <div class="slider-content">
                                             <h5>Sale Offer <span>-20% Off</span> This Week</h5>
-                                            <h2>Chamcham Galaxy S9 | S9+</h2>
-                                            <h3>Starting at <span>&#8377;1209.00</span></h3>
+                                            <h2>Chicken Briyani</h2>
+                                            <h3>Starting at <span>&#8377;150.00</span></h3>
                                             <div class="default-btn slide-btn">
-                                                <a class="links" href="/shopproducts/shop_products">Shopping Now</a>
+                                                <a class="links" href="/">Shopping Now</a>
                                             </div>
                                         </div> {% endcomment %}
                                     </div>
+                                    {% endfor %}
                                     <!-- Single Slide Area End Here -->
                                     <!-- Begin Single Slide Area -->
-                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(/media/{{banner.banner2}});">
-                                        <div class="slider-progress"></div>
-                                        {% comment %} <div class="slider-content">
-                                            <h5>Sale Offer <span>Black Friday</span> This Week</h5>
-                                            <h2>Work Desk Surface Studio 2018</h2>
-                                            <h3>Starting at <span>&#8377;824.00</span></h3>
-                                            <div class="default-btn slide-btn">
-                                                <a class="links" href="/shopproducts/shop_products">Shopping Now</a>
-                                            </div>
-                                        </div> {% endcomment %}
-                                    </div>
+                                    <!--<div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(media/{{banner.banner2}});">-->
+                                    <!--    <div class="slider-progress"></div>-->
+                                    <!--    {% comment %} <div class="slider-content">-->
+                                    <!--        <h5>Sale Offer <span>Black Friday</span> This Week</h5>-->
+                                    <!--        <h2>Ham Burger</h2>-->
+                                    <!--        <h3>Starting at <span>&#8377;224.00</span></h3>-->
+                                    <!--        <div class="default-btn slide-btn">-->
+                                    <!--            <a class="links" href="">Shopping Now</a>-->
+                                    <!--        </div>-->
+                                    <!--    </div> {% endcomment %}-->
+                                    <!--</div> -->
                                     <!-- Single Slide Area End Here -->
                                     <!-- Begin Single Slide Area -->
                                     {% comment %} <div class="single-slide align-center-left animation-style-01 bg-3">
                                         <div class="slider-progress"></div>
                                         <div class="slider-content">
                                             <h5>Sale Offer <span>-10% Off</span> This Week</h5>
-                                            <h2>Phantom 4 Pro+ Obsidian</h2>
-                                            <h3>Starting at <span>&#8377;1849.00</span></h3>
+                                            <h2>Full Meals</h2>
+                                            <h3>Starting at <span>&#8377;149.00</span></h3>
                                             <div class="default-btn slide-btn">
-                                                <a class="links" href="/shopproducts/shop_products">Shopping Now</a>
+                                                <a class="links" href="">Shopping Now</a>
                                             </div>
                                         </div>
                                     </div> {% endcomment %}
@@ -136,8 +155,7 @@
                             <div class="li-product-tab">
                                 <ul class="nav li-product-menu">
                                    <li><a class="active" data-toggle="tab" href="#li-new-product"><span>Shopping</span></a></li>
-                                   <!-- <li><a data-toggle="tab" href="#li-bestseller-product"><span>Bestseller</span></a></li>
-                                   <li><a data-toggle="tab" href="#li-featured-product"><span>Featured Products</span></a></li> -->
+                                   
                                 </ul>               
                             </div>
                             <!-- Begin Li's Tab Menu Content Area -->
@@ -458,13 +476,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -501,13 +519,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -542,13 +560,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -585,13 +603,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -626,13 +644,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -669,13 +687,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -716,228 +734,18 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
                                     </div>
-                                    <div class="col-lg-12">
-                                        <!-- single-product-wrap start -->
-                                        <div class="single-product-wrap">
-                                            <div class="product-image">
-                                                <a href="single-product.html">
-                                                    <img src="{% static 'images/product/large-size/5.jpg' %}" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="shop-left-sidebar.html">Studio Design</a>
-                                                        </h5>
-                                                        <div class="rating-box">
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <h4><a class="product_name" href="single-product.html">Mug Today is a good day</a></h4>
-                                                    <div class="price-box">
-                                                        <span class="new-price new-price-2">&#8377;71.80</span>
-                                                        <span class="old-price">&#8377;77.22</span>
-                                                        <span class="discount-percentage">-7%</span>
-                                                    </div>
-                                                </div>
-                                                <div class="add-actions">
-                                                    <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- single-product-wrap end -->
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <!-- single-product-wrap start -->
-                                        <div class="single-product-wrap">
-                                            <div class="product-image">
-                                                <a href="single-product.html">
-                                                    <img src="{% static 'images/product/large-size/7.jpg' %}" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="shop-left-sidebar.html">Graphic Corner</a>
-                                                        </h5>
-                                                        <div class="rating-box">
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <h4><a class="product_name" href="single-product.html">Accusantium dolorem1</a></h4>
-                                                    <div class="price-box">
-                                                        <span class="new-price">&#8377;46.80</span>
-                                                    </div>
-                                                </div>
-                                                <div class="add-actions">
-                                                    <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- single-product-wrap end -->
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <!-- single-product-wrap start -->
-                                        <div class="single-product-wrap">
-                                            <div class="product-image">
-                                                <a href="single-product.html">
-                                                    <img src="{% static 'images/product/large-size/9.jpg' %}" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="shop-left-sidebar.html">Studio Design</a>
-                                                        </h5>
-                                                        <div class="rating-box">
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <h4><a class="product_name" href="single-product.html">Mug Today is a good day</a></h4>
-                                                    <div class="price-box">
-                                                        <span class="new-price new-price-2">&#8377;71.80</span>
-                                                        <span class="old-price">&#8377;77.22</span>
-                                                        <span class="discount-percentage">-7%</span>
-                                                    </div>
-                                                </div>
-                                                <div class="add-actions">
-                                                    <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- single-product-wrap end -->
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <!-- single-product-wrap start -->
-                                        <div class="single-product-wrap">
-                                            <div class="product-image">
-                                                <a href="single-product.html">
-                                                    <img src="{% static 'images/product/large-size/11.jpg' %}" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="shop-left-sidebar.html">Graphic Corner</a>
-                                                        </h5>
-                                                        <div class="rating-box">
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <h4><a class="product_name" href="single-product.html">Accusantium dolorem1</a></h4>
-                                                    <div class="price-box">
-                                                        <span class="new-price">&#8377;46.80</span>
-                                                    </div>
-                                                </div>
-                                                <div class="add-actions">
-                                                    <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- single-product-wrap end -->
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <!-- single-product-wrap start -->
-                                        <div class="single-product-wrap">
-                                            <div class="product-image">
-                                                <a href="single-product.html">
-                                                    <img src="{% static 'images/product/large-size/12.jpg' %}" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="shop-left-sidebar.html">Studio Design</a>
-                                                        </h5>
-                                                        <div class="rating-box">
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <h4><a class="product_name" href="single-product.html">Mug Today is a good day</a></h4>
-                                                    <div class="price-box">
-                                                        <span class="new-price new-price-2">&#8377;71.80</span>
-                                                        <span class="old-price">&#8377;77.22</span>
-                                                        <span class="discount-percentage">-7%</span>
-                                                    </div>
-                                                </div>
-                                                <div class="add-actions">
-                                                    <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- single-product-wrap end -->
-                                    </div>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -953,7 +761,7 @@
                         <div class="col-lg-4 col-md-4 text-center">
                             <div class="single-banner">
                                 <a href="#">
-                                    <img src="{% static 'images/banner/1_3.jpg' %}" alt="Li's Static Banner">
+                                    <img src="{% static 'images/banner/2_3.jpg' %}" alt="Li's Static Banner">
                                 </a>
                             </div>
                         </div>
@@ -962,7 +770,7 @@
                         <div class="col-lg-4 col-md-4 text-center pt-xs-30">
                             <div class="single-banner">
                                 <a href="#">
-                                    <img src="{% static 'images/banner/1_4.jpg' %}" alt="Li's Static Banner">
+                                    <img src="{% static 'images/banner/2_6.jpg' %}" alt="Li's Static Banner">
                                 </a>
                             </div>
                         </div>
@@ -971,7 +779,7 @@
                         <div class="col-lg-4 col-md-4 text-center pt-xs-30">
                             <div class="single-banner">
                                 <a href="#">
-                                    <img src="{% static 'images/banner/1_5.jpg' %}" alt="Li's Static Banner">
+                                    <img src="{% static 'images/banner/2_5.jpg' %}" alt="Li's Static Banner">
                                 </a>
                             </div>
                         </div>
@@ -991,7 +799,7 @@
                                     <span>Today Deals</span>
                                 </h2>
                                 <ul class="li-sub-category-list">
-                                    <li class="active"><a href="shop-left-sidebar.html">View All</a></li>
+                                    <li class="active"><a href="/shopproducts/shop_based/">View All</a></li>
                                     <!-- <li><a href="shop-left-sidebar.html">Computers</a></li>
                                     <li><a href="shop-left-sidebar.html">Electronics</a></li> -->
                                 </ul>
@@ -1012,10 +820,19 @@
                                                 <div class="product_desc_info">
                                                     <div class="product-review">
                                                         <h5 class="manufacturer">
-                                                            <a href="/shopproducts/shop_products/{{item.product.category}}">{{item.product.subcategory}}</a>
+                                                            <a href="/shopproducts/shop_products/{{item.product.subcategory}}">{{item.product.subcategory}}</a>
                                                         </h5>
                                                         <div class="rating-box">
-                                                            <span>4.2</span>
+                                                            <span>{{item.rating}}</span>
+                                                            {% if item.rating == "2.0" %}
+                                                            <ul class="rating">
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                            </ul>
+                                                            {% elif item.rating == "3.0" %}
                                                             <ul class="rating">
                                                                 <li><i class="fa fa-star-o"></i></li>
                                                                 <li><i class="fa fa-star-o"></i></li>
@@ -1023,6 +840,39 @@
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                             </ul>
+                                                            {% elif item.rating == "4.0" %}
+                                                            <ul class="rating">
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                            </ul>
+                                                            {% elif item.rating == "5.0" %}
+                                                            <ul class="rating">
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                            </ul>
+                                                            {% elif item.rating == "1.0"  %}
+                                                            <ul class="rating">
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                            </ul>
+                                                            {% else %}
+                                                            <ul class="rating">
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                            </ul>
+                                                            {% endif %}
                                                         </div>
                                                     </div>
                                                     <h4><a class="product_name" href="/shopproducts/single_products/{{item.product.shop_id}}/{{item.product.product_id}}">{{item.product.model_name}}</a></h4>
@@ -1030,236 +880,13 @@
                                                         <span class="new-price">&#8377;{{item.product.selling_price}}</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
-                                                    <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="/enduser/usersignin">Add to cart</a></li>
-                                                        <li><a class="links-details" href="/enduser/usersignin"><i class="fa fa-heart-o"></i></a></li>
-                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                    </ul>                                                
-                                                   
-                                                           
-                                                </div>
+                                                
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
                                     </div>
                                     {% endfor %}
-                                    {% comment %} <div class="col-lg-12">
-                                        <!-- single-product-wrap start -->
-                                        <div class="single-product-wrap">
-                                            <div class="product-image">
-                                                <a href="single-product.html">
-                                                    <img src="{% static 'images/product/large-size/2.jpg' %}" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="shop-left-sidebar.html">Studio Design</a>
-                                                        </h5>
-                                                        <div class="rating-box">
-                                                            <span>4.2</span>
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <h4><a class="product_name" href="single-product.html">Mug Today is a good day</a></h4>
-                                                    <div class="price-box">
-                                                        <span class="new-price new-price-2">&#8377;71.80</span>
-                                                        <span class="old-price">&#8377;77.22</span>
-                                                        <span class="discount-percentage">-7%</span>
-                                                    </div>
-                                                </div>
-                                                <div class="add-actions">
-                                                    <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- single-product-wrap end -->
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <!-- single-product-wrap start -->
-                                        <div class="single-product-wrap">
-                                            <div class="product-image">
-                                                <a href="single-product.html">
-                                                    <img src="{% static 'images/product/large-size/3.jpg' %}" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="shop-left-sidebar.html">Graphic Corner</a>
-                                                        </h5>
-                                                        <div class="rating-box">
-                                                            <span>4.2</span>
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <h4><a class="product_name" href="single-product.html">Accusantium dolorem1</a></h4>
-                                                    <div class="price-box">
-                                                        <span class="new-price">&#8377;46.80</span>
-                                                    </div>
-                                                </div>
-                                                <div class="add-actions">
-                                                    <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- single-product-wrap end -->
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <!-- single-product-wrap start -->
-                                        <div class="single-product-wrap">
-                                            <div class="product-image">
-                                                <a href="single-product.html">
-                                                    <img src="{% static 'images/product/large-size/4.jpg' %}" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="shop-left-sidebar.html">Studio Design</a>
-                                                        </h5>
-                                                        <div class="rating-box">
-                                                            <span>4.2</span>
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <h4><a class="product_name" href="single-product.html">Mug Today is a good day</a></h4>
-                                                    <div class="price-box">
-                                                        <span class="new-price new-price-2">&#8377;71.80</span>
-                                                        <span class="old-price">&#8377;77.22</span>
-                                                        <span class="discount-percentage">-7%</span>
-                                                    </div>
-                                                </div>
-                                                <div class="add-actions">
-                                                    <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- single-product-wrap end -->
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <!-- single-product-wrap start -->
-                                        <div class="single-product-wrap">
-                                            <div class="product-image">
-                                                <a href="single-product.html">
-                                                    <img src="{% static 'images/product/large-size/5.jpg' %}" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="shop-left-sidebar.html">Graphic Corner</a>
-                                                        </h5>
-                                                        <div class="rating-box">
-                                                            <span>4.2</span>
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <h4><a class="product_name" href="single-product.html">Accusantium dolorem1</a></h4>
-                                                    <div class="price-box">
-                                                        <span class="new-price">&#8377;46.80</span>
-                                                    </div>
-                                                </div>
-                                                <div class="add-actions">
-                                                    <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- single-product-wrap end -->
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <!-- single-product-wrap start -->
-                                        <div class="single-product-wrap">
-                                            <div class="product-image">
-                                                <a href="single-product.html">
-                                                    <img src="{% static 'images/product/large-size/6.jpg' %}" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="shop-left-sidebar.html">Studio Design</a>
-                                                        </h5>
-                                                        <div class="rating-box">
-                                                            <span>4.2</span>
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <h4><a class="product_name" href="single-product.html">Mug Today is a good day</a></h4>
-                                                    <div class="price-box">
-                                                        <span class="new-price new-price-2">&#8377;71.80</span>
-                                                        <span class="old-price">&#8377;77.22</span>
-                                                        <span class="discount-percentage">-7%</span>
-                                                    </div>
-                                                </div>
-                                                <div class="add-actions">
-                                                    <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- single-product-wrap end -->
-                                    </div> {% endcomment %}
+                                    
                                 </div>
                             </div>
                         </div>
@@ -1269,7 +896,8 @@
             </section>
             <!-- Li's Laptop Product Area End Here -->
             <!-- Begin Li's TV & Audio Product Area -->
-            <section class="product-area li-laptop-product li-tv-audio-product pb-45">
+
+            {% comment %} <section class="product-area li-laptop-product li-tv-audio-product pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -1318,13 +946,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -1361,13 +989,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -1403,13 +1031,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -1445,13 +1073,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -1487,13 +1115,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -1529,13 +1157,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -1548,10 +1176,12 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
+
             <!-- Li's TV & Audio Product Area End Here -->
             <!-- Begin Li's Static Home Area -->
-            <div class="li-static-home">
+
+            {% comment %} <div class="li-static-home">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
@@ -1575,10 +1205,12 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> {% endcomment %}
+
             <!-- Li's Static Home Area End Here -->
             <!-- Begin Li's Trending Product Area -->
-            <section class="product-area li-trending-product pt-60 pb-45">
+
+            {% comment %} <section class="product-area li-trending-product pt-60 pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Tab Menu Area -->
@@ -2395,10 +2027,11 @@
                         <!-- Tab Menu Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
+
             <!-- Li's Trending Product Area End Here -->
             <!-- Begin Li's Trendding Products Area -->
-            <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
+            {% comment %} <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -2493,13 +2126,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -2535,13 +2168,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -2579,13 +2212,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -2621,13 +2254,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -2665,13 +2298,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -2778,13 +2411,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -2820,13 +2453,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -2864,13 +2497,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -2906,13 +2539,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -2950,13 +2583,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -2967,10 +2600,10 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
             <!-- Li's Trendding Products Area End Here -->
 
-            <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
+            {% comment %} <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -3064,13 +2697,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -3106,13 +2739,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -3150,13 +2783,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -3192,13 +2825,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -3236,13 +2869,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -3253,10 +2886,10 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
             <!-- Li's Trendding Products Area End Here -->
             <!-- Begin Li's TV & Audio Product Area -->
-            <section class="product-area li-laptop-product li-tv-audio-product pb-45">
+            {% comment %} <section class="product-area li-laptop-product li-tv-audio-product pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -3304,13 +2937,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -3346,13 +2979,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -3388,13 +3021,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -3430,13 +3063,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -3472,13 +3105,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -3514,13 +3147,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -3533,9 +3166,9 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
             <!-- Li's TV & Audio Product Area End Here -->
-            <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
+            {% comment %} <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -3546,8 +3179,8 @@
                                 </h2>
                                 <ul class="nav li-product-menu li-trending-product-menu">
                                     <li><a class="active" data-toggle="tab" href="#home1"><span>View All</span></a></li>
-                                    <!-- <li><a data-toggle="tab" href="#home2"><span>Camera Accessories</span></a></li>
-                                    <li><a data-toggle="tab" href="#home3"><span>XailStation</span></a></li> -->
+                                     <li><a data-toggle="tab" href="#home2"><span>Camera Accessories</span></a></li>
+                                    <li><a data-toggle="tab" href="#home3"><span>XailStation</span></a></li> 
                                  </ul> 
                             </div>
                             <div class="row">
@@ -3583,7 +3216,7 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                 <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
@@ -3591,7 +3224,7 @@
                                                     </ul>
                                                     <button class="add-cart-button active" >Buy Now</button>
 
-                                                </div>
+                                                </div> 
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -3629,13 +3262,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                               <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> 
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -3677,7 +3310,7 @@
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> 
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -3715,13 +3348,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -3757,13 +3390,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -3801,13 +3434,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -3819,8 +3452,8 @@
                     </div>
                 </div>
             </section>
-            <!-- Li's Trendding Products Area End Here -->
-            <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
+            <!-- Li's Trendding Products Area End Here --> {% endcomment %}
+            {% comment %} <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -3914,13 +3547,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -3956,13 +3589,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -4000,13 +3633,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -4042,13 +3675,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -4086,13 +3719,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -4103,9 +3736,9 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
             <!-- Li's Trendding Products Area End Here -->
-            <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
+            {% comment %} <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -4199,13 +3832,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -4241,13 +3874,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -4285,13 +3918,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -4327,13 +3960,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -4371,13 +4004,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -4388,10 +4021,10 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
             <!-- Li's Trendding Products Area End Here -->
             <!-- Begin Li's TV & Audio Product Area -->
-            <section class="product-area li-laptop-product li-tv-audio-product pb-45">
+            {% comment %} <section class="product-area li-laptop-product li-tv-audio-product pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -4439,13 +4072,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -4481,13 +4114,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -4523,13 +4156,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -4565,13 +4198,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -4607,13 +4240,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -4649,13 +4282,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -4668,10 +4301,10 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
             <!-- Li's TV & Audio Product Area End Here -->
             <!-- Begin Li's TV & Audio Product Area -->
-            <section class="product-area li-laptop-product li-tv-audio-product pb-45">
+            {% comment %} <section class="product-area li-laptop-product li-tv-audio-product pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -4719,13 +4352,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -4761,13 +4394,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -4803,13 +4436,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -4845,13 +4478,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -4887,13 +4520,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -4929,13 +4562,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -4948,9 +4581,9 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
             <!-- Li's TV & Audio Product Area End Here -->
-            <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
+            {% comment %} <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -5044,13 +4677,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -5086,13 +4719,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -5130,13 +4763,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -5172,13 +4805,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -5216,13 +4849,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -5233,9 +4866,9 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
             <!-- Li's Trendding Products Area End Here -->
-            <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
+            {% comment %} <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -5329,13 +4962,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -5371,13 +5004,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -5415,13 +5048,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -5457,13 +5090,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -5501,13 +5134,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -5518,9 +5151,9 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
             <!-- Li's Trendding Products Area End Here -->
-            <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
+            {% comment %} <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -5614,13 +5247,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -5656,13 +5289,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -5700,13 +5333,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -5742,13 +5375,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -5786,13 +5419,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -5803,9 +5436,9 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
             <!-- Li's Trendding Products Area End Here -->
-            <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
+            {% comment %} <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -5899,13 +5532,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -5941,13 +5574,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -5985,13 +5618,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -6027,13 +5660,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -6071,13 +5704,13 @@
                                                         <span class="discount-percentage">-7%</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                <!-- <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -6088,10 +5721,10 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
             <!-- Li's Trendding Products Area End Here -->
             <!-- Begin Li's TV & Audio Product Area -->
-            <section class="product-area li-laptop-product li-tv-audio-product pb-45">
+            {% comment %} <section class="product-area li-laptop-product li-tv-audio-product pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -6139,13 +5772,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -6181,13 +5814,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -6223,13 +5856,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -6265,13 +5898,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -6307,13 +5940,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -6349,13 +5982,13 @@
                                                         <span class="new-price">&#8377;46.80</span>
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="add-actions">
+                                                <!--  <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
                                                         <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div> -->
+                                                </div>  -->
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -6368,7 +6001,7 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
             <!-- Li's TV & Audio Product Area End Here -->
                                                                         
             <!-- Begin Footer Area -->

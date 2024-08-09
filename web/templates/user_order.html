@@ -10,7 +10,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/icon.jpeg' %}">
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo/Miogra_logo.png' %}">
         <!-- Material Design Iconic Font-V2.2.0 -->
         <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
         <!-- Font Awesome -->
@@ -57,16 +57,7 @@
         <div class="body-wrapper" >
         {% include "enduser_header.html" %}
     
-            <div class="breadcrumb-area">
-                <div class="container-fluid">
-                    <div class="breadcrumb-content">
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li class="active">Order</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+           
             <form method="POST">
               {% csrf_token %}
             <div class='order mt-4 mb-4'>
@@ -88,11 +79,10 @@
                   <div class='col-md-5'>
                       <div class='order_product-content'>
                         <div class='order_product-content-heading'>
-                          <h4>{{items.product.name|join:","}}</h4>
+                          <h4>{{items.product.model_name}}</h4>
                           <p class='rating'>4.3 ★</p>
                         </div>
                         <div>
-                          <span>&#8377 {{items.product.actual_price|join:"'"}}</span>
                           <span>&#8377 {{items.product.selling_price}}</span>
                           <span>20% OFF</span>
                         </div>
@@ -237,4 +227,3 @@
         <script src="{% static 'js/main.js' %}"></script>
     </body>
 </html>
-            

@@ -11,6 +11,8 @@ from rest_framework.decorators import api_view
 from api import models
 import json
 import datetime
+from django.http import JsonResponse
+from django.core import serializers
 from django.core.exceptions import ObjectDoesNotExist
 from pymongo import MongoClient
 from bson.json_util import dumps,loads
@@ -24,52 +26,54 @@ from geopy.distance import geodesic
 from mio_admin.models import comission_Editing,zone
 import requests
 
-all_image_url = "http://127.0.0.1:3000/"
+jsondec = json.decoder.JSONDecoder()
+all_image_url = "https://miogra.clovion.org/"
 x = datetime.datetime.now()
 
 from django.db import transaction
 
 def send_notification(registration_ids, message_title, message_desc):
-    fcm_api = "AAAAwN1-l3g:APA91bF58TyTj5cEDKz6qpeltmumxQEnzh9xwDN9A9QXLcNEzdAJGY1DrURU9xFOqOpdBA0SMyYd7MrAxtmYp4iWVBHuPhICBZHLFoLj9x6-tQicyMVUWwnM_0KYESKY7kxHqXS2C3P3"
-    url = "https://fcm.googleapis.com/fcm/send"
-    
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": 'key=' + fcm_api
-    }
-
-    payload = {
-        "registration_ids": registration_ids,
-        "priority": "high",
-        "notification": {
-            "body": message_desc,
-            "title": message_title,
-            "image": "https://i.ytimg.com/vi/m5WUPHRgdOA/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDwz-yjKEdwxvKjwMANGk5BedCOXQ",
-            "icon": "https://yt3.ggpht.com/ytc/AKedOLSMvoy4DeAVkMSAuiuaBdIGKC7a5Ib75bKzKO3jHg=s900-c-k-c0x00ffffff-no-rj",
+    for x in registration_ids:
+        fcm_api = "AAAAwN1-l3g:APA91bF58TyTj5cEDKz6qpeltmumxQEnzh9xwDN9A9QXLcNEzdAJGY1DrURU9xFOqOpdBA0SMyYd7MrAxtmYp4iWVBHuPhICBZHLFoLj9x6-tQicyMVUWwnM_0KYESKY7kxHqXS2C3P3"
+        url = "https://fcm.googleapis.com/fcm/send"
+        
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": 'key=' + fcm_api
         }
-    }
+    
+        payload = {
+            "registration_ids": [x],
+            "priority": "high",
+            "notification": {
+                "body": message_desc, 
+                "title": message_title,
+                "image": "https://miogra.clovion.org//static/assets/images/logo/Miogra_logo.png",
+                "icon": "https://miogra.clovion.org//static/assets/images/logo/Miogra_logo.png",
+            }
+        }
 
-    try:
-        result = requests.post(url, data=json.dumps(payload), headers=headers)
-        print(result.status_code)
-        print(result.text) 
+        try:
+            result = requests.post(url, data=json.dumps(payload), headers=headers)
+            print(result.status_code)
+            print(result.text) 
+    
+            with transaction.atomic():  # Ensure atomic transaction
+                # Save notification to the database
+                sender_id=models.Businessmodel.objects.get(device_id=registration_ids)
+                print(sender_id)
+                notification = models.Notification.objects.create(
+                    notify_id=business_extension.id_generate(),
+                    recipient=registration_ids, 
+                    message_title=message_title,
+                    message_desc=message_desc,
+                    sender_id=sender_id.uid,
+    
+                )
+                notification.save()
 
-        with transaction.atomic():  # Ensure atomic transaction
-            # Save notification to the database
-            sender_id=models.Businessmodel.objects.get(device_id=registration_ids)
-            print(sender_id)
-            notification = models.Notification.objects.create(
-                notify_id=business_extension.id_generate(),
-                recipient=registration_ids, 
-                message_title=message_title,
-                message_desc=message_desc,
-                sender_id=sender_id.uid,
-
-            )
-            notification.save()
-
-    except requests.exceptions.RequestException as e:
-        print("Failed to send notification:", e)
+        except requests.exceptions.RequestException as e:
+            print("Failed to send notification:", e)
 
 
 # send_notification("dShDvq88TLGL6C6BIbJunp:APA91bEYthyTG2otBBcmnmHzh9AMeGrpatBuRy2aFgv3SCqa3evPhs5CZVsMvhWrm03AwXI8Q-rVKZljiLD9hM7xfhcx0Q-qXMQMg1Cl989SY4zUCBG8vfSBEyOF9_mt1v9e1oKpKVPs" , 'you have got a text message' , 'deliveryperson order accepted')
@@ -83,18 +87,61 @@ def deliverysend_notification(message_title, message_desc):
         "Authorization": 'key=' + fcm_api
     }
 
-    delivery = models.deliverylogintable_model.objects.filter(status=True, delivery_type="Quick")
+    delivery = models.deliverylogintable_model.objects.filter(status=True, delivery_type="Quick") | models.deliverylogintable_model.objects.filter(status=True, delivery_type="quick")
     for delivery_person in delivery:
-        registration_id = delivery_person.deliveryperson.device_id
+        registration_id = jsondec.decode(delivery_person.deliveryperson.device_id)
+        for x in registration_id:
+            payload = {
+                "registration_ids": [x],
+                "priority": "high",
+                "notification": {
+                    "body": message_desc,
+                    "title": message_title,
+                    "image": "https://miogra.clovion.org//static/assets/images/logo/Miogra_logo.pnghttps://miogra.clovion.org//static/assets/images/logo/Miogra_logo.png",
+                    "icon": "https://miogra.clovion.org//static/assets/images/logo/Miogra_logo.png",
+                }
+            }
+            result = requests.post(url, data=json.dumps(payload), headers=headers)
+            print(result.status_code)
+            print(result.json())
+            try:
+                
+    
+                with transaction.atomic():  # Ensure atomic transaction
+                    # Save notification to the database
+                    sender_id = models.Delivery_model.objects.get(uid = delivery_person.deliveryperson.uid)
+                    notification = models.Notification.objects.create(
+                        notify_id=business_extension.id_generate(),
+                        recipient=registration_id,
+                        message_title=message_title,
+                        message_desc=message_desc,
+                        sender_id=sender_id.uid,
+                    )
+                    notification.save()
+                    print("saved")
 
+            except requests.exceptions.RequestException as e:
+                print("Failed to send notification:", e)
+
+def deliverysend_notification_pickup(registration_id,message_title, message_desc,uid):
+    fcm_api = "AAAAbIibZeo:APA91bEHlJFNQjqRjMjX2N-YfgDAjOU_fXdt8HkQiQYhOYbGcv9B6MqGykeaG7zQVdrMOEQrOGckrUwKbl4XWdEOboEY9uDUSALHdzbpdW-DJbUxlVzCG_ayQJIPJfAnEPcCeKX86sqg"
+    url = "https://fcm.googleapis.com/fcm/send"
+    
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": 'key=' + fcm_api
+    }
+
+
+    for x in registration_id:
         payload = {
-            "registration_ids": [registration_id],
+            "registration_ids": [x],
             "priority": "high",
             "notification": {
                 "body": message_desc,
                 "title": message_title,
-                "image": "https://i.ytimg.com/vi/m5WUPHRgdOA/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDwz-yjKEdwxvKjwMANGk5BedCOXQ",
-                "icon": "https://yt3.ggpht.com/ytc/AKedOLSMvoy4DeAVkMSAuiuaBdIGKC7a5Ib75bKzKO3jHg=s900-c-k-c0x00ffffff-no-rj",
+                "image": "https://miogra.clovion.org//static/assets/images/logo/Miogra_logo.pnghttps://miogra.clovion.org//static/assets/images/logo/Miogra_logo.png",
+                "icon": "https://miogra.clovion.org//static/assets/images/logo/Miogra_logo.png",
             }
         }
         try:
@@ -104,7 +151,7 @@ def deliverysend_notification(message_title, message_desc):
 
             with transaction.atomic():  # Ensure atomic transaction
                 # Save notification to the database
-                sender_id = models.Delivery_model.objects.get(device_id=registration_id)
+                sender_id = models.Delivery_model.objects.get(uid=uid)
                 notification = models.Notification.objects.create(
                     notify_id=business_extension.id_generate(),
                     recipient=registration_id,
@@ -116,7 +163,6 @@ def deliverysend_notification(message_title, message_desc):
 
         except requests.exceptions.RequestException as e:
             print("Failed to send notification:", e)
-
 
 
 
@@ -233,14 +279,19 @@ def business_signin(request):
                 if business_extension.verify_user(request.data['email'], request.data['password']):
                         if business_extension.get_user_id(request.data['email']):
                             data = Businessmodel.objects.get(email = request.data['email'])
-                            if request.data['device_id'] not in data.device_id:
-                                print("new")
-                                print(type(data.device_id))
-                                print(type(request.data['device_id']))
-                                data.device_id.append(request.data['device_id'])
-                                data.save()
-                                
-                            return Response(business_extension.get_user_id(request.data['email']), status=status.HTTP_200_OK)
+                            if data.status == True:
+                                print(request.data['device_id'])
+                                if request.data['device_id'] not in data.device_id:
+                                    print("new")
+                                    print(type(data.device_id))
+                                    print(data.device_id)
+                                    print(type(request.data['device_id']))
+                                    data.device_id.append(request.data['device_id'])
+                                    data.save()
+                                    
+                                return Response(business_extension.get_user_id(request.data['email']), status=status.HTTP_200_OK)
+                            else:
+                                return Response({"Your Blocked By Admin"}, status=status.HTTP_403_FORBIDDEN)
                         else:
                             return Response({"Didn't Completed OTP Verification"}, status=status.HTTP_401_UNAUTHORIZED)
 
@@ -388,19 +439,19 @@ def business_profile_update(request, id):
 def shop_total_revenue(request, id):
     print(id)
     if request.method == 'GET':
-        total_revenue = models.Product_Ordermodel.objects.filter(shop_id_id__shop_id=id).aggregate(total_revenue=Sum('total_amount'))['total_revenue'] or 0
+        total_revenue = models.Product_Ordermodel.objects.filter(shop_id_id__shop_id=id,status="delivered").aggregate(total_revenue=Sum('total_amount'))['total_revenue'] or 0
 
         shop = models.shoppingmodel.objects.get(shop_id=id)
         shop.total_revenue = total_revenue
         shop.save()
 
-        notification_data = {
+        # notification_data = {
 
-            "registration_ids": ["dShDvq88TLGL6C6BIbJunp:APA91bEYthyTG2otBBcmnmHzh9AMeGrpatBuRy2aFgv3SCqa3evPhs5CZVsMvhWrm03AwXI8Q-rVKZljiLD9hM7xfhcx0Q-qXMQMg1Cl989SY4zUCBG8vfSBEyOF9_mt1v9e1oKpKVPs"],
-            "message_title": "You have got a text message",
-            "message_desc": "Delivery person order accepted"
-        }
-        send_notification(**notification_data)
+        #     "registration_ids": ["dShDvq88TLGL6C6BIbJunp:APA91bEYthyTG2otBBcmnmHzh9AMeGrpatBuRy2aFgv3SCqa3evPhs5CZVsMvhWrm03AwXI8Q-rVKZljiLD9hM7xfhcx0Q-qXMQMg1Cl989SY4zUCBG8vfSBEyOF9_mt1v9e1oKpKVPs"],
+        #     "message_title": "You have got a text message",
+        #     "message_desc": "Delivery person order accepted"
+        # }
+        # send_notification(**notification_data)
  
         return Response(data={'total_revenue': total_revenue}, status=status.HTTP_200_OK)
     else:
@@ -431,7 +482,7 @@ def shop_mon_revenue(request, id):
         current_date = timezone.now().date()
         start_of_month = current_date.replace(day=1)
         end_of_month = start_of_month.replace(month=start_of_month.month + 1) - datetime.timedelta(days=1)
-        monthly_revenue = models.Product_Ordermodel.objects.filter(shop_id_id__shop_id=id, order_date__range=(start_of_month, end_of_month)).aggregate(monthly_revenue=Sum('total_amount'))['monthly_revenue']or 0
+        monthly_revenue = models.Product_Ordermodel.objects.filter(shop_id_id__shop_id=id,status="delivered", order_date__range=(start_of_month, end_of_month)).aggregate(monthly_revenue=Sum('total_amount'))['monthly_revenue']or 0
         shop = models.shoppingmodel.objects.get(shop_id=id)
         shop.monthly_revenue = monthly_revenue
         shop.save()
@@ -540,8 +591,10 @@ def update_product_order_status_accept(request,id,product_id,order_id):
                     "message_title": "You have got a text message",
                     "message_desc": "New order arrived"
                 }
+                message_title = "You have got a text message"
+                message_desc = "New order arrived"
 
-                deliverysend_notification(**notification_data)
+                deliverysend_notification(message_title,message_desc)
                 return Response("Status updated successfully", status=status.HTTP_200_OK)
             elif product_order.delivery_type == "Normal":
                 shops=models.Product_Ordermodel.objects.get(order_id=order_id)
@@ -567,10 +620,15 @@ def update_product_order_status_accept(request,id,product_id,order_id):
 def business_status_pickedUp(request,order_id):
     try:
         pro=get_object_or_404(models.Product_Ordermodel,order_id=order_id)
-        
+        data = models.Product_Ordermodel.objects.get(order_id=order_id)
+        print(data)
         pro.status = "ready_to_pickup"  
         pro.save()
-
+        message_title = "Your order is Ready to pick up"
+        message_desc = "Hurry Up"
+        print(data.deliveryperson.device_id)
+        deliverysend_notification_pickup(jsondec.decode(data.deliveryperson.device_id),message_title,message_desc,data.deliveryperson.uid)
+# jsondec.decode
         return Response({"order_id":order_id},status=status.HTTP_200_OK)
     except:
         return Response("nostatus",status=status.HTTP_400_BAD_REQUEST)
@@ -712,7 +770,7 @@ def get_allproducts_order(request, id, prostatus):
             if models.Product_Ordermodel.objects.filter(shop_id__shop_id=id).exists():
                 data = models.Product_Ordermodel.objects.filter(shop_id__shop_id=id,
                                                                 status__in=["ready_to_pickup", "order_dispatch",
-                                                                            "delivered"], payment_status = "")
+                                                                            "shipped"])
                 alldataserializer = end_user_serializers.product_orderlistSerializer(data, many=True)
                 return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
 
@@ -884,15 +942,17 @@ def shop_products(request, id):
     print(primary_image_paths)
     other_image = []
     other_imagelist = []
+    print(request.FILES.getlist('other_images'))
     for sav in request.FILES.getlist('other_images'):
-        ot = fs.save(f"api/shop_products/{id}/other_images/" + sav.name, sav)
+        ot = fs.save(f"api/shop_products/{id}/other_images/" + str(sav).replace(" ", "_"), sav)
         other_image.append(str(ot).replace(" ", "_"))
 
-        print(other_image)
-        for iname in other_image:
-            other_images_path = iname
-            other_imagelist.append(all_image_url + fs.url(other_images_path))
-
+    print(other_image)
+    for iname in other_image:
+        other_images_path = iname
+        other_imagelist.append(all_image_url + fs.url(other_images_path))
+    print(other_imagelist)
+    print("hbhgduy............................")
     admin_data = business_commision.objects.get(id=1)
     commission = float(admin_data.commission)
     gst = int(request.POST["gst"])
@@ -900,7 +960,8 @@ def shop_products(request, id):
     actualprice = int(request.POST["actual_price"])
     discountprice = int(request.POST["discount_price"])
 
-    sellingprice = actualprice - discountprice
+    # sellingprice = actualprice - discountprice
+    sellingprice = discountprice
     commission_amount = sellingprice + ((commission / 100) * sellingprice)
 
     selling_price = commission_amount + ((gst / 100) * commission_amount)
@@ -911,7 +972,7 @@ def shop_products(request, id):
     shop_products['product_id'] = product_id
     shop_products['primary_image'] = primary_image_paths
     # shop_products['other_images'] = other_imagelist
-    shop_products['selling_price'] = selling_price
+    shop_products['selling_price'] = int(selling_price)
     print(f"{shop_products}")
     cleaned_data_dict = {key: value[0] if isinstance(value, list) and len(value) == 1 else value for key, value in
                          shop_products.items()}
@@ -931,7 +992,7 @@ def shop_products(request, id):
     try:
         # shopping_product.save()
         print("Data saved successfully")
-        return Response({'discount': cleaned_data_dict['discount'], 'selling_price': selling_price},
+        return Response({'discount': cleaned_data_dict['discount_price'], 'selling_price': int(selling_price)},
                         status=status.HTTP_200_OK)
     except Exception as e:
         print("Error while saving data:", e)
@@ -980,31 +1041,31 @@ def shop_get_products(request,id):
 def product_status_golivePause(request,id,business_status):
     if request.method == "GET":
         if models.shop_productsmodel.objects.filter(shop_id=id).exists():
-            data = models.shop_productsmodel.objects.filter(shop_id=id)
+            data = models.shop_productsmodel.objects.filter(shop_id=id,business_status=business_status)
             serializer = business_serializers.shop_productlistserializer(data, many=True)
             return Response(data=serializer.data, status=status.HTTP_200_OK)
         elif models.jewel_productsmodel.objects.filter(jewel_id=id).exists():
-            data = models.jewel_productsmodel.objects.filter(jewel_id=id)
+            data = models.jewel_productsmodel.objects.filter(jewel_id=id,business_status=business_status)
             serializer = business_serializers.jewel_productlistserializer(data, many=True)
             return Response(data=serializer.data, status=status.HTTP_200_OK)
         elif models.food_productsmodel.objects.filter(food_id=id).exists():
-            data = models.food_productsmodel.objects.filter(food_id=id)
+            data = models.food_productsmodel.objects.filter(food_id=id,business_status=business_status)
             serializer = business_serializers.food_productlistserializer(data, many=True)
             return Response(data=serializer.data, status=status.HTTP_200_OK)
         elif models.fresh_productsmodel.objects.filter(fresh_id=id).exists():
-            data = models.fresh_productsmodel.objects.filter(fresh_id=id)
+            data = models.fresh_productsmodel.objects.filter(fresh_id=id,business_status=business_status)
             serializer = business_serializers.fresh_productlistserializer(data, many=True)
             return Response(data=serializer.data, status=status.HTTP_200_OK)
         elif models.dmio_productsmodel.objects.filter(dmio_id=id).exists():
-            data = models.dmio_productsmodel.objects.filter(dmio_id=id)
+            data = models.dmio_productsmodel.objects.filter(dmio_id=id,business_status=business_status)
             serializer = business_serializers.dmio_productlistserializer(data, many=True)
             return Response(data=serializer.data, status=status.HTTP_200_OK)
         elif models.pharmacy_productsmodel.objects.filter(pharm_id=id).exists():
-            data = models.pharmacy_productsmodel.objects.filter(pharm_id=id)
+            data = models.pharmacy_productsmodel.objects.filter(pharm_id=id,business_status=business_status)
             serializer = business_serializers.pharmacy_productlistserializer(data, many=True)
             return Response(data=serializer.data, status=status.HTTP_200_OK)
         elif models.d_original_productsmodel.objects.filter(d_id=id).exists():
-            data = models.d_original_productsmodel.objects.filter(d_id=id)
+            data = models.d_original_productsmodel.objects.filter(d_id=id,business_status=business_status)
             serializer = business_serializers.d_original_productlistserializer(data, many=True)
             return Response(data=serializer.data, status=status.HTTP_200_OK)
     elif request.method == "POST":
@@ -1107,7 +1168,7 @@ def shop_update_product(request, id, product_id):
         other_image = []
         other_imagelist = []
         for sav in request.FILES.getlist('other_images'):
-            ot = fs.save(f"api/shop_products/{id}/other_images/" + sav.name, sav)
+            ot = fs.save(f"api/shop_products/{id}/other_images/" + str(sav).replace(" ", "_"), sav)
             other_image.append(str(ot).replace(" ", "_"))
 
             print(other_image)
@@ -1137,6 +1198,8 @@ def shop_update_product(request, id, product_id):
         with transaction.atomic():
             # Updating only the product field
             shop_product_instance.product = cleaned_data_dict
+            shop_product_instance.category = request.data['category']
+            shop_product_instance.subcategory = request.data['subcategory']
             shop_product_instance.save()
 
         return Response(id, status=status.HTTP_200_OK)
@@ -1452,13 +1515,13 @@ def jewel_products(request,id):
     other_image = []
     other_imagelist = []
     for sav in request.FILES.getlist('other_images'):
-        ot = fs.save(f"api/jewel_products/{id}/other_images/"+sav.name, sav) 
+        ot = fs.save(f"api/jewel_products/{id}/other_images/"+str(sav).replace(" ", "_"), sav) 
         other_image.append(str(ot).replace(" ","_"))
             
-        print(other_image)
-        for iname in other_image:
-            other_images_path = iname
-            other_imagelist.append(all_image_url+fs.url(other_images_path))
+    print(other_image)
+    for iname in other_image:
+        other_images_path = iname
+        other_imagelist.append(all_image_url+fs.url(other_images_path))
 
     
     admin_data = business_commision.objects.get(id=1)  
@@ -1468,7 +1531,8 @@ def jewel_products(request,id):
     actualprice = int(request.POST["actual_price"])
     discountprice = int(request.POST["discount_price"])
 
-    sellingprice = actualprice - discountprice
+    # sellingprice = actualprice - discountprice
+    sellingprice = discountprice
     commission_amount = sellingprice + ((commission / 100) * sellingprice)
 
     selling_price = commission_amount + ((gst / 100) * commission_amount)
@@ -1478,7 +1542,7 @@ def jewel_products(request,id):
     jewel_products['product_id'] = product_id
     jewel_products['primary_image'] = primary_image_paths
     # jewel_products['other_images'] = other_imagelist
-    jewel_products['selling_price'] = selling_price
+    jewel_products['selling_price'] = int(selling_price)
     print(jewel_products)
     cleaned_data_dict ={key:value[0] if isinstance(value,list) and len(value)==1 else value for key,value in jewel_products.items()}
 
@@ -1498,7 +1562,7 @@ def jewel_products(request,id):
     try:
         # shopping_product.save()
         print("Data saved successfully")
-        return Response({'discount': cleaned_data_dict['discount'], 'selling_price': selling_price},
+        return Response({'discount': cleaned_data_dict['discount_price'], 'selling_price': int(selling_price)},
                         status=status.HTTP_200_OK)
     except Exception as e:
         print("Error while saving data:", e)
@@ -1577,13 +1641,13 @@ def jewel_update_product(request,id,product_id):
         other_image = []
         other_imagelist = []
         for sav in request.FILES.getlist('other_images'):
-            ot = fs.save(f"api/jewel_products/{id}/other_images/"+sav.name, sav)
+            ot = fs.save(f"api/jewel_products/{id}/other_images/"+str(sav).replace(" ", "_"), sav)
             other_image.append(str(ot).replace(" ","_"))
                 
-            print(other_image)
-            for iname in other_image:
-                other_images_path = iname
-                other_imagelist.append(all_image_url+fs.url(other_images_path))
+        print(other_image)
+        for iname in other_image:
+            other_images_path = iname
+            other_imagelist.append(all_image_url+fs.url(other_images_path))
         jewel_products['other_images'] = other_imagelist
 
     except:
@@ -1605,6 +1669,8 @@ def jewel_update_product(request,id,product_id):
             
             # Updating only the product field
             jewel_product_instance.product = cleaned_data_dict
+            jewel_product_instance.category = request.data['category']
+            jewel_product_instance.subcategory = request.data['subcategory']
             jewel_product_instance.save()
             # cleaned_data_dict ={key:value[0] if isinstance(value,list) and len(value)==1 else value for key,value in new_product_data.items()}
             # print(cleaned_data_dict)
@@ -1947,7 +2013,7 @@ def add_review_restaurant(request, id):
         average_rating = 0 
    
     shop = models.foodmodel.objects.get(food_id=id)
-    shop.rating = average_rating
+    shop.rating = int(average_rating)
     shop.save()
     return Response(id, status=status.HTTP_200_OK)
 
@@ -1974,11 +2040,11 @@ def food_products(request,id):
     other_image = []
     other_imagelist = []
     for sav in request.FILES.getlist('other_images'):
-        ot = fs.save(f"api/food_products/{id}/other_images/"+sav.name, sav) 
+        ot = fs.save(f"api/food_products/{id}/other_images/"+str(sav).replace(" ", "_"), sav) 
         other_image.append(str(ot).replace(" ","_"))
-        for iname in other_image:
-            other_images_path = iname
-            other_imagelist.append(all_image_url+fs.url(other_images_path))
+    for iname in other_image:
+        other_images_path = iname
+        other_imagelist.append(all_image_url+fs.url(other_images_path))
  
     # Retrieve commission and GST from admin data
     admin_data = business_commision.objects.get(id=1)  
@@ -1988,7 +2054,8 @@ def food_products(request,id):
     # Calculate selling price
     actualprice = int(request.POST["actual_price"])
     discountprice = int(request.POST["discount_price"])
-    sellingprice = actualprice - discountprice
+    sellingprice = discountprice
+    # sellingprice = actualprice - discountprice
     commission_amount = sellingprice + ((commission / 100) * sellingprice)
     selling_price = commission_amount + ((gst / 100) * commission_amount)
    
@@ -1998,7 +2065,7 @@ def food_products(request,id):
     food_products['product_id'] = product_id
     food_products['primary_image'] = primary_image_paths
     # food_products['other_images'] = other_imagelist
-    food_products['selling_price'] = selling_price
+    food_products['selling_price'] = int(selling_price)
     print(food_products)
     # Clean data and prepare for serialization
     cleaned_data_dict ={key:value[0] if isinstance(value,list) and len(value)==1 else value for key,value in food_products.items()}
@@ -2020,7 +2087,7 @@ def food_products(request,id):
     try:
         # new_food_product.save()
         print("Data saved successfully")
-        return Response({'discount': cleaned_data_dict['discount'], 'selling_price': selling_price},
+        return Response({'discount': cleaned_data_dict['discount_price'], 'selling_price': int(selling_price)},
                         status=status.HTTP_200_OK)
     except Exception as e:
         print("Error while saving data:", e)
@@ -2104,13 +2171,13 @@ def food_update_product(request,id,product_id):
         other_image = []
         other_imagelist = []
         for sav in request.FILES.getlist('other_images'):
-            ot = fs.save(f"api/food_products/{id}/other_images/"+sav.name, sav)
+            ot = fs.save(f"api/food_products/{id}/other_images/"+str(sav).replace(" ", "_"), sav)
             other_image.append(str(ot).replace(" ","_"))
                 
-            print(other_image)
-            for iname in other_image:
-                other_images_path = iname
-                other_imagelist.append(all_image_url+fs.url(other_images_path))
+        print(other_image)
+        for iname in other_image:
+            other_images_path = iname
+            other_imagelist.append(all_image_url+fs.url(other_images_path))
         food_products['other_images'] = other_imagelist
 
     except:
@@ -2132,6 +2199,8 @@ def food_update_product(request,id,product_id):
         with transaction.atomic():
             # Updating only the product field
             food_product_instance.product = cleaned_data_dict
+            food_product_instance.category = request.data['category']
+            food_product_instance.subcategory = request.data['subcategory']
             food_product_instance.save()
         
         return Response(id, status=status.HTTP_200_OK)
@@ -2215,7 +2284,7 @@ def fresh_total_revenue(request, id):
             fresh.save()
             return Response(data={'total_revenue': total_revenue}, status=status.HTTP_200_OK)
         else:
-            return Response(data={'total_revenue': total_revenue}, status=status.HTTP_200_OK)
+            return Response(data={'total_revenue': 0}, status=status.HTTP_200_OK)
   
 
 @api_view(['GET'])
@@ -2333,6 +2402,7 @@ def freshcuts(request,id):
             }
 
         print(data)
+        print("sunder")
         basicdetailsserializer = business_serializers.freshcuts_serializer(data=data)
         
         if basicdetailsserializer.is_valid():
@@ -2473,13 +2543,13 @@ def fresh_products(request, id):
     other_image = []
     other_imagelist = []
     for sav in request.FILES.getlist('other_images'):
-        ot = fs.save(f"api/fresh_products/{id}/other_images/"+sav.name, sav) 
+        ot = fs.save(f"api/fresh_products/{id}/other_images/"+str(sav).replace(" ", "_"), sav) 
         other_image.append(str(ot).replace(" ","_"))
             
-        print(other_image)
-        for iname in other_image:
-            other_images_path = iname
-            other_imagelist.append(all_image_url+fs.url(other_images_path))
+    print(other_image)
+    for iname in other_image:
+        other_images_path = iname
+        other_imagelist.append(all_image_url+fs.url(other_images_path))
 
     
     admin_data = business_commision.objects.get(id=1)  
@@ -2489,7 +2559,8 @@ def fresh_products(request, id):
     actualprice = int(request.POST["actual_price"])
     discountprice = int(request.POST["discount_price"])
 
-    sellingprice = actualprice - discountprice
+    # sellingprice = actualprice - discountprice
+    sellingprice = discountprice
     commission_amount = sellingprice + ((commission / 100) * sellingprice)
 
     selling_price = commission_amount + ((gst / 100) * commission_amount)
@@ -2499,7 +2570,7 @@ def fresh_products(request, id):
     fresh_products['product_id'] = product_id
     fresh_products['primary_image'] = primary_image_paths
     # fresh_products['other_images'] = other_imagelist
-    fresh_products['selling_price'] = selling_price
+    fresh_products['selling_price'] = int(selling_price)
     print(fresh_products)
     cleaned_data_dict ={key:value[0] if isinstance(value,list) and len(value)==1 else value for key,value in fresh_products.items()}
     cleaned_data_dict ['other_images'] = other_imagelist
@@ -2518,7 +2589,8 @@ def fresh_products(request, id):
     try:
         # shopping_product.save()
         print("Data saved successfully")
-        return Response({'discount': cleaned_data_dict['discount'], 'selling_price': selling_price},
+        print("dd")
+        return Response({'discount': cleaned_data_dict['discount_price'], 'selling_price': int(selling_price)},
                         status=status.HTTP_200_OK)
     except Exception as e:
         print("Error while saving data:", e)
@@ -2600,13 +2672,13 @@ def fresh_update_product(request,id,product_id):
         other_image = []
         other_imagelist = []
         for sav in request.FILES.getlist('other_images'):
-            ot = fs.save(f"api/fresh_products/{id}/other_images/"+sav.name, sav)
+            ot = fs.save(f"api/fresh_products/{id}/other_images/"+str(sav).replace(" ", "_"), sav)
             other_image.append(str(ot).replace(" ","_"))
                 
-            print(other_image)
-            for iname in other_image:
-                other_images_path = iname
-                other_imagelist.append(all_image_url+fs.url(other_images_path))
+        print(other_image)
+        for iname in other_image:
+            other_images_path = iname
+            other_imagelist.append(all_image_url+fs.url(other_images_path))
         fresh_products['other_images'] = other_imagelist
 
     except:
@@ -2628,6 +2700,8 @@ def fresh_update_product(request,id,product_id):
         with transaction.atomic():
             # Updating only the product field
             fresh_product_instance.product = cleaned_data_dict
+            fresh_product_instance.category = request.data['category']
+            fresh_product_instance.subcategory = request.data['subcategory']
             fresh_product_instance.save()
         
         return Response(id, status=status.HTTP_200_OK)
@@ -2973,13 +3047,13 @@ def dmio_products(request,id):
     other_image = []
     other_imagelist = []
     for sav in request.FILES.getlist('other_images'):
-        ot = fs.save(f"api/dmio_products/{id}/other_images/"+sav.name, sav) 
+        ot = fs.save(f"api/dmio_products/{id}/other_images/"+str(sav).replace(" ", "_"), sav) 
         other_image.append(str(ot).replace(" ","_"))
             
-        print(other_image)
-        for iname in other_image:
-            other_images_path = iname
-            other_imagelist.append(all_image_url+fs.url(other_images_path))
+    print(other_image)
+    for iname in other_image:
+        other_images_path = iname
+        other_imagelist.append(all_image_url+fs.url(other_images_path))
 
     
     admin_data = business_commision.objects.get(id=1)  
@@ -2990,7 +3064,8 @@ def dmio_products(request,id):
     actualprice = int(request.POST["actual_price"])
     discountprice = int(request.POST["discount_price"])
 
-    sellingprice = actualprice - discountprice
+    # sellingprice = actualprice - discountprice
+    sellingprice = discountprice
     commission_amount = sellingprice + ((commission / 100) * sellingprice)
 
     selling_price = commission_amount + ((gst / 100) * commission_amount)
@@ -3000,7 +3075,7 @@ def dmio_products(request,id):
     dmio_products['product_id'] = product_id
     dmio_products['primary_image'] = primary_image_paths
     # dmio_products['other_images'] = other_imagelist
-    dmio_products['selling_price'] = selling_price
+    dmio_products['selling_price'] = int(selling_price)
     print(dmio_products)
     cleaned_data_dict ={key:value[0] if isinstance(value,list) and len(value)==1 else value for key,value in dmio_products.items()}
     cleaned_data_dict ['other_images'] = other_imagelist
@@ -3019,7 +3094,7 @@ def dmio_products(request,id):
     try:
         # shopping_product.save()
         print("Data saved successfully")
-        return Response({'discount': cleaned_data_dict['discount'], 'selling_price': selling_price},
+        return Response({'discount': cleaned_data_dict['discount_price'], 'selling_price': int(selling_price)},
                         status=status.HTTP_200_OK)
     except Exception as e:
         print("Error while saving data:", e)
@@ -3100,13 +3175,13 @@ def dmio_update_product(request,id,product_id):
         other_image = []
         other_imagelist = []
         for sav in request.FILES.getlist('other_images'):
-            ot = fs.save(f"api/dmio_products/{id}/other_images/"+sav.name, sav)
+            ot = fs.save(f"api/dmio_products/{id}/other_images/"+str(sav).replace(" ", "_"), sav)
             other_image.append(str(ot).replace(" ","_"))
                 
-            print(other_image)
-            for iname in other_image:
-                other_images_path = iname
-                other_imagelist.append(all_image_url+fs.url(other_images_path))
+        print(other_image)
+        for iname in other_image:
+            other_images_path = iname
+            other_imagelist.append(all_image_url+fs.url(other_images_path))
         dmio_products['other_images'] = other_imagelist
 
     except:
@@ -3128,6 +3203,8 @@ def dmio_update_product(request,id,product_id):
         with transaction.atomic():
             # Updating only the product field
             dmio_product_instance.product = cleaned_data_dict
+            dmio_product_instance.category = request.data['category']
+            dmio_product_instance.subcategory = request.data['subcategory']
             dmio_product_instance.save()
         
         return Response(id, status=status.HTTP_200_OK)
@@ -3468,13 +3545,13 @@ def pharmacy_products(request,id):
     other_image = []
     other_imagelist = []
     for sav in request.FILES.getlist('other_images'):
-        ot = fs.save(f"api/pharmacy_products/{id}/other_images/"+sav.name, sav) 
+        ot = fs.save(f"api/pharmacy_products/{id}/other_images/"+str(sav).replace(" ", "_"), sav) 
         other_image.append(str(ot).replace(" ","_"))
             
-        print(other_image)
-        for iname in other_image:
-            other_images_path = iname
-            other_imagelist.append(all_image_url+fs.url(other_images_path))
+    print(other_image)
+    for iname in other_image:
+        other_images_path = iname
+        other_imagelist.append(all_image_url+fs.url(other_images_path))
 
     
     admin_data = business_commision.objects.get(id=1)  
@@ -3484,7 +3561,8 @@ def pharmacy_products(request,id):
     actualprice = int(request.POST["actual_price"])
     discountprice = int(request.POST["discount_price"])
 
-    sellingprice = actualprice - discountprice
+    # sellingprice = actualprice - discountprice
+    sellingprice = discountprice
     commission_amount = sellingprice + ((commission / 100) * sellingprice)
 
     selling_price = commission_amount + ((gst / 100) * commission_amount)
@@ -3494,7 +3572,7 @@ def pharmacy_products(request,id):
     pharmacy_products['product_id'] = product_id
     pharmacy_products['primary_image'] = primary_image_paths
     # pharmacy_products['other_images'] = other_imagelist
-    pharmacy_products['selling_price'] = selling_price
+    pharmacy_products['selling_price'] = int(selling_price)
     print(pharmacy_products)
     cleaned_data_dict ={key:value[0] if isinstance(value,list) and len(value)==1 else value for key,value in pharmacy_products.items()}
     cleaned_data_dict ['other_images'] = other_imagelist
@@ -3512,7 +3590,7 @@ def pharmacy_products(request,id):
     try:
   
         print("Data saved successfully")
-        return Response({'discount': cleaned_data_dict['discount'], 'selling_price': selling_price},
+        return Response({'discount': cleaned_data_dict['discount_price'], 'selling_price': int(selling_price)},
                         status=status.HTTP_200_OK)
     except Exception as e:
         print("Error while saving data:", e)
@@ -3591,13 +3669,13 @@ def pharmacy_update_product(request,id,product_id):
         other_image = []
         other_imagelist = []
         for sav in request.FILES.getlist('other_images'):
-            ot = fs.save(f"api/pharmacy_products/{id}/other_images/"+sav.name, sav)
+            ot = fs.save(f"api/pharmacy_products/{id}/other_images/"+str(sav).replace(" ", "_"), sav)
             other_image.append(str(ot).replace(" ","_"))
                 
-            print(other_image)
-            for iname in other_image:
-                other_images_path = iname
-                other_imagelist.append(all_image_url+fs.url(other_images_path))
+        print(other_image)
+        for iname in other_image:
+            other_images_path = iname
+            other_imagelist.append(all_image_url+fs.url(other_images_path))
         pharmacy_products['other_images'] = other_imagelist
 
     except:
@@ -3619,6 +3697,8 @@ def pharmacy_update_product(request,id,product_id):
         with transaction.atomic():
             # Updating only the product field
             pharmacy_product_instance.product = cleaned_data_dict
+            pharmacy_product_instance.category = request.data['category']
+            pharmacy_product_instance.subcategory = request.data['subcategory']
             pharmacy_product_instance.save()
         
         return Response(id, status=status.HTTP_200_OK)
@@ -3956,13 +4036,13 @@ def d_original_products(request,id):
     other_image = []
     other_imagelist = []
     for sav in request.FILES.getlist('other_images'):
-        ot = fs.save(f"api/d_original_products/{id}/other_images/"+sav.name, sav) 
+        ot = fs.save(f"api/d_original_products/{id}/other_images/"+str(sav).replace(" ", "_"), sav) 
         other_image.append(str(ot).replace(" ","_"))
             
-        print(other_image)
-        for iname in other_image:
-            other_images_path = iname
-            other_imagelist.append(all_image_url+fs.url(other_images_path))
+    print(other_image)
+    for iname in other_image:
+        other_images_path = iname
+        other_imagelist.append(all_image_url+fs.url(other_images_path))
 
     
     admin_data = business_commision.objects.get(id=1)  
@@ -3972,7 +4052,8 @@ def d_original_products(request,id):
     actualprice = int(request.POST["actual_price"])
     discountprice = int(request.POST["discount_price"])
 
-    sellingprice = actualprice - discountprice
+    # sellingprice = actualprice - discountprice
+    sellingprice = discountprice
     commission_amount = sellingprice + ((commission / 100) * sellingprice)
 
     selling_price = commission_amount + ((gst / 100) * commission_amount)
@@ -3982,7 +4063,7 @@ def d_original_products(request,id):
     d_original_products['product_id'] = product_id
     d_original_products['primary_image'] = primary_image_paths
     # d_original_products['other_images'] = other_imagelist
-    d_original_products['selling_price'] = selling_price
+    d_original_products['selling_price'] = int(selling_price)
     print(d_original_products)
     cleaned_data_dict ={key:value[0] if isinstance(value,list) and len(value)==1 else value for key,value in d_original_products.items()}
     cleaned_data_dict ['other_images'] = other_imagelist
@@ -4001,7 +4082,7 @@ def d_original_products(request,id):
     try:
         # shopping_product.save()
         print("Data saved successfully")
-        return Response({'discount': cleaned_data_dict['discount'], 'selling_price': selling_price},
+        return Response({'discount': cleaned_data_dict['discount_price'], 'selling_price': int(selling_price)},
                         status=status.HTTP_200_OK)
     except Exception as e:
         print("Error while saving data:", e)
@@ -4088,13 +4169,13 @@ def d_original_update_product(request,id,product_id):
         other_image = []
         other_imagelist = []
         for sav in request.FILES.getlist('other_images'):
-            ot = fs.save(f"api/d_original_products/{id}/other_images/"+sav.name, sav)
+            ot = fs.save(f"api/d_original_products/{id}/other_images/"+str(sav).replace(" ", "_"), sav)
             other_image.append(str(ot).replace(" ","_"))
                 
-            print(other_image)
-            for iname in other_image:
-                other_images_path = iname
-                other_imagelist.append(all_image_url+fs.url(other_images_path))
+        print(other_image)
+        for iname in other_image:
+            other_images_path = iname
+            other_imagelist.append(all_image_url+fs.url(other_images_path))
         d_original_products['other_images'] = other_imagelist
 
     except:
@@ -4115,6 +4196,8 @@ def d_original_update_product(request,id,product_id):
         with transaction.atomic():
             # Updating only the product field
             d_original_product_instance.product = cleaned_data_dict
+            d_original_product_instance.category = request.data['category']
+            d_original_product_instance.subcategory = request.data['subcategory']
             d_original_product_instance.save()
         
         return Response(id, status=status.HTTP_200_OK)
@@ -4345,3 +4428,197 @@ def business_delete_all_notification(request,id):
             return Response({'no data'},status=status.HTTP_404_NOT_FOUND)
     except:
         return Response({'server prblm'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+
+
+@api_view(["GET"])
+def accepted_ordered_list(request, food_id):
+
+    data = models.Product_Ordermodel.objects.filter(food_id_id__food_id=food_id, status="accepted")
+    enduser = []
+
+    for order_data in data:
+        order_dict = serializers.serialize('python', [order_data])[0]['fields']
+        enduser.append(order_dict)
+     
+    print(enduser)
+    return JsonResponse(enduser, safe=False, status=status.HTTP_200_OK)
+
+
+
+
+@api_view(["GET"])
+def business_food_order(request,seller_id,category):
+    try:
+        if "food" == category:
+            order_data = models.Product_Ordermodel.objects.filter(food_id__food_id = seller_id,category_data = "food",status = "accepted")
+            print(order_data)
+            my_user=[]
+            for get_end_user in order_data:
+                if get_end_user.end_user.uid not in my_user:
+                    my_user.append(get_end_user.end_user.uid)
+            print(my_user)
+            separate_list_all_data = []
+            for separate_list in my_user:
+                enduser = models.End_Usermodel.objects.filter(uid = separate_list).values()[0]
+                add_order_data = models.Product_Ordermodel.objects.filter(food_id__food_id = seller_id,category_data = "food",status = "accepted",end_user__uid = separate_list)
+                enduser['food_status'] = []
+                for y in add_order_data.values():
+                    print(y['food_product_id'])
+                    food_product = models.food_productsmodel.objects.filter(id = y['food_product_id']).values()
+                    y['product'] = food_product[0]
+                    print(y)
+                    enduser['food_status'].append(y)
+                separate_list_all_data.append(enduser)
+        elif "daily_mio" == category:
+            order_data = models.Product_Ordermodel.objects.filter(dmio_id__dmio_id = seller_id,category_data = "daily_mio",status = "accepted")
+            print(order_data)
+            my_user=[]
+            for get_end_user in order_data:
+                if get_end_user.end_user.uid not in my_user:
+                    my_user.append(get_end_user.end_user.uid)
+            print(my_user)
+            separate_list_all_data = []
+            for separate_list in my_user:
+                enduser = models.End_Usermodel.objects.filter(uid = separate_list).values()[0]
+                add_order_data = models.Product_Ordermodel.objects.filter(dmio_id__dmio_id = seller_id,category_data = "daily_mio",status = "accepted",end_user__uid = separate_list)
+                enduser['food_status'] = []
+                for y in add_order_data.values():
+                    print(y['food_product_id'])
+                    food_product = models.food_productsmodel.objects.filter(id = y['food_product_id']).values()
+                    y['product'] = food_product[0]
+                    print(y)
+                    enduser['food_status'].append(y)
+                separate_list_all_data.append(enduser)
+        elif "pharmacy" == category:
+            order_data = models.Product_Ordermodel.objects.filter(pharm_id__pharm_id = seller_id,category_data = "pharmacy",status = "accepted")
+            print(order_data)
+            my_user=[]
+            for get_end_user in order_data:
+                if get_end_user.end_user.uid not in my_user:
+                    my_user.append(get_end_user.end_user.uid)
+            print(my_user)
+            separate_list_all_data = []
+            for separate_list in my_user:
+                enduser = models.End_Usermodel.objects.filter(uid = separate_list).values()[0]
+                add_order_data = models.Product_Ordermodel.objects.filter(pharm_id__pharm_id = seller_id,category_data = "pharmacy",status = "accepted",end_user__uid = separate_list)
+                enduser['food_status'] = []
+                for y in add_order_data.values():
+                    print(y['food_product_id'])
+                    food_product = models.food_productsmodel.objects.filter(id = y['food_product_id']).values()
+                    y['product'] = food_product[0]
+                    print(y)
+                    enduser['food_status'].append(y)
+                separate_list_all_data.append(enduser)
+        elif "fresh_cuts" == category:
+            order_data = models.Product_Ordermodel.objects.filter(fresh_id__fresh_id = seller_id,category_data = "fresh_cuts",status = "accepted")
+            print(order_data)
+            my_user=[]
+            for get_end_user in order_data:
+                if get_end_user.end_user.uid not in my_user:
+                    my_user.append(get_end_user.end_user.uid)
+            print(my_user)
+            separate_list_all_data = []
+            for separate_list in my_user:
+                enduser = models.End_Usermodel.objects.filter(uid = separate_list).values()[0]
+                add_order_data = models.Product_Ordermodel.objects.filter(fresh_id__fresh_id = seller_id,category_data = "fresh_cuts",status = "accepted",end_user__uid = separate_list)
+                enduser['food_status'] = []
+                for y in add_order_data.values():
+                    print(y['food_product_id'])
+                    food_product = models.food_productsmodel.objects.filter(id = y['food_product_id']).values()
+                    y['product'] = food_product[0]
+                    print(y)
+                    enduser['food_status'].append(y)
+                separate_list_all_data.append(enduser)
+        return Response(separate_list_all_data,status=status.HTTP_200_OK)
+    except:
+        return Response("nostatus",status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(["GET"])
+def business_order_history(request,seller_id,category):
+    try:
+        if "food" == category:
+            order_data = models.Product_Ordermodel.objects.filter(food_id__food_id = seller_id,category_data = "food",status = "delivered",payment_status = "payment_settled")
+            print(order_data)
+            my_user=[]
+            for get_end_user in order_data:
+                if get_end_user.end_user.uid not in my_user:
+                    my_user.append(get_end_user.end_user.uid)
+            print(my_user)
+            separate_list_all_data = []
+            for separate_list in my_user:
+                enduser = models.End_Usermodel.objects.filter(uid = separate_list).values()[0]
+                add_order_data = models.Product_Ordermodel.objects.filter(food_id__food_id = seller_id,category_data = "food",status = "delivered",payment_status = "payment_settled",end_user__uid = separate_list)
+                enduser['food_status'] = []
+                for y in add_order_data.values():
+                    print(y['food_product_id'])
+                    food_product = models.food_productsmodel.objects.filter(id = y['food_product_id']).values()
+                    y['product'] = food_product[0]
+                    print(y)
+                    enduser['food_status'].append(y)
+                separate_list_all_data.append(enduser)
+        elif "daily_mio" == category:
+            order_data = models.Product_Ordermodel.objects.filter(dmio_id__dmio_id = seller_id,category_data = "daily_mio",status = "delivered",payment_status = "payment_settled")
+            print(order_data)
+            my_user=[]
+            for get_end_user in order_data:
+                if get_end_user.end_user.uid not in my_user:
+                    my_user.append(get_end_user.end_user.uid)
+            print(my_user)
+            separate_list_all_data = []
+            for separate_list in my_user:
+                enduser = models.End_Usermodel.objects.filter(uid = separate_list).values()[0]
+                add_order_data = models.Product_Ordermodel.objects.filter(dmio_id__dmio_id = seller_id,category_data = "daily_mio",status = "delivered",payment_status = "payment_settled",end_user__uid = separate_list)
+                enduser['food_status'] = []
+                for y in add_order_data.values():
+                    print(y['food_product_id'])
+                    food_product = models.food_productsmodel.objects.filter(id = y['food_product_id']).values()
+                    y['product'] = food_product[0]
+                    print(y)
+                    enduser['food_status'].append(y)
+                separate_list_all_data.append(enduser)
+        elif "pharmacy" == category:
+            order_data = models.Product_Ordermodel.objects.filter(pharm_id__pharm_id = seller_id,category_data = "pharmacy",status = "delivered",payment_status = "payment_settled")
+            print(order_data)
+            my_user=[]
+            for get_end_user in order_data:
+                if get_end_user.end_user.uid not in my_user:
+                    my_user.append(get_end_user.end_user.uid)
+            print(my_user)
+            separate_list_all_data = []
+            for separate_list in my_user:
+                enduser = models.End_Usermodel.objects.filter(uid = separate_list).values()[0]
+                add_order_data = models.Product_Ordermodel.objects.filter(pharm_id__pharm_id = seller_id,category_data = "pharmacy",status = "delivered",payment_status = "payment_settled",end_user__uid = separate_list)
+                enduser['food_status'] = []
+                for y in add_order_data.values():
+                    print(y['food_product_id'])
+                    food_product = models.food_productsmodel.objects.filter(id = y['food_product_id']).values()
+                    y['product'] = food_product[0]
+                    print(y)
+                    enduser['food_status'].append(y)
+                separate_list_all_data.append(enduser)
+        elif "fresh_cuts" == category:
+            order_data = models.Product_Ordermodel.objects.filter(fresh_id__fresh_id = seller_id,category_data = "fresh_cuts",status = "delivered",payment_status = "payment_settled")
+            print(order_data)
+            my_user=[]
+            for get_end_user in order_data:
+                if get_end_user.end_user.uid not in my_user:
+                    my_user.append(get_end_user.end_user.uid)
+            print(my_user)
+            separate_list_all_data = []
+            for separate_list in my_user:
+                enduser = models.End_Usermodel.objects.filter(uid = separate_list).values()[0]
+                add_order_data = models.Product_Ordermodel.objects.filter(fresh_id__fresh_id = seller_id,category_data = "fresh_cuts",status = "delivered",payment_status = "payment_settled",end_user__uid = separate_list)
+                enduser['food_status'] = []
+                for y in add_order_data.values():
+                    print(y['food_product_id'])
+                    food_product = models.food_productsmodel.objects.filter(id = y['food_product_id']).values()
+                    y['product'] = food_product[0]
+                    print(y)
+                    enduser['food_status'].append(y)
+                separate_list_all_data.append(enduser)
+        return Response(separate_list_all_data,status=status.HTTP_200_OK)
+    except:
+        return Response("nostatus",status=status.HTTP_400_BAD_REQUEST)

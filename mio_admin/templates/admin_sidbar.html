@@ -66,7 +66,7 @@
                     </span>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/admin_hub_details/{{authenticate.username}}">ADD</a></li>
-                        <li><a class="dropdown-item" href="/admin_hub_menu1/{{authenticate.username}}">MENU</a></li>
+                        <li><a class="dropdown-item" href="/admin_hub_menu1/{{authenticate.username}}">Manage</a></li>
                     </ul>
                 </div>
             </li>
@@ -79,7 +79,7 @@
                   </span>
                     <ul class="dropdown-menu" >
                       <li><a class="dropdown-item" href="/admin_user_add/{{authenticate.username}}">ADD</a></li>
-                      <li><a class="dropdown-item" href="/admin_user_menu/{{authenticate.username}}">MANU</a></li>
+                      <li><a class="dropdown-item" href="/admin_user_menu/{{authenticate.username}}">Manage</a></li>
                       
                     </ul>
                   </div></li>
@@ -100,7 +100,7 @@
                   </span>
                     <ul class="dropdown-menu" >
                       <li><a class="dropdown-item" href="/admin/delivery_boy_add/add/{{authenticate.username}}">ADD</a></li>
-                      <li><a class="dropdown-item" href="/admin/delivery_boy_manage/{{authenticate.username}}">MANU</a></li>
+                      <li><a class="dropdown-item" href="/admin/delivery_boy_manage/{{authenticate.username}}">Manage</a></li>
                       
                     </ul>
                   </div></li>
@@ -144,6 +144,12 @@
                   <i class="mdi mdi-home menu-icon"></i>
                 </a>
               </li> 
+               <li class="nav-item">
+                <a class="nav-link" href="/admin/hsn/{{authenticate.username}}">
+                  <span class="menu-title"></span>
+                  <i class="mdi mdi-home menu-icon" style="display:none;";></i>
+                </a>
+              </li> 
               {% endif %}
               
               
@@ -164,4 +170,3 @@
         
             </ul>
           </nav>
-  

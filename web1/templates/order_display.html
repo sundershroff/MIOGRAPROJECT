@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+{% load static %}   
+<html lang="en">
+<head>
+
+    
+    <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Miogra</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Favicon -->
+        <link rel="shortcut icon" type="image/x-icon" href="{% static '/images/icon.jpeg' %}">
+        <!-- Material Design Iconic Font-V2.2.0 -->
+        <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+        <!-- Font Awesome Stars-->
+        <link rel="stylesheet" href="{% static 'css/fontawesome-stars.css' %}">
+        <!-- Meanmenu CSS -->
+        <link rel="stylesheet" href="{% static 'css/meanmenu.css' %}">
+        <!-- owl carousel CSS -->
+        <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+        <!-- Slick Carousel CSS -->
+        <link rel="stylesheet" href="{% static 'css/slick.css' %}">
+        <!-- Animate CSS -->
+        <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+        <!-- Jquery-ui CSS -->
+        <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
+        <!-- Venobox CSS -->
+        <link rel="stylesheet" href="{% static 'css/venobox.css' %}">
+        <!-- Nice Select CSS -->
+        <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
+        <!-- Magnific Popup CSS -->
+        <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+        <!-- Bootstrap V4.1.3 Fremwork CSS -->
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <!-- Helper CSS -->
+        <link rel="stylesheet" href="{% static 'css/helper.css' %}">
+        <!-- Main Style CSS -->
+        <link rel="stylesheet" href="{% static 'food_style.css' %}">
+        <!-- Main Style CSS -->
+        <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+        <link rel="stylesheet" href="{% static 'css/order_dis.css' %}">
+
+        <link rel="stylesheet" href="{% static 'fresh_cuts_style.css' %}">
+        <!-- Responsive CSS -->
+        <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+        <!-- Modernizr js -->
+        <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+       
+</head>
+
+
+<body>
+<div class="body-wrapper">
+        <!-- Begin Header Area -->
+       {% include "enduser_header.html" %}
+        <!-- Header Area End Here -->
+        <!-- Begin Li's Breadcrumb Area -->
+        <div class="breadcrumb-area">
+            <div class="container-fluid">
+                <div class="breadcrumb-content">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li class="active">Orders</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+    <div class="container mt-5 mb-5">
+        <div class="d-flex justify-content-center row">
+            <div class="col-md-10">
+                {% for order in orders %}
+                {% if order.shop_product %}
+                <div class="row p-2 bg-white border rounded">
+                    <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" id="source_img" src="{{order.shop_product.product.primary_image}}"></div>
+                    <div class="col-md-6 mt-1">
+                        <h5>{{order.shop_product.product.model_name}}</h5>
+                        <div class="d-flex flex-row">
+                            <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>{{order.shop_product.product.rating}}</span>
+                        </div>
+                        <p class="text-justify text-truncate para mb-0">{{order.shop_product.product.product_description}}<br><br></p>
+                    </div>
+                    <div class="align-items-center align-content-center col-md-3 border-left mt-1">
+                        <div class="d-flex flex-row align-items-center">
+                            <button class="btn btn-outline-primary btn-sm mt-2" type="button" data-toggle="modal" data-target="#mymodal" value="{{order.shop_product.product.product_id}}"  onclick="fun1(this)">Write a product review</button>
+                        </div>
+                       
+                        <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button">Buy it again</button><button class="btn btn-outline-primary btn-sm mt-2" type="button" >
+                            <a class="dropdown-item" href="/user/product/order/tracking/{{key.uid}}/{{order.order_id}}">view your item</a></button>
+                            <a class="dropdown-item" href="/product_order_status_return/{{key.uid}}/{{order.order_id}}/"><button class="btn btn-outline-primary btn-sm mt-2" type="button">Return</button></a>
+                        </div>
+                    </div>
+                </div>
+                {% elif order.food_product %}
+                <div class="row p-2 bg-white border rounded">
+                    <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" id="source_img" src="{{order.food_product.product.primary_image}}"></div>
+                    <div class="col-md-6 mt-1">
+                        <h5>{{order.food_product.product.model_name}}</h5>
+                        <div class="d-flex flex-row">
+                            <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>{{order.food_product.product.rating}}</span>
+                        </div>
+                        
+                        <p class="text-justify text-truncate para mb-0">{{order.food_product.product.product_description}}<br><br></p>
+                       
+                    </div>
+                    <div class="align-items-center align-content-center col-md-3 border-left mt-1">
+                        <div class="d-flex flex-row align-items-center">
+                            <button class="btn btn-outline-primary btn-sm mt-2" type="button" data-toggle="modal" data-target="#mymodal" value="{{order.food_product.product.product_id}}"  onclick="fun1(this)" >Write a product review</button>
+                        </div>
+                       
+                        <div class="d-flex flex-column mt-4">
+                            <a href="/user/shopping_add_to_cart/{{key.uid}}/food/products/{{order.food_product.food_id}}/{{order.food_product.product.product_id}}/"><button class="btn btn-outline-primary btn-sm mt-2" type="button">Buy it again</button></a>
+                        </div>
+                        <div class="d-flex flex-column mt-4" style="margin-left: -24px;">
+                            <a class="dropdown-item" href="/user/product/order/tracking/{{key.uid}}/{{order.order_id}}"><button class="btn btn-outline-primary btn-sm mt-2" type="button" >view your item</button></a>
+                            <a class="dropdown-item" href="/product_order_status_return/{{key.uid}}/{{order.order_id}}/"><button class="btn btn-outline-primary btn-sm mt-2" type="button">Return</button></a>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+                {% elif order.freshcut_product %}
+                <div class="row p-2 bg-white border rounded">
+                    <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" id="source_img" src="{{order.freshcut_product.product.primary_image}}"></div>
+                    <div class="col-md-6 mt-1">
+                        <h5>{{order.freshcut_product.product.model_name}}</h5>
+                        <div class="d-flex flex-row">
+                            <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>{{order.freshcut_product.product.rating}}</span>
+                        </div>
+                        
+                        <p class="text-justify text-truncate para mb-0">{{order.freshcut_product.product.product_description}}<br><br></p>
+                    </div>
+                    <div class="align-items-center align-content-center col-md-3 border-left mt-1">
+                        <div class="d-flex flex-row align-items-center">
+                            <button class="btn btn-outline-primary btn-sm mt-2" type="button" data-toggle="modal" data-target="#mymodal" value="{{order.freshcuts_product.product.product_id}}"  onclick="fun1(this)">Write a product review</button>
+                        </div>
+                       
+                        <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button">Buy it again</button><button class="btn btn-outline-primary btn-sm mt-2" type="button" >
+                            <a class="dropdown-item" href="/user/product/order/tracking/{{key.uid}}/{{order.order_id}}">view your item</a></button>
+                            <a class="dropdown-item" href="/product_order_status_return/{{key.uid}}/{{order.order_id}}/"><button class="btn btn-outline-primary btn-sm mt-2" type="button">Return</button></a>
+                        </div>
+                    </div>
+                </div>
+                {% elif order.jewel_product %}
+                <div class="row p-2 bg-white border rounded">
+                    <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" id="source_img" src="{{order.jewel_product.product.primary_image}}"></div>
+                    <div class="col-md-6 mt-1">
+                        <h5>{{order.jewel_product.product.model_name}}</h5>
+                        <div class="d-flex flex-row">
+                            <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>{{order.jewel_product.product.rating}}</span>
+                        </div>
+                        
+                        <p class="text-justify text-truncate para mb-0">{{order.jewel_product.product.product_description}}<br><br></p>
+                    </div>
+                    <div class="align-items-center align-content-center col-md-3 border-left mt-1">
+                        <div class="d-flex flex-row align-items-center">
+                            <button class="btn btn-outline-primary btn-sm mt-2" type="button" data-toggle="modal" data-target="#mymodal" value="{{order.jewel_product.product.product_id}}"  onclick="fun1(this)" >Write a product review</button>
+                        </div>
+                       
+                        <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button">Buy it again</button><button class="btn btn-outline-primary btn-sm mt-2" type="button" >
+                            <a class="dropdown-item" href="/user/product/order/tracking/{{key.uid}}/{{order.order_id}}">view your item</a></button>
+                            <a class="dropdown-item" href="/product_order_status_return/{{key.uid}}/{{order.order_id}}/"><button class="btn btn-outline-primary btn-sm mt-2" type="button">Return</button></a>
+                        </div>
+                    </div>
+                </div>
+                {% elif order.pharmacy_product %}
+                <div class="row p-2 bg-white border rounded">
+                    <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" id="source_img" src="{{order.pharmacy_product.product.primary_image}}"></div>
+                    <div class="col-md-6 mt-1">
+                        <h5>{{order.pharmacy_product.product.model_name}}</h5>
+                        <div class="d-flex flex-row">
+                            <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>{{order.pharmacy_product.product.rating}}</span>
+                        </div>
+                        
+                        <p class="text-justify text-truncate para mb-0">{{order.pharmacy_product.product.product_description}}<br><br></p>
+                    </div>
+                    <div class="align-items-center align-content-center col-md-3 border-left mt-1">
+                        <div class="d-flex flex-row align-items-center">
+                            <button class="btn btn-outline-primary btn-sm mt-2" type="button" data-toggle="modal" data-target="#mymodal" value="{{order.pharmacy_product.product.product_id}}"  onclick="fun1(this)" >Write a product review</button>
+                        </div>
+                       
+                        <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button">Buy it again</button><button class="btn btn-outline-primary btn-sm mt-2" type="button" >
+                            <a class="dropdown-item" href="/user/product/order/tracking/{{key.uid}}/{{order.order_id}}">view your item</a></button>
+                            <a class="dropdown-item" href="/product_order_status_return/{{key.uid}}/{{order.order_id}}/"><button class="btn btn-outline-primary btn-sm mt-2" type="button">Return</button></a>
+                        </div>
+                    </div>
+                </div>
+                {% elif order.d_original_product %}
+                <div class="row p-2 bg-white border rounded">
+                    <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" id="source_img" src="{{order.d_original_product.product.primary_image}}"></div>
+                    <div class="col-md-6 mt-1">
+                        <h5>{{order.d_original_product.product.name|join:","}}</h5>
+                        <div class="d-flex flex-row">
+                            <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>{{order.d_original_product.product.rating}}</span>
+                        </div>
+                        
+                        <p class="text-justify text-truncate para mb-0">{{order.d_original_product.product.product_description}}<br><br></p>
+                    </div>
+                    <div class="align-items-center align-content-center col-md-3 border-left mt-1">
+                        <div class="d-flex flex-row align-items-center">
+                           
+                                <button class="btn btn-outline-primary btn-sm mt-2" type="button" data-toggle="modal" data-target="#mymodal" value="{{order.d_original_product.product.product_id}}"  onclick="fun1(this)">Write a product review</button>
+                            
+                        </div>
+                       
+                        <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button">Buy it again</button><button class="btn btn-outline-primary btn-sm mt-2" type="button" >
+                            <a class="dropdown-item" href="/user/product/order/tracking/{{key.uid}}/{{order.order_id}}">view your item</a></button>
+                            <a class="dropdown-item" href="/product_order_status_return/{{key.uid}}/{{order.order_id}}/"><button class="btn btn-outline-primary btn-sm mt-2" type="button">Return</button></a>
+                        </div>
+                    </div>
+                </div>
+                {% elif order.dmio_product %}
+                <div class="row p-2 bg-white border rounded">
+                    <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" id="source_img" src="{{order.dmio_product.product.primary_image}}"></div>
+                    <div class="col-md-6 mt-1">
+                        <h5>{{order.dmio_product.product.model_name}}</h5>
+                        <div class="d-flex flex-row">
+                            <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>{{order.dmio_product.product.rating}}</span>
+                        </div>
+                        
+                        <p class="text-justify text-truncate para mb-0">{{order.dmio_product.product.product_description}}<br><br></p>
+                    </div>
+                    <div class="align-items-center align-content-center col-md-3 border-left mt-1">
+                        <div class="d-flex flex-row align-items-center">
+                            <button class="btn btn-outline-primary btn-sm mt-2" type="button" data-toggle="modal" data-target="#mymodal" value="{{order.dmio_product.product.product_id}}"  onclick="fun1(this)" >Write a product review</button>
+                        </div>
+                       
+                        <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button">Buy it again</button><button class="btn btn-outline-primary btn-sm mt-2" type="button" >
+                            <a class="dropdown-item" href="/user/product/order/tracking/{{key.uid}}/{{order.order_id}}">view your item</a></button>
+                            <a class="dropdown-item" href="/product_order_status_return/{{key.uid}}/{{order.order_id}}/"><button class="btn btn-outline-primary btn-sm mt-2" type="button">Return</button></a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% comment %} <div class="row p-2 bg-white border rounded mt-2">
+                    <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="https://i.imgur.com/JvPeqEF.jpg"></div>
+                    <div class="col-md-6 mt-1">
+                        <h5>Quant trident shirts</h5>
+                        <div class="d-flex flex-row">
+                            <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>310</span>
+                        </div>
+                        <div class="mt-1 mb-1 spec-1"><span>100% cotton</span><span class="dot"></span><span>Light weight</span><span class="dot"></span><span>Best finish<br></span></div>
+                        <div class="mt-1 mb-1 spec-1"><span>Unique design</span><span class="dot"></span><span>For men</span><span class="dot"></span><span>Casual<br></span></div>
+                        <p class="text-justify text-truncate para mb-0">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.<br><br></p>
+                    </div> {% endcomment %}
+                    
+                     
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Begin Quick View | Modal Area -->
+    <div class="modal fade modal-wrapper" id="mymodal" >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h3 class="review-page-title">Write Your Review</h3>
+                    <div class="modal-inner-area row">
+                        <div class="col-lg-6">
+                           <div class="li-review-product">
+                               <img id="dest_img" src="" alt="Li's Product">
+                               <div class="li-review-product-desc">
+                                   <p class="li-product-name" id="product_name"></p>
+                                   <p>
+                                       <span>Beach Camera Exclusive Bundle - Includes Two Samsung Radiant 360 R3 Wi-Fi Bluetooth Speakers. Fill The Entire Room With Exquisite Sound via Ring Radiator Technology. Stream And Control R3 Speakers Wirelessly With Your Smartphone. Sophisticated, Modern Design </span>
+                                   </p>
+                               </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="li-review-content">
+                                <!-- Begin Feedback Area -->
+                                <div class="feedback-area">
+                                    <div class="feedback">
+                                        <h3 class="feedback-title">Our Feedback</h3>
+                                        <form method="POST">
+                                         {% csrf_token %}
+                                            <p class="your-opinion">
+                                                <label>Your Rating</label>
+                                                <span>
+                                                    <select class="star-rating" name="rating">
+                                                      <option value="1">1</option>
+                                                      <option value="2">2</option>
+                                                      <option value="3">3</option>
+                                                      <option value="4">4</option>
+                                                      <option value="5">5</option>
+                                                    </select>
+                                                </span>
+                                            </p>
+                                            <p class="feedback-form">
+                                                <label for="feedback">Your Review</label>
+                                                <textarea id="feedback" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+                                            </p>
+                                            <div class="feedback-input">
+                                                <p class="feedback-form-author">
+                                                    <label for="author">Name<span class="required">*</span>
+                                                    </label>
+                                                    <input id="author" name="author" value="" size="30" aria-required="true" type="text">
+                                                   
+                                                </p>
+                                                <p class="feedback-form-author feedback-form-email">
+                                                    <label for="email">Email<span class="required">*</span>
+                                                    </label>
+                                                    <input id="email" name="email" value="" size="30" aria-required="true" type="text">
+                                                    <span class="required"><sub>*</sub> Required fields</span>
+                                                </p>
+                                                <input type="text" id="product_id" value="" name="productId" style="display:none;">
+                                                <div class="feedback-btn pb-15">
+                                                    <button class="close" aria-label="Close">Close</button>
+                                                    <button type="submit" name="reviewsubmit" >Submit</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- Feedback Area End Here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>   
+    <!-- Quick View | Modal Area End Here -->
+    <!-- Begin Footer Area -->
+    {% include "footer.html" %}
+    <!-- Footer Area End Here -->
+   
+</div>
+    <!-- jQuery-V1.12.4 -->
+            <!-- jQuery-V1.12.4 -->
+            <script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
+            <!-- Popper js -->
+            <script src="{% static 'js/vendor/popper.min.js' %}"></script>
+            <!-- Bootstrap V4.1.3 Fremwork js -->
+            <script src="{% static 'js/bootstrap.min.js' %}"></script>
+            <!-- Ajax Mail js -->
+            <script src="{% static 'js/ajax-mail.js' %}"></script>
+            <!-- Meanmenu js -->
+            <script src="{% static 'js/jquery.meanmenu.min.js' %}"></script>
+            <!-- Wow.min js -->
+            <script src="{% static 'js/wow.min.js' %}"></script>
+            <!-- Slick Carousel js -->
+            <script src="{% static 'js/slick.min.js' %}"></script>
+            <!-- Owl Carousel-2 js -->
+            <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+            <!-- Magnific popup js -->
+            <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+            <!-- Isotope js -->
+            <script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
+            <!-- Imagesloaded js -->
+            <script src="{% static 'js/imagesloaded.pkgd.min.js' %}"></script>
+            <!-- Mixitup js -->
+            <script src="{% static 'js/jquery.mixitup.min.js' %}"></script>
+            <!-- Countdown -->
+            <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+            <!-- Counterup -->
+            <script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+            <!-- Waypoints -->
+            <script src="{% static 'js/waypoints.min.js' %}"></script>
+            <!-- Barrating -->
+            <script src="{% static 'js/jquery.barrating.min.js' %}"></script>
+            <!-- Jquery-ui -->
+            <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+            <!-- Venobox -->
+            <script src="{% static 'js/venobox.min.js' %}"></script>
+            <!-- Nice Select js -->
+            <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+            <!-- ScrollUp js -->
+            <script src="{% static 'js/scrollUp.min.js' %}"></script>
+            <!-- Main/Activator js -->
+            <script src="{% static 'js/main.js' %}"></script>
+            <script>
+                function fun1(button) {
+                    var buttonValue = button.value;
+                    var sourceImage = document.getElementById("source_img");
+                    var srcData = sourceImage.getAttribute("src");
+                    var destinationImage = document.getElementById("dest_img");
+                    destinationImage.setAttribute("src", srcData);
+                   
+                    document.getElementById('product_id').value = buttonValue;
+                }
+            </script>
+</body>
+</html>

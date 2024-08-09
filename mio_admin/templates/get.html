@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Coordinates</title>
+</head>
+<body>
+{% block content %}
+<div class="w3-bar w3-black w3-large">
+  <div class="w3-bar-item w3-left w3-black">Car Dealer Portal: {{user.username}}</div>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/car_dealer_portal/logout/">Logout</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/car_dealer_portal/customer_ser_car_dealer/">Customer Service</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/car_dealer_portal/tracking/">Tracking</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/car_dealer_portal/order_list/">Orders</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/car_dealer_portal/manage_vehicles/">Vehicles</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/car_dealer_portal/history/">Earnings</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right " href="/car_dealer_portal/auth/">Home</a>
+</div>
+    <h2>Tracking Car Location</h2>
+    <div style="text-align: center;">
+    <button onclick="getLocation()">Get Location</button>
+    <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d31440.356833765032!2d78.1115356542293!3d9.930243426214428!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zOcKwNTUnMzAuNyJOIDc4wrAwNycxMS4yIkU!5e0!3m2!1sen!2sin!4v1708879794169!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+    <p>Latitude: <span id="latitude"></span></p>
+    <p>Longitude: <span id="longitude"></span></p>
+    <!-- <button onclick="getAddress()">Get Address</button> -->
+    <p>Address: <span id="address"></span></p>
+</div>
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function showPosition(position) {
+            // alert("Latitude: " + position.coords.latitude + "\nLongitude: " + position.coords.longitude);
+            // console.log( position.coords.latitude, position.coords.longitude);
+            document.getElementById("latitude").textContent = position.coords.latitude;
+             document.getElementById("longitude").textContent = position.coords.longitude;
+             
+            const latitude = document.getElementById("latitude").textContent;
+            const longitude = document.getElementById("longitude").textContent;
+
+            const apiUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const address = data.display_name || "Address not found";
+                    document.getElementById("address").textContent = address;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        
+
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("User denied the request for Geolocation.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Location information is unavailable.");
+                    break;
+                case error.TIMEOUT:
+                    alert("The request to get user location timed out.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("An unknown error occurred.");
+                    break;
+            }
+        }
+    </script>
+     <!-- <script>
+        function getAddress() {
+            const latitude = document.getElementById("latitude").textContent;
+            const longitude = document.getElementById("longitude").textContent;
+
+            const apiUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const address = data.display_name || "Address not found";
+                    document.getElementById("address").textContent = address;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Example coordinates (replace these with your actual coordinates)
+        document.getElementById("latitude").textContent = "37.7749";
+        document.getElementById("longitude").textContent = "-122.4194";
+    </script> -->
+    {% endblock %}
+</body>
+</html>

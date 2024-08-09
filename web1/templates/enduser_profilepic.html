@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<!-- Mirrored from colorlib.com/etc/regform/colorlib-regform-31/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Mar 2024 05:59:24 GMT -->
+<head>
+<meta charset="utf-8">
+<title>Miogra Profile</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/roboto-font.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/fontawesome-all.min.css' %}">
+
+<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+<meta name="robots" content="noindex, follow">
+<script nonce="36d3ceea-7807-4294-80f4-4ce36a978109">try{(function(w,d){!function(du,dv,dw,dx){du[dw]=du[dw]||{};du[dw].executed=[];du.zaraz={deferred:[],listeners:[]};du.zaraz.q=[];du.zaraz._f=function(dy){return async function(){var dz=Array.prototype.slice.call(arguments);du.zaraz.q.push({m:dy,a:dz})}};for(const dA of["track","set","debug"])du.zaraz[dA]=du.zaraz._f(dA);du.zaraz.init=()=>{var dB=dv.getElementsByTagName(dx)[0],dC=dv.createElement(dx),dD=dv.getElementsByTagName("title")[0];dD&&(du[dw].t=dv.getElementsByTagName("title")[0].text);du[dw].x=Math.random();du[dw].w=du.screen.width;du[dw].h=du.screen.height;du[dw].j=du.innerHeight;du[dw].e=du.innerWidth;du[dw].l=du.location.href;du[dw].r=dv.referrer;du[dw].k=du.screen.colorDepth;du[dw].n=dv.characterSet;du[dw].o=(new Date).getTimezoneOffset();if(du.dataLayer)for(const dH of Object.entries(Object.entries(dataLayer).reduce(((dI,dJ)=>({...dI[1],...dJ[1]})),{})))zaraz.set(dH[0],dH[1],{scope:"page"});du[dw].q=[];for(;du.zaraz.q.length;){const dK=du.zaraz.q.shift();du[dw].q.push(dK)}dC.defer=!0;for(const dL of[localStorage,sessionStorage])Object.keys(dL||{}).filter((dN=>dN.startsWith("_zaraz_"))).forEach((dM=>{try{du[dw]["z_"+dM.slice(7)]=JSON.parse(dL.getItem(dM))}catch{du[dw]["z_"+dM.slice(7)]=dL.getItem(dM)}}));dC.referrerPolicy="origin";dC.src="../../../cdn-cgi/zaraz/sd0d9.js?z="+btoa(encodeURIComponent(JSON.stringify(du[dw])));dB.parentNode.insertBefore(dC,dB)};["complete","interactive"].includes(dv.readyState)?zaraz.init():du.addEventListener("DOMContentLoaded",zaraz.init)}(w,d,"zarazData","script");})(window,document)}catch(e){throw fetch("/cdn-cgi/zaraz/t"),e;};</script></head>
+<body class="form-v5">
+<div class="page-content">
+<div class="form-v5-content">
+<form class="form-detail" action="#" method="POST" enctype="multipart/form-data">
+  {%csrf_token%}
+<h2> <img src="{% static 'image/Mcolcor.png' %}" alt="" style="height:25px;">Profile Picture</h2>
+<div class="form-row">
+   
+<div class="file-drop-area mt-1">
+
+    
+    <p class="file-message my-3">Drag Or Click Here To Upload Your Profile Picture</p>
+
+    <input class="file-input" type="file" name="profile_picture">
+
+</div>
+
+<div class="form-row-last">
+    <button type="button" class="btn prof_btns1" >Back</button>
+    <button type="submit" class="btn prof_btns2" >Submit</button>
+</div>
+</form>
+</div>
+</div>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon='{"rayId":"8618d6bc2d497ebc","b":1,"version":"2024.2.4","token":"cd0b4b3a733644fc843ef0b185f98241"}' crossorigin="anonymous"></script>
+</body>
+
+<!-- Mirrored from colorlib.com/etc/regform/colorlib-regform-31/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Mar 2024 05:59:26 GMT -->
+</html>

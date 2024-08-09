@@ -1,4 +1,8 @@
 {% include "admin_header.html" %}
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <!-- partial:partials/_settings-panel.html -->
@@ -278,25 +282,194 @@
                                                                     id="cencel">Cancel Order</button>
                                                                 </form>
                                                             </div>
-                                                            <div id="otp" style="text-align: center; border: 1px solid black; padding: 100px;">
+                                                            <div id="otp" style="text-align: center; padding: 100px;">
                                                                 <h1>OTP verification</h1>
-                                                                <form id="otp-form">
-                                                                    <input type="text" id="otp-input"  style="border-radius: 10px; border-style:groove; border-color: rgb(183, 109, 253);">
+                                                                <form method="POST" id="myForm">
+                                                                  {% csrf_token %}
+                                                                    <input type="text" name="cancel_order" placeholder="Enter product Track Id" id="otp-input"  style="border-radius: 10px; border-style:groove; border-color: rgb(183, 109, 253);" required>
                                                                     <button type="submit" style="margin-bottom: 10px;"
-                                                                    class="btn btn-danger btn-sm">Verify OTP</button><br>
-                                                                    <button type="submit" 
+                                                                    class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#myModal">Verify OTP</button><br>
+                                                                    <button type="button" 
                                                                     class="btn btn-danger btn-sm" id="back">Back</button>
                                                                 </form>
                                                                 </div>
+               {% if error == "Invalid OTP" %}
+              <script>
+                $(document).ready(function(){
+                    $("#myModal").modal('show');
+                });
+            </script>
+            {% else %}
+            {% endif %}
+            {% if success == "Order Cancelled Successfully" %}  
+            <div class="toast" style="
+            width: 50%;
+            padding: 50px;
+            position: absolute;    
+            left: 25%;
+            right: 25%;
+        ">
+                <div class="toast-header">
+                  <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                </div>
+                <div class="toast-body">
+                  <p style="color: green;text-align: center;font-size: large;">{{success}}</p>
+                </div>
+              </div>
+              <script>
+               
+               $(document).ready(function(){
+                  var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+                  var toastList = toastElList.map(function(toastEl) {
+                    return new bootstrap.Toast(toastEl)
+                  })
+                  toastList.forEach(toast => toast.show()) 
+               });
+                </script>
+            {% else %}
+            {% endif %}                                      <!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Enter OTP</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+            <style>
+                /* body {
+                    font-family: Arial, sans-serif;
+                    margin: 0;
+                    padding: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                    background-color: #f0f0f0;
+                } */
+                .otp-container {
+                    text-align: center;
+                }
+                .otp-input {
+                    width: 40px;
+                    height: 40px;
+                    text-align: center;
+                    margin: 0 5px;
+                    font-size: 18px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    outline: none;
+                }
+                @media (max-width: 600px) {
+                    .otp-input {
+                        width: 30px;
+                        height: 30px;
+                        font-size: 14px;
+                    }
+                }
+            </style>
+            <div class="otp-container">
+                <h2>Enter OTP</h2>
+                <form id="otpForm" method="POST">
+                    {% csrf_token %}
+                    <input type="text" maxlength="1" class="otp-input" name="otp" id="digit1" required>
+                    <input type="text" maxlength="1" class="otp-input" name="otp" id="digit2" required>
+                    <input type="text" maxlength="1" class="otp-input" name="otp" id="digit3" required>
+                    <input type="text" maxlength="1" class="otp-input" name="otp" id="digit4" required><br><br>
+                    <button type="submit"  name="" id="" style="
+                    padding: 10px;
+                    width: 57%;
+                    background-color: #8B1874;
+                    color: white;
+                    font-weight: 500;
+                ">VERIFY</button>
+                 <h2 style="color: red;" id="pin"></h2>
+                </form>
+                <h3 style="text-align: center;color: red;">{{error}}</h3>
+              
+            </div>
+            <script>
+                $(document).ready(function(){
+                    $('#').submit(function(event) {
+                        // Prevent default form submission
+                        event.preventDefault();
+                
+                        // Serialize form data
+                        var formData = $(this).serialize();
+                
+                        // Send AJAX request
+                        $.ajax({
+                            type: 'POST',
+                            url: 'http://127.0.0.1:3000/admin_customer_service/admin', // Replace with your server-side script URL
+                            data: formData,
+                            success: function(response) {
+                                // Handle the response from the server
+                                // alert('Form submitted successfully!');
+                                // You can update UI or do anything with the response here
+                            },
+                            error: function(xhr, status, error) {
+                                // Handle errors
+                                console.error(xhr.responseText);
+                            }
+                        });
+                    });
+                });
+                </script>
+            
+            <script>
+                // Automatically move focus to the next input field when a digit is entered
+                document.querySelectorAll('.otp-input').forEach(item => {
+                    item.addEventListener('input', event => {
+                        if (event.target.value.length >= 1) {
+                            const index = Array.prototype.indexOf.call(item.parentElement.children, item);
+                            if (index < 5) {
+                                item.parentElement.children[index + 1].focus();
+                            }
+                        }
+                    });
+                    item.addEventListener('keydown', event => {
+                        if (event.key === 'Backspace') {
+                            const index = Array.prototype.indexOf.call(item.parentElement.children, item);
+                            if (index > 0) {
+                                item.parentElement.children[index - 1].focus();
+                                // item.parentElement.children[index - 1].focus();
+                            }
+                            
+                        }
+                    });
+                });
+            </script>
+            
+              <h4 style="color: red;text-align: center;">{{error1}}</h4>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
                                                                 <div id="trackbox"
-                                                                style="text-align: center; border: 1px solid black; padding: 100px;">
+                                                                style="text-align: center; padding: 100px;">
                                                                 <h2>Tracking ID</h2><br>
-                                                                <input type="text" id="otp-input"  style="border-radius: 10px; border-style:groove; border-color: rgb(183, 109, 253);">
+                                                                <form method="POST">
+                                                                    {% csrf_token %}
+                                                                
+                                                                <input type="text"  id="otp-input" name="track"  style="border-radius: 10px; border-style:groove; border-color: rgb(183, 109, 253);" required>
                                                                 <button type="submit" style="margin-bottom: 5px;" class="btn btn-success btn-sm py-3"
                                                                     id="track2">Track</button><br>
                                                                 <button type="button" id="back2" class="btn btn-danger btn-sm"
                                                                     id="cencel1">back</button>
+                                                                    <h3>{{order_data}}</h3>
+                                                                </form>
                                                             </div>
+                                                            
                                                                 </div>
                                                             <div id="add1"
                                                                 style="text-align: center; padding: 100px;">
@@ -519,22 +692,22 @@
 
         $("#butt1").click(function () {
             $("#add").show();
-            $("#add1, #add2, #add3, #otp, #tpro, #tbuss, #tsell").hide(); // Hide other elements
+            $("#add1, #add2, #add3, #otp, #tpro, #tbuss, #tsell,#trackbox").hide(); // Hide other elements
         });
 
         $("#butt2").click(function () {
             $("#add1").show();
-            $("#add, #add2, #add3, #otp, #tpro, #tbuss, #tsell").hide(); // Hide other elements
+            $("#add, #add2, #add3, #otp, #tpro, #tbuss, #tsell,#trackbox").hide(); // Hide other elements
         });
 
         $("#butt3").click(function () {
             $("#add2").show();
-            $("#add, #add1, #add3, #otp, #tpro, #tbuss, #tsell").hide(); // Hide other elements
+            $("#add, #add1, #add3, #otp, #tpro, #tbuss, #tsell ,#trackbox").hide(); // Hide other elements
         });
 
         $("#butt4").click(function () {
             $("#add3").show();
-            $("#add, #add1, #add2, #otp, #tpro, #tbuss, #tsell").hide(); // Hide other elements
+            $("#add, #add1, #add2, #otp, #tpro, #tbuss, #tsell ,#trackbox").hide(); // Hide other elements
         });
 
       
@@ -622,6 +795,43 @@
 {% else %}
         
 {% endif %}
+{% if order_data != "" %}
+<script>
+    $(document).ready(function(){
+            $("#trackbox").show();
+        });
+</script>
+                                                      
+{% else %}
+{% endif %}
+
+<script>
+    $(document).ready(function(){
+        $('#myForm').submit(function(event) {
+            // Prevent default form submission
+            event.preventDefault();
+    
+            // Serialize form data
+            var formData = $(this).serialize();
+           
+            // Send AJAX request
+            $.ajax({
+                type: 'POST',
+                url: '', // Replace with your server-side script URL
+                data: formData,
+                success: function(response) {
+                    // Handle the response from the server
+                    // alert('Form submitted successfully!');
+                    // You can update UI or do anything with the response here
+                },
+                error: function(xhr, status, error) {
+                    // Handle errors
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    });
+    </script>
 
 </body>
 

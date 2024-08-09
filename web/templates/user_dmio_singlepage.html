@@ -9,7 +9,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
          <!-- Favicon -->
-         <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/icon.jpeg' %}">
+         <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo/Miogra_logo.png' %}">
          <!-- Material Design Iconic Font-V2.2.0 -->
          <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
          <!-- Font Awesome -->
@@ -34,8 +34,8 @@
          <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
          <!-- Bootstrap V4.1.3 Fremwork CSS -->
          <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-         {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> {% endcomment %}
+          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>  
          <!-- Helper CSS -->
          <link rel="stylesheet" href="{% static 'css/helper.css' %}">
          <!-- Main Style CSS -->
@@ -57,18 +57,7 @@
             <!-- Begin Header Area -->
             {% include "enduser_header.html" %}
             <!-- Header Area End Here -->
-            <!-- Begin Li's Breadcrumb Area -->
-            <div class="breadcrumb-area">
-                <div class="container-fluid">
-                    <div class="breadcrumb-content">
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li class="active">Single Product</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- Li's Breadcrumb Area End Here -->
+            
             <!-- content-wraper start -->
             <div class="content-wraper">
                 <div class="container-fluid">
@@ -113,7 +102,17 @@
                                     <h2>{{dmios.product.model_name}}</h2>
                                     <span class="product-details-ref">{{dmios.product.subcategory}}</span>
                                     <div class="rating-box pt-20">
-
+                                       {% if dmios.rating == "2.0"%}
+                                        <ul class="rating rating-with-review-item">
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="review-item"><a href="#reviewa">Read Review</a></li>
+                                            <li class="review-item"><a href="#" href="#" data-toggle="modal" data-target="#mymodal">Write Review</a></li>
+                                        </ul>
+                                        {% elif dmios.rating == "3.0"%}
                                         <ul class="rating rating-with-review-item">
                                             <li><i class="fa fa-star-o"></i></li>
                                             <li><i class="fa fa-star-o"></i></li>
@@ -123,13 +122,54 @@
                                             <li class="review-item"><a href="#reviewa">Read Review</a></li>
                                             <li class="review-item"><a href="#" href="#" data-toggle="modal" data-target="#mymodal">Write Review</a></li>
                                         </ul>
+                                        {% elif dmios.rating == "4.0"%}
+                                        <ul class="rating rating-with-review-item">
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="review-item"><a href="#reviewa">Read Review</a></li>
+                                            <li class="review-item"><a href="#" href="#" data-toggle="modal" data-target="#mymodal">Write Review</a></li>
+                                        </ul>
+                                        {% elif dmios.rating == "5.0"%}
+                                        <ul class="rating rating-with-review-item">
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li class="review-item"><a href="#reviewa">Read Review</a></li>
+                                            <li class="review-item"><a href="#" href="#" data-toggle="modal" data-target="#mymodal">Write Review</a></li>
+                                        </ul>
+                                        {% elif dmios.rating == "1.0"%}
+                                        <ul class="rating rating-with-review-item">
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="review-item"><a href="#reviewa">Read Review</a></li>
+                                            <li class="review-item"><a href="#" href="#" data-toggle="modal" data-target="#mymodal">Write Review</a></li>
+                                        </ul>
+                                        {% else %}
+                                         <ul class="rating rating-with-review-item">
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="review-item"><a href="#reviewa">Read Review</a></li>
+                                            <li class="review-item"><a href="#" href="#" data-toggle="modal" data-target="#mymodal">Write Review</a></li>
+                                        </ul>
+                                        {% endif %}
                                     </div>
                                     <div class="price-box pt-20">
                                         <span class="new-price new-price-2">&#8377 {{dmios.product.selling_price}}</span>
                                     </div>
                                     <div class="product-desc">
                                         <p>
-                                            <span>{{dmios.product.description}}</span>
+                                            <span>{{dmios.product.product_description}}</span>
                                         </p>
                                     </div>
                                     <!-- <div class="product-variants">
@@ -158,43 +198,43 @@
                                     </div>
                                     <div class="product-additional-info pt-25">
                                         <a class="wishlist-btn" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{dmios.product.category}}/{{dmios.product.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a>
-                                        <div class="product-social-sharing pt-25">
-                                            <ul>
-                                                <li class="facebook"><a href="#"><i class="fa fa-facebook"></i>Facebook</a></li>
-                                                <li class="twitter"><a href="#"><i class="fa fa-twitter"></i>Twitter</a></li>
-                                                <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i>Google +</a></li>
-                                                <li class="instagram"><a href="#"><i class="fa fa-instagram"></i>Instagram</a></li>
-                                            </ul>
-                                        </div>
+                                        <!--<div class="product-social-sharing pt-25">-->
+                                        <!--    <ul>-->
+                                        <!--        <li class="facebook"><a href="#"><i class="fa fa-facebook"></i>Facebook</a></li>-->
+                                        <!--        <li class="twitter"><a href="#"><i class="fa fa-twitter"></i>Twitter</a></li>-->
+                                        <!--        <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i>Google +</a></li>-->
+                                        <!--        <li class="instagram"><a href="#"><i class="fa fa-instagram"></i>Instagram</a></li>-->
+                                        <!--    </ul>-->
+                                        <!--</div>-->
                                     </div>
-                                    <div class="block-reassurance">
-                                        <ul>
-                                            <li>
-                                                <div class="reassurance-item">
-                                                    <div class="reassurance-icon">
-                                                        <i class="fa fa-check-square-o"></i>
-                                                    </div>
-                                                    <p>Security policy (edit with Customer reassurance module)</p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="reassurance-item">
-                                                    <div class="reassurance-icon">
-                                                        <i class="fa fa-truck"></i>
-                                                    </div>
-                                                    <p>Delivery policy (edit with Customer reassurance module)</p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="reassurance-item">
-                                                    <div class="reassurance-icon">
-                                                        <i class="fa fa-exchange"></i>
-                                                    </div>
-                                                    <p> Return policy (edit with Customer reassurance module)</p>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div> 
+                                    <!--<div class="block-reassurance">-->
+                                    <!--    <ul>-->
+                                    <!--        <li>-->
+                                    <!--            <div class="reassurance-item">-->
+                                    <!--                <div class="reassurance-icon">-->
+                                    <!--                    <i class="fa fa-check-square-o"></i>-->
+                                    <!--                </div>-->
+                                    <!--                <p>Security policy (edit with Customer reassurance module)</p>-->
+                                    <!--            </div>-->
+                                    <!--        </li>-->
+                                    <!--        <li>-->
+                                    <!--            <div class="reassurance-item">-->
+                                    <!--                <div class="reassurance-icon">-->
+                                    <!--                    <i class="fa fa-truck"></i>-->
+                                    <!--                </div>-->
+                                    <!--                <p>Delivery policy (edit with Customer reassurance module)</p>-->
+                                    <!--            </div>-->
+                                    <!--        </li>-->
+                                    <!--        <li>-->
+                                    <!--            <div class="reassurance-item">-->
+                                    <!--                <div class="reassurance-icon">-->
+                                    <!--                    <i class="fa fa-exchange"></i>-->
+                                    <!--                </div>-->
+                                    <!--                <p> Return policy (edit with Customer reassurance module)</p>-->
+                                    <!--            </div>-->
+                                    <!--        </li>-->
+                                    <!--    </ul>-->
+                                    <!--</div> -->
                                 </div>
                             </div>
                         </div> 
@@ -220,7 +260,7 @@
                     <div class="tab-content">
                         <div id="description" class="tab-pane active show" role="tabpanel">
                             <div class="product-description">
-                                <span>{{dmios.product.description}}.</span>
+                                <span>{{dmios.product.product_description}}.</span>
                             </div>
                         </div>
                         <div id="product-details" class="tab-pane" role="tabpanel">
@@ -231,21 +271,26 @@
                                 <p><span>Product Name ;</span> {{dmios.product.model_name}}</p>
                                 <p><span>Brand : </span>{{dmios.product.brand}}</p>
                                 <p><span>Category: </span>{{dmios.product.subcategory}}</p>
-                                <p><span>Actual Price : </span>{{dmios.product.actual_price}}</p>
-                                <p><span>Selling Price (+GST): </span>{{dmios.product.selling_price}}</p>
+                               
+                                <p><span>Product Price : </span>{{dmios.product.selling_price}}</p>
                             </div>
                         </div>
                         <div id="reviews" class="tab-pane" role="tabpanel">
                             <div class="product-reviews">
                                 <div class="product-details-comment-block">
                                     {% for x in reviews %}
+                                     <div class="comment-author-infos pt-5">
+                                         <img src="{%static 'images/user_icon.jpg' %}" width="30px" height="30px">
+                                        <span>{{x.user.full_name}}</span>
+                                        <em>{{x.created_date}}</em>
+                                    </div>
                                     <div class="comment-review">
-                                        <span>Grade</span>
+                                        <span>Grade :</span>
                                         {% if x.rating == "2.0" %}
                                         <ul class="rating">
                                             <li><i class="fa fa-star-o"></i></li>
                                             <li><i class="fa fa-star-o"></i></li>
-                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                         </ul>
@@ -262,7 +307,7 @@
                                             <li><i class="fa fa-star-o"></i></li>
                                             <li><i class="fa fa-star-o"></i></li>
                                             <li><i class="fa fa-star-o"></i></li>
-                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                             <li><i class="fa fa-star-o"></i></li>
                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                         </ul>
                                         {% elif x.rating == "5.0" %}
@@ -270,23 +315,28 @@
                                             <li><i class="fa fa-star-o"></i></li>
                                             <li><i class="fa fa-star-o"></i></li>
                                             <li><i class="fa fa-star-o"></i></li>
+                                             <li><i class="fa fa-star-o"></i></li>
+                                             <li><i class="fa fa-star-o"></i></li>
+                                        </ul>
+                                         {% elif x.rating == "1.0" %}
+                                         <ul class="rating">
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                         </ul>
                                         {% else %}
                                         <ul class="rating">
-                                            <li><i class="fa fa-star-o"></i></li>
-                                            <li><i class="fa fa-star-o"></i></li>
-                                            <li><i class="fa fa-star-o"></i></li>
+                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                         </ul>
                                         {% endif %}
                                     </div>
-                                    <div class="comment-author-infos pt-25">
-                                        <span>{{x.user.full_name}}</span>
-                                        <em>{{x.created_date}}</em>
-                                    </div>
+                                   
                                     <div class="comment-details">
                                         <h4 class="title-block">Comment : <span>{{x.comment}}</span></h4>
                                         
@@ -296,8 +346,8 @@
                                         <a class="review-links" href="#" data-toggle="modal" data-target="#mymodal">Write Your Review!</a>
                                     </div>
                                     <!-- Begin Quick View | Modal Area -->
-                                    <div class="modal fade modal-wrapper" id="mymodal" >
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal" id="mymodal" >
+                                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-body">
                                                     <h3 class="review-page-title">Write Your Review</h3>
@@ -308,7 +358,7 @@
                                                                <div class="li-review-product-desc">
                                                                    <p class="li-product-name">{{dmios.product.model_name}}</p>
                                                                    <p>
-                                                                       <span>{{dmios.product.description}} </span>
+                                                                       <span>{{dmios.product.product_description}} </span>
                                                                    </p>
                                                                </div>
                                                            </div>
@@ -352,7 +402,7 @@
                                                                                 <input name="productId" value="{{dmios.product_id}}" type="text" style="display:none;">
                                                                                 <div class="feedback-btn pb-15">
                                                                                     <button class="close" data-dismiss="modal" aria-label="Close">Close</button>
-                                                                                    <button type="submit" name="reviewsubmit" value="{{dmios.product_id}}">Submit</button>
+                                                                                    <button class="close" type="submit" name="reviewsubmit" value="{{dmios.product_id}}">Submit</button>
                                                                                 </div>
                                                                             </div>
                                                                         </form>

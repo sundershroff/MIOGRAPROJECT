@@ -10,7 +10,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/icon.jpeg' %}">
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo/Miogra_logo.png' %}">
         <!-- Material Design Iconic Font-V2.2.0 -->
         <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
         <!-- Font Awesome -->
@@ -48,8 +48,15 @@
         <!-- Modernizr js -->
         <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <style>
+          button.li-btn{
+            top: -33px;
+          }
+        </style>
     </head>
     <body>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <!--[if lt IE 8]>
 		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
@@ -62,22 +69,12 @@
                      
             <!-- Header Area End Here -->
             <!-- Begin Li's Breadcrumb Area -->
-            <div class="breadcrumb-area">
-                <div class="container-fluid">
-                    <div class="breadcrumb-content">
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li class="active">Order</li>
-                            <li class="active">Payment</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <div class="container">  
             <form method="POST" id="myForm">
               {% csrf_token %}
-            <div class='payment mt-4 mb-4'>
+            <div class='payment mt-4'>
               <div class='container'>
-                <h1 class='text-center'>payment</h1>
+                <h1 class='text-center'>Payment</h1>
 
                 <div class='payment_tracking-number'>
                   <h3>1</h3>
@@ -85,89 +82,139 @@
                   <h3>2</h3>
                 </div>
               </div>
-           
-              <div class='payment'>
+            
+              <div class='payment mt-4'>
                 <div class="row">
-                <div class="col-md-6">
-                <h4>Select Payment Method</h4>
-                <div class='row payment_methods'>
-                  <div class='col-md-4'>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="paymentMethod" id="upi" value="UPI" required>
-                      <label class="form-check-label" for="upi">
-                        UPI
-                      </label>
+                  <div class='col-md-3'></div>
+                  <div class="col-md-3">
+                    <h4>Select Payment Method</h4>
+                    <div class='row payment_methods'>
+                      
+                      <div class='col-md-8'>
+                        
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="paymentMethod" id="paymentMethod" value="netBanking" required>
+                            <label class="form-check-label" for="netBanking">
+                              Online Payment
+                            </label>
+                          </div>
+                         {% if cod_shutdown == "False" %}
+                         <div class="form-check">
+                          <input class="form-check-input" type="radio" name="paymentMethod"  disabled>
+                          <label class="form-check-label" for="cod">
+                            Cash On Delivery
+                          </label>
+                        </div> 
+                         {% else %}
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="paymentMethod" id="paymentMethod" value="COD" checked>
+                          <label class="form-check-label" for="cod">
+                            Cash On Delivery
+                          </label>
+                        </div> 
+                        {% endif %}
+                      </div>
                     </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="paymentMethod" id="card" value="CARD">
-                      <label class="form-check-label" for="card">
-                        Credit/Debit/ATM Card
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="paymentMethod" id="netBanking" value="netBanking">
-                      <label class="form-check-label" for="netBanking">
-                        Net Banking
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="paymentMethod" id="cod" value="COD">
-                      <label class="form-check-label" for="cod">
-                        Cash On Delivery
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="paymentMethod" id="emi" value="emi">
-                      <label class="form-check-label" for="emi">
-                        EMI
-                      </label>
-                    </div>
-                    
                   </div>
-                  <div class='col-md-4'></div>
-                  <div class='col-md-4'></div>
+                
+                  <div class="col-md-6">
+                    <h4>Price Details</h4>
 
-                </div>
-            </div>
-                <div class="col-md-6">
-                <h4>Price Details</h4>
+                      <div class='row payment_price'>
+                        <div class="row">
+                          <div class='col-sm-5'> <p>Price ({{quantity}}item) :</p></div>
+                          <div class='col-sm-5'> <h5>&#8377 {{selling_price}}</h5></div>
+                        </div>  
+                        <div class="row">
+                          <div class='col-sm-5'> <p>Delivery Fees :</p> </div>
+                          <div class='col-sm-5'> <h5>&#8377 {{delivery_fee}}</h5></div>
+                        </div>  
+                        <!--<div class="row">-->
+                        <!--  <div class='col-sm-5'> <p>Discount :</p></div>-->
+                        <!--  <div class='col-sm-5'> <h5 >&#8377 {{discount}}</h5> </div>-->
+                        <!--</div>  -->
+                        <div class='row payment_total'>
+                          <div class='col-sm-5'>
+                            <h4>Order Total :</h4>
+                          </div>
+                          
+                          <div class='col-sm-5'>
+                            <h5>&#8377 {{total_price}}</h5>
+                          </div>
+                        </div>
+                      </div>
+                      <div class='col-sm-3'></div>
 
-                <div class='row payment_price'>
-                  <div class="row">
-                    <div class='col-sm-5'> <p>Price ({{quantity}}item) :</p></div>
-                    <div class='col-sm-5'> <h5>&#8377 {{selling_price}}</h5></div>
-                  </div>  
-                  <div class="row">
-                    <div class='col-sm-5'> <p>Delivery Fees :</p> </div>
-                    <div class='col-sm-5'> <h5>&#8377 {{delivery_fee}}</h5></div>
-                  </div>  
-                  <div class="row">
-                    <div class='col-sm-5'> <p>Discount :</p></div>
-                    <div class='col-sm-5'> <h5 >&#8377 -{{discount}}</h5> </div>
-                  </div>  
-                     
-                  </div>
-                  <div class='col-sm-3'></div>
-
-                <div class='row payment_total'>
-                  <div class='col-sm-5'>
-                    <h4>Order Total :</h4>
-                  </div>
-                  <div class='col-sm-3'></div>
-                  <div class='col-sm-4'>
-                    <h5>&#8377 {{total_price}}</h5>
+                      
                   </div>
                 </div>
-              </div>
-            </div>
             </div>
             
-             <center><button type="submit" name="order_place"><h1>Place Order</h1></button></center> 
+                <input type = "hidden" name="order_place" value="{{total_price}}">
+                <!--order_place-->
+                <center id="payment"><button type="submit" onclick="" name=""id="order"><h4>Place Order</h4></button></center> 
               </div>
             </form>
             </div>
-
           </div>
+           <form method="POST" id="afterpayment">
+              <input type="hidden" name="paymentMethod" value="netBanking">
+              <input type="hidden" id="razorpay_payment_id" name="razorpay_payment_id" >
+              <input type="hidden" id="razorpay_order_id" name="razorpay_order_id" >
+              <input type="hidden" id="razorpay_signature" name="razorpay_signature">
+          </form>
+          <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+{% if razor_amount != "" %}
+<script>
+ document.addEventListener("DOMContentLoaded", function() {
+var options = {
+    "key": "rzp_live_40vrRDs5JDf5dl", // Enter the Key ID generated from the Dashboard
+    "amount": "{{razor_amount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "MIOGRA",
+    "description": "Test Transaction",
+    "image": "https://miogra.com/static/assets/images/logo/Miogra_logo.png",
+    "order_id": "{{razor_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler": function (response){
+        // alert(response.razorpay_payment_id);
+        // alert(response.razorpay_order_id);
+        // alert(response.razorpay_signature);
+        document.getElementById("razorpay_payment_id").value=response.razorpay_payment_id;
+        document.getElementById("razorpay_order_id").value=response.razorpay_order_id;
+        document.getElementById("razorpay_signature").value=response.razorpay_signature;
+        document.getElementById("afterpayment").submit();
+    },
+    "prefill": {
+        "name": "Gaurav Kumar",
+        "email": "gaurav.kumar@example.com",
+        "contact": ""
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+});
+// document.getElementById('rzp-button1').onclick = function(e){
+
+    rzp1.open();
+    e.preventDefault();
+ });
+</script>
+{% else %}
+{% endif %}
+
           {% include 'footer.html' %}
 
           <script>
@@ -221,4 +268,3 @@
         <script src="{% static 'js/main.js' %}"></script> 
       </body>
   </html>
-             

@@ -165,11 +165,18 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
 /*----------------------------------------*/
 /* 10. Scroll Up
 /*----------------------------------------*/
-	$.scrollUp({
-		scrollText: '<i class="fa fa-angle-double-up"></i>',
-		easingType: 'linear',
-		scrollSpeed: 900
-	});
+ $(document).ready(function() {
+            // Check if $.scrollUp is a function before calling it
+            if ($.scrollUp) {
+                $.scrollUp({
+                    scrollText: '<i class="fa fa-angle-double-up"></i>',
+                    easingType: 'linear',
+                    scrollSpeed: 900
+                });
+            } else {
+                console.error('Error: ScrollUp plugin not found or not properly loaded.');
+            }
+        });
 /*----------------------------------------*/
 /* 11. Category Menu
 /*----------------------------------------*/

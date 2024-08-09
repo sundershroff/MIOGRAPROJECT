@@ -7,9 +7,12 @@ from rest_framework.decorators import api_view
 import requests
 import json
 from api.end_user_serializers import *
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
-
+jsondec = json.decoder.JSONDecoder()
+@csrf_exempt
 def send_notification(registration_ids , message_title , message_desc):
+    print(type(registration_ids))
     fcm_api = "AAAAbIibZeo:APA91bEHlJFNQjqRjMjX2N-YfgDAjOU_fXdt8HkQiQYhOYbGcv9B6MqGykeaG7zQVdrMOEQrOGckrUwKbl4XWdEOboEY9uDUSALHdzbpdW-DJbUxlVzCG_ayQJIPJfAnEPcCeKX86sqg"
     url = "https://fcm.googleapis.com/fcm/send"
     
@@ -17,51 +20,55 @@ def send_notification(registration_ids , message_title , message_desc):
     "Content-Type":"application/json",
     "Authorization": 'key='+fcm_api
     }    
-
-    payload = {
-        "registration_ids" :registration_ids,
-        "priority" : "high",
-        "notification" : {
-            "body" : message_desc,
-            "title" : message_title,
-            "image" : "https://i.ytimg.com/vi/m5WUPHRgdOA/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDwz-yjKEdwxvKjwMANGk5BedCOXQ",
-            "icon": "https://yt3.ggpht.com/ytc/AKedOLSMvoy4DeAVkMSAuiuaBdIGKC7a5Ib75bKzKO3jHg=s900-c-k-c0x00ffffff-no-rj",
-            
-        }
-    }
-
-    result = requests.post(url,  data=json.dumps(payload), headers=headers )
-    print(result.status_code)
-    print(result.json())
-
-def hub_dashboard(request,hub):
     
-    hub = hub
+    for x in registration_ids:
+        
+        payload = {
+            "registration_ids" :[x],
+            "priority" : "high",
+            "notification" : {
+                "body" : message_desc,
+                "title" : message_title,
+                "image" : "https://miogra.com//static/assets/images/logo/Miogra_logo.png",
+                "icon": "https://miogra.com//static/assets/images/logo/Miogra_logo.png",
+                
+            }
+        }
+    
+        result = requests.post(url,  data=json.dumps(payload), headers=headers )
+        print(result.status_code)
+        print(result.json())
+
+@csrf_exempt
+def hub_dashboard(request,hub):
+    hub = hub.lower()
     order_products = Product_Ordermodel.objects.filter(delivery_type = "Normal",jewel_id__region = hub,status="accepted",ready_to_pick_up=0) | Product_Ordermodel.objects.filter(delivery_type = "Normal",shop_id__region = hub,status="accepted",ready_to_pick_up=0) | Product_Ordermodel.objects.filter(delivery_type = "Normal",d_id__region = hub,status="accepted",ready_to_pick_up=0)
     delivery_boy = Delivery_model.objects.filter(region = hub)
     print(order_products)
     context = {
         'hub':hub,
-        'order_products':order_products,
+        'order_products':order_products[::-1],
         'delivery_boy':delivery_boy,
     }
     if request.method == "POST":
         print(request.POST)
         order_data = Product_Ordermodel.objects.get(order_id = request.POST['order_id'])
         order_data.ready_to_pick_up = 1
+        order_data.normal_delivery_assign = request.POST['assign_to_delivery_person']
         order_data.save()
         create_data = product_arrive.objects.create(
             order = order_data
         )
         create_data.save()
-        send_noti = Delivery_model.objects.filter(uid = request.POST['assign_to_delivery_person'])
+        send_noti = Delivery_model.objects.get(uid = request.POST['assign_to_delivery_person'])
+        print("fdjhgr",send_noti)
         # accepted
-        # send_notification("resgistration" , 'hi' , 'hello world')
+        print(send_noti.device_id)
+        send_notification(jsondec.decode(send_noti.device_id), "New order arrived" , 'You have got a text message')
         return redirect(f"/hub/hub_product_arrive/{hub}")
     return render(request,"hub_dashboard.html",context)
 
-
-
+@csrf_exempt
 def hub_product_arrive(request,hub):
     product_pick = (product_arrive.objects.filter(order_id__jewel_id__region = hub,product_arrived=0,order_id__ship_to_other_region = None)
     | 
@@ -75,12 +82,15 @@ def hub_product_arrive(request,hub):
     |
     product_arrive.objects.filter(order_id__d_id__region = hub,product_arrived=0,order_id__ship_to_other_region = "0")
     )
+    
+    print("******************************")
+    print(product_pick)
     delivery_boy = Delivery_model.objects.filter(region = hub)
     
 
     context = {
         'hub':hub,
-        'product_pick':product_pick,
+        'product_pick':product_pick[::-1],
         'delivery_boy':delivery_boy,
     }
     if request.method == "POST":
@@ -114,6 +124,7 @@ def hub_product_arrive(request,hub):
         elif "assign_to_delivery_person" in request.POST:
             order_data = Product_Ordermodel.objects.get(order_id = request.POST['order_id'])
             order_data.status = "accepted"
+            order_data.normal_delivery_assign = request.POST['assign_to_delivery_person']
             order_data.save()
             send_noti = Delivery_model.objects.filter(uid = request.POST['assign_to_delivery_person'])
             # accepted
@@ -123,14 +134,15 @@ def hub_product_arrive(request,hub):
         
     return render(request,"hub_product_arrrive.html",context)
 
+@csrf_exempt
 def delivery(request,hub):
     ready_to_delivery = (product_arrive.objects.filter(order__region = hub,product_arrived = 1)
     |
     product_arrive.objects.filter(order__region = hub,product_arrived_to_me = 1))
-    delivery_boy = Delivery_model.objects.filter(region = hub)
+    delivery_boy = Delivery_model.objects.filter(region = hub,delivery_type="Normal")
     context = {
         'hub':hub,
-        'ready_to_delivery':ready_to_delivery,
+        'ready_to_delivery':ready_to_delivery[::-1],
         'delivery_boy':delivery_boy,
     }
     if request.method == "POST":
@@ -144,6 +156,7 @@ def delivery(request,hub):
             return redirect(f"/hub/delivery/{hub}")
     return render(request,"delivery.html",context)
 
+@csrf_exempt
 def delivery_boy(request,hub):
     hub = hub
     delivery_boy = Delivery_model.objects.filter(region = hub)
@@ -153,6 +166,7 @@ def delivery_boy(request,hub):
     }
     return render(request,"delivery_boy.html",context)
 
+@csrf_exempt
 def hub_other_region(request,hub):
     other_region = []
     print(hub)
@@ -212,6 +226,7 @@ def hub_other_region(request,hub):
         
     return render(request,"other_region.html",context)
 
+@csrf_exempt
 def invoice(request,id):
     data = product_arrive.objects.get(id = id)
     context = {
@@ -219,6 +234,35 @@ def invoice(request,id):
     }
     return render(request,"invoice_hub.html",context)
 
+@csrf_exempt
+def return_products(request,hub):
+    order_products = (
+        product_return.objects.filter(order__delivery_type = "Normal",order__jewel_id__region = hub,order__status="end_user_return") 
+        | 
+        product_return.objects.filter(order__delivery_type = "Normal",order__shop_id__region = hub,order__status="end_user_return") 
+        |
+        product_return.objects.filter(order__delivery_type = "Normal",order__d_id__region = hub,order__status="end_user_return")
+    )
+    delivery_boy = Delivery_model.objects.filter(region = hub,delivery_type="Normal")
+    context = {
+        'hub':hub,
+        'order_products':order_products,
+        'delivery_boy':delivery_boy,
+    }
+    if request.method == "POST":  
+        if "product_arrived" in request.POST:
+            arrive=product_return.objects.get(order__order_id = request.POST['id'])   
+            arrive.product_arrived = request.POST['product_arrived'] 
+            arrive.save()
+            print("product_arrived")
+        elif "assign_work" in request.POST:
+            assign=product_return.objects.get(order__order_id = request.POST['order_id'])  
+            delivery_partner = Delivery_model.objects.get(uid = request.POST['assign_work'])
+            assign.delivery_person =  delivery_partner
+            assign.out_of_delivery =  "0"
+            assign.save()
+            print("Assign work successfully")
+    return render(request,"returned_product.html",context)
 
 @api_view(['POST'])
 def hub_picked(request,order_id,delivery_person):
@@ -228,7 +272,8 @@ def hub_picked(request,order_id,delivery_person):
             data = product_arrive.objects.get(order__order_id = order_id)
             delivery_boy = Delivery_model.objects.get(uid = delivery_person)
             print(data)
-            data.product_picked = request.data['product_picked']
+            # data.product_picked = request.data['product_picked']
+            data.product_picked = 1
             data.delivery_person = delivery_boy
             data.save()
             # if "order-confirmed" in request.POST:
@@ -247,7 +292,7 @@ def normal_delivery_get_product_order(request,id,region):
         if models.deliverylogintable_model.objects.filter(deliveryperson__uid=id,delivery_type="Normal",region=region,status="1").exists():
             delivery=models.deliverylogintable_model.objects.filter(deliveryperson__uid=id,delivery_type="Normal",region=region,status="1")
             print(delivery)
-            qs=models.Product_Ordermodel.objects.filter(status="accepted",delivery_type="Normal",region=region,ready_to_pick_up=1)
+            qs=models.Product_Ordermodel.objects.filter(status="accepted",delivery_type="Normal",region=region,ready_to_pick_up="1",normal_delivery_assign=id)
             print(qs)
             serializers= product_orderlistSerializer(qs,many=True)
             return Response(data=serializers.data,status=status.HTTP_200_OK)
@@ -273,5 +318,22 @@ def out_of_delivery(request,order_id):
             order_data.status = "picked"
             order_data.save()
             return Response("Out of Delivered",status=status.HTTP_200_OK)
+    except:
+        return Response("Invalid Data",status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def out_of_delivery_return(request,order_id):
+    try:
+        if request.method == "POST":
+            if "out_of_delivery" in request.data:
+                product_ret=product_return.objects.get(order__order_id = order_id)   
+                product_ret.out_of_delivery = "1"
+                product_ret.save()
+                return Response("Out of Delivered",status=status.HTTP_200_OK)
+            elif "delivered" in request.data:
+                product_ret=product_return.objects.get(order__order_id = order_id)   
+                product_ret.out_of_delivery = "2"
+                product_ret.save()
+                return Response("Delivered",status=status.HTTP_200_OK)
     except:
         return Response("Invalid Data",status=status.HTTP_400_BAD_REQUEST)

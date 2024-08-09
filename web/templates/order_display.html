@@ -10,7 +10,9 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{% static '/images/icon.jpeg' %}">
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo/Miogra_logo.png' %}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <!-- Material Design Iconic Font-V2.2.0 -->
         <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
         <!-- Font Awesome -->
@@ -38,40 +40,51 @@
         <!-- Helper CSS -->
         <link rel="stylesheet" href="{% static 'css/helper.css' %}">
         <!-- Main Style CSS -->
-        <link rel="stylesheet" href="{% static 'food_style.css' %}">
-        <!-- Main Style CSS -->
         <link rel="stylesheet" href="{% static 'css/style1.css' %}">
         <link rel="stylesheet" href="{% static 'css/order_dis.css' %}">
-
-        <link rel="stylesheet" href="{% static 'fresh_cuts_style.css' %}">
         <!-- Responsive CSS -->
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
         <!-- Modernizr js -->
         <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+         <style>
+           button.btn.btn-outline-primary.btn-sm.mt-2{
+               width:100%;
+               padding:3px;
+           }
+           button.btn.btn-primary.btn-sm{
+               width:100%;
+               
+           }
+           a.dropdown-item{
+               padding:0px;
+           }
+           .fa fa-star{
+               list-style: none;
+                 display: inline;
+           }
+           .no-star{
+               list-style: none;
+                 display: inline;
+                 
+           }
+       </style>
        
 </head>
 
 
 <body>
-<div class="body-wrapper">
+<div class="body-wrapper" style="padding:0px 15px;">
         <!-- Begin Header Area -->
        {% include "enduser_header.html" %}
         <!-- Header Area End Here -->
-        <!-- Begin Li's Breadcrumb Area -->
-        <div class="breadcrumb-area">
-            <div class="container-fluid">
-                <div class="breadcrumb-content">
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li class="active">Orders</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+      
         
     <div class="container mt-5 mb-5">
         <div class="d-flex justify-content-center row">
+            {% if error %}
+            <p style="text-align:center;color:red; "> {{error}}</p>
+            {% endif %}
             <div class="col-md-10">
                 {% for order in orders %}
                 {% if order.shop_product %}
@@ -80,18 +93,52 @@
                     <div class="col-md-6 mt-1">
                         <h5>{{order.shop_product.product.model_name}}</h5>
                         <div class="d-flex flex-row">
-                            <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>{{order.shop_product.product.rating}}</span>
+                            <div class="ratings mr-2">
+                                {% if order.shop_product.rating == "5.0" %}
+                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                {% elif order.shop_product.rating == "4.0" %}
+                                 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% elif order.shop_product.rating == "3.0" %}
+                                 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                  {% elif order.shop_product.rating == "2.0" %}
+                                  <i class="fa fa-star"></i><i class="fa fa-star"></i> 
+                                  <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% elif order.shop_product.rating == "1.0" %}
+                                 <i class="fa fa-star"></i> 
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                  <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% else %}
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li> 
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                  <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% endif %}
+                                </div><span>{{order.shop_product.rating}}</span>
                         </div>
-                        <p class="text-justify text-truncate para mb-0">{{order.shop_product.product.product_description}}<br><br></p>
+                        <p class="text-justify text-truncate para mb-0">{{order.shop_product.product.product_description}}<br>
+                            {% if order.status == "end_user_return" %}  <strong> Status:</strong>  Product Returned<br> {% else%}  <strong> Status:</strong> {{order.status}}<br> {% endif%}
+                            <br></p>
+                       
+                        
                     </div>
                     <div class="align-items-center align-content-center col-md-3 border-left mt-1">
                         <div class="d-flex flex-row align-items-center">
-                            <button class="btn btn-outline-primary btn-sm mt-2" type="button" data-toggle="modal" data-target="#mymodal" value="{{order.shop_product.product.product_id}}"  onclick="fun1(this)">Write a product review</button>
+                            <button class="btn btn-outline-primary btn-sm mt-2" type="button" data-toggle="modal" data-target="#mymodal" value="{{order.shop_product.product.product_id}}"  onclick="fun1(this)" style="width:100%">Write a Product Review</button>
                         </div>
                        
-                        <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button">Buy it again</button><button class="btn btn-outline-primary btn-sm mt-2" type="button" >
-                            <a class="dropdown-item" href="/user/product/order/tracking/{{key.uid}}/{{order.order_id}}">view your item</a></button>
-                            <a class="dropdown-item" href="/product_order_status_return/{{key.uid}}/{{order.order_id}}/"><button class="btn btn-outline-primary btn-sm mt-2" type="button">Return</button></a>
+                        <div class="d-flex flex-column mt-2"><button class="btn btn-primary btn-sm" type="button">Buy It Again</button>
+                        <button class="btn btn-outline-primary btn-sm mt-2" type="button" >
+                            <a class="dropdown-item" href="/user/product/order/tracking/{{key.uid}}/{{order.order_id}}" style="padding:0px">View Your Item</a></button>
+                            <a class="dropdown-item" href="/product_order_status_return/{{key.uid}}/{{order.order_id}}/" style="padding:0px"><button class="btn btn-primary btn-sm mt-2" type="button" style="width:100%">Return</button></a>
+                            <a class="dropdown-item" href="/enduser_order_cancel/{{key.uid}}/{{order.order_id}}/"><button class="btn btn-outline-primary btn-sm mt-2" type="button">Cancel Order</button></a>
                         </div>
                     </div>
                 </div>
@@ -101,23 +148,41 @@
                     <div class="col-md-6 mt-1">
                         <h5>{{order.food_product.product.model_name}}</h5>
                         <div class="d-flex flex-row">
-                            <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>{{order.food_product.product.rating}}</span>
+                            <div class="ratings mr-2">
+                               {% if order.food_product.rating == "5.0" %}
+                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                {% elif order.food_product.rating == "4.0" %}
+                                 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% elif order.food_product.rating == "3.0" %}
+                                 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><li class="no-star"><i class="fa fa-star-o"></i></li><li class="no-star"><i class="fa fa-star-o"></i></li>
+                                  {% elif order.food_product.rating == "2.0" %}
+                                  <i class="fa fa-star"></i><i class="fa fa-star"></i> <li class="no-star"><i class="fa fa-star-o"></i></li><li class="no-star"><i class="fa fa-star-o"></i></li><li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% elif order.food_product.rating == "1.0" %}
+                                 <i class="fa fa-star"></i><li class="no-star"><i class="fa fa-star-o"></i></li><li class="no-star"><i class="fa fa-star-o"></i></li><li class="no-star"><i class="fa fa-star-o"></i></li><li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% else %}
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li><li class="no-star"><i class="fa fa-star-o"></i></li><li class="no-star"><i class="fa fa-star-o"></i></li><li class="no-star"><i class="fa fa-star-o"></i></li><li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% endif %}
+                                </div><span>{{order.food_product.rating}}</span>
                         </div>
                         
-                        <p class="text-justify text-truncate para mb-0">{{order.food_product.product.product_description}}<br><br></p>
+                        <p class="text-justify text-truncate para mb-0">{{order.food_product.product.product_description}}<br>
+                            {% if order.status == "end_user_return" %}  <strong> Status:</strong>  Product Returned<br><br></p> {% else%}  <strong> Status:</strong> {{order.status}}<br><br></p> {% endif%}
                        
                     </div>
                     <div class="align-items-center align-content-center col-md-3 border-left mt-1">
                         <div class="d-flex flex-row align-items-center">
-                            <button class="btn btn-outline-primary btn-sm mt-2" type="button" data-toggle="modal" data-target="#mymodal" value="{{order.food_product.product.product_id}}"  onclick="fun1(this)" >Write a product review</button>
+                            <button class="btn btn-outline-primary btn-sm mt-2" type="button" data-toggle="modal" data-target="#mymodal" value="{{order.food_product.product.product_id}}"  onclick="fun1(this)" >Write a Product Review</button>
                         </div>
                        
-                        <div class="d-flex flex-column mt-4">
-                            <a href="/user/shopping_add_to_cart/{{key.uid}}/food/products/{{order.food_product.food_id}}/{{order.food_product.product.product_id}}/"><button class="btn btn-outline-primary btn-sm mt-2" type="button">Buy it again</button></a>
+                        <div class="d-flex flex-column mt-2">
+                            <a href="/user/shopping_add_to_cart/{{key.uid}}/food/products/{{order.food_product.food_id}}/{{order.food_product.product.product_id}}/"><button class="btn btn-primary btn-sm mt-2" type="button">Buy It Again</button></a>
                         </div>
-                        <div class="d-flex flex-column mt-4" style="margin-left: -24px;">
-                            <a class="dropdown-item" href="/user/product/order/tracking/{{key.uid}}/{{order.order_id}}"><button class="btn btn-outline-primary btn-sm mt-2" type="button" >view your item</button></a>
-                            <a class="dropdown-item" href="/product_order_status_return/{{key.uid}}/{{order.order_id}}/"><button class="btn btn-outline-primary btn-sm mt-2" type="button">Return</button></a>
+                        <div class="d-flex flex-column mt-2">
+                            <button class="btn btn-outline-primary btn-sm mt-2" type="button" >
+                            <a class="dropdown-item" href="/user/product/order/tracking/{{key.uid}}/{{order.order_id}}">View Your Item</a></button>
+                            <a class="dropdown-item" href="/product_order_status_return/{{key.uid}}/{{order.order_id}}/"><button class="btn btn-primary btn-sm mt-2" type="button">Return</button></a>
+                            <a class="dropdown-item" href="/enduser_order_cancel/{{key.uid}}/{{order.order_id}}/"><button class="btn btn-outline-primary btn-sm mt-2" type="button">Cancel Order</button></a>
+
                             
                         </div>
                         
@@ -129,19 +194,49 @@
                     <div class="col-md-6 mt-1">
                         <h5>{{order.freshcut_product.product.model_name}}</h5>
                         <div class="d-flex flex-row">
-                            <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>{{order.freshcut_product.product.rating}}</span>
+                            <div class="ratings mr-2">
+                                {% if order.freshcut_product.rating == "5.0" %}
+                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                {% elif order.freshcut_product.rating == "4.0" %}
+                                 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% elif order.freshcut_product.rating == "3.0" %}
+                                 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                  {% elif order.freshcut_product.rating == "2.0" %}
+                                  <i class="fa fa-star"></i><i class="fa fa-star"></i> 
+                                  <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% elif order.freshcut_product.rating == "1.0" %}
+                                 <i class="fa fa-star"></i> 
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                  <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% else %}
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li> 
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                  <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% endif %}
+                                </div><span>{{order.freshcut_product.rating}}</span>
                         </div>
                         
-                        <p class="text-justify text-truncate para mb-0">{{order.freshcut_product.product.product_description}}<br><br></p>
+                        <p class="text-justify text-truncate para mb-0">{{order.freshcut_product.product.product_description}}<br>
+                            {% if order.status == "end_user_return" %}  <strong> Status:</strong>  Product Returned<br><br></p> {% else%}  <strong> Status:</strong> {{order.status}}<br><br></p> {% endif%}
                     </div>
                     <div class="align-items-center align-content-center col-md-3 border-left mt-1">
                         <div class="d-flex flex-row align-items-center">
-                            <button class="btn btn-outline-primary btn-sm mt-2" type="button" data-toggle="modal" data-target="#mymodal" value="{{order.freshcuts_product.product.product_id}}"  onclick="fun1(this)">Write a product review</button>
+                            <button class="btn btn-outline-primary btn-sm mt-2" type="button" data-toggle="modal" data-target="#mymodal" value="{{order.freshcuts_product.product.product_id}}"  onclick="fun1(this)">Write a Product Review</button>
                         </div>
                        
-                        <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button">Buy it again</button><button class="btn btn-outline-primary btn-sm mt-2" type="button" >
-                            <a class="dropdown-item" href="/user/product/order/tracking/{{key.uid}}/{{order.order_id}}">view your item</a></button>
-                            <a class="dropdown-item" href="/product_order_status_return/{{key.uid}}/{{order.order_id}}/"><button class="btn btn-outline-primary btn-sm mt-2" type="button">Return</button></a>
+                        <div class="d-flex flex-column mt-2"><button class="btn btn-primary btn-sm" type="button">Buy It Again</button><button class="btn btn-outline-primary btn-sm mt-2" type="button" >
+                            <a class="dropdown-item" href="/user/product/order/tracking/{{key.uid}}/{{order.order_id}}">View Your Item</a></button>
+                            <a class="dropdown-item" href="/product_order_status_return/{{key.uid}}/{{order.order_id}}/"><button class="btn btn-primary btn-sm mt-2" type="button">Return</button></a>
+                            <a class="dropdown-item" href="/enduser_order_cancel/{{key.uid}}/{{order.order_id}}/"><button class="btn btn-outline-primary btn-sm mt-2" type="button">Cancel Order</button></a>
                         </div>
                     </div>
                 </div>
@@ -151,19 +246,49 @@
                     <div class="col-md-6 mt-1">
                         <h5>{{order.jewel_product.product.model_name}}</h5>
                         <div class="d-flex flex-row">
-                            <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>{{order.jewel_product.product.rating}}</span>
+                            <div class="ratings mr-2">
+                               {% if order.jewel_product.rating == "5.0" %}
+                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                {% elif order.jewel_product.rating == "4.0" %}
+                                 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% elif order.jewel_product.rating == "3.0" %}
+                                 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                  {% elif order.jewel_product.rating == "2.0" %}
+                                  <i class="fa fa-star"></i><i class="fa fa-star"></i> 
+                                  <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% elif order.jewel_product.rating == "1.0" %}
+                                 <i class="fa fa-star"></i> 
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                  <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% else %}
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li> 
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                  <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% endif %} 
+                                </div><span>{{order.jewel_product.rating}}</span>
                         </div>
                         
-                        <p class="text-justify text-truncate para mb-0">{{order.jewel_product.product.product_description}}<br><br></p>
+                        <p class="text-justify text-truncate para mb-0">{{order.jewel_product.product.product_description}}<br>
+                            {% if order.status == "end_user_return" %}  <strong> Status:</strong>  Product Returned<br><br></p> {% else%}  <strong> Status:</strong> {{order.status}}<br><br></p> {% endif%}
                     </div>
                     <div class="align-items-center align-content-center col-md-3 border-left mt-1">
                         <div class="d-flex flex-row align-items-center">
-                            <button class="btn btn-outline-primary btn-sm mt-2" type="button" data-toggle="modal" data-target="#mymodal" value="{{order.jewel_product.product.product_id}}"  onclick="fun1(this)" >Write a product review</button>
+                            <button class="btn btn-outline-primary btn-sm mt-2" type="button" data-toggle="modal" data-target="#mymodal" value="{{order.jewel_product.product.product_id}}"  onclick="fun1(this)" >Write a Product Review</button>
                         </div>
                        
-                        <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button">Buy it again</button><button class="btn btn-outline-primary btn-sm mt-2" type="button" >
-                            <a class="dropdown-item" href="/user/product/order/tracking/{{key.uid}}/{{order.order_id}}">view your item</a></button>
-                            <a class="dropdown-item" href="/product_order_status_return/{{key.uid}}/{{order.order_id}}/"><button class="btn btn-outline-primary btn-sm mt-2" type="button">Return</button></a>
+                        <div class="d-flex flex-column mt-2"><button class="btn btn-primary btn-sm" type="button">Buy It Again</button><button class="btn btn-outline-primary btn-sm mt-2" type="button" >
+                            <a class="dropdown-item" href="/user/product/order/tracking/{{key.uid}}/{{order.order_id}}">View Your Item</a></button>
+                            <a class="dropdown-item" href="/product_order_status_return/{{key.uid}}/{{order.order_id}}/"><button class="btn btn-primary btn-sm mt-2" type="button">Return</button></a>
+                            <a class="dropdown-item" href="/enduser_order_cancel/{{key.uid}}/{{order.order_id}}/"><button class="btn btn-outline-primary btn-sm mt-2" type="button">Cancel Order</button></a>
                         </div>
                     </div>
                 </div>
@@ -173,19 +298,49 @@
                     <div class="col-md-6 mt-1">
                         <h5>{{order.pharmacy_product.product.model_name}}</h5>
                         <div class="d-flex flex-row">
-                            <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>{{order.pharmacy_product.product.rating}}</span>
+                            <div class="ratings mr-2">
+                                {% if order.pharmacy_product.rating == "5.0" %}
+                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                {% elif order.pharmacy_product.rating == "4.0" %}
+                                 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% elif order.pharmacy_product.rating == "3.0" %}
+                                 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                  {% elif order.pharmacy_product.rating == "2.0" %}
+                                  <i class="fa fa-star"></i><i class="fa fa-star"></i> 
+                                  <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% elif order.pharmacy_product.rating == "1.0" %}
+                                 <i class="fa fa-star"></i> 
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                  <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% else %}
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li> 
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                  <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% endif %} 
+                                </div><span>{{order.pharmacy_product.rating}}</span>
                         </div>
                         
-                        <p class="text-justify text-truncate para mb-0">{{order.pharmacy_product.product.product_description}}<br><br></p>
+                        <p class="text-justify text-truncate para mb-0">{{order.pharmacy_product.product.product_description}}<br>
+                            {% if order.status == "end_user_return" %}  <strong> Status:</strong>  Product Returned<br><br></p> {% else%}  <strong> Status:</strong> {{order.status}}<br><br></p> {% endif%}
                     </div>
                     <div class="align-items-center align-content-center col-md-3 border-left mt-1">
                         <div class="d-flex flex-row align-items-center">
-                            <button class="btn btn-outline-primary btn-sm mt-2" type="button" data-toggle="modal" data-target="#mymodal" value="{{order.pharmacy_product.product.product_id}}"  onclick="fun1(this)" >Write a product review</button>
+                            <button class="btn btn-outline-primary btn-sm mt-2" type="button" data-toggle="modal" data-target="#mymodal" value="{{order.pharmacy_product.product.product_id}}"  onclick="fun1(this)" >Write a Product Review</button>
                         </div>
                        
-                        <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button">Buy it again</button><button class="btn btn-outline-primary btn-sm mt-2" type="button" >
-                            <a class="dropdown-item" href="/user/product/order/tracking/{{key.uid}}/{{order.order_id}}">view your item</a></button>
-                            <a class="dropdown-item" href="/product_order_status_return/{{key.uid}}/{{order.order_id}}/"><button class="btn btn-outline-primary btn-sm mt-2" type="button">Return</button></a>
+                        <div class="d-flex flex-column mt-2"><button class="btn btn-primary btn-sm" type="button">Buy It Again</button><button class="btn btn-outline-primary btn-sm mt-2" type="button" >
+                            <a class="dropdown-item" href="/user/product/order/tracking/{{key.uid}}/{{order.order_id}}">View Your Item</a></button>
+                            <a class="dropdown-item" href="/product_order_status_return/{{key.uid}}/{{order.order_id}}/"><button class="btn btn-primary btn-sm mt-2" type="button">Return</button></a>
+                            <a class="dropdown-item" href="/enduser_order_cancel/{{key.uid}}/{{order.order_id}}/"><button class="btn btn-outline-primary btn-sm mt-2" type="button">Cancel Order</button></a>
                         </div>
                     </div>
                 </div>
@@ -193,23 +348,58 @@
                 <div class="row p-2 bg-white border rounded">
                     <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" id="source_img" src="{{order.d_original_product.product.primary_image}}"></div>
                     <div class="col-md-6 mt-1">
-                        <h5>{{order.d_original_product.product.name|join:","}}</h5>
+                        <h5>{{order.d_original_product.product.model_name}}</h5>
                         <div class="d-flex flex-row">
-                            <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>{{order.d_original_product.product.rating}}</span>
+                            <div class="ratings mr-2">
+                                 {% if order.d_original_product.rating == "5.0" %}
+                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                {% elif order.d_original_product.rating == "4.0" %}
+                                 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% elif order.d_original_product.rating == "3.0" %}
+                                 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                  {% elif order.d_original_product.rating == "2.0" %}
+                                  <i class="fa fa-star"></i><i class="fa fa-star"></i> 
+                                  <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% elif order.d_original_product.rating == "1.0" %}
+                                 <i class="fa fa-star"></i> 
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                  <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% else %}
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li> 
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                  <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% endif %} 
+                            </div><span>{{order.d_original_product.rating}}</span>
                         </div>
                         
-                        <p class="text-justify text-truncate para mb-0">{{order.d_original_product.product.product_description}}<br><br></p>
+                        <p class="text-justify text-truncate para mb-0">{{order.d_original_product.product.product_description}}<br>
+                            {% if order.status == "end_user_return" %}  
+                            <strong> Status:</strong>  Product Returned<br> 
+                            {% else%} 
+                             <strong> Status:</strong> {{order.status}}<br>
+                             {% endif%}
+                             <br></p>
                     </div>
                     <div class="align-items-center align-content-center col-md-3 border-left mt-1">
                         <div class="d-flex flex-row align-items-center">
                            
-                                <button class="btn btn-outline-primary btn-sm mt-2" type="button" data-toggle="modal" data-target="#mymodal" value="{{order.d_original_product.product.product_id}}"  onclick="fun1(this)">Write a product review</button>
+                                <button class="btn btn-outline-primary btn-sm mt-2" type="button" data-toggle="modal" data-target="#mymodal" value="{{order.d_original_product.product.product_id}}"  onclick="fun1(this)">Write a Product Review</button>
                             
                         </div>
                        
-                        <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button">Buy it again</button><button class="btn btn-outline-primary btn-sm mt-2" type="button" >
-                            <a class="dropdown-item" href="/user/product/order/tracking/{{key.uid}}/{{order.order_id}}">view your item</a></button>
-                            <a class="dropdown-item" href="/product_order_status_return/{{key.uid}}/{{order.order_id}}/"><button class="btn btn-outline-primary btn-sm mt-2" type="button">Return</button></a>
+                        <div class="d-flex flex-column mt-2"><button class="btn btn-primary btn-sm" type="button">Buy It Again</button><button class="btn btn-outline-primary btn-sm mt-2" type="button" >
+                            <a class="dropdown-item" href="/user/product/order/tracking/{{key.uid}}/{{order.order_id}}">View Your Item</a></button>
+                            <a class="dropdown-item" href="/product_order_status_return/{{key.uid}}/{{order.order_id}}/"><button class="btn btn-primary btn-sm mt-2" type="button">Return</button></a>
+                            <a class="dropdown-item" href="/enduser_order_cancel/{{key.uid}}/{{order.order_id}}/"><button class="btn btn-outline-primary btn-sm mt-2" type="button">Cancel Order</button></a>
                         </div>
                     </div>
                 </div>
@@ -219,36 +409,54 @@
                     <div class="col-md-6 mt-1">
                         <h5>{{order.dmio_product.product.model_name}}</h5>
                         <div class="d-flex flex-row">
-                            <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>{{order.dmio_product.product.rating}}</span>
+                            <div class="ratings mr-2">
+                                 {% if order.dmio_product.rating == "5.0" %}
+                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                {% elif order.dmio_product.rating == "4.0" %}
+                                 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% elif order.dmio_product.rating == "3.0" %}
+                                 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                  {% elif order.dmio_product.rating == "2.0" %}
+                                  <i class="fa fa-star"></i><i class="fa fa-star"></i> 
+                                  <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% elif order.dmio_product.rating == "1.0" %}
+                                 <i class="fa fa-star"></i> 
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                  <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% else %}
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li> 
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                  <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 {% endif %} 
+                            </div><span>{{order.dmio_product.rating}}</span>
                         </div>
                         
-                        <p class="text-justify text-truncate para mb-0">{{order.dmio_product.product.product_description}}<br><br></p>
+                        <p class="text-justify text-truncate para mb-0">{{order.dmio_product.product.product_description}}<br>
+                            {% if order.status == "end_user_return" %}  <strong> Status:</strong>  Product Returned<br> {% else%}  <strong> Status:</strong> {{order.status}}<br>{% endif%}<br></p> 
                     </div>
                     <div class="align-items-center align-content-center col-md-3 border-left mt-1">
                         <div class="d-flex flex-row align-items-center">
-                            <button class="btn btn-outline-primary btn-sm mt-2" type="button" data-toggle="modal" data-target="#mymodal" value="{{order.dmio_product.product.product_id}}"  onclick="fun1(this)" >Write a product review</button>
+                            <button class="btn btn-outline-primary btn-sm mt-2" type="button" data-toggle="modal" data-target="#mymodal" value="{{order.dmio_product.product.product_id}}"  onclick="fun1(this)" >Write a Product Review</button>
                         </div>
                        
-                        <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button">Buy it again</button><button class="btn btn-outline-primary btn-sm mt-2" type="button" >
-                            <a class="dropdown-item" href="/user/product/order/tracking/{{key.uid}}/{{order.order_id}}">view your item</a></button>
-                            <a class="dropdown-item" href="/product_order_status_return/{{key.uid}}/{{order.order_id}}/"><button class="btn btn-outline-primary btn-sm mt-2" type="button">Return</button></a>
+                        <div class="d-flex flex-column mt-2"><button class="btn btn-primary btn-sm" type="button">Buy It Again</button><button class="btn btn-outline-primary btn-sm mt-2" type="button" >
+                            <a class="dropdown-item" href="/user/product/order/tracking/{{key.uid}}/{{order.order_id}}">View Your Item</a></button>
+                            <a class="dropdown-item" href="/product_order_status_return/{{key.uid}}/{{order.order_id}}/"><button class="btn btn-primary btn-sm mt-2" type="button">Return</button></a>
+                            <a class="dropdown-item" href="/enduser_order_cancel/{{key.uid}}/{{order.order_id}}/"><button class="btn btn-outline-primary btn-sm mt-2" type="button">Cancel Order</button></a>
                         </div>
                     </div>
                 </div>
                 {% endif %}
                 {% endfor %}
-                {% comment %} <div class="row p-2 bg-white border rounded mt-2">
-                    <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="https://i.imgur.com/JvPeqEF.jpg"></div>
-                    <div class="col-md-6 mt-1">
-                        <h5>Quant trident shirts</h5>
-                        <div class="d-flex flex-row">
-                            <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>310</span>
-                        </div>
-                        <div class="mt-1 mb-1 spec-1"><span>100% cotton</span><span class="dot"></span><span>Light weight</span><span class="dot"></span><span>Best finish<br></span></div>
-                        <div class="mt-1 mb-1 spec-1"><span>Unique design</span><span class="dot"></span><span>For men</span><span class="dot"></span><span>Casual<br></span></div>
-                        <p class="text-justify text-truncate para mb-0">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.<br><br></p>
-                    </div> {% endcomment %}
-                    
                      
                 </div>
             </div>
@@ -256,23 +464,23 @@
     </div>
     <!-- Begin Quick View | Modal Area -->
     <div class="modal fade modal-wrapper" id="mymodal" >
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-md" role="document" style="max-width: 600px;">
             <div class="modal-content">
                 <div class="modal-body">
                     <h3 class="review-page-title">Write Your Review</h3>
                     <div class="modal-inner-area row">
-                        <div class="col-lg-6">
-                           <div class="li-review-product">
-                               <img id="dest_img" src="" alt="Li's Product">
-                               <div class="li-review-product-desc">
-                                   <p class="li-product-name" id="product_name"></p>
-                                   <p>
-                                       <span>Beach Camera Exclusive Bundle - Includes Two Samsung Radiant 360 R3 Wi-Fi Bluetooth Speakers. Fill The Entire Room With Exquisite Sound via Ring Radiator Technology. Stream And Control R3 Speakers Wirelessly With Your Smartphone. Sophisticated, Modern Design </span>
-                                   </p>
-                               </div>
-                           </div>
-                        </div>
-                        <div class="col-lg-6">
+                        <!--<div class="col-lg-6">-->
+                        <!--   <div class="li-review-product">-->
+                        <!--       <img id="dest_img" src="" alt="Li's Product">-->
+                        <!--       <div class="li-review-product-desc">-->
+                        <!--           <p class="li-product-name" id="product_name"></p>-->
+                        <!--           <p>-->
+                        <!--               <span>Beach Camera Exclusive Bundle - Includes Two Samsung Radiant 360 R3 Wi-Fi Bluetooth Speakers. Fill The Entire Room With Exquisite Sound via Ring Radiator Technology. Stream And Control R3 Speakers Wirelessly With Your Smartphone. Sophisticated, Modern Design </span>-->
+                        <!--           </p>-->
+                        <!--       </div>-->
+                        <!--   </div>-->
+                        <!--</div>-->
+                        <div class="col-md-12 px-3">
                             <div class="li-review-content">
                                 <!-- Begin Feedback Area -->
                                 <div class="feedback-area">
@@ -309,7 +517,7 @@
                                                     <input id="email" name="email" value="" size="30" aria-required="true" type="text">
                                                     <span class="required"><sub>*</sub> Required fields</span>
                                                 </p>
-                                                <input type="text" id="product_id" value="" name="productId" style="display:none;">
+                                                <input type="text" id="product__id" value="" name="productId" style="display:none;">
                                                 <div class="feedback-btn pb-15">
                                                     <button class="close" aria-label="Close">Close</button>
                                                     <button type="submit" name="reviewsubmit" >Submit</button>
@@ -378,12 +586,8 @@
             <script>
                 function fun1(button) {
                     var buttonValue = button.value;
-                    var sourceImage = document.getElementById("source_img");
-                    var srcData = sourceImage.getAttribute("src");
-                    var destinationImage = document.getElementById("dest_img");
-                    destinationImage.setAttribute("src", srcData);
-                   
-                    document.getElementById('product_id').value = buttonValue;
+                    
+                    document.getElementById('product__id').value = buttonValue;
                 }
             </script>
 </body>

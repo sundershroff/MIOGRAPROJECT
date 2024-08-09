@@ -10,48 +10,48 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
-         <!-- Favicon -->
-         <link rel="shortcut icon" type="image/x-icon" href="{% static '/images/icon.jpeg' %}">
-         <!-- Material Design Iconic Font-V2.2.0 -->
-         <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
-         <!-- Font Awesome -->
-         <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
-         <!-- Font Awesome Stars-->
-         <link rel="stylesheet" href="{% static 'css/fontawesome-stars.css' %}">
-         <!-- Meanmenu CSS -->
-         <link rel="stylesheet" href="{% static 'css/meanmenu.css' %}">
-         <!-- owl carousel CSS -->
-         <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
-         <!-- Slick Carousel CSS -->
-         <link rel="stylesheet" href="{% static 'css/slick.css' %}">
-         <!-- Animate CSS -->
-         <link rel="stylesheet" href="{% static 'css/animate.css' %}">
-         <!-- Jquery-ui CSS -->
-         <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
-         <!-- Venobox CSS -->
-         <link rel="stylesheet" href="{% static 'css/venobox.css' %}">
-         <!-- Nice Select CSS -->
-         <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
-         <!-- Magnific Popup CSS -->
-         <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
-         <!-- Bootstrap V4.1.3 Fremwork CSS -->
-         <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-         <!-- Helper CSS -->
-         <link rel="stylesheet" href="{% static 'css/helper.css' %}">
-         <!-- Main Style CSS -->
-         <link rel="stylesheet" href="{% static 'css/about_us.css' %}">
-       
-         <!-- Responsive CSS -->
-         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
-         <!-- Modernizr js -->
-         <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo/Miogra_logo.png' %}">
+        <!-- Material Design Iconic Font-V2.2.0 -->
+        <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+        <!-- Font Awesome Stars-->
+        <link rel="stylesheet" href="{% static 'css/fontawesome-stars.css' %}">
+        <!-- Meanmenu CSS -->
+        <link rel="stylesheet" href="{% static 'css/meanmenu.css' %}">
+        <!-- owl carousel CSS -->
+        <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+        <!-- Slick Carousel CSS -->
+        <link rel="stylesheet" href="{% static 'css/slick.css' %}">
+        <!-- Animate CSS -->
+        <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+        <!-- Jquery-ui CSS -->
+        <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
+        <!-- Venobox CSS -->
+        <link rel="stylesheet" href="{% static 'css/venobox.css' %}">
+        <!-- Nice Select CSS -->
+        <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
+        <!-- Magnific Popup CSS -->
+        <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+        <!-- Bootstrap V4.1.3 Fremwork CSS -->
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <!-- Helper CSS -->
+        <link rel="stylesheet" href="{% static 'css/helper.css' %}">
+        <!-- Main Style CSS -->
+        <link rel="stylesheet" href="{% static 'css/about_us.css' %}">
+        <!-- Responsive CSS -->
+        <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+        <!-- Modernizr js -->
+        <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
     </head>
     <body>
     <!--[if lt IE 8]>
 		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
         <!-- Begin Body Wrapper -->
-        <div class="body-wrapper">
+        <div class="body-wrapper" style="padding:0px 15px;">
             <!-- Begin Header Area -->
             {% if key.uid %}
             {% include 'enduser_header.html' %}
@@ -59,75 +59,40 @@
             {% include 'header.html' %}
             {% endif %}
             <!-- Header Area End Here -->
-            <!-- Begin Li's Breadcrumb Area -->
-            <div class="breadcrumb-area">
-                <div class="container-fluid">
-                    <div class="breadcrumb-content">
-                        <ul>
-                            <li><a href="">Home</a></li>
-                            <li class="active">About Us</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- Li's Breadcrumb Area End Here -->
+            
             <!-- about wrapper start -->
             <div class="about-us-wrapper pt-60 pb-40">
-                <div class="container-fluid">
+                <div class="container">
                     <div class="row">
-                        <!-- About Text Start -->
-                        <div class="container order-last order-lg-first ">
-                            <div class="container">
-                                <div class="row">
-                               <div class="col-md-4"></div>
-                               <div class="col-md-4">
-                                    <img src="/static/images/menu/logo/header.png" alt="Footer Logo">
-                               </div>
-                                <div class="col-md-4"></div>
-                            </div>
-                                    <p class="info" style="text-align:justify;"><b>"Explore Miogra - your one-stop destination for fashion, food, groceries, and more. Elevate your style and stock up on essentials, all in one convenient place."</b>
-        
-                                    </p>
-                                    
-                               
-                            </div>
-                            <div>
-                                <h1>Welcome to Miogra - Your Lifestyle Destination</h1>
-                                <p>At Miogra, we believe in the power of convenience, quality, and style. Our mission is to create a seamless shopping experience that caters to all aspects of your lifestyle, from fashion to food and beyond.</p>
-                                <p>Established with a vision to redefine the way you shop, Miogra serves as your one-stop destination for all your needs. Whether you're looking to elevate your wardrobe with the latest fashion trends, indulge in gourmet culinary delights, or stock up on everyday essentials, Miogra has you covered.</p>
-                                <h4>Our Commitment to Excellence</h4>
-                                <p>At Miogra, we are committed to delivering excellence in every aspect of our service. We meticulously curate our product selection, sourcing only the finest quality items from trusted brands and suppliers. From fashion-forward clothing and accessories to premium groceries and wellness products, we strive to exceed your expectations at every turn.</p>
-                                <h4>Convenience Redefined</h4>
-                                <p>We understand the importance of convenience in today's fast-paced world. That's why we've designed Miogra to be your go-to destination for hassle-free shopping. With our user-friendly platform and seamless checkout process, you can shop with ease from the comfort of your own home. Say goodbye to crowded malls and long grocery lines – with Miogra, everything you need is just a click away.</p>
-                                <h4>Community and Connection</h4>
-                                <p>At Miogra, we value the connections we build with our customers and community. We are more than just a retailer – we are a hub for like-minded individuals who share a passion for fashion, food, and living life to the fullest. Join us on our journey as we strive to inspire and empower you to embrace your unique style and taste.</p>
-                                <h4>Experience Miogra Today</h4>
-                                <p>Discover the ultimate convenience of shopping for fashion, food, groceries, and more, all in one convenient destination. Elevate your lifestyle with Miogra and experience the difference for yourself. Welcome to the Miogra family – where style, quality, and convenience come together in perfect harmony.</p>
-                            </div>
-                            <div>
-                                <h4>Fashion Haven</h4>
-                                <p>At Miogra, immerse yourself in a world of fashion where style meets substance. Discover the latest trends curated from renowned designers and emerging talents alike. From haute couture to casual chic, Miogra offers a diverse array of clothing, footwear, and accessories to suit every taste and occasion. Whether you're looking for a statement piece to elevate your ensemble or wardrobe staples for everyday wear, find it all at Miogra's fashion haven.</p>
-                        
-                                <h4>Culinary Delights</h4>
-                                <p>Indulge your taste buds with Miogra's culinary delights. Explore a gourmet selection of international cuisines, artisanal snacks, and delectable treats that promise to tantalize your palate. From exotic spices to premium ingredients, Miogra sources only the finest products to ensure a culinary experience like no other. Whether you're a seasoned chef or an amateur cook, Miogra has everything you need to create culinary masterpieces in the comfort of your own kitchen.</p>
-                        
-                                <h4>Grocery Galore</h4>
-                                <p>Say goodbye to grocery store hassles and hello to convenience with Miogra's grocery galore. Shop for all your household essentials, from fresh produce to pantry staples, with just a few clicks. With a wide range of organic, gluten-free, and gourmet options available, Miogra caters to every dietary preference and lifestyle. Say goodbye to long lines and heavy bags – let Miogra handle your grocery needs so you can focus on what matters most.</p>
-                        
-                                <h4>Wellness Oasis</h4>
-                                <p>Prioritize your well-being with Miogra's wellness oasis. Discover a curated selection of health and wellness products designed to nourish your body and soul. From vitamins and supplements to skincare and self-care essentials, Miogra offers holistic solutions to help you look and feel your best. Whether you're on a journey to better health or simply seeking a moment of relaxation, Miogra's wellness oasis has everything you need to support your lifestyle goals.</p>
-                        
-                                <p>With Miogra, the possibilities are endless. Experience the ultimate convenience of shopping for fashion, food, groceries, and more, all in one convenient destination. Elevate your style, nourish your body, and simplify your life with Miogra today.</p>
-                            </div>
+                        <div class="col-md-3 float-left"> 
+                            
                         </div>
-                        <!-- About Text End -->
-                        <!-- About Image Start -->
-                        {% comment %} <div class="col-lg-5 col-md-10">
-                            <div class="about-image-wrap">
-                                <img class="img-full" src="{% static 'images/product/large-size/13.jpg' %}" alt="About Us" />
+                        <!-- About Text Start -->
+                        <div class="col-md-6 float-center">
+                            
+                            
+                            <div>
+                                <h3>About Us</h3>
+                                <p>Miogra welcome's you. Your one-stop online destination for all your shopping needs.</p>
+                                <h4>Our Mission</h4>
+                                <p>At Miogra, our mission is to provide our customers with a convenient and reliable platform to discover and purchase a wide array of products and services. </p>
+                                <h4>Our Vision</h4>
+                                <p>We envision Miogra as a trusted e-commerce brand known for its integrity, customer-centric approach, and commitment to quality. Our goal is to become a go-to destination for shoppers seeking a hassle-free and rewarding online shopping experience.</p>
+                                <h4>Contact information.</h4>
+                                <h5><i class="fa fa-fax"></i> Address</h5>
+                                <p> R.B Complex, Karumaram, Oorambu, Kollemcode p.o,Kanniyakumari,629160.</p>
+                                <h5><i class="fa fa-phone"></i> Phone</h5>
+                                <p>Mobile: (+91) 9072242801</p>
+                                <h5><i class="fa fa-envelope-o"></i> Email</h5>
+                                <p> miogracare@gmail.com</p>
+                            
                             </div>
-                        </div> {% endcomment %}
-                        <!-- About Image End -->
+                            
+                        </div>
+                        <div class="col-md-3 float-right">
+                          
+                        </div>
+                        
                     </div>
                 </div>
             </div>

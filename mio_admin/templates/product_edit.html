@@ -214,7 +214,7 @@
             <!-- Delivery live trackibg -->
 
             <div class="form">
-              <form method="POST" enctype="multipart/form-data" onclick="return calculateGrades()">
+              <form method="POST" id="myform" action="" enctype="multipart/form-data" onclick="return calculateGrades()">
                 {% csrf_token %}
                   <h1>UPDATE</h1>
                   <h2>Product Datails</h2>
@@ -228,38 +228,10 @@
                             <input type="file" class="imagebanner" name="primary_image" id="imageInputfresh4" onchange="previewImagefresh4()">
                             <img src="{{shop_product.product.primary_image}}" class="py-1 px-1" id="imagePreviewfresh4" style="position:absolute;width: 100%;height: 100%;border-radius: 10px;object-fit: contain;"  alt="">
                         </div>
-                      <label for="number2"><strong>Other images:</strong></label>
-                      <div class="row py-2" style="border:1px solid black">
-                        <div class="col-md-4">
-                          <div class="input-group" style="justify-content: center;align-items: center;height: 100%;border: 1px solid black;border-radius: 10px;">
-                          <p style="font-size: 50px;position: absolute;opacity: 80%;color: #8B1874;"><i class="fa fa-upload" ></i></p>
-                          <p style="font-size: 20px;position:absolute;opacity: 80%;color: #8B1874;bottom: 40px;">Upload Image</p>
-
-                          <input type="file" name="other_images" id="" style="height: 100%;opacity: 0%;">
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                        <div class="row">
-
-                        
-                        {% for i in shop_product.product.other_images %}
-                        <div class="col-md-4" style="padding-bottom: 15px;">
-                          <div class="input-group" style="justify-content: center;align-items: center;text-align: end;">
-                              <div class="banner">
-                               <a href="/delete_other_image/{{shop_product.product_id}}/{{ forloop.counter0 }}/{{authenticate.username}}" class="my-2" style="color: red;font-size: larger;padding-right: 5px;position: absolute;"><i class="fa fa-trash"></i></a  > 
-                              </div>
-                              <img src="{{i}}" class="py-1 px-1" id="imagePreviewfresh4" style="position:absolute;width: 100%;height: 100%;border-radius: 10px;object-fit: contain;"  alt="">
-                          </div>
-                      </div>
-  
-                        {% endfor %}
-                      </div>
-                    </div>
-                </div>
                           <label><strong>Brand</strong></label>
                           <input type="text" name="brand" value="{{shop_product.product.brand}}" placeholder="Enter brand name"  required><br>
                           <label ><strong>Model Name:</strong></label>
-                          <input type="text" name="name" value="{{shop_product.product.name}}" placeholder="Enter model name" required><br>
+                          <input type="text" name="model_name" value="{{shop_product.product.model_name}}" placeholder="Enter model name" required><br>
                             <!-- category -->
                             <label ><strong>Category:</strong></label>
                             <input type="text" name="category" value="{{shop_product.category}}" placeholder="Enter model name" required><br>
@@ -314,19 +286,52 @@
                             <input type="number"  placeholder="Enter name" required><br> {% endcomment %}
                             <label for="number6"><strong>Sellin Price:</strong></label>
                             <input type="number" name="selling_price" value="{{shop_product.product.selling_price}}" placeholder="Enter name" required><br>
-                            <input type="hidden" name="category" value="{{shop_product.category}}" id="">
-                            <input type="hidden" name="subcategory" value="{{shop_product.subcategory}}" id="">
                             <input type="hidden" name="status" value="{{shop_product.status}}" id="">
+                            <input type="hidden" name="product_id" value="{{shop_product.product_id}}" id="">
                           </div>&nbsp;&nbsp;
 
                       </div>
                       <br>
-                      <div>
-                          <button type="submit">update</button><br><br>
-                      
-                      </div>
+                     
                   </div>
               </form>
+              <label for="number2"><strong>Other images:</strong></label>
+              <div class="row py-2" style="border:1px solid black">
+
+                {% for i in shop_product.product.other_images %}
+
+                <div class="col-md-4 my-2" style="height: 250px;">  
+                  <div class="input-group" style="justify-content: center;align-items: center;height: 100%;border: 1px solid black;border-radius: 10px;">
+                    <form action="/admin/other_images/{{forloop.counter0}}/{{shop_product.category}}/{{shop_product.product_id}}" method="POST" enctype="multipart/form-data">
+                      {% csrf_token %}
+    
+
+                    <img src="{{i}}" style="font-size: 50px;position: absolute;height: 100%;width: 100%;border-radius: 10px;object-fit: cover;bottom: 0;">
+                  <input type="file" name="other_images" onchange="this.form.submit()" id="" style="height: 100%;opacity: 0%;">
+                    <input type="hidden" value="{{shop_product.product_id}}" name="product_id" id="">
+                    <input type="hidden" name="category" value="{{shop_product.category}}" id="">
+                    <input type="hidden" name="user" value="{{user}}" id="">
+                  </form>
+                  </div>
+             
+                </div>
+                {% endfor %}
+             
+        </div><br><br>
+        <div>
+          <button type="submit" onclick="fun1()">update</button><br><br>
+      
+      </div>
+      <div class="row">
+          <div class="col-md-6">
+              <a href="/admin/product_pause/{{shop_product.product_id}}/{{shop_product.category}}" style="color: black;background-color: orange;width: 100%;padding: 8px;border: 1px white;border-radius: 8px;display:block;text-align: center;text-decoration: none;">Pause</a>
+          </div>
+          <div class="col-md-6">
+                <a href="/admin/product_delete/{{shop_product.product_id}}/{{shop_product.category}}" style="color: white;background-color: red;width: 100%;padding: 8px;border: 1px white;border-radius: 8px;display:block;text-align: center;text-decoration: none;">Delete</a>
+
+          </div>
+      </div>
+
               </div>
 
           </div>
@@ -342,6 +347,11 @@
   
     {% include "script.html" %}
     <!-- Custom JavaScript -->
+    <script>
+      function fun1(){
+        document.getElementById("myform").submit();
+      }
+    </script>
     <script>
       $(document).ready(function() {
       $("#flip").click(function() {

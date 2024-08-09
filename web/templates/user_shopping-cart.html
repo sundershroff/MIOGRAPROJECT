@@ -10,7 +10,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/icon.jpeg' %}">
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo/Miogra_logo.png' %}">
         <!-- Material Design Iconic Font-V2.2.0 -->
         <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
         <!-- Font Awesome -->
@@ -56,24 +56,13 @@
             <!-- Begin Header Area -->
             {% include "enduser_header.html" %}
             <!-- Header Area End Here -->
-            <!-- Begin Li's Breadcrumb Area -->
-            <div class="breadcrumb-area">
-                <div class="container-fluid">
-                    <div class="breadcrumb-content">
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li class="active">Shopping Cart</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- Li's Breadcrumb Area End Here -->
+           
             <!--Shopping Cart Area Strat-->
             <div class="Shopping-cart-area pt-60 pb-60">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
-                            <form >
+                            
                                
                                 <div class="table-content table-responsive">
                                     
@@ -95,12 +84,12 @@
                                             <tr>
                                                 <form method="POST">
                                                     {% csrf_token %}
-                                                <td class="li-product-remove"><button name="cart_del" value="{{data.shop_product.product_id}}" style="border:none; background:none"><i class="fa fa-times"></i></button></td>
+                                                <td class="li-product-remove"><button name="cart_del" value="{{data.cart_id}}" style="border:none; background:none"><i class="fa fa-times"></i></button></td>
                                                 </form>
                                                 <form method="POST">
                                                     {% csrf_token %}
                                                 <td class="li-product-thumbnail"><a href="#"><img src="{{data.shop_product.product.primary_image}}" alt="Li's Product Image"></a></td>
-                                                <td class="li-product-name"><a href="#">{{data.shop_product.product.name|join:","}}</a></td>
+                                                <td class="li-product-name"><a href="#">{{data.shop_product.product.model_name}}</a></td>
                                                 <td class="li-product-price"><span class="amount">&#8377 {{data.shop_product.product.selling_price}}</span></td>
                                                 <td class="quantity">
                                                     <label>Quantity</label>
@@ -118,12 +107,12 @@
                                             <tr>
                                                <form method="POST">
                                                 {% csrf_token %}
-                                                <td class="li-product-remove"><button name="cart_del" value="{{data.jewel_product.product_id}}" style="border:none; background:none"><i class="fa fa-times"></i></button></td>
+                                                <td class="li-product-remove"><button name="cart_del" value="{{data.cart_id}}" style="border:none; background:none"><i class="fa fa-times"></i></button></td>
                                                </form>
                                                 <form method ="POST">
                                                     {% csrf_token %}
                                                 <td class="li-product-thumbnail"><a href="#"><img src="{{data.jewel_product.product.primary_image}}" alt="Li's Product Image"></a></td>
-                                                <td class="li-product-name"><a href="#">{{data.jewel_product.product.name|join:","}}</a></td>
+                                                <td class="li-product-name"><a href="#">{{data.jewel_product.product.model_name}}</a></td>
                                                 <td class="li-product-price"><span class="amount">&#8377 {{data.jewel_product.product.selling_price}}</span></td>
                                                 <td class="quantity">
 
@@ -142,12 +131,12 @@
                                             <tr>
                                                 <form method="POST">
                                                     {% csrf_token %}
-                                                <td class="li-product-remove"><button name="cart_del" value="{{data.pharmacy_product.product_id}}" style="border:none; background:none"><i class="fa fa-times"></i></button></td>
+                                                <td class="li-product-remove"><button name="cart_del" value="{{data.cart_id}}" style="border:none; background:none"><i class="fa fa-times"></i></button></td>
                                                 </form>
                                                 <form method="POST">
                                                     {% csrf_token %}
                                                 <td class="li-product-thumbnail"><a href="#"><img src="{{data.pharmacy_product.product.primary_image}}" alt="Li's Product Image"></a></td>
-                                                <td class="li-product-name"><a href="#">{{data.pharmacy_product.product.name|join:","}}</a></td>
+                                                <td class="li-product-name"><a href="#">{{data.pharmacy_product.product.model_name}}</a></td>
                                                 <td class="li-product-price"><span class="amount">&#8377 {{data.pharmacy_product.product.selling_price}}</span></td>
                                                 <td class="quantity">
                                                     
@@ -166,12 +155,12 @@
                                             <tr>
                                                 <form method="POST">
                                                     {% csrf_token %}
-                                                <td class="li-product-remove"><button name="cart_del" value="{{data.freshcut_product.product_id}}" style="border:none; background:none"><i class="fa fa-times"></i></button></td>
+                                                <td class="li-product-remove"><button name="cart_del" value="{{data.cart_id}}" style="border:none; background:none"><i class="fa fa-times"></i></button></td>
                                                 </form>
                                                 <form method="POST">
                                                     {% csrf_token %}
                                                 <td class="li-product-thumbnail"><a href="#"><img src="{{data.freshcut_product.product.primary_image}}" alt="Li's Product Image"></a></td>
-                                                <td class="li-product-name"><a href="#">{{data.freshcut_product.product.name|join:","}}</a></td>
+                                                <td class="li-product-name"><a href="#">{{data.freshcut_product.product.model_name}}</a></td>
                                                 <td class="li-product-price"><span class="amount">&#8377 {{data.freshcut_product.product.selling_price}}</span></td>
                                                 <td class="quantity">
                                                     
@@ -190,12 +179,12 @@
                                             <tr>
                                                 <form method="POST">
                                                     {% csrf_token %}
-                                                <td class="li-product-remove"><button name="cart_del" value="{{data.dailymio_product.product_id}}" style="border:none; background:none"><i class="fa fa-times"></i></button></td>
+                                                <td class="li-product-remove"><button name="cart_del" value="{{data.cart_id}}" style="border:none; background:none"><i class="fa fa-times"></i></button></td>
                                                 </form>
                                                 <form method="POST">
                                                     {% csrf_token %}
                                                 <td class="li-product-thumbnail"><a href="#"><img src="{{data.dailymio_product.product.primary_image}}" alt="Li's Product Image"></a></td>
-                                                <td class="li-product-name"><a href="#">{{data.dailymio_product.product.name|join:","}}</a></td>
+                                                <td class="li-product-name"><a href="#">{{data.dailymio_product.product.model_name}}</a></td>
                                                 <td class="li-product-price"><span class="amount">&#8377 {{data.dailymio_product.product.selling_price}}</span></td>
                                                 <td class="quantity">
                                                   
@@ -214,12 +203,12 @@
                                             <tr>
                                                 <form method="POST">
                                                     {% csrf_token %}
-                                                <td class="li-product-remove"><button name="cart_del" value="{{data.d_origin_product.product_id}}" style="border:none; background:none"><i class="fa fa-times"></i></button></td>
+                                                <td class="li-product-remove"><button name="cart_del" value="{{data.cart_id}}" style="border:none; background:none"><i class="fa fa-times"></i></button></td>
                                                 </form>
                                                 <form method="POST">
                                                     {% csrf_token %}
                                                 <td class="li-product-thumbnail"><a href="#"><img src="{{data.d_origin_product.product.primary_image}}" alt="Li's Product Image"></a></td>
-                                                <td class="li-product-name"><a href="#">{{data.d_origin_product.product.name|join:","}}</a></td>
+                                                <td class="li-product-name"><a href="#">{{data.d_origin_product.product.model_name}}</a></td>
                                                 <td class="li-product-price"><span class="amount">&#8377 {{data.d_origin_product.product.selling_price}}</span></td>
                                                 <td class="quantity">
                                                     <label>Quantity</label>
@@ -238,23 +227,7 @@
                                             </tr>
                                             {% endif%}
                                         {% endfor %}
-                                            {% comment %} <tr>
-                                                <td class="li-product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
-                                                <td class="li-product-thumbnail"><a href="#"><img src="images/product/small-size/6.jpg" alt="Li's Product Image"></a></td>
-                                                <td class="li-product-name"><a href="#">Mug Today is a good day</a></td>
-                                                <td class="li-product-price"><span class="amount">&#8377 71.80</span></td>
-                                                <td class="quantity">
-                                                    
-                                                    <label>Quantity</label>
-                                                    <div class="cart-plus-minus">
-                                                        <input class="cart-plus-minus-box" name="quantity" value="1" type="text">
-                                                        <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                        <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                    </div>
-                                                
-                                                </td>
-                                                <td class="product-subtotal"><span class="amount">&#8377</span><span class="sub_amount">60.00</span></td>
-                                            </tr> {% endcomment %}
+                                            
                                         </tbody>
                                     </table>
                                 </div>
@@ -269,6 +242,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                {% if cart_data %}
                                 <div class="row">
                                     <div class="col-md-5 ml-auto">
                                         <div class="cart-page-total">
@@ -281,7 +255,21 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                                {% else %}
+                                <div class="row">
+                                    <div class="col-md-5 ml-auto">
+                                        <div class="cart-page-total">
+                                            <h2>Cart totals</h2>
+                                            <ul>
+                                                <li>Subtotal <span>&#8377 {{sub_total}}</span></li>
+                                                <li>Total <span>&#8377 {{sub_total}}</span></li>
+                                            </ul>
+                                            <a href="">Proceed to checkout</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            
                         </div>
                     </div>
                 </div>

@@ -10,7 +10,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/icon.jpeg' %}">
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo/Miogra_logo.png' %}">
         <!-- Material Design Iconic Font-V2.2.0 -->
         <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
         <!-- Font Awesome -->
@@ -45,6 +45,24 @@
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
         <!-- Modernizr js -->
         <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
+        <style>
+            
+            .wishlist-item-count{
+                    position: absolute;
+                    top: -11px;
+                    left: -13px;
+                    display: block;
+                    overflow: hidden;
+                    min-width: 26px;
+                    line-height: 26px;
+                    font-size: 12px;
+                    font-weight: 700;
+                    color: white;
+                    background: #13b436;
+                    text-align: center;
+                    border-radius: 100%;
+             }
+        </style>
 
     </head>
     <body>
@@ -63,40 +81,49 @@
                         <!-- Begin Slider Area -->
                         <div class="col-lg-12 col-md-12" style="
                         padding-left: 0;
-                        padding-right: 0;
-                    ">
+                        padding-right: 0; ">
                             <div class="slider-area">
                                 <div class="slider-active owl-carousel">
+                                    {% for x in banner.banner_list1 %}
                                     <!-- Begin Single Slide Area -->
-                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(/media/{{banner.banner1}});">
-                                        <div class="slider-progress"></div>
-                                    </div>
-                                    <!-- Single Slide Area End Here -->
-                                    <!-- Begin Single Slide Area -->
-                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(/media/{{banner.banner2}});">
+                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url({{x}});">
                                         <div class="slider-progress"></div>
                                         {% comment %} <div class="slider-content">
-                                            <h5>Sale Offer <span>Black Friday</span> This Week</h5>
-                                            <h2>Ham Burger</h2>
-                                            <h3>Starting at <span>&#8377;224.00</span></h3>
+                                            <h5>Sale Offer <span>-20% Off</span> This Week</h5>
+                                            <h2>Chicken Briyani</h2>
+                                            <h3>Starting at <span>&#8377;150.00</span></h3>
                                             <div class="default-btn slide-btn">
-                                                <a class="links" href="pharmacy_single-product.html">Shopping Now</a>
+                                                <a class="links" href="/">Shopping Now</a>
                                             </div>
                                         </div> {% endcomment %}
                                     </div>
+                                    {% endfor %}
                                     <!-- Single Slide Area End Here -->
                                     <!-- Begin Single Slide Area -->
-                                    <!-- <div class="single-slide align-center-left animation-style-01 bg-3">
+                                    <!--<div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(media/{{banner.banner2}});">-->
+                                    <!--    <div class="slider-progress"></div>-->
+                                    <!--    {% comment %} <div class="slider-content">-->
+                                    <!--        <h5>Sale Offer <span>Black Friday</span> This Week</h5>-->
+                                    <!--        <h2>Ham Burger</h2>-->
+                                    <!--        <h3>Starting at <span>&#8377;224.00</span></h3>-->
+                                    <!--        <div class="default-btn slide-btn">-->
+                                    <!--            <a class="links" href="">Shopping Now</a>-->
+                                    <!--        </div>-->
+                                    <!--    </div> {% endcomment %}-->
+                                    <!--</div> -->
+                                    <!-- Single Slide Area End Here -->
+                                    <!-- Begin Single Slide Area -->
+                                    {% comment %} <div class="single-slide align-center-left animation-style-01 bg-3">
                                         <div class="slider-progress"></div>
                                         <div class="slider-content">
                                             <h5>Sale Offer <span>-10% Off</span> This Week</h5>
                                             <h2>Full Meals</h2>
                                             <h3>Starting at <span>&#8377;149.00</span></h3>
                                             <div class="default-btn slide-btn">
-                                                <a class="links" href="pharmacy_single-product.html">Shopping Now</a>
+                                                <a class="links" href="">Shopping Now</a>
                                             </div>
                                         </div>
-                                    </div> -->
+                                    </div> {% endcomment %}
                                     <!-- Single Slide Area End Here -->
                                 </div>
                             </div>
@@ -238,7 +265,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="li-bestseller-product" class="tab-pane" role="tabpanel">
+                        {% comment %} <div id="li-bestseller-product" class="tab-pane" role="tabpanel">
                             <div class="row">
                                 <div class="product-active owl-carousel">
                                     <div class="col-lg-12">
@@ -754,7 +781,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> {% endcomment %}
                     </div>
                 </div>
             </div>
@@ -773,7 +800,7 @@
                                     <span>Random Medicines</span>
                                 </h2>
                                 <ul class="li-sub-category-list">
-                                    <li class="active"><a href="pharmacy_single-product.html">View All</a></li>
+                                    <li class="active"><a href="">View All</a></li>
                                     <!-- <li><a href="pharmacy_single-product.html">Computers</a></li>
                                     <li><a href="pharmacy_single-product.html">Electronics</a></li> -->
                                 </ul>
@@ -833,10 +860,19 @@
                                                                 <li><i class="fa fa-star-o"></i></li>
                                                                 <li><i class="fa fa-star-o"></i></li>
                                                             </ul>
-                                                            {% else %}
+                                                            {% elif i.rating == "1.0" %}
                                                             <span>{{i.rating}}</span>
                                                             <ul class="rating">
                                                                 <li><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                            </ul>
+                                                            {% else %}
+                                                            <span>{{i.rating}}</span>
+                                                            <ul class="rating">
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
@@ -847,7 +883,7 @@
                                                     </div>
                                                     <h4><a class="product_name" href="/pharmacyproducts/pharmacy_single/{{i.product.pharm_id}}/{{i.product.product_id}}">{{i.product.model_name}}</a></h4>
                                                     <div class="price-box" style="display: flex;">
-                                                        <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;{{i.prpoduct.selling_price}}</span>
+                                                        <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;{{i.product.selling_price}}</span>
                                                         <span style=" display: flex;width: 100%;justify-content: end;">
                                                         <td class="quantity">
                                                         
@@ -866,215 +902,7 @@
                                         <!-- single-product-wrap end -->
                                     </div>
                                     {% endfor %}
-                                    {% comment %} <div class="col-lg-12">
-                                        <!-- single-product-wrap start -->
-                                        <div class="single-product-wrap">
-                                            <div class="product-image">
-                                                <a href="pharmacy_single-product.html">
-                                                    <img src="/static/images/pharmacy/ayurvedic.jpg" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="product-details.html"></a>
-                                                        </h5>
-                                                        <!-- <div class="rating-box">
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div> -->
-                                                    </div>
-                                                    <h4><a class="product_name" href="pharmacy_single-product.html">Ayurvedic</a></h4>
-                                                    <div class="price-box" style="display: flex;">
-                                                        <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                        <span style=" display: flex;width: 100%;justify-content: end;">
-                                                        <td class="quantity">
-                                                        
-                                                            <div class="cart-plus-minus">
-                                                                <input class="cart-plus-minus-box" value="1" type="text">
-                                                                <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                            </div>
-                                                        </td></span>
-                                                    </div>
-                                                    
-                                                </div>
-                                                <div class="add-actions">
-                                                    <ul class="add-actions-link">
-                                                        
-                                                        <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- single-product-wrap end -->
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <!-- single-product-wrap start -->
-                                        <div class="single-product-wrap">
-                                            <div class="product-image">
-                                                <a href="pharmacy_single-product.html">
-                                                    <img src="/static/images/pharmacy/ayurvedic.jpg" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="product-details.html"></a>
-                                                        </h5>
-                                                        <!-- <div class="rating-box">
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div> -->
-                                                    </div>
-                                                    <h4><a class="product_name" href="pharmacy_single-product.html">Ayurvedic</a></h4>
-                                                    <div class="price-box" style="display: flex;">
-                                                        <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                        <span style=" display: flex;width: 100%;justify-content: end;">
-                                                        <td class="quantity">
-                                                        
-                                                            <div class="cart-plus-minus">
-                                                                <input class="cart-plus-minus-box" value="1" type="text">
-                                                                <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                            </div>
-                                                        </td></span>
-                                                    </div>
-                                                    
-                                                </div>
-                                                <div class="add-actions">
-                                                    <ul class="add-actions-link">
-                                                        
-                                                        <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- single-product-wrap end -->
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <!-- single-product-wrap start -->
-                                        <div class="single-product-wrap">
-                                            <div class="product-image">
-                                                <a href="pharmacy_single-product.html">
-                                                    <img src="/static/images/pharmacy/ayurvedic.jpg" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="product-details.html"></a>
-                                                        </h5>
-                                                        <!-- <div class="rating-box">
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div> -->
-                                                    </div>
-                                                    <h4><a class="product_name" href="pharmacy_single-product.html">Ayurvedic</a></h4>
-                                                    <div class="price-box" style="display: flex;">
-                                                        <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                        <span style=" display: flex;width: 100%;justify-content: end;">
-                                                        <td class="quantity">
-                                                        
-                                                            <div class="cart-plus-minus">
-                                                                <input class="cart-plus-minus-box" value="1" type="text">
-                                                                <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                            </div>
-                                                        </td></span>
-                                                    </div>
-                                                    
-                                                </div>
-                                                <div class="add-actions">
-                                                    <ul class="add-actions-link">
-                                                        
-                                                        <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- single-product-wrap end -->
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <!-- single-product-wrap start -->
-                                        <div class="single-product-wrap">
-                                            <div class="product-image">
-                                                <a href="pharmacy_single-product.html">
-                                                    <img src="/static/images/pharmacy/ayurvedic.jpg" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="product-details.html"></a>
-                                                        </h5>
-                                                        <!-- <div class="rating-box">
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div> -->
-                                                    </div>
-                                                    <h4><a class="product_name" href="pharmacy_single-product.html">Ayurvedic</a></h4>
-                                                    <div class="price-box" style="display: flex;">
-                                                        <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                        <span style=" display: flex;width: 100%;justify-content: end;">
-                                                        <td class="quantity">
-                                                        
-                                                            <div class="cart-plus-minus">
-                                                                <input class="cart-plus-minus-box" value="1" type="text">
-                                                                <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                            </div>
-                                                        </td></span>
-                                                    </div>
-                                                    
-                                                </div>
-                                                <div class="add-actions">
-                                                    <ul class="add-actions-link">
-                                                        
-                                                        <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- single-product-wrap end -->
-                                    </div>
-                                    {% endcomment %}
+                                   
                                       
                                 </div>
                             </div>

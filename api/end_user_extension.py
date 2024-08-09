@@ -3,7 +3,7 @@ from api import end_user_serializers
 import random
 import string
 import yagmail
-
+from django.views.decorators.csrf import csrf_exempt
 
 def id_generate():
     id = str("".join(random.choices(string.ascii_uppercase+string.digits,k=11)))
@@ -50,14 +50,21 @@ def verify_user_otp(email):
         authentication = True
     return authentication
 
+@csrf_exempt
 def send_mail(receiver_email, otp):
-    sender = 'abijithmailforjob@gmail.com'
-    password = 'kgqzxinytwbspurf'
+    print(receiver_email)
+    print(otp)
+    sender = 'miofeatures2002@gmail.com'
+    password = 'xhej oirn pbds ofzs'
+    # sender = 'abijithmailforjob@gmail.com'
+    # password = 'kgqzxinytwbspurf'
     subject = "Miogra Sign Up OTP"
     content = f"""
     OTP : {otp}
     """
+    print("ala set")
     yagmail.SMTP(sender, password).send(
+    # yagmail(user = sender,password = password,host='smtp.gmail.com').send(
         to=receiver_email,
         subject=subject,
         contents=content

@@ -10,7 +10,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/icon.jpeg' %}">
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo/Miogra_logo.png' %}">
         <!-- Material Design Iconic Font-V2.2.0 -->
         <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
         <!-- Font Awesome -->
@@ -61,77 +61,54 @@
             <!-- Begin Slider With Banner Area -->
             
             <div class="slider-with-banner">
-                
                 <div class="container-fluid">
-                    <div class="row" >
-                        <div class="col-md-2"></div>
-                        <div class="col-md-8" style="align-items:center;">
-                            <form method="POST" >
-                                {% csrf_token %}
-                                <div>
-                                    <select name="district" class="dist-select" style="min-width: 91%;">
-                                        <option value="">Select District</option>                         
-                                        <option value="kanniyakumari">Kanyakumari</option> 
-                                        <option value="thirunelveli">Thirunelveli</option>
-                                        <option value="thanjavur">Thanjavur</option>
-                                        <option value="madurai">Madurai</option>                    
-                                        <option value="namakkal">Namakkal</option>
-                                        <option value="selam">Selam</option>
-                                        
-                                    </select> 
-                                    <button class="li-btn" type="submit" fdprocessedid="rj8qgm"><i class="fa fa-search"></i></button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-md-2"></div>
-                    </div>
-                    
                     <div class="row">
                         <!-- Begin Slider Area -->
                         <div class="col-lg-12 col-md-12" style="
                         padding-left: 0;
-                        padding-right: 0;
-                    ">
+                        padding-right: 0; ">
                             <div class="slider-area">
                                 <div class="slider-active owl-carousel">
+                                    {% for x in banner.banner_list1 %}
                                     <!-- Begin Single Slide Area -->
-                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(/media/{{banner.banner1}});">
+                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url({{x}});">
                                         <div class="slider-progress"></div>
                                         {% comment %} <div class="slider-content">
                                             <h5>Sale Offer <span>-20% Off</span> This Week</h5>
-                                            <h2>Tirunelveli Halwa </h2>
+                                            <h2>Chicken Briyani</h2>
                                             <h3>Starting at <span>&#8377;150.00</span></h3>
                                             <div class="default-btn slide-btn">
-                                                <a class="links" href="used_product_left-sidebar.html">Shopping Now</a>
+                                                <a class="links" href="/">Shopping Now</a>
                                             </div>
                                         </div> {% endcomment %}
                                     </div>
+                                    {% endfor %}
                                     <!-- Single Slide Area End Here -->
                                     <!-- Begin Single Slide Area -->
-                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(/media/{{banner.banner2}});">
-                                        <div class="slider-progress"></div>
-                                        {% comment %} <div class="slider-content">
-                                            <h5>Sale Offer <span>Black Friday</span> This Week</h5>
-                                            <h2>Sea Fish</h2>
-                                            <h3>Starting at <span>&#8377;224.00</span></h3>
-                                            <div class="default-btn slide-btn">
-                                                <a class="links" href="used_product_left-sidebar.html">Shopping Now</a>
-                                            </div>
-                                        </div> {% endcomment %}
-                                    </div> 
+                                    <!--<div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(media/{{banner.banner2}});">-->
+                                    <!--    <div class="slider-progress"></div>-->
+                                    <!--    {% comment %} <div class="slider-content">-->
+                                    <!--        <h5>Sale Offer <span>Black Friday</span> This Week</h5>-->
+                                    <!--        <h2>Ham Burger</h2>-->
+                                    <!--        <h3>Starting at <span>&#8377;224.00</span></h3>-->
+                                    <!--        <div class="default-btn slide-btn">-->
+                                    <!--            <a class="links" href="">Shopping Now</a>-->
+                                    <!--        </div>-->
+                                    <!--    </div> {% endcomment %}-->
+                                    <!--</div> -->
                                     <!-- Single Slide Area End Here -->
                                     <!-- Begin Single Slide Area -->
-                                    <!-- <div class="single-slide align-center-left animation-style-01 bg-3">
+                                    {% comment %} <div class="single-slide align-center-left animation-style-01 bg-3">
                                         <div class="slider-progress"></div>
                                         <div class="slider-content">
                                             <h5>Sale Offer <span>-10% Off</span> This Week</h5>
                                             <h2>Full Meals</h2>
                                             <h3>Starting at <span>&#8377;149.00</span></h3>
                                             <div class="default-btn slide-btn">
-                                                <a class="links" href="used_product_left-sidebar.html">Shopping Now</a>
+                                                <a class="links" href="">Shopping Now</a>
                                             </div>
                                         </div>
-                                    </div> -->
+                                    </div> {% endcomment %}
                                     <!-- Single Slide Area End Here -->
                                 </div>
                             </div>
@@ -224,9 +201,17 @@
                                                                 <li><i class="fa fa-star-o"></i></li>
                                                                 <li><i class="fa fa-star-o"></i></li>
                                                             </ul>
-                                                            {% else %}
+                                                            {% elif i.rating == "1.0"%}
                                                             <ul class="rating">
                                                                 <li><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                            </ul>
+                                                            {% else %}
+                                                            <ul class="rating">
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
@@ -740,7 +725,7 @@
                                             <span>Products </span>
                                         </h2>
                                         <ul class="nav li-product-menu li-trending-product-menu">
-                                            <li><a class="active" data-toggle="tab" href="#home1"><span>View All</span></a></li>
+                                            <li><a class="active"><span>View All</span></a></li>
                                             <!-- <li><a data-toggle="tab" href="#home2"><span>Camera Accessories</span></a></li>
                                             <li><a data-toggle="tab" href="#home3"><span>XailStation</span></a></li> -->
                                          </ul> 
@@ -797,14 +782,22 @@
                                                                         <li><i class="fa fa-star-o"></i></li>
                                                                         <li><i class="fa fa-star-o"></i></li>
                                                                     </ul>
-                                                                    {% else %}
-                                                                    <ul class="rating">
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                    </ul>
+                                                                    {% elif i.rating == "1.0"%}
+                                                                        <ul class="rating">
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        </ul>
+                                                                        {% else %}
+                                                                        <ul class="rating">
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        </ul>
                                                                     {% endif %}
                                                                 </div>
                                                             </div>
@@ -813,13 +806,13 @@
                                                                 <span class="new-price">&#8377;{{i.product.selling_price}}</span>
                                                             </div>
                                                         </div>
-                                                        <div class="add-actions">
+                                                        {% comment %} <div class="add-actions">
                                                             <ul class="add-actions-link">
                                                                 <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/d_original/products/{{i.d_id}}/{{i.product_id}}/">Add to cart</a></li>
                                                                 <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                                 <li><a href="/products/dailymioproducts/dmio_singleproduct/{{key.uid}}/{{i.d_id}}/{{i.product_id}}" title="quick view" class="quick-view-btn" ><i class="fa fa-eye"></i></a></li>
                                                             </ul>
-                                                        </div>
+                                                        </div> {% endcomment %}
                                                     </div>
                                                 </div>
                                                 <!-- single-product-wrap end -->
@@ -880,9 +873,17 @@
                                                                         <li><i class="fa fa-star-o"></i></li>
                                                                         <li><i class="fa fa-star-o"></i></li>
                                                                     </ul>
-                                                                    {% else %}
+                                                                    {% elif i.rating == "1.0"%}
                                                                     <ul class="rating">
                                                                         <li><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                    </ul>
+                                                                    {% else %}
+                                                                    <ul class="rating">
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                         <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                         <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                         <li class="no-star"><i class="fa fa-star-o"></i></li>
@@ -896,13 +897,13 @@
                                                                 <span class="new-price">&#8377;{{i.product.selling_price}}</span>
                                                             </div>
                                                         </div>
-                                                        <div class="add-actions">
+                                                        {% comment %} <div class="add-actions">
                                                             <ul class="add-actions-link">
                                                                 <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/d_original/products/{{i.d_id}}/{{i.product_id}}/">Add to cart</a></li>
                                                                 <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                                                                 <li><a href="/products/dailymioproducts/dmio_singleproduct/{{key.uid}}/{{i.d_id}}/{{i.product_id}}" title="quick view" class="quick-view-btn" ><i class="fa fa-eye"></i></a></li>
                                                             </ul>
-                                                        </div>
+                                                        </div> {% endcomment %}
                                                     </div>
                                                 </div>
                                                 <!-- single-product-wrap end -->

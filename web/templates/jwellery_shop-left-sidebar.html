@@ -8,8 +8,11 @@
         <title>Miogra</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        
          <!-- Favicon -->
-         <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/icon.jpeg' %}">
+         <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo/Miogra_logo.png' %}">
          <!-- Material Design Iconic Font-V2.2.0 -->
          <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
          <!-- Font Awesome -->
@@ -42,6 +45,24 @@
          <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
          <!-- Modernizr js -->
          <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
+         <style>
+           
+            .wishlist-item-count{
+                    position: absolute;
+                    top: -11px;
+                    left: -13px;
+                    display: block;
+                    overflow: hidden;
+                    min-width: 26px;
+                    line-height: 26px;
+                    font-size: 12px;
+                    font-weight: 700;
+                    color: white;
+                    background: #13b436;
+                    text-align: center;
+                    border-radius: 100%;
+             }
+        </style>
     </head>
     <body>
     <!--[if lt IE 8]>
@@ -52,18 +73,7 @@
             <!-- Begin Header Area -->
             {% include "header.html" %}
             <!-- Header Area End Here -->
-            <!-- Begin Li's Breadcrumb Area -->
-            <div class="breadcrumb-area">
-                <div class="container">
-                    <div class="breadcrumb-content">
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li class="active">Shop Left Sidebar</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- Li's Breadcrumb Area End Here -->
+           
             <!-- Begin Li's Content Wraper Area -->
             <div class="content-wraper pt-60 pb-60 pt-sm-30">
                 <div class="container-fluid">
@@ -178,10 +188,19 @@
                                                                             <li><i class="fa fa-star-o"></i></li>
                                                                             <li><i class="fa fa-star-o"></i></li>
                                                                         </ul>
-                                                                        {% else %}
+                                                                        {% elif i.item.rating == "1.0"%}
                                                                         <span>{{i.item.rating}}</span>
                                                                         <ul class="rating">
                                                                             <li><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        </ul>
+                                                                        {% else %}
+                                                                        <span>{{i.item.rating}}</span>
+                                                                        <ul class="rating">
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
@@ -205,20 +224,20 @@
                                                                 </div>
                                                         
                                                             </div>
-                                                            <div class="add-actions">
+                                                            {% comment %} <div class="add-actions">
                                                                 <ul class="add-actions-link">
                                                                     
                                                                     <li class="add-cart active"><a href="/enduser/usersignin">Add to cart</a></li>
                                                                     <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                                     <li><a class="links-details" href="/enduser/usersignin"><i class="fa fa-heart-o"></i></a></li>
                                                                 </ul>
-                                                            </div>
+                                                            </div> {% endcomment %}
                                                         </div>
                                                     </div>
                                                     <!-- single-product-wrap end -->
                                                 </div>
                                                 {% endfor %}
-                                                  <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
+                                                  {% comment %} <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
                                                     <!-- single-product-wrap start -->
                                                     <div class="single-product-wrap">
                                                         <div class="product-image">
@@ -269,7 +288,7 @@
                                                         </div>
                                                     </div>
                                                     <!-- single-product-wrap end -->
-                                                </div>
+                                                </div> {% endcomment %}
                                                 
                                             </div>  
                                         </div>

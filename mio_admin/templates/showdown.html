@@ -1,7 +1,6 @@
 {% include "admin_header.html" %}
 
-  
-    <!-- partial -->
+<!-- partial -->
     <div class="container-fluid page-body-wrapper">
       <!-- partial:partials/_settings-panel.html -->
       <div class="theme-setting-wrapper">
@@ -367,6 +366,57 @@
                          {% endif %}
                         </form>
                         </td>
+                        <tr>
+                      <td>
+                        8
+                      </td>
+                      <td>
+                        <a  rel="stylesheet"> Used Products</a>
+                      </td>
+                      <td>
+                        <form method="POST">
+                          {% csrf_token %}
+                          {% if data.used_products  == 0 %}
+                         <button type="submit" class="action_a" name = "used_products" value="1" style="background-color: red;">shutdown</button>
+                         {% else %}
+                         <button type="submit" class="action_a" name = "used_products" value="0">on</button>
+                         {% endif %}
+                        </form>
+                        </td>
+                        <tr>
+                      <td>
+                        9
+                         <td>
+                        <a  rel="stylesheet"> Cash On Delivery</a>
+                      </td>
+                      <td>
+                        <form method="POST">
+                          {% csrf_token %}
+                          {% if data.cod  == 0 %}
+                         <button type="submit" class="action_a" name = "cod" value="1" style="background-color: red;">shutdown</button>
+                         {% else %}
+                         <button type="submit" class="action_a" name = "cod" value="0">on</button>
+                         {% endif %}
+                        </form>
+                        </td>
+                        </tr>
+                         <tr>
+                      <td>
+                        10
+                         <td>
+                        <a  rel="stylesheet"> Online Payment</a>
+                      </td>
+                      <td>
+                        <form method="POST">
+                          {% csrf_token %}
+                          {% if data.online_payment  == 0 %}
+                         <button type="submit" class="action_a" name = "online_payment" value="1" style="background-color: red;">shutdown</button>
+                         {% else %}
+                         <button type="submit" class="action_a" name = "online_payment" value="0">on</button>
+                         {% endif %}
+                        </form>
+                        </td>
+                        </tr>
 
                     </tr>
                     
@@ -394,6 +444,3 @@
             
             <!-- Mirrored from demo.bootstrapdash.com/purple/jquery/template/demo_1/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 05 Feb 2024 12:21:10 GMT -->
             </html>
-
-
-           

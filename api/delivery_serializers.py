@@ -86,7 +86,7 @@ class SignupSerializer(serializers.Serializer):
 class deliveryperson_edit_serializer(serializers.Serializer):
 
     name = serializers.CharField()
-    phone_number = serializers.CharField()
+    # phone_number = serializers.CharField()
     wp_number = serializers.CharField()
     email = serializers.EmailField()
     aadhar_number = serializers.CharField()
@@ -106,7 +106,7 @@ class deliveryperson_edit_serializer(serializers.Serializer):
     # today_earnings = serializers.CharField()
     def update(self,instance,data):
         instance.name = data["name"]
-        instance.phone_number = data["phone_number"]
+        # instance.phone_number = data["phone_number"]
         instance.wp_number = data["wp_number"]
         instance.email = data["email"]
         instance.aadhar_number = data["aadhar_number"]
@@ -164,4 +164,6 @@ class notificationlistSerializer(serializers.Serializer):
     message_title = serializers.CharField()
     message_desc = serializers.CharField()
     notify_date = serializers.DateField()
+    earnings = serializers.CharField()
+    amount = serializers.CharField()
     is_read=serializers.BooleanField()

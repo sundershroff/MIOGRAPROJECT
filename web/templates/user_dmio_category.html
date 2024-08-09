@@ -9,7 +9,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
          <!-- Favicon -->
-         <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/icon.jpeg' %}">
+         <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo/Miogra_logo.png' %}">
          <!-- Material Design Iconic Font-V2.2.0 -->
          <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
          <!-- Font Awesome -->
@@ -58,18 +58,7 @@
             <!-- Begin Header Area -->
             {% include "enduser_header.html" %}
             <!-- Header Area End Here -->
-            <!-- Begin Li's Breadcrumb Area -->
-            <div class="breadcrumb-area">
-                <div class="container">
-                    <div class="breadcrumb-content">
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li class="active">Shop Left Sidebar</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- Li's Breadcrumb Area End Here -->
+           
             <!-- Begin Li's Content Wraper Area -->
             <div class="content-wraper pt-60 pb-60 pt-sm-30">
                 <div class="container-fluid">
@@ -180,9 +169,17 @@
                                                                             <li><i class="fa fa-star-o"></i></li>
                                                                             <li><i class="fa fa-star-o"></i></li>
                                                                         </ul>
-                                                                        {% else %}
+                                                                        {% elif item.rating == "1.0"%}
                                                                         <ul class="rating">
                                                                             <li><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        </ul>
+                                                                        {% else %}
+                                                                        <ul class="rating">
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
@@ -1152,7 +1149,7 @@
     $(".cart-plus-minus").append('<button class="dec qtybutton" id="increase"><i class="fa fa-angle-down"></i></button><button class="inc qtybutton" id="decrease"><i class="fa fa-angle-up"></i></button>');
     $(document).ready(function() {
         const Items=[];
-        const category ="food";
+        const category ="daily_mio";
         let totalPrice = 0; // Variable to store total price
         let itemCount = 0;
 

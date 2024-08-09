@@ -19,6 +19,8 @@ class Businessmodel(models.Model):
     profile_picture = models.TextField(null=True)
     device_id = models.JSONField(null=True)
     notification_status=models.BooleanField(default=False,null=True)
+    status = models.BooleanField(default=True)
+
 
 
 class shoppingmodel(models.Model):
@@ -124,6 +126,7 @@ class foodmodel(models.Model):
     latitude = models.TextField(null=True)
     longitude = models.TextField(null=True)
     rating=models.FloatField(validators=[MinValueValidator(1),MaxValueValidator(5)],null=True)
+    
 
 
 class freshcutsmodel(models.Model):
@@ -477,6 +480,10 @@ class Product_Ordermodel(models.Model):
     ship_to_other_region = models.TextField(null=True)
     float_cash = models.TextField(null=True)
     admin_commission_amount=models.TextField(null=True)
+    razorpay_payment_id=models.TextField(null=True)
+    razorpay_order_id=models.TextField(null=True)
+    razorpay_signature=models.TextField(null=True)
+    normal_delivery_assign = models.TextField(null=True)
 
     
     def save(self, *args, **kwargs):
@@ -570,6 +577,9 @@ class Notification(models.Model):
     message_title = models.TextField(null=True)
     message_desc = models.TextField(null=True)
     notify_date = models.DateField(auto_now_add=True)
+    earnings = models.TextField(null=True)
+    amount = models.TextField(null=True)
+    # order_id = models.TextField(null=True)
     is_read=models.BooleanField(default=False,null=True)
 
 # class Notification(models.Model):
@@ -579,7 +589,3 @@ class Notification(models.Model):
 #     recever_id=models.TextField(null=True)
 #     is_read=models.BooleanField(default=False,null=True)
 #     notify_date=models.DateField(auto_now_add=True,null=True)
-
-
-
-

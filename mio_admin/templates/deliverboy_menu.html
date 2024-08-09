@@ -290,6 +290,7 @@
                                                         <th>Email</th>
                                                         <th>Delivery Type</th>
                                                         <th>ACTION</th>
+                                                         <th> Issue</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -306,14 +307,15 @@
                                                     <td>{{i.delivery_type}}</td>
                                                     <td>
                                                       {% if i.approve_status == None %}
-                                                      <a href="/admin/delivery_boy_add/{{i.uid}}/{{authenticate.username}}"><button type="button" value="True" name="status" class="action_a" style="background-color: orange;">UPDATE</button></a>
+                                                      <a href="/admin/delivery_boy_single/{{i.uid}}/{{authenticate.username}}"><i class="fa fa-eye" style="font-size:25px"></i></a>&nbsp&nbsp
+                                                      <a href="/admin/delivery_boy_add/{{i.uid}}/{{authenticate.username}}"><button type="button" value="True" name="status" class="action_a" style="background-color: orange;width:6rem">UPDATE</button></a>
                                                       {% endif %}
                                                       {% if i.approve_status == "False"  %}
                                                       <form method="POST">
                                                         {% csrf_token %}
                                                         <a href="/admin/delivery_boy_single/{{i.uid}}/{{authenticate.username}}"><i class="fa fa-eye" style="font-size:25px"></i></a>&nbsp&nbsp
-                                                        <button type="submit" value="True" name="status" class="action_a">Accept</button>
-                                                        <button type="submit" class="action_a" value="Reject" name="status" style="background-color: red;">Reject</button>
+                                                        <button type="submit" value="True" name="status" class="action_a" style="width: 40%;">Accept</button>
+                                                        <button type="submit" class="action_a" value="Reject" name="status" style="background-color: red;width: 40%;">Reject</button>
                                                         <input type="hidden" name="uid" value="{{i.uid}}" id="">
 
                                                       {% comment %} <input type="hidden" name="category" value="{{i.category}}" id=""> {% endcomment %}
@@ -327,6 +329,40 @@
                                                       {% endif %}
                                                       
         
+                                                      </td>
+                                                      <td>
+                                                          {% if i.submit_issues != None %}
+                                                           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal{{i.uid}}">
+                                                            Check
+                                                          </button>
+                                                          {% endif %}
+                                                          <!-- The Modal -->
+<div class="modal" id="myModal{{i.uid}}">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <!--<div class="modal-header">-->
+      <!--  <h4 class="modal-title">Modal Heading</h4>-->
+      <!--  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>-->
+      <!--</div>-->
+
+      <!-- Modal body -->
+      <div class="modal-body">
+          <div>
+        <p style="text-align: center;">{{i.submit_issues}}</p>
+        </div>
+        <img src="{{i.upload_issues}}" style="text-align: center;width: 100%;height: 100%;border-radius: 0;">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
                                                       </td>
                                                   </tr>
                                                   {% endfor %}

@@ -50,13 +50,14 @@ def verify_user_otp(email):
     return authentication
 
 def send_mail(receiver_email, otp):
-    sender = 'abijithmailforjob@gmail.com'
-    password = 'kgqzxinytwbspurf'
+    sender = 'miofeatures2002@gmail.com'
+    password = 'xhej oirn pbds ofzs'
     subject = "Miogra Sign Up OTP"
     content = f"""
     OTP : {otp}
     """
     yagmail.SMTP(sender, password).send(
+    # yagmail(user = sender,password = password,host='smtp.gmail.com').send(
         to=receiver_email,
         subject=subject,
         contents=content

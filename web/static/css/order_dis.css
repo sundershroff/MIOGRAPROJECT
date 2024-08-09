@@ -4,8 +4,23 @@
     background-color: #743063;
     outline:none;
 }
-body{background:#eee}
-.ratings i{font-size: 16px;color: red}
+body{background:#fff;
+    }
+.ratings i{
+    font-size: 16px;
+}
+.no-star{
+color: #bca998;
+}
+i > .fa{
+   color: red; 
+}
+.fa-star{
+        color: #7b248d;
+}
+i> .fa {
+   color: gray;  
+}
 .strike-text{color: red;text-decoration: line-through}
 .product-image{width: 100%}
 
@@ -24,4 +39,3 @@ body{background:#eee}
 }
 h5{font-weight: 400;}
 .para{font-size: 16px;}
-       

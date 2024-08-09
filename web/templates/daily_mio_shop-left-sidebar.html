@@ -9,7 +9,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
          <!-- Favicon -->
-         <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/icon.jpeg' %}">
+         <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo/Miogra_logo.png' %}">
          <!-- Material Design Iconic Font-V2.2.0 -->
          <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
          <!-- Font Awesome -->
@@ -46,6 +46,24 @@
          <link rel="stylesheet" href="{% static 'css/style1.css' %}">
          <!-- Modernizr js -->
          <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
+         <style>
+            
+            .wishlist-item-count{
+                    position: absolute;
+                    top: -11px;
+                    left: -13px;
+                    display: block;
+                    overflow: hidden;
+                    min-width: 26px;
+                    line-height: 26px;
+                    font-size: 12px;
+                    font-weight: 700;
+                    color: white;
+                    background: #13b436;
+                    text-align: center;
+                    border-radius: 100%;
+             }
+        </style>
     </head>
     
     <body>
@@ -57,40 +75,13 @@
             <!-- Begin Header Area -->
             {% include "header.html" %}
             <!-- Header Area End Here -->
-            <!-- Begin Li's Breadcrumb Area -->
-            <div class="breadcrumb-area">
-                <div class="container">
-                    <div class="breadcrumb-content">
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li class="active">Shop Left Sidebar</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- Li's Breadcrumb Area End Here -->
+            
             <!-- Begin Li's Content Wraper Area -->
             <div class="content-wraper pt-60 pb-60 pt-sm-30">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-10 order-1 order-lg-2">
-                            <!-- Begin Li's Banner Area -->
-                            <!-- <div class="single-banner shop-page-banner" style="
-                            text-align: center;">
-                                <a href="#">
-                                    <img src="images/food/hotel_logo.jpg" alt="Li's Static Banner">
-                                </a>
-                                <h1>Mk's Chikk In Restaurant</h1>
-                                <h5 style="color: gray;">Azagiyamandabam</h3>
-                                    <span >4.3</span>&nbsp;&nbsp;
-                                    <span class="fa fa-star-o" style="color: #810081;"></span>
-                                    <span class="fa fa-star-o" style="color: #810081;"></span>
-                                    <span class="fa fa-star-o" style="color: #810081;"></span>
-                                    <span class="fa fa-star-o" style="color: #810081;"></span>
-                                    <span class="fa fa-star-o" style="color: #810081;"></span>
-                                <h5 style="font-weight: 500;">Delivery With In <span style="color: red;">10min</span> to <span style="color: red;">15min</span></h5>
-                            </div> -->
-                            <!-- Li's Banner Area End Here -->
+                            
                             <!-- shop-top-bar start -->
                             <div class="shop-top-bar mt-30">
                                 <div class="shop-bar-inner">
@@ -98,7 +89,6 @@
                                         <!-- shop-item-filter-list start -->
                                         <ul class="nav shop-item-filter-list" role="tablist">
                                             <li class="active" role="presentation"><a aria-selected="true" class="active show" data-toggle="tab" role="tab" aria-controls="grid-view" href="#grid-view"><i class="fa fa-th"></i></a></li>
-                                            <li role="presentation"><a data-toggle="tab" role="tab" aria-controls="list-view" href="#list-view"><i class="fa fa-th-list"></i></a></li>
                                         </ul>
                                         <!-- shop-item-filter-list end -->
                                     </div>
@@ -144,9 +134,18 @@
                                                             <div class="product_desc_info">
                                                                 <div class="product-review">
                                                                     <h5 class="manufacturer">
-                                                                        <a href=""> {{i.item.product.brand}}</a>
+                                                                        <a href=""> {{i.item.product.subcategory}}</a>
                                                                     </h5>
-                                                                    <!-- <div class="rating-box">
+                                                                    <div class="rating-box">
+                                                                        {% if i.item.rating == "2.0"%}
+                                                                        <ul class="rating">
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        </ul>
+                                                                        {% elif i.item.rating == "3.0"%}
                                                                         <ul class="rating">
                                                                             <li><i class="fa fa-star-o"></i></li>
                                                                             <li><i class="fa fa-star-o"></i></li>
@@ -154,9 +153,42 @@
                                                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                         </ul>
-                                                                    </div> -->
+                                                                        {% elif i.item.rating == "4.0"%}
+                                                                        <ul class="rating">
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        </ul>
+                                                                        {% elif i.item.rating == "5.0"%}
+                                                                        <ul class="rating">
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                        </ul>
+                                                                        {% elif i.item.rating == "1.0"%}
+                                                                        <ul class="rating">
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        </ul>
+                                                                        {% else%}
+                                                                        <ul class="rating">
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        </ul>
+                                                                        {% endif %}
+                                                                    </div>
                                                                 </div>
-                                                                <h4><a class="product_name" href="food_single-product.html">{{i.item.product.model_name}}</a></h4>
+                                                                <h4><a class="product_name" href="">{{i.item.product.model_name}}</a></h4>
                                                                 <div class="price-box" style="display: flex;">
                                                                     <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;{{i.item.product.selling_price}}</span>
                                                                     <span style=" display: flex;width: 100%;justify-content: end;">
@@ -171,76 +203,17 @@
                                                                 </div>
                                                                 
                                                             </div>
-                                                            <div class="add-actions">
-                                                                <ul class="add-actions-link">
-                                                                    
-                                                                    <li class="add-cart active"><a href="/enduser/usersignin">Add to cart</a></li>
-                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="/enduser/usersignin"><i class="fa fa-heart-o"></i></a></li>
-                                                                </ul>
-                                                            </div>
+                                                            
                                                         </div>
                                                     </div>
                                                     <!-- single-product-wrap end -->
                                                 </div>
                                                 {% endfor %}
-                                                  <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="food_single-product.html">
-                                                                <img src="images/daily-mio/Meat.jpg" alt="Li's Product Image">
-                                                            </a>
-                                                            <span class="sticker">New</span>
-                                                        </div>
-                                                        <div class="product_desc">
-                                                            <div class="product_desc_info">
-                                                                <div class="product-review">
-                                                                    <h5 class="manufacturer">
-                                                                        <a href="product-details.html"></a>
-                                                                    </h5>
-                                                                    <!-- <div class="rating-box">
-                                                                        <ul class="rating">
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        </ul>
-                                                                    </div> -->
-                                                                </div>
-                                                                <h4><a class="product_name" href="food_single-product.html">Meat</a></h4>
-                                                                <div class="price-box" style="display: flex;">
-                                                                    <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377;150.80</span>
-                                                                    <span style=" display: flex;width: 100%;justify-content: end;">
-                                                                    <td class="quantity">
-                                                                    
-                                                                        <div class="cart-plus-minus">
-                                                                            <input class="cart-plus-minus-box" value="1" type="text">
-                                                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                                        </div>
-                                                                    </td></span>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            <div class="add-actions">
-                                                                <ul class="add-actions-link">
-                                                                    
-                                                                    <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>
-                                                
+                                                  
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="list-view" class="tab-pane fade product-list-view" role="tabpanel">
+                                    {% comment %} <div id="list-view" class="tab-pane fade product-list-view" role="tabpanel">
                                         <div class="row">
                                             <div class="col">
                                                 <div class="row product-layout-list">
@@ -773,7 +746,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> {% endcomment %}
                                     <div class="paginatoin-area">
                                         <div class="row">
                                             <div class="col-lg-6 col-md-6 pt-xs-15">

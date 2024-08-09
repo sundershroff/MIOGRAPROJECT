@@ -207,10 +207,11 @@
                <small>to</small>
                <address class="m-t-5 m-b-5">
                   <strong class="text-inverse">{{i.order.end_user.full_name}}</strong><br>
-                  {{i.order.delivery_address}}<br>
-                  City, Zip Code<br>
-                  Phone: (123) 456-7890<br>
-                  Fax: (123) 456-7890
+                  {{i.order.delivery_address.0}}<br>
+                  Phone: (+91) {{i.order.end_user.phone_number}}<br>
+                  <!--City, Zip Code<br>-->
+                  <!--Phone: (123) 456-7890<br>-->
+                  <!--Fax: (123) 456-7890-->
                </address>
             </div>
             <div class="invoice-date">
@@ -297,8 +298,8 @@
             </p>
             <p class="text-center">
                <span class="m-r-10"><i class="fa fa-fw fa-lg fa-globe"></i> miogra.com</span>
-               <span class="m-r-10"><i class="fa fa-fw fa-lg fa-phone-volume"></i> +91 </span>
-               <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i> miogra@gmail.com</span>
+               <span class="m-r-10"><i class="fa fa-fw fa-lg fa-phone-volume"></i> +91 9072242801 </span>
+               <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i> miofeatures2002@gmail.com</span>
             </p>
          </div>
          <!-- end invoice-footer -->

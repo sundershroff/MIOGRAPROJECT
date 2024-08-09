@@ -4,7 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Floating Label Form</title>
+<title>Miogra</title>
+<link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo/Miogra_logo.png' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="{% static 'css/registration.css' %}">
 </head>
@@ -59,18 +60,20 @@
                 <label for="purchase">Year and Month of Purchase</label>
             </div>
             <div class="zone">
-                <i class="fa fa-cloud-upload"></i>
+               
                 <div>Primary image</div>                    
                 
-                <div class="selectFile">                       
+                <div class="selectFile">  
+                 <i class="fa fa-cloud-upload"></i>
                   <input type="file" name="primary_image" id="file">
                 </div>
             </div><br>
             <div id="other_img">
                 <div class="zone">
-                    <i class="fa fa-cloud-upload"></i>
+                   
                     <div>Other image</div>                    
-                    <div class="selectFile">                         
+                    <div class="selectFile"> 
+                     <i class="fa fa-cloud-upload"></i>
                       <input type="file" name="other_images" id="file">
                     </div>
                 </div>
@@ -101,9 +104,10 @@
             });
             $("#img_add").click(function(){
                 var newImgContent=`<div class="zone">
-                    <i class="fa fa-cloud-upload"></i>
+                    
                     <div>Other image</div>                    
-                    <div class="selectFile">                         
+                    <div class="selectFile"> 
+                    <i class="fa fa-cloud-upload"></i>
                       <input type="file" name="other_images" id="file">
                     </div>
                     

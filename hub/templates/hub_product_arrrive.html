@@ -235,7 +235,7 @@ height: 44rem;
             <tr>
                 <td>{{forloop.counter}}</td>
                 <td>{{i.order.shop_product.product_id}}{{i.order.jewel_product.product_id}}{{i.order.d_original_product.product_id}}</td>
-                <td>{{i.order.shop_product.product.name}}{{i.order.jewel_product.product.name}}{{i.order.d_original_product.product.name}}</td>
+                <td>{{i.order.shop_product.product.model_name}}{{i.order.jewel_product.product.model_name}}{{i.order.d_original_product.product.model_name}}</td>
 
                 <td>{{i.order.shop_id.shop_id}}{{i.order.jewel_id.jewel_id}}{{i.order.d_id.d_id}}</td>
                 <td>{{i.order.shop_id.seller_name}}{{i.order.jewel_id.seller_name}}{{i.order.d_id.seller_name}}</td>
@@ -269,7 +269,7 @@ height: 44rem;
                 
                 {% else %}
                       
-                          {% if "order-confirmed" == i.order.status %}
+                          {% if "order_confirmed" == i.order.status %}
                           <td>
                           
                           
@@ -354,7 +354,9 @@ height: 44rem;
                       ">
                             <option value="">Select</option>
                             {% for i in delivery_boy %}
-                            <option value="{{i.uid}}">{{i.name}}</option>
+                            {% if i.delivery_type == "Normal" %}
+                                            <option value="{{i.uid}}">{{i.name}}</option>
+                                        {% endif %}
                             {% endfor %}
                           </select>
                         </form>
@@ -449,4 +451,4 @@ $(".sidebar-icon").click(function() {
 <script>(function(){var js = "window['__CF$cv$params']={r:'866415c8eff2898c',t:'MTcxMDc1Mjk4MC4xNTUwMDA='};_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='../../../../cdn-cgi/challenge-platform/h/b/scripts/jsd/ace796eb5511/main.js',document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
 
 <!-- Mirrored from p.w3layouts.com/demos/28-03-2016/shoppy/web/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 18 Mar 2024 09:10:35 GMT -->
-</html>  
+</html>

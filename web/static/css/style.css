@@ -1,5 +1,6 @@
 body {
-    margin: 0
+    margin: 0;
+    
 }
 
 .page-content {
@@ -18,9 +19,9 @@ body {
     -ms-align-items: center;
     -moz-align-items: center;
     -webkit-align-items: center;
-    background: -webkit-linear-gradient(#880381, #d1b1d0);
-    background:    -moz-linear-gradient(#880381, #d1b1d0);
-    background:         linear-gradient(#880381, #d1b1d0);
+    /*background: -webkit-linear-gradient(#880381, #d1b1d0);*/
+    /*background:    -moz-linear-gradient(#880381, #d1b1d0);*/
+    /*background:         linear-gradient(#880381, #d1b1d0);*/
 }
 
 .form-v5-content {
@@ -32,7 +33,7 @@ body {
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
     margin: 175px 0;
-    font-family: roboto, sans-serif;
+   
     color: #333;
     font-weight: 400;
     position: relative;
@@ -51,7 +52,7 @@ body {
     position: relative;
     padding: 3px 0 20px;
     margin-bottom: 40px;
-    font-family: elmessiri-semibold;
+    
     color: #880381;
 }
 
@@ -85,7 +86,7 @@ body {
 
 .form-detail .input-text {
     margin-bottom: 26px;
-    font-family: elmessiri-semibold;
+    
 }
 
 .form-detail input {
@@ -107,7 +108,7 @@ body {
     -ms-border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
-    font-family: roboto, sans-serif;
+    
     font-weight: 400;
     font-size: 18px
 }
@@ -142,7 +143,7 @@ body {
 
 .form-detail .form-row-last input {
     padding: 14px;
-    font-family: elmessiri-semibold;
+    
 }
 
 .form-detail i {

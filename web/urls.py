@@ -14,12 +14,13 @@ urlpatterns = [
     path('enduser/usersignin',end_usersview.usersignin),
     path('enduser/logout/<id>',end_usersview.signout_view),
     path('enduser/end_user_otp/<id>',end_usersview.otp),
+    path('enduser/resend_otp/<id>',end_usersview.resend_otp),
     path('enduser/profile_picture/<id>',end_usersview.profile_picture),
     path('enduser/dashboard/<id>',end_usersview.dashboard),
 
     path("shopproducts/shop/",end_usersview.shop), 
     path("shopproducts/shop_products/<str:category>",end_usersview.shop_products),
-    path("shopproducts/shop_based/<id>",end_usersview.shop_based_product),
+    path("shopproducts/shop_based/",end_usersview.shop_based_product),
     path("shopproducts/single_products/<id>/<product_id>",end_usersview.single_shopproducts),
     path("products/shopproducts/shop/<id>",end_usersview.dashboard),
     path('products/shopproduct_categorywise/<id>/<str:category>/',end_usersview.shopproduct_category),
@@ -85,6 +86,7 @@ urlpatterns = [
     path('enduser/used_products/categorybased/<id>/<str:subcategory>',end_usersview.used_category_based),
     path('enduser/used_products/single_data/<id>/<product_id>',end_usersview.used_single_product),
     path('enduser/usedproduct/registration/<id>/',end_usersview.user_usedproduct_reg),
+    path('enduser/usedproduct/edit/<id>/<product_id>',end_usersview.user_product_edit),
     
     path('search_view/', end_usersview.search_view, name='search_view'),
     # -----------------address change--------------------
@@ -114,8 +116,9 @@ urlpatterns = [
     path('user/shopping_add_to_wishlist/<id>/products/<str:category>/<product_id>/',end_usersview.add_to_wishlist),
     path('user/shopping_wishlist_products/<id>/',end_usersview.user_wish_list_data),
     
-    # ------------RETURN--------------------------
-    path('product_order_status_return/<id>/<order_id/',end_usersview.user_product_return),
+    # ------------RETURN & CANCEL--------------------------
+    path('product_order_status_return/<id>/<order_id>/',end_usersview.user_product_return),
+    path('enduser_order_cancel/<id>/<order_id>/',end_usersview.enduser_order_cancel),
 
     # -------------------- Checking web--------------------------
     path('success_page/<id>/',end_usersview.success),
@@ -130,5 +133,21 @@ urlpatterns = [
     path('miogra/contact/',end_usersview.contact),
     path('enduser/contact/<id>',end_usersview.contact_details),
 
+    path('terms_condition/',end_usersview.terms_condition),
+    path('terms_and_condition/<id>',end_usersview.mio_terms_condition),
+    
+    path('privacy_policy/',end_usersview.privacypolicy),
+    path('miogra_privacy_policy/<id>',end_usersview.miogra_privacypolicy),
+
+    path('services/',end_usersview.mio_services),
+    path('miogra_services/<id>',end_usersview.miogra_services),
+
+    path('miogra_refund_policies/',end_usersview.cancel_refund),
+    path('miogra/refund_policies/<id>',end_usersview.miogra_refund_cancel),
+
+    path('shipping_delivery_policy/',end_usersview.miogra_shipping_delivery),
+    path('miogra_shipping_delivery_policy/<id>',end_usersview.miogra_shipping_delivery_policy),
+
+     path('dummy/',end_usersview.dummy),
     
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

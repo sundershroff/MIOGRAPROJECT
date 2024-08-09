@@ -11,7 +11,7 @@
         <!-- address.css -->
        <link rel="stylesheet" href="{% static 'css/address.css' %}">
        <!-- Favicon -->
-       <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/icon.jpeg' %}">
+       <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo/Miogra_logo.png' %}">
        <!-- Material Design Iconic Font-V2.2.0 -->
        <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
        <!-- Font Awesome -->
@@ -56,16 +56,7 @@
             {% include "enduser_header.html" %}
             <!-- Header Area End Here -->
             <!-- Begin Li's Breadcrumb Area -->
-            <div class="breadcrumb-area">
-                <div class="container-fluid">
-                    <div class="breadcrumb-content">
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li class="active">Address-form</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            
   
             <div class='container address-form'>
                 <h1 class='text-center mt-4 mb-4'>Address Form</h1>
@@ -80,10 +71,10 @@
                         <label for="number">Number</label>
                         <input type="number" class="form-control" id="number" value="{{key.phone_number}}">
                     </div>
-                    <div class="form-group">
-                        <label for="altNumber">Alternative Number</label>
-                        <input type="number" class="form-control" name="altnumber" id="altNumber" value="{{address.alt_number}}">
-                    </div>
+                    <!--<div class="form-group">-->
+                    <!--    <label for="altNumber">Alternative Number</label>-->
+                    <!--    <input type="number" class="form-control" name="altnumber" id="altNumber" value="{{address.alt_number}}">-->
+                    <!--</div>-->
                     <div class="form-group">
                         <label for="pincode">Pincode</label>
                         <input type="number" class="form-control" name="pincode" id="pincode" value="{{address.pincode}}" required>
@@ -112,11 +103,96 @@
                         <label for="state">State</label>
                         <input type="text" class="form-control" name="state" id="state" value="{{address.state}}" required>
                     </div>
+                    <div class="form-group" >
+                        <label for="location">Pin Your Current Location :<span> (for Fast Delivery)</span></label>
+                        <div class="locate" id="getLocationButton">Get Location</div>
+                        <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d31440.356833765032!2d78.1115356542293!3d9.930243426214428!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zOcKwNTUnMzAuNyJOIDc4wrAwNycxMS4yIkU!5e0!3m2!1sen!2sin!4v1708879794169!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+                      
+                        <label for="latitude">Latitude</label>
+                        <input type="text" class="form-control" name="latitude" id="latitude" placeholder="{{address.latitude}}" value="{{address.latitude}}">
+                        <label for="longitude">Longitude</label>
+                        <input type="text" class="form-control" name="longitude" id="longitude" placeholder="{{address.longitude}}" value="{{address.longitude}}">
+                        <label for="address" style="display:none">address</label >
+                        <input type="text" class="form-control" name="address" id="address" placeholder="Address" value="" style="display:none">
+                    </div>
                     <center><button type="submit" name="edit" value="{{key.uid}}" class="btn btn-purple mt-3 mb-4">Save Address</button></center>
                 </form>
                 
             </div>
         </div>
         {% include "footer.html" %}
+
+        <script>
+            document.getElementById("getLocationButton").addEventListener("click", getLocation);
+            function getLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition, showError);
+                } else {
+                    alert("Geolocation is not supported by this browser.");
+                }
+            }
+    
+            function showPosition(position) {
+                // alert("Latitude: " + position.coords.latitude + "\nLongitude: " + position.coords.longitude);
+                // console.log( position.coords.latitude, position.coords.longitude);
+                document.getElementById("latitude").value = position.coords.latitude;
+                document.getElementById("longitude").value = position.coords.longitude;
+                 
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+    
+                const apiUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
+    
+                fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        const address = data.display_name || "Address not found";
+                        document.getElementById("address").value = address;
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+    
+            
+    
+            function showError(error) {
+                switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        alert("User denied the request for Geolocation.");
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        alert("Location information is unavailable.");
+                        break;
+                    case error.TIMEOUT:
+                        alert("The request to get user location timed out.");
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        alert("An unknown error occurred.");
+                        break;
+                }
+            }
+        </script>
+         <!-- <script>
+            function getAddress() {
+                const latitude = document.getElementById("latitude").textContent;
+                const longitude = document.getElementById("longitude").textContent;
+    
+                const apiUrl = https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude};
+    
+                fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        const address = data.display_name || "Address not found";
+                        document.getElementById("address").textContent = address;
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+    
+            // Example coordinates (replace these with your actual coordinates)
+            document.getElementById("latitude").textContent = "37.7749";
+            document.getElementById("longitude").textContent = "-122.4194";
+        </script> -->
+        {% comment %} {% endblock %} {% endcomment %}
+
+
     </body>
 </html>

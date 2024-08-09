@@ -1,0 +1,37 @@
+.rtun-btn 
+{
+    color: #f1ecf0;
+    background-color: #743063;
+    outline:none;
+}
+body{background:#eee;
+    }
+.ratings i{font-size: 16px;color: red}
+.strike-text{color: red;text-decoration: line-through}
+.product-image{width: 100%}
+
+.dot{height: 7px;
+    width: 7px;
+    margin-left: 6px;
+    margin-right: 6px;
+    margin-top: 3px;
+    background-color: blue;
+    border-radius: 50%;
+    display: inline-block;
+}
+.spec-1{
+    color: #938787;
+    font-size: 15px
+}
+h5{font-weight: 400;}
+.para{font-size: 16px;}
+.hm-cart-btn{
+	border-radius: 2px;
+    background: #810081;
+    color: #fff;
+    height: 45px;
+    cursor: pointer;
+    display: block;
+    position: relative;
+    padding: 0 15px 0 28px;
+}

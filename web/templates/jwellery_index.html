@@ -9,8 +9,11 @@
         <title>Miogra</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/icon.jpeg' %}">
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo/Miogra_logo.png' %}">
         <!-- Material Design Iconic Font-V2.2.0 -->
         <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
         <!-- Font Awesome -->
@@ -43,6 +46,24 @@
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
         <!-- Modernizr js -->
         <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
+        <style>
+            
+            .wishlist-item-count{
+                    position: absolute;
+                    top: -11px;
+                    left: -13px;
+                    display: block;
+                    overflow: hidden;
+                    min-width: 26px;
+                    line-height: 26px;
+                    font-size: 12px;
+                    font-weight: 700;
+                    color: white;
+                    background: #13b436;
+                    text-align: center;
+                    border-radius: 100%;
+             }
+        </style>
     </head>
     <body>
     <!--[if lt IE 8]>
@@ -60,48 +81,49 @@
                         <!-- Begin Slider Area -->
                         <div class="col-lg-12 col-md-12" style="
                         padding-left: 0;
-                        padding-right: 0;
-                    ">
+                        padding-right: 0; ">
                             <div class="slider-area">
                                 <div class="slider-active owl-carousel">
+                                    {% for x in banner.banner_list1 %}
                                     <!-- Begin Single Slide Area -->
-                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(/media/{{banner.banner1}});">
+                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url({{x}});">
                                         <div class="slider-progress"></div>
                                         {% comment %} <div class="slider-content">
                                             <h5>Sale Offer <span>-20% Off</span> This Week</h5>
-                                            <h2>Gold Bangles</h2>
+                                            <h2>Chicken Briyani</h2>
                                             <h3>Starting at <span>&#8377;150.00</span></h3>
                                             <div class="default-btn slide-btn">
-                                                <a class="links" href="food_shop-left-sidebar.html">Shopping Now</a>
+                                                <a class="links" href="/">Shopping Now</a>
                                             </div>
                                         </div> {% endcomment %}
                                     </div>
+                                    {% endfor %}
                                     <!-- Single Slide Area End Here -->
                                     <!-- Begin Single Slide Area -->
-                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(/media/{{banner.banner2}});">
-                                        <div class="slider-progress"></div>
-                                        {% comment %} <div class="slider-content">
-                                            <h5>Sale Offer <span>Black Friday</span> This Week</h5>
-                                            <h2>Ham Burger</h2>
-                                            <h3>Starting at <span>&#8377;224.00</span></h3>
-                                            <div class="default-btn slide-btn">
-                                                <a class="links" href="food_shop-left-sidebar.html">Shopping Now</a>
-                                            </div>
-                                        </div> {% endcomment %}
-                                    </div> 
+                                    <!--<div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(media/{{banner.banner2}});">-->
+                                    <!--    <div class="slider-progress"></div>-->
+                                    <!--    {% comment %} <div class="slider-content">-->
+                                    <!--        <h5>Sale Offer <span>Black Friday</span> This Week</h5>-->
+                                    <!--        <h2>Ham Burger</h2>-->
+                                    <!--        <h3>Starting at <span>&#8377;224.00</span></h3>-->
+                                    <!--        <div class="default-btn slide-btn">-->
+                                    <!--            <a class="links" href="">Shopping Now</a>-->
+                                    <!--        </div>-->
+                                    <!--    </div> {% endcomment %}-->
+                                    <!--</div> -->
                                     <!-- Single Slide Area End Here -->
                                     <!-- Begin Single Slide Area -->
-                                    <!-- <div class="single-slide align-center-left animation-style-01 bg-3">
+                                    {% comment %} <div class="single-slide align-center-left animation-style-01 bg-3">
                                         <div class="slider-progress"></div>
                                         <div class="slider-content">
                                             <h5>Sale Offer <span>-10% Off</span> This Week</h5>
                                             <h2>Full Meals</h2>
                                             <h3>Starting at <span>&#8377;149.00</span></h3>
                                             <div class="default-btn slide-btn">
-                                                <a class="links" href="food_shop-left-sidebar.html">Shopping Now</a>
+                                                <a class="links" href="">Shopping Now</a>
                                             </div>
                                         </div>
-                                    </div> -->
+                                    </div> {% endcomment %}
                                     <!-- Single Slide Area End Here -->
                                 </div>
                             </div>
@@ -143,78 +165,40 @@
                     <div class="tab-content">
                         <div id="li-new-product" class="tab-pane active show" role="tabpanel">
                             <div class="row">
-                                <div class="product-active owl-carousel" >
+                                 <div class="product-active owl-carousel" >
+                                    
+                                    <div class="col-lg-12">
+                                       
+                                        <div class="single-product-wrap">
+                                            <div class="product-image">
+                                                <a href="/jewelleryproducts/jewellery/gold_rings">
+                                                    <img src="{% static 'images/jwellery/gold_ring.jpg' %}" alt="Li's Product Image">
+                                                </a>
+                                            </div>
+                                            <div class="product_desc">
+                                                <div class="product_desc_info" style="text-align: center;">
+                                                    
+                                                    <h1><a class="product_name" href="/jewelleryproducts/jewellery/gold_rings">Gold Ring</a></h1>
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
                                     
                                     <div class="col-lg-12">
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="/jewelleryproducts/jewellery/gold">
-                                                    <img src="{% static 'images/jwellery/Rings.jpg' %}" alt="Li's Product Image">
+                                                <a href="/jewelleryproducts/jewellery/silver_coins">
+                                                    <img src="{% static 'images/jwellery/silver_coin.jpg' %}" alt="Li's Product Image">
                                                 </a>
                                             </div>
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
-                                                   
-                                                    <h1><a class="product_name" href="/jewelleryproducts/jewellery/gold">Gold Ring</a></h1>
                                                     
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                        <!-- single-product-wrap end -->
-                                    </div>
-                                  
-                                    <div class="col-lg-12">
-                                        <!-- single-product-wrap start -->
-                                        <div class="single-product-wrap">
-                                            <div class="product-image">
-                                                <a href="/jewelleryproducts/jewellery/silver">
-                                                    <img src="{% static 'images/jwellery/silver1.webp' %}" alt="Li's Product Image">
-                                                </a>
-                                            </div>
-                                            <div class="product_desc">
-                                                <div class="product_desc_info" style="text-align: center;">
-                                                   
-                                                    <h1><a class="product_name" href="jwellery_shop-left-sidebar.html">Silver Ring</a></h1>
-                                                    
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                        <!-- single-product-wrap end -->
-                                    </div>  
-                                    <div class="col-lg-12">
-                                        <!-- single-product-wrap start -->
-                                        <div class="single-product-wrap">
-                                            <div class="product-image">
-                                                <a href="/jewelleryproducts/jewellery/gold">
-                                                    <img src="{% static 'images/jwellery/Bangles.jpg' %}" alt="Li's Product Image">
-                                                </a>
-                                            </div>
-                                            <div class="product_desc">
-                                                <div class="product_desc_info" style="text-align: center;">
-                                                   
-                                                    <h1><a class="product_name" href="jwellery_shop-left-sidebar.html">Gold Bangle</a></h1>
-                                                    
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                        <!-- single-product-wrap end -->
-                                    </div>  
-                                    <div class="col-lg-12">
-                                        <!-- single-product-wrap start -->
-                                        <div class="single-product-wrap">
-                                            <div class="product-image">
-                                                <a href="/jewelleryproducts/jewellery/silver">
-                                                    <img src="{% static 'images/jwellery/Silver.webp' %}" alt="Li's Product Image">
-                                                </a>
-                                            </div>
-                                            <div class="product_desc">
-                                                <div class="product_desc_info" style="text-align: center;">
-                                                   
-                                                    <h1><a class="product_name" href="jwellery_shop-left-sidebar.html">Silver JewelSet</a></h1>
+                                                    <h1><a class="product_name" href="/jewelleryproducts/jewellery/silver_coins">Silver Coin</a></h1>
                                                     
                                                 </div>
                                                 
@@ -226,42 +210,193 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="/jewelleryproducts/jewellery/gold">
-                                                    <img src="{% static 'images/jwellery/chain.jpg' %}" alt="Li's Product Image">
+                                                <a href="/jewelleryproducts/jewellery/gold_bracelets">
+                                                    <img src="{% static 'images/jwellery/gold_bracelet.jpg' %}" alt="Li's Product Image">
                                                 </a>
                                             </div>
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
-                                                   
-                                                    <h1><a class="product_name" href="jwellery_shop-left-sidebar.html">Gold Chain</a></h1>
+                                                    
+                                                    <h1><a class="product_name" href="/jewelleryproducts/jewellery/gold_bracelets">Gold Bracelet</a></h1>
                                                     
                                                 </div>
                                                 
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
-                                    </div>     
+                                    </div> 
                                     <div class="col-lg-12">
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="/jewelleryproducts/jewellery/silver">
-                                                    <img src="{% static 'images/jwellery/pendant.webp' %}" alt="Li's Product Image">
+                                                <a href="/jewelleryproducts/jewellery/silver_rings">
+                                                    <img src="{% static 'images/jwellery/silver1.webp' %}" alt="Li's Product Image">
                                                 </a>
                                             </div>
                                             <div class="product_desc">
                                                 <div class="product_desc_info" style="text-align: center;">
-                                                   
-                                                    <h1><a class="product_name" href="jwellery_shop-left-sidebar.html">Silver</a></h1>
+                                                    
+                                                    <h1><a class="product_name" href="/jewelleryproducts/jewellery/silver_rings">Silver Ring</a></h1>
                                                     
                                                 </div>
                                                 
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
-                                    </div>                           
-                                                                   
-                                                                        
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <!-- single-product-wrap start -->
+                                        <div class="single-product-wrap">
+                                            <div class="product-image">
+                                                <a href="/jewelleryproducts/jewellery/gold_earrings">
+                                                    <img src="{% static 'images/jwellery/gld_jumka.jpg' %}" alt="Li's Product Image">
+                                                </a>
+                                            </div>
+                                            <div class="product_desc">
+                                                <div class="product_desc_info" style="text-align: center;">
+                                                    
+                                                    <h1><a class="product_name" href="/jewelleryproducts/jewellery/gold_earrings">Gold Earring</a></h1>
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <!-- single-product-wrap end -->
+                                    </div> 
+                                    <div class="col-lg-12">
+                                        <!-- single-product-wrap start -->
+                                        <div class="single-product-wrap">
+                                            <div class="product-image">
+                                                <a href="/jewelleryproducts/jewellery/silver_chains">
+                                                    <img src="{% static 'images/jwellery/silver_chain.jpg' %}" alt="Li's Product Image">
+                                                </a>
+                                            </div>
+                                            <div class="product_desc">
+                                                <div class="product_desc_info" style="text-align: center;">
+                                                    
+                                                    <h1><a class="product_name" href="/jewelleryproducts/jewellery/silver_chains">Silver Chain</a></h1>
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <!-- single-product-wrap end -->
+                                    </div> 
+                                    <div class="col-lg-12">
+                                        <!-- single-product-wrap start -->
+                                        <div class="single-product-wrap">
+                                            <div class="product-image">
+                                                <a href="/jewelleryproducts/jewellery/silver_pendants">
+                                                    <img src="{% static 'images/jwellery/silver_pendant1.jpg' %}" alt="Li's Product Image">
+                                                </a>
+                                            </div>
+                                            <div class="product_desc">
+                                                <div class="product_desc_info" style="text-align: center;">
+                                                    
+                                                    <h1><a class="product_name" href="/jewelleryproducts/jewellery/silver_pendants">Silver Pendant</a></h1>
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <!-- single-product-wrap end -->
+                                    </div> 
+                                    <div class="col-lg-12">
+                                        <!-- single-product-wrap start -->
+                                        <div class="single-product-wrap">
+                                            <div class="product-image">
+                                                <a href="/jewelleryproducts/jewellery/gold_coins">
+                                                    <img src="{% static 'images/jwellery/gold_coin.jpg' %}" alt="Li's Product Image">
+                                                </a>
+                                            </div>
+                                            <div class="product_desc">
+                                                <div class="product_desc_info" style="text-align: center;">
+                                                    
+                                                    <h1><a class="product_name" href="/jewelleryproducts/jewellery/gold_coins">Gold Coin</a></h1>
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <!-- single-product-wrap end -->
+                                    </div> 
+                                    <div class="col-lg-12">
+                                        <!-- single-product-wrap start -->
+                                        <div class="single-product-wrap">
+                                            <div class="product-image">
+                                                <a href="/jewelleryproducts/jewellery/silver_earrings">
+                                                    <img src="{% static 'images/jwellery/silv_earing.jpg' %}" alt="Li's Product Image">
+                                                </a>
+                                            </div>
+                                            <div class="product_desc">
+                                                <div class="product_desc_info" style="text-align: center;">
+                                                    
+                                                    <h1><a class="product_name" href="/jewelleryproducts/jewellery/silver_earrings">Silver Earring</a></h1>
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <!-- single-product-wrap end -->
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <!-- single-product-wrap start -->
+                                        <div class="single-product-wrap">
+                                            <div class="product-image">
+                                                <a href="/jewelleryproducts/jewellery/silver_bracelets">
+                                                    <img src="{% static 'images/jwellery/bracelet2.jpg' %}" alt="Li's Product Image">
+                                                </a>
+                                            </div>
+                                            <div class="product_desc">
+                                                <div class="product_desc_info" style="text-align: center;">
+                                                    
+                                                    <h1><a class="product_name" href="/jewelleryproducts/jewellery/silver_bracelets">Silver Bracelet</a></h1>
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <!-- single-product-wrap end -->
+                                    </div> 
+                                    <div class="col-lg-12">
+                                        <!-- single-product-wrap start -->
+                                        <div class="single-product-wrap">
+                                            <div class="product-image">
+                                                <a href="/jewelleryproducts/jewellery/gold_bangles">
+                                                    <img src="{% static 'images/jwellery/gold_bangle.jpg' %}" alt="Li's Product Image">
+                                                </a>
+                                            </div>
+                                            <div class="product_desc">
+                                                <div class="product_desc_info" style="text-align: center;">
+                                                    
+                                                    <h1><a class="product_name" href="/jewelleryproducts/jewellery/gold_bangles">Gold Bangle</a></h1>
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <!-- single-product-wrap end -->
+                                    </div>  
+                                    <div class="col-lg-12">
+                                        <!-- single-product-wrap start -->
+                                        <div class="single-product-wrap">
+                                            <div class="product-image">
+                                                <a href="/jewelleryproducts/jewellery/silver_bangles">
+                                                    <img src="{% static 'images/jwellery/silver_bangle.jpg' %}" alt="Li's Product Image">
+                                                </a>
+                                            </div>
+                                            <div class="product_desc">
+                                                <div class="product_desc_info" style="text-align: center;">
+                                                    
+                                                    <h1><a class="product_name" href="/jewelleryproducts/jewellery/silver_bangles">Silver Bangle</a></h1>
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <!-- single-product-wrap end -->
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -277,7 +412,7 @@
                                     <span>Recently Viewed</span>
                                 </h2>
                                 <ul class="li-sub-category-list">
-                                    <li class="active"><a href="shop-left-sidebar.html">View All</a></li>
+                                    <li class="active"><a href="">View All</a></li>
                                     <!-- <li><a href="shop-left-sidebar.html">Sanai</a></li>
                                     <li><a href="shop-left-sidebar.html">Meito</a></li> -->
                                 </ul>
@@ -328,48 +463,7 @@
                                         <!-- single-product-wrap end -->
                                     </div>
                                     {% endfor %}
-                                    <div class="col-lg-12">
-                                        <!-- single-product-wrap start -->
-                                        <div class="single-product">
-                                            <div class="product-image">
-                                                <a href="jwellery_single_product.html">
-                                                    <img src="{% static 'images/jwellery/Earring.jpg' %}" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                            <div class="product_desc" style="border-top: 1px solid black;">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <!-- <h5 class="manufacturer">
-                                                            <a href="shop-left-sidebar.html">Graphic Corner</a>
-                                                        </h5> -->
-                                                        <!-- <div class="rating-box">
-                                                            <span>4.2</span>
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div> -->
-                                                    </div>
-                                                    <h4><a class="product_name" href="jwellery_single_product.html">Earring</a></h4>
-                                                    <!-- <div class="price-box">
-                                                        <span class="new-price">&#8377;46.80</span>
-                                                    </div> -->
-                                                </div>
-                                                <!-- <div class="add-actions">
-                                                    <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                    </ul>
-                                                </div> -->
-                                            </div>
-                                        </div>
-                                        <!-- single-product-wrap end -->
-                                    </div>
+                                  
                                     
                                 </div>
                             </div>
@@ -915,7 +1009,7 @@
                                     <span>Suggested Products</span>
                                 </h2>
                                 <ul class="li-sub-category-list">
-                                    <li class="active"><a href="jwellery_shop-left-sidebar.html">View All</a></li>
+                                    <li class="active"><a href="">View All</a></li>
                                     <!-- <li><a href="food_shop-left-sidebar.html">Computers</a></li>
                                     <li><a href="food_shop-left-sidebar.html">Electronics</a></li> -->
                                 </ul>
@@ -975,10 +1069,19 @@
                                                                 <li><i class="fa fa-star-o"></i></li>
                                                                 <li><i class="fa fa-star-o"></i></li>
                                                             </ul>
-                                                            {% else %}
+                                                            {% elif x.rating == "1.0" %}
                                                             <span>{{x.rating}}</span>
                                                             <ul class="rating">
                                                                 <li><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                            </ul>
+                                                            {% else %}
+                                                            <span>{{x.rating}}</span>
+                                                            <ul class="rating">
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
@@ -989,8 +1092,8 @@
                                                     </div>
                                                     <h4><a class="product_name" href="jwellery_single_product.html">{{x.product.model_name}}</a></h4>
                                                     <div class="price-box" style="display: flex;">
-                                                        <span class="new-price" style="width: 50%;display: flex;align-items: center;">&#8377; {{x.product.selling_price}}</span>
-                                                        <span style=" display: flex;width: 100%;justify-content: end;">
+                                                        <span class="new-price" style="width: 100%;display: flex;align-items: center;">&#8377; {{x.product.selling_price}}</span>
+                                                        {% comment %} <span style=" display: flex;width: 100%;justify-content: end;">
                                                         <td class="quantity">
                                                         
                                                             <div class="cart-plus-minus">
@@ -998,24 +1101,24 @@
                                                                 <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
                                                                 <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                                             </div>
-                                                        </td></span>
+                                                        </td></span> {% endcomment %}
                                                     </div>
                                                     
                                                 </div>
-                                                <div class="add-actions">
+                                                {% comment %} <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         
                                                         <li class="add-cart active"><a href="/enduser/usersignin">Add to cart</a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                         <li><a class="links-details" href="/enduser/usersignin"><i class="fa fa-heart-o"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> {% endcomment %}
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
                                     </div>
                                     {% endfor %}
-                                    <div class="col-lg-12">
+                                    {% comment %} <div class="col-lg-12">
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
@@ -1066,7 +1169,7 @@
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
-                                    </div>
+                                    </div> {% endcomment %}
                                     
                                       
                                 </div>

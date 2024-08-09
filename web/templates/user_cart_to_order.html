@@ -10,7 +10,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/icon.jpeg' %}">
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo/Miogra_logo.png' %}">
         <!-- Material Design Iconic Font-V2.2.0 -->
         <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
         <!-- Font Awesome -->
@@ -41,32 +41,28 @@
         <link rel="stylesheet" href="{% static 'css/helper.css' %}">
         <!-- Main Style CSS -->
         <link rel="stylesheet" href="{% static 'css/order.css' %}">
-         <link rel="stylesheet" href="{% static 'css/style1.css' %}">
-
+        <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+        <link rel="stylesheet" href="{% static 'css/responseCheck.css' %}">
         <!-- Responsive CSS -->
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
         <!-- Modernizr js -->
         <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!--<style>-->
+        <!--  button.li-btn{-->
+        <!--    top: -33px;-->
+        <!--  }-->
+        <!--</style>-->
     </head>
     <body>
     <!--[if lt IE 8]>
 		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
         <!-- Begin Body Wrapper -->
-        <div class="body-wrapper" >
+       <div class="body-wrapper" >
         {% include "enduser_header.html" %}
     
-            <div class="breadcrumb-area">
-                <div class="container-fluid">
-                    <div class="breadcrumb-content">
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li class="active">Checkout</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            
             <form method="POST">
               {% csrf_token %}
             <div class='order mt-2 mb-3'>
@@ -97,7 +93,7 @@
                             <tr>
                                 
                                 <td class="li-product-thumbnail"><a href="#"><img src="{{data.shop_product.product.primary_image}}" alt="Li's Product Image"></a></td>
-                                <td class="li-product-name"><a href="#">{{data.shop_product.product.name|join:","}}</a></td>
+                                <td class="li-product-name"><a href="#">{{data.shop_product.product.model_name}}</a></td>
                                 <td class="li-product-price"><span class="amount">&#8377 {{data.shop_product.product.selling_price}}</span></td>
                                 <td class="quantity">
                                     {{data.quantity}}
@@ -109,7 +105,7 @@
                             <tr>
                                
                                 <td class="li-product-thumbnail"><a href="#"><img src="{{data.jewel_product.product.primary_image}}" alt="Li's Product Image"></a></td>
-                                <td class="li-product-name"><a href="#">{{data.jewel_product.product.name|join:","}}</a></td>
+                                <td class="li-product-name"><a href="#">{{data.jewel_product.product.model_name}}</a></td>
                                 <td class="li-product-price"><span class="amount">&#8377 {{data.jewel_product.product.selling_price}}</span></td>
                                 <td class="quantity">
                                     {{data.quantity}}
@@ -121,7 +117,7 @@
                             <tr>
                                 
                                 <td class="li-product-thumbnail"><a href="#"><img src="{{data.pharmacy_product.product.primary_image}}" alt="Li's Product Image"></a></td>
-                                <td class="li-product-name"><a href="#">{{data.pharmacy_product.product.name|join:","}}</a></td>
+                                <td class="li-product-name"><a href="#">{{data.pharmacy_product.product.model_name}}</a></td>
                                 <td class="li-product-price"><span class="amount">&#8377 {{data.pharmacy_product.product.selling_price}}</span></td>
                                 <td class="quantity">
                                     {{data.quantity}}
@@ -132,7 +128,7 @@
                             {% elif  data.freshcut_product %}
                             <tr>
                                 <td class="li-product-thumbnail"><a href="#"><img src="{{data.freshcut_product.product.primary_image}}" alt="Li's Product Image"></a></td>
-                                <td class="li-product-name"><a href="#">{{data.freshcut_product.product.name|join:","}}</a></td>
+                                <td class="li-product-name"><a href="#">{{data.freshcut_product.product.model_name}}</a></td>
                                 <td class="li-product-price"><span class="amount">&#8377 {{data.freshcut_product.product.selling_price}}</span></td>
                                 <td class="quantity">
                                     {{data.quantity}}
@@ -144,7 +140,7 @@
                             <tr>
                                 
                                 <td class="li-product-thumbnail"><a href="#"><img src="{{data.dailymio_product.product.primary_image}}" alt="Li's Product Image"></a></td>
-                                <td class="li-product-name"><a href="#">{{data.dailymio_product.product.name|join:","}}</a></td>
+                                <td class="li-product-name"><a href="#">{{data.dailymio_product.product.model_name}}</a></td>
                                 <td class="li-product-price"><span class="amount">&#8377 {{data.dailymio_product.product.selling_price}}</span></td>
                                 <td class="quantity">
                                     {{data.quantity}}
@@ -156,7 +152,7 @@
                             <tr>
                                 
                                 <td class="li-product-thumbnail"><a href="#"><img src="{{data.d_origin_product.product.primary_image}}" alt="Li's Product Image"></a></td>
-                                <td class="li-product-name"><a href="#">{{data.d_origin_product.product.name|join:","}}</a></td>
+                                <td class="li-product-name"><a href="#">{{data.d_origin_product.product.model_name}}</a></td>
                                 <td class="li-product-price"><span class="amount">&#8377 {{data.d_origin_product.product.selling_price}}</span></td>
                                 <td class="quantity">
                                     {{data.quantity}}
@@ -166,106 +162,72 @@
                             </tr>
                             {% endif%}
                         {% endfor %}
-                            {% comment %} <tr>
-                                <td class="li-product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
-                                <td class="li-product-thumbnail"><a href="#"><img src="images/product/small-size/6.jpg" alt="Li's Product Image"></a></td>
-                                <td class="li-product-name"><a href="#">Mug Today is a good day</a></td>
-                                <td class="li-product-price"><span class="amount">&#8377 71.80</span></td>
-                                <td class="quantity">
-                                    
-                                    <label>Quantity</label>
-                                    <div class="cart-plus-minus">
-                                        <input class="cart-plus-minus-box" name="quantity" value="1" type="text">
-                                        <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                        <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                    </div>
-                                
-                                </td>
-                                <td class="product-subtotal"><span class="amount">&#8377</span><span class="sub_amount">60.00</span></td>
-                            </tr> {% endcomment %}
+                            
                         </tbody>
                     </table>
                 </div>
                 <div class='row order_address'>
-                  <div class="row" style="display:flex;">
-                  <div class='col-md-8' >
-                    <h4>🗺️ Delivery Address</h4>
-                  </div>
-                 
-                  <div class='col-md-4'>
-                   <a href="/user/update_address/{{key.uid}}"> <button type="button" style="margin-top:0px !important;">ADD</button></a>
-                  </div>
-                 
-                </div>
-                <div class="container-fluid my-5">
-                  
-                 {% for i in key.address_data %}
+                  <div class="col-lg-6">
+                    <div class="row">
+                      <div class='col-md-10' id="res_da1">
+                        <h4>🗺️ Delivery Address</h4>
+                      </div>
+                      
+                      <div class='col-md-2' id="res_da2">
+                        <a href="/user/update_address/{{key.uid}}"> <button type="button" style="width:100%;margin-left: -19px;">ADD</button></a>
+                      </div>
+                    </div>
+                    <div class="row mt-3" style="display: flow;">
+                      
                  
                       <div class='row'>
-                          <div class="col-sm-2">
-                            <input type='radio' name='address' value="{{ forloop.counter0 }}" style="height:20px;"  />
-                          </div>
-                          <div class="col-sm-6 ">
-                            <h6>{{i.doorno}}, {{i.area}}, {{i.landmark}},<br>
-                              {{i.place}},{{i.district}},{{i.state}},{{i.pincode}}.</h6>
-                          </div>
-                           <div class="col-sm-2">
-                            <form method="POST">
-                              {% csrf_token %}
-                           <button type="submit" name="ad_change"  value="{{ forloop.counter0 }}" style="border:none;">Edit</button>
-                            </form>
-                          </div> 
+                          {% for i in key.address_data %}
+                            <div class="col-sm-1" id="res_ad1">
+                              <input type='radio' name='address' value="{{ forloop.counter0 }}" style="height:20px;" required />
+                            </div>
+                            <div class="col-sm-9 del_addr" id="res_ad2">
+                              {{i.doorno}}, {{i.area}}, {{i.landmark}},
+                                {{i.place}},{{i.district}},{{i.state}},{{i.pincode}}.
+                            </div>
+                            <div class="col-sm-2" id="res_ad3">
+                              <form method="POST">
+                                {% csrf_token %}
+                                <button type="submit" name="ad_change"  value="{{ forloop.counter0 }}" style="border:none;width:100%">EDIT</button>
+                              </form>
+                            </div>
+                        {% endfor %}
+                      </div>                   
+                    </div>
+                  </div>   
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-5">
+                      <h4>Price Details</h4>
+  
+                      <div class='row order_price'>
+                        <div class="table table-borderless">
+                          <table>
+                            <tbody>
+                            <tr><td class="price_details">Price (1item) :</td><td class="price_details">&#8377 {{selling_price}}</td></tr>
+                            <tr><td class="price_details">Delivery Fees :</td><td class="price_details" >&#8377 {{delivery_fee}}</td></tr>
+                            <tr><td class="price_details">Discount :</td><td class="price_details" >&#8377 {{discount}}</td></tr>
+                            <tr><td class="price_details">Order Total :</td><td class="price_details">&#8377 {{total_price}}</td></tr>
+                          </tbody>
+                          </table>
+  
                         </div>
-                      {% endfor %}
-                      
-                      
-                    
+                      </div> 
+                    </div>
                 </div>
-                {% comment %} <div class='row'>
-                  <div class='select'>
-                      <div class='col-md-5'>
-                          <button  class='btn btn-select'>Select</button>
-                      </div>
-                      <div class='col-md-7'></div>
+               
+                  <div class="container-fluid">
+                  <button type="submit" name="pay_option" id="continue">CONTINUE</button>
                   </div>
-              </div> {% endcomment %}
                 
-
-                <h4>Price Details</h4>
-
-                <div class='row order_price'>
-                  <div class='col-sm-5'>
-                    <p>Price (1item) :</p>
-                    <p>Delivery Fees :</p>
-                    <p>Discount :</p>
-                  </div>
-                  <div class='col-sm-3'></div>
-                  <div class='col-sm-4'>
-                    <h5>&#8377 {{selling_price}}</h5>
-                    <h5>&#8377 {{delivery_fee}}</h5>
-                    <h5 >&#8377 -{{discount}}</h5>
-                  </div>
-                </div>
-
-                <hr />
-
-                <div class='row order_total'>
-                  <div class='col-sm-5'>
-                    <h4>Order Total :</h4>
-                  </div>
-                  <div class='col-sm-3'></div>
-                  <div class='col-sm-4'>
-                    <h5>&#8377 {{total_price}}</h5>
-                  </div>
+  
               </div>
-              {% comment %} <a href="/user_payment/{{<id>}}/product/<str:category>/<shop_id>/<product_id>/with/<quantity>/"> {% endcomment %}
-                <button type="submit" name="pay_option">Continue</button>
-              {% comment %} </a> {% endcomment %}
-
-            </div>
-          </form>
+            </form>
         </div>
-       
+       {% include "footer.html" %}
         <script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
         <!-- Popper js -->
         <script src="{% static 'js/vendor/popper.min.js' %}"></script>
@@ -304,9 +266,8 @@
         <!-- Nice Select js -->
         <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
         <!-- ScrollUp js -->
-        <script src="{% static 'js/scrollUp.min.j' %}"></script>
+        <script src="{% static 'js/scrollUp.min.js' %}"></script>
         <!-- Main/Activator js -->
         <script src="{% static 'js/main.js' %}"></script>
     </body>
 </html>
-            

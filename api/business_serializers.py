@@ -1324,4 +1324,3 @@ class notificationlistSerializer(serializers.Serializer):
     message_desc = serializers.CharField()
     notify_date = serializers.DateField()
     is_read=serializers.BooleanField()
-    

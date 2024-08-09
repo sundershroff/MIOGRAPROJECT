@@ -25,6 +25,7 @@ from mio_admin import views
 urlpatterns = [
     path('', include('mio_admin.urls')),
     path('', include('web.urls')),
+    path('', include('hub.urls')),
     path('admin/', admin.site.urls),
 
     path('business_signup/',business_views.business_signup),
@@ -53,6 +54,7 @@ urlpatterns = [
     path('my_shopping_data/<id>',business_views.my_shopping_data),
     path('shopping_update/<id>/shops/<shop_id>',business_views.shopping_update),
     path('business_shopping_data/<id>',business_views.business_shopping_data),
+    path('accepted_ordered_list/<food_id>',business_views.accepted_ordered_list),
     # shopping dashboard
     path('shop_total_revenue/<id>',business_views.shop_total_revenue),
     path('shop_mon_revenue/<id>',business_views.shop_mon_revenue),
@@ -117,7 +119,10 @@ urlpatterns = [
     path('food_productorder_date/<id>',business_views.food_productorder_date),
     path('food_get_subcategoryproducts/<id>/<str:subcategory>/',business_views.food_get_subcategoryproducts),
     path('restautant/review/<id>',business_views.add_review_restaurant),
-# freshcuts
+    path('business_food_order/<seller_id>/<category>',business_views.business_food_order),
+    path('business_order_history/<seller_id>/<category>',business_views.business_order_history),
+
+    # freshcuts
     path('freshcuts/<id>',business_views.freshcuts),
     path('freshcuts_alldata',business_views.freshcuts_alldata),
     path('my_freshcuts_data/<id>',business_views. my_freshcuts_data),
@@ -239,6 +244,8 @@ urlpatterns = [
     path('all_foodproducts/',end_user_views.all_foodproducts),
     path('category_based_food/<str:subcategory>/',end_user_views.category_based_food),
     path('single_foodproduct/<id>/<product_id>',end_user_views.get_single_foodproduct),
+    path('enduser_resturant_get_products/<id>',end_user_views.enduser_resturant_get_products),
+
     #after login
     path('user_get_all_foodproducts/<id>/<user_id>',end_user_views.user_get_all_foodproducts),
     path('user_get_category_food/<id>/<user_id>/<str:subcategory>/',end_user_views.user_get_category_food),
@@ -289,6 +296,9 @@ urlpatterns = [
     # cart products
     path('cart_product/<id>/<product_id>/<str:category>/',end_user_views.cart_product),
     path('cartlist/<id>',end_user_views.cartlist),
+    path('food_cartlist/<id>',end_user_views.food_cartlist),
+    path('cart_total_amount/<id>',end_user_views.cart_total_amount),
+    path('food_cart_total_amount/<id>',end_user_views.food_cart_total_amount),
     path('cartremove/<id>/<cart_id>/',end_user_views.cartremove),
     path('cartupdate/<id>',end_user_views.cartupdate),
     path('create_reviews_for_delivered_products/<id>/<product_id>/',end_user_views.create_reviews_for_delivered_products),
@@ -296,6 +306,8 @@ urlpatterns = [
     path('get_product_all_reviews/<product_id>',end_user_views.get_product_all_reviews),
     path('calculate_average_ratings/<str:category>',end_user_views.calculate_average_ratings),
 
+    #search query
+    path('search_query/<query>/',end_user_views.search_query),
     # whishlist
     path('whishlist_product/<id>/<product_id>/<str:category>/',end_user_views.whishlist_product),
     path('all_wishlist/<id>',end_user_views.all_wishlist),
@@ -303,6 +315,9 @@ urlpatterns = [
 
     # timeline
     path('user_product_timeline/<id>',end_user_views.user_product_timeline),
+    
+    #km
+    path('quick_delivery_km_for_order/<enduser>/<shop>',end_user_views.quick_delivery_km_for_order),
 
 
 # usedproducts
@@ -313,6 +328,10 @@ urlpatterns = [
     path('get_used_products_category/<str:subcategory>/',end_user_views.get_used_products_category),
     path('user_single_used_products/<id>/<product_id>',end_user_views.user_single_used_products),
     path('used_update_product/<id>/<product_id>',end_user_views.used_update_product),
+    path('used_imgupdate_product/<id>/<product_id>/<index_value>',end_user_views.used_imgupdate_product),
+
+    path('razor_pay_order',end_user_views.razor_pay_order),
+
 
 
 # # ..............enduser_web................
@@ -338,10 +357,12 @@ urlpatterns = [
     path('delivery_product_order_status_accept/<id>/<product_id>/<order_id>/',delivery_views.delivery_product_order_status_accept),
 
     path('delivery_product_order_status_reject/<id>/<product_id>/<order_id>/',delivery_views.delivery_product_order_status_reject),
-    path('delivery_produt_emergency/<id>/<order_id>',delivery_views.delivery_produt_emergency),
+    path('delivery_produt_emergency/<id>',delivery_views.delivery_produt_emergency),
     path('delivery_signin_otp/<id>/',delivery_views.delivery_signin_otp),
     path('product_status/<id>/<order_id>/<str:orderstatus>/',delivery_views.product_status),
     path('delivered_productorder_date/<id>',delivery_views.delivered_productorder_date),
+    path('delivered_product/<id>',delivery_views.delivered_product),
+    path('my_orders/<id>',delivery_views.my_orders),
     path('todays_order/<id>/<str:delivery_date>',delivery_views.todays_order),
     path('todays_incencentiveorder/<id>/<str:delivery_date>',delivery_views.todays_incencentiveorder),
     path('delivery_payableamount/<id>',delivery_views.delivery_payableamount),
@@ -358,8 +379,15 @@ urlpatterns = [
     path('delivery_person_notify_delete/<id>/',delivery_views.delivery_person_notify_delete),
     path('delete_all_notification/<id>/',delivery_views.delete_all_notification),
 
+    path('floating_cash/<id>',delivery_views.floating_cash),
+    path('amount_payable/<id>',delivery_views.amount_payable),
+    
+    path('today_incentives/<id>/<str:delivery_date>',delivery_views.today_incentives),
+    path('today_earnings/<id>/<str:delivery_date>',delivery_views.today_earnings),
+
+
+
 
 
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

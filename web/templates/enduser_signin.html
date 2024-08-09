@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="{% static 'css/fontawesome-all.min.css' %}">
 
-<link rel="shortcut icon" type="image/x-icon" href="{% static '/images/icon.jpeg' %}">
+<link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo/Miogra_logo.png' %}">
 
 <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
 
@@ -41,8 +41,10 @@
 <form class="form-detail" action="#" method="POST" enctype="multipart/form-data">
   {%csrf_token%}
 <h2> <img src="{% static 'images/menu/logo/header.png' %}" alt="" style="height:40px;"></h2>
+    <p style="text-align:center;color:red;">{{error}}</p>
+    <br>
 <div class="form-row">
-  
+ 
 <!-- <label for="full-name">UserName</label> -->
 
 </div>

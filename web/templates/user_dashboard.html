@@ -11,7 +11,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/icon.jpeg' %}">
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo/Miogra_logo.png' %}">
         <!-- Material Design Iconic Font-V2.2.0 -->
         <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
         <!-- Font Awesome -->
@@ -64,45 +64,46 @@
                         <!-- Begin Slider Area -->
                         <div class="col-lg-12 col-md-12" style="
                         padding-left: 0;
-                        padding-right: 0;
-                    ">
+                        padding-right: 0; ">
                             <div class="slider-area">
                                 <div class="slider-active owl-carousel">
+                                    {% for x in banner.banner_list1 %}
                                     <!-- Begin Single Slide Area -->
-                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(/media/{{banner.banner1}});">
+                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url({{x}});">
                                         <div class="slider-progress"></div>
                                         {% comment %} <div class="slider-content">
                                             <h5>Sale Offer <span>-20% Off</span> This Week</h5>
-                                            <h2>Chamcham Galaxy S9 | S9+</h2>
-                                            <h3>Starting at <span>&#8377;1209.00</span></h3>
+                                            <h2>Chicken Briyani</h2>
+                                            <h3>Starting at <span>&#8377;150.00</span></h3>
                                             <div class="default-btn slide-btn">
-                                                <a class="links" href="/shopproducts/shop_products">Shopping Now</a>
+                                                <a class="links" href="/">Shopping Now</a>
                                             </div>
                                         </div> {% endcomment %}
                                     </div>
+                                    {% endfor %}
                                     <!-- Single Slide Area End Here -->
                                     <!-- Begin Single Slide Area -->
-                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(/media/{{banner.banner2}});">
-                                        <div class="slider-progress"></div>
-                                        {% comment %} <div class="slider-content">
-                                            <h5>Sale Offer <span>Black Friday</span> This Week</h5>
-                                            <h2>Work Desk Surface Studio 2018</h2>
-                                            <h3>Starting at <span>&#8377;824.00</span></h3>
-                                            <div class="default-btn slide-btn">
-                                                <a class="links" href="/shopproducts/shop_products">Shopping Now</a>
-                                            </div>
-                                        </div> {% endcomment %}
-                                    </div> 
+                                    <!--<div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(media/{{banner.banner2}});">-->
+                                    <!--    <div class="slider-progress"></div>-->
+                                    <!--    {% comment %} <div class="slider-content">-->
+                                    <!--        <h5>Sale Offer <span>Black Friday</span> This Week</h5>-->
+                                    <!--        <h2>Ham Burger</h2>-->
+                                    <!--        <h3>Starting at <span>&#8377;224.00</span></h3>-->
+                                    <!--        <div class="default-btn slide-btn">-->
+                                    <!--            <a class="links" href="">Shopping Now</a>-->
+                                    <!--        </div>-->
+                                    <!--    </div> {% endcomment %}-->
+                                    <!--</div> -->
                                     <!-- Single Slide Area End Here -->
                                     <!-- Begin Single Slide Area -->
                                     {% comment %} <div class="single-slide align-center-left animation-style-01 bg-3">
                                         <div class="slider-progress"></div>
                                         <div class="slider-content">
                                             <h5>Sale Offer <span>-10% Off</span> This Week</h5>
-                                            <h2>Phantom 4 Pro+ Obsidian</h2>
-                                            <h3>Starting at <span>&#8377;1849.00</span></h3>
+                                            <h2>Full Meals</h2>
+                                            <h3>Starting at <span>&#8377;149.00</span></h3>
                                             <div class="default-btn slide-btn">
-                                                <a class="links" href="/shopproducts/shop_products">Shopping Now</a>
+                                                <a class="links" href="">Shopping Now</a>
                                             </div>
                                         </div>
                                     </div> {% endcomment %}
@@ -426,7 +427,7 @@
                             <div class="row">
                                 <div class="product-active owl-carousel">
                                 {% for item in shopdata %}
-                                    {{item.product.shop_id}}
+                                    
                                     <div class="col-lg-12">
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
@@ -458,13 +459,13 @@
                                                         <span class="new-price">&#8377; {{item.product.selling_price}}</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                {% comment %} <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{item.category.0}}/products/{{item.product.shop_id}}/{{item.product.product_id}}/">Add to cart</a></li>
                                                         <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{item.product.category.0}}/{{item.product.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                </div>
+                                                </div> {% endcomment %}
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -632,9 +633,17 @@
                                                                 <li><i class="fa fa-star-o"></i></li>
                                                                 <li><i class="fa fa-star-o"></i></li>
                                                             </ul>
-                                                            {% else %}
+                                                            {% elif item.rating == "1.0"%}
                                                             <ul class="rating">
                                                                 <li><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                            </ul>
+                                                            {% else %}
+                                                            <ul class="rating">
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
@@ -648,14 +657,14 @@
                                                         <span class="new-price">&#8377; {{item.product.selling_price}}</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                {% comment %} <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{item.product.category.0}}/products/{{item.product.shop_id}}/{{item.product.product_id}}/">Add to cart</a></li>
                                                         <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{item.product.category.0}}/{{item.product.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                    {% comment %} <a href="/user/orders/{{key.uid}}/{{item.product.category.0}}/products/{{item.product.shop_id}}/{{item.product.product_id}}/"><button class="add-cart-button active">Buy Now</button></a> {% endcomment %}
-                                                </div>
+                                                    <a href="/user/orders/{{key.uid}}/{{item.product.category.0}}/products/{{item.product.shop_id}}/{{item.product.product_id}}/"><button class="add-cart-button active">Buy Now</button></a>
+                                                </div> {% endcomment %}
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -968,14 +977,14 @@
                                                         <span class="new-price">&#8377; {{item.product.selling_price}}</span>
                                                     </div>
                                                 </div>
-                                                <div class="add-actions">
+                                                {% comment %} <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{item.category.0}}/products/{{item.product.shop_id}}/{{item.product.product_id}}/">Add to cart</a></li>
                                                         <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{item.category.0}}/{{item.product.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
-                                                    {% comment %} <a href="/user/orders/{{key.uid}}/{{item.product.category.0}}/products/{{item.product.shop_id}}/{{item.product.product_id}}/"><button class="add-cart-button active">Buy Now</button></a> {% endcomment %}
-                                                </div>
+                                                    <a href="/user/orders/{{key.uid}}/{{item.product.category.0}}/products/{{item.product.shop_id}}/{{item.product.product_id}}/"><button class="add-cart-button active">Buy Now</button></a> 
+                                                </div> {% endcomment %}
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->
@@ -990,7 +999,7 @@
             </section>
             <!-- Li's TV & Audio Product Area End Here -->
             <!-- Begin Li's Static Home Area -->
-            <div class="li-static-home">
+            {% comment %} <div class="li-static-home">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
@@ -1014,10 +1023,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> {% endcomment %}
             <!-- Li's Static Home Area End Here -->
             <!-- Begin Li's Trending Product Area -->
-            <section class="product-area li-trending-product pt-60 pb-45">
+            {% comment %} <section class="product-area li-trending-product pt-60 pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Tab Menu Area -->
@@ -1834,10 +1843,10 @@
                         <!-- Tab Menu Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
             <!-- Li's Trending Product Area End Here -->
             <!-- Begin Li's Trendding Products Area -->
-            <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
+            {% comment %} <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -2406,10 +2415,10 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
             <!-- Li's Trendding Products Area End Here -->
 
-            <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
+            {% comment %} <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -2692,10 +2701,10 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
             <!-- Li's Trendding Products Area End Here -->
             <!-- Begin Li's TV & Audio Product Area -->
-            <section class="product-area li-laptop-product li-tv-audio-product pb-45">
+            {% comment %} <section class="product-area li-laptop-product li-tv-audio-product pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -2972,9 +2981,9 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
             <!-- Li's TV & Audio Product Area End Here -->
-            <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
+            {% comment %} <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -3257,9 +3266,9 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
             <!-- Li's Trendding Products Area End Here -->
-            <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
+            {% comment %} <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -3542,9 +3551,9 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
             <!-- Li's Trendding Products Area End Here -->
-            <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
+            {% comment %} <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -3827,10 +3836,10 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
             <!-- Li's Trendding Products Area End Here -->
             <!-- Begin Li's TV & Audio Product Area -->
-            <section class="product-area li-laptop-product li-tv-audio-product pb-45">
+            {% comment %} <section class="product-area li-laptop-product li-tv-audio-product pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -4107,10 +4116,10 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
             <!-- Li's TV & Audio Product Area End Here -->
             <!-- Begin Li's TV & Audio Product Area -->
-            <section class="product-area li-laptop-product li-tv-audio-product pb-45">
+            {% comment %} <section class="product-area li-laptop-product li-tv-audio-product pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -4387,9 +4396,9 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
             <!-- Li's TV & Audio Product Area End Here -->
-            <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
+            {% comment %} <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -4672,9 +4681,9 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
             <!-- Li's Trendding Products Area End Here -->
-            <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
+            {% comment %} <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -4957,9 +4966,9 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
             <!-- Li's Trendding Products Area End Here -->
-            <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
+            {% comment %} <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -5242,9 +5251,9 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
             <!-- Li's Trendding Products Area End Here -->
-            <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
+            {% comment %} <section class="product-area li-laptop-product li-trendding-products best-sellers pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -5527,10 +5536,10 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
             <!-- Li's Trendding Products Area End Here -->
             <!-- Begin Li's TV & Audio Product Area -->
-            <section class="product-area li-laptop-product li-tv-audio-product pb-45">
+            {% comment %} <section class="product-area li-laptop-product li-tv-audio-product pb-45">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -5540,7 +5549,7 @@
                                     <span>Recently Viewed</span>
                                 </h2>
                                 <ul class="li-sub-category-list">
-                                    <li class="active"><a href="shop-left-sidebar.html">View All</a></li>
+                                    <li class="active"><a href="">View All</a></li>
                                     <!-- <li><a href="shop-left-sidebar.html">Sanai</a></li>
                                     <li><a href="shop-left-sidebar.html">Meito</a></li> -->
                                 </ul>
@@ -5807,7 +5816,7 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
             <!-- Li's TV & Audio Product Area End Here -->
                                                                         
             <!-- Begin Footer Area -->
@@ -5907,7 +5916,7 @@
                                                 </form>
                                             </div>
                                             <div class="product-additional-info pt-25">
-                                                <a class="wishlist-btn" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{item.product.category.0}}/{{item.product.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a>
+                                                <a class="wishlist-btn" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{item.product.category}}/{{item.product.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a>
                                                 <div class="product-social-sharing pt-25">
                                                     <ul>
                                                         <li class="facebook"><a href="#"><i class="fa fa-facebook"></i>Facebook</a></li>

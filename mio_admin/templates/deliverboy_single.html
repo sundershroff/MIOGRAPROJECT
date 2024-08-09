@@ -427,11 +427,11 @@
                                 <h2>Payment History</h2>
                                 <div class="col-md-6" style="text-align: center;">
                                   <h4 style="color: green;">Total Paid Amount</h4>
-                                  <h4 class="badge badge-gradient-success" style="font-size: x-large;font-weight: 700;">₹{{paid_amount}}</h4>
+                                  <h4 class="badge badge-gradient-success" style="font-size: x-large;font-weight: 700;">₹{{balance_amount}}</h4>
                                 </div>
                                 <div class="col-md-6" style="text-align: center;">
                                   <h4 style="color: red;">Balance Amount</h4>
-                                  <h4 class="badge badge-gradient-danger" style="font-size: x-large;font-weight: 700;">₹{{balance_amount}}</h4>
+                                  <h4 class="badge badge-gradient-danger" style="font-size: x-large;font-weight: 700;">₹{{paid_amount}}</h4>
                                 </div>
                             </div>
                             <!-- end payment history -->
@@ -456,11 +456,13 @@
                                                         <th> Total Amount</th>
                                                         <th> Payment Method </th>
                                                         <th> Status </th>
+                                                        <th> Payment Settle </th>
                                                       </tr>
                                                     </thead>
                                                     <tbody>
                                                       {% for i in delivery_history %}
                                                       {% if i.status == "delivered" %}
+                                                      {{i.shop_product}}
                                                       <tr>
                                                         <td>
                                                             {{forloop.counter}}
@@ -477,6 +479,23 @@
                                                         <td> ₹{{i.total_amount}}</td>
                                                         <td> {{i.payment_type}}</td>
                                                         <td style="color: green;">Delivered</td>
+                                                        {% if i.payment_status == None %}
+
+                                                          <td style="color: orange;">
+                                                            <form method="POST">
+                                                              {% csrf_token %}
+                                                              <input type="hidden" name="order_id" value="{{i.order_id}}" id="">
+                                                              <button type="submit" name="paid" value="payment_settled" style="
+                                                              padding: 11px;
+                                                              width: 100%;
+                                                              border-radius: 8px;
+                                                              background-color: orange;
+                                                          ">Pay</button>
+                                                            </form>
+                                                          </td>
+                                                        {% else %}
+                                                        <td style="color: green;font-size: larger;">Paid</td>
+                                                        {% endif %}
                                                       </tr>
                                                       {% endif %}
                                                       {% endfor %}
@@ -531,20 +550,28 @@
                                                 </div>
                                                                 </div>
                                           </div>
-                          
+                         
                       <!-- partial:partials/_footer.html -->
                       
                       <!-- partial -->
                     </div>
+                    
                     <!-- main-panel ends -->
                   </div>
+                   
                   <!-- page-body-wrapper ends -->
                 </div>
-                                
-                  
+                <div style="display:flex;width:100%;">
+                    <div style="width:50%;">
+                 <a href="/admin/block_delivery_man/{{data.uid}}/{{authenticate.username}}" style="color: white;background-color: orange;width: 50%;padding: 8px;border: 1px white;border-radius: 8px;text-align: center;text-decoration: none;width:100%;display:flex;justify-content: center;">Block</a>  
+                     </div>
+                      <div style="width:50%;">
+                             <a href="/admin/delete_delivery_man/{{data.uid}}/{{authenticate.username}}" style="color: white;background-color: red;width: 50%;padding: 8px;border: 1px white;border-radius: 8px;text-align: center;text-decoration: none;width:100%;display:flex;justify-content: center;">Delete</a>  
+                        </div>
+                  </div>
                     <!-- main-panel ends -->
                   </div>
-                  
+               
 
                   <!-- page-body-wrapper ends -->
                 </div>

@@ -1,0 +1,192 @@
+{% load static %}
+
+
+        <header>
+            <!-- Begin Header Top Area -->
+            <div class="header-top">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- Begin Header Top Left Area -->
+                        <div class="col-lg-3 col-md-4">
+                            <div class="header-top-left">
+                                <ul class="phone-wrap" style="margin-left:30px;">
+                                    <li><span>Telephone Enquiry: </span><a href="tel:(+91) 9072 242 801">(+91) 9072 242 801</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Header Top Left Area End Here -->
+                        <!-- Begin Header Top Right Area -->
+                        <div class="col-lg-9 col-md-8">
+                            <div class="header-top-right">
+                                <ul class="ht-menu" style="margin-right:30px;">
+                                    <!-- Begin Setting Area -->
+                                    <li>
+                                        <div class="ht-setting-trigger"><span>Setting</span></div>
+                                        <div class="setting ht-setting">
+                                            <ul class="ht-setting-list">
+                                                <li><a href="">My Account</a></li>
+                                                <!--<li><a href="">Checkout</a></li>-->
+                                                <li><a href="/enduser/usersignup">Sign In</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+         
+                                    <!-- Language Area End Here -->
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Header Top Right Area End Here -->
+                    </div>
+                </div>
+            </div>
+            <!-- Header Top Area End Here -->
+            <!-- Begin Header Middle Area -->
+            <div class="header-middle pl-sm-0 pr-sm-0 pl-xs-0 pr-xs-0">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- Begin Header Logo Area -->
+                        <div class="col-lg-3">
+                            <div class="logo pb-sm-30 pb-xs-30 " style="display: flex;justify-content: center;">
+                                <a href="/">
+                                    <img src="{% static 'images/menu/logo/header.png' %}" style="margin-left:30px;" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Header Logo Area End Here -->
+                        <!-- Begin Header Middle Right Area -->
+                        <div class="col-lg-9 col-md-11 pl-0 ml-sm-15 ml-xs-15">
+                            <!-- Begin Header Middle Searchbox Area -->
+                            <form method="GET" class="hm-searchbox" action="{% url 'search_view' %}">
+                                {% csrf_token %}
+                                <!--<select class="nice-select select-search-category" style="display: none;">-->
+                                <!--    <option value="0">All</option>                         -->
+                                <!--    <option value="10">Laptops</option>                     -->
+   
+                                <!--</select>-->
+                                <!--<div class="nice-select select-search-category" tabindex="0"><span class="current">All</span><ul class="list"><li data-value="0" class="option selected">All</li><li data-value="10" class="option">Laptops</li></ul></div>-->
+                                <input id="search" name="query"  type="text" placeholder="Enter your search key ..." fdprocessedid="l04srr" list="search-suggestions" autocomplete="off" >
+                                {% comment %} <datalist id="search-suggestions" style="display:none">
+                                    <option value="Electronics">
+                                    <option value="Mobiles">
+                                    <option value="Briyani">
+                                    <option value="Chinese">
+                                </datalist> {% endcomment %}
+                                <button class="li-btn" id="searchButton" fdprocessedid="rj8qgm"><i class="fa fa-search"></i></button>
+                            </form>
+                            <!-- Header Middle Searchbox Area End Here -->
+                            <!-- Begin Header Middle Right Area -->
+                            <div class="header-middle-right">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-6" style="
+                                    display: flex;
+                                    justify-content: center;
+                                ">
+                                <ul class="hm-menu" style="display: flex;padding-left: 24px;">
+                                    <!-- Begin Header Middle Wishlist Area -->
+                                    <li class="hm-wishlist">
+                                        <a href="/enduser/usersignin">
+                                            <span class="cart-item-count wishlist-item-count">0</span>
+                                            <i class="fa fa-heart-o"></i>
+                                        </a>
+                                    </li>
+                                    <!-- Header Middle Wishlist Area End Here -->
+                                    <!-- Begin Header Mini Cart Area -->
+                                   <a href="/enduser/usersignup">
+                                    <li class="hm-minicart">
+                                        
+                                         <div class="hm-cart-btn" style="margin-right:30px;">
+                                          <span class="item-icon"></span>
+                                            <span class="item-text">
+                                                <span class="cart-item-count">0</span>
+                                            </span>
+                                        </div>
+                                        <span></span>
+                                    </li>
+                                </a>
+                                    <!-- Header Mini Cart Area End Here -->
+                                </ul>
+                            </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-6" style="
+                                justify-content: center;
+                                display: flex;
+                            ">
+                                    <a href="/enduser/usersignin" class="signup" fdprocessedid="vzukqa">LOGIN</a>
+                                </div>
+                            </div>
+                            </div>
+                            <!-- Header Middle Right Area End Here -->
+                        </div>
+                        <!-- Header Middle Right Area End Here -->
+                    </div>
+                </div>
+            </div>
+            <!-- Header Middle Area End Here -->
+            <!-- Begin Header Bottom Area -->
+            <div class="header-bottom header-sticky d-none d-lg-block d-xl-block">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- Begin Header Bottom Menu Area -->
+                            <div class="hb-menu">
+                                <nav style="text-align:center;">
+                                    <ul>
+                                       
+<!-- #food -->
+                                        <li class="dropdown-holder mx-3"><a href="/">Food</a>
+                                          
+                                        
+                                        </li>
+                                         <!-- #shopping -->
+                                         <li class="dropdown-holder mx-3"><a href="/shopproducts/shop">Shopping</a>
+                                            
+
+                                         </li>
+
+<!-- #fresh Cuts    -->
+                                     <li class="dropdown-holder mx-3"><a href="/freshproducts/fresh_cuts">Fresh Cuts</a>
+                                            
+                                        </li>
+
+<!-- #Daily mio    -->
+                                     <li class="dropdown-holder mx-3"><a href="/dailymioproducts/daily_mio">Daily Mio</a>
+                                       
+                                    </li>
+<!-- #Pharmacy    -->
+                                     <li class="dropdown-holder mx-3"><a href="/pharmacyproducts/pharmacy/">pharmacy</a>
+                                     
+                                    </li>
+                                   
+                                    <li class="dropdown-holder mx-3"><a href="/jewelleryproducts/jewellery/">Jewellery</a>
+          
+                                    </li>
+                                    <li class="dropdown-holder mx-3"><a href="/usedproducts/products/">Used Products</a>
+                                     
+                                    </li>
+                                    <li class="dropdown-holder mx-3"><a href="/doriginalproducts/doriginal">Doriginal</a>
+                                       
+                                    </li>
+                                   
+                                        <li class="mx-3"><a href="/about_miogra/">About Us</a></li>
+                                         <li class="mx-3"><a href="/services/">Services</a></li> 
+                                        <li class="mx-3"><a href="/miogra/contact/">Contact</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <!-- Header Bottom Menu Area End Here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Header Bottom Area End Here -->
+            <!-- Begin Mobile Menu Area -->
+            <div class="mobile-menu-area d-lg-none d-xl-none col-12">
+                <div class="container"> 
+                    <div class="row">
+                        <div class="mobile-menu">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Mobile Menu Area End Here -->
+        </header>

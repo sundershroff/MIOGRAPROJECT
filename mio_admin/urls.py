@@ -22,6 +22,7 @@ from mio_admin import views
 
 urlpatterns = [
     path('admin/',views.login_hub),
+    path('forget_password/',views.forget_password),
     path('logout/',views.logout),
     path('admin_index/<access_priveleges>',views.index),
     path('admin_dashboard/<access_priveleges>',views.dashboard),
@@ -52,6 +53,17 @@ urlpatterns = [
     path('admin/hsn_verification/<hsn_codee>',views.hsn_verification),
     path('delete_other_image/<product_id>/<position>/<access_priveleges>',views.delete_other_image),
     path('admin/emergency/<uid>',views.emergency),
+    path('admin/banner_display/<category>',views.banner_display),
+    path('admin/normal_delivery_commision',views.normal_delivery_commision),
+    path('admin/other_images/<index_id>/<category>/<product_id>',views.other_images),
+    path('admin/get',views.get),
+    path('admin/pay',views.pay),
+    path('admin/product_pause/<product_id>/<category>',views.pause_product),
+    path('admin/product_delete/<product_id>/<category>',views.delete_product),
+    path('admin/delete_delivery_man/<id>/<access_priveleges>',views.delete_delivery_man),
+    path('admin/block_delivery_man/<id>/<access_priveleges>',views.block_delivery_man),
+    path('admin/store_block_unblock/<business_id>/<status>/<authenticate>/',views.store_block_unblock),
+
 
 ]
 
@@ -59,4 +71,3 @@ urlpatterns = [
 # if settings.DEBUG:
 #     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 #     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

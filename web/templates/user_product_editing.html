@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miogra</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{% static 'css/registration.css' %}">
+<link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo/Miogra_logo.png' %}">
+</head>
+<body>
+    <div class="form-container">
+        <h2 style="color: #8B1874;">Product Details</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+           <div class="form-group" style="display:none;">
+                <input type="text" id="category" name="category" value="Used Product" placeholder="Used Product">
+                <label for="category">Used Product</label>
+            </div>
+            <div class="form-group">
+                <select id="subcategory" name="subcategory">
+                    <option value="{{product.subcategory}}">{{product.subcategory}}</option>
+                    <option value="mobiles">Mobiles</option>
+                    <option value="cars">Cars</option>
+                    <option value="bikes">Bikes</option>
+                    <option value="properties">Properties</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="furnitures">Furnitures</option>
+                    <option value="commercial">Commercial Vechicles</option>
+                    <option value="auto_accessories">Auto Accessories</option>
+                    <option value="others">Others</option>
+                    <!-- Add more options as needed -->
+                </select>
+                <label for="subcategory"></label>
+            </div>
+            
+            <div class="form-group">
+                <input type="text" id="brand" name="brand" value="{{product.brand}}" >
+                <label for="brand">Brand</label>
+            </div>
+            <div class="form-group">
+                <input type="text" id="model_name" name="model_name" value="{{product.model_name}}">
+                <label for="model_name">Name</label>
+            </div>
+            <div class="form-group">
+                <input type="text" id="description" name="description" value="{{product.description}}">
+                <label for="description">Product Description</label>
+            </div>
+            <div class="form-group">
+                <input type="text" id="contact" name="contact" value="{{product.contact}}">
+                <label for="contact">Contact</label>
+            </div>
+            <div class="form-group">
+                <input type="text" id="location" name="location" value="{{product.location}}">
+                <label for="location">Location</label>
+            </div>
+            <div class="form-group">
+                <input type="text" id="purchase" name="purchase" value="{{product.purchase}}">
+                <label for="purchase">Year and Month of Purchase</label>
+            </div>
+            <div class="zone">
+                {% comment %} <i class="fa fa-cloud-upload"></i> {% endcomment %}
+                <img src="{{product.primary_image}}" width="150px" height="150px">
+                <div>Primary image
+                    
+                </div>                   
+                
+                <div class="selectFile">                       
+                  <input type="file" name="primary_image" id="file" value="{{product.primary_image}}">
+                  <i class="fa fa-cloud-upload"></i> 
+                </div>
+            </div><br>
+            
+            
+            <div class="custom">
+            <label for="number8"><strong>Custom Description:</strong> </label><i class="fa fa-plus-circle" style="font-size:24px;color: green;" id="flip"></i>
+            <div id="panel">
+                {% if product.model  %}
+                <div class="custom"><input type="text" class="name1" name="heading" value="Model"required><input type="text" class="name1" name="data" value="{{product.model}}" required><i class="fa fa-minus-circle delete-btn" style="font-size:24px;color:red;cursor:pointer;"></i></div>
+                {% endif %}
+                {% if product.color %}
+                <div class="custom"><input type="text" class="name1" name="heading" value="Color"required><input type="text" class="name1" name="data" value="{{product.color}}" required><i class="fa fa-minus-circle delete-btn" style="font-size:24px;color:red;cursor:pointer;"></i></div>
+                {% endif %}
+                {% if product.weight%}
+                <div class="custom"><input type="text" class="name1" name="heading" value="Weight"required><input type="text" class="name1" name="data" value="{{product.weight}}" required><i class="fa fa-minus-circle delete-btn" style="font-size:24px;color:red;cursor:pointer;"></i></div>
+                {% endif %}
+                {% if product.type %}
+                <div class="custom"><input type="text" class="name1" name="heading" value="Type"required><input type="text" class="name1" name="data" value="{{product.type}}" required><i class="fa fa-minus-circle delete-btn" style="font-size:24px;color:red;cursor:pointer;"></i></div>
+                {% endif %}
+                {% if product.ram %}
+                <div class="custom"><input type="text" class="name1" name="heading" value="Ram"required><input type="text" class="name1" name="data" value="{{product.ram}}" required><i class="fa fa-minus-circle delete-btn" style="font-size:24px;color:red;cursor:pointer;"></i></div>
+                {% endif %}
+                {% if product.storage or product.Storage %}
+                <div class="custom"><input type="text" class="name1" name="heading" value="storage"required><input type="text" class="name1" name="data" value="{{product.storage}}" required><i class="fa fa-minus-circle delete-btn" style="font-size:24px;color:red;cursor:pointer;"></i></div>
+                {% endif %}
+            </div></div>
+            <div class="form-group">
+                <input type="number" id="selling_price" name="selling_price" value="{{product.selling_price}}">
+                <label for="selling_price">Selling Price</label>
+            </div>
+            <button name="productId" value="{{product.product_id}}" type="submit">Submit</button>
+        </form>
+        <div class="row">
+            <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% comment %} {% for image in product.other_images %}
+             {% endcomment %}
+                <div id="other_img">
+                    <div class="zone">
+                        <img src="{{product.other_images}}" width="150px" height="150px">
+                        <div>Other image
+                        
+                        </div>                    
+                        <div class="selectFile">                         
+                            <input type="file" name="other_images" value="{{product.other_images}}"id="file">
+                            <i class="fa fa-cloud-upload"></i> 
+                        </div>
+                    </div>
+                    <button class="Add" type="submit" name="img_index" value="0" >Update</button>
+                   
+
+                </div>
+           {% comment %} {{ forloop.counter0 }} {% endcomment %}
+             {% comment %} {% endfor %} {% endcomment %}
+
+            </form>
+        </div>
+    </div>
+   
+    
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#flip").click(function() {
+                var newDivContent = '<div class="custom"><input type="text" class="name1" name="heading" placeholder="Enter name" required><input type="text" class="name1" name="data" placeholder="Enter value" required><i class="fa fa-minus-circle delete-btn" style="font-size:24px;color:red;cursor:pointer;"></i></div><br>';
+                $("#panel").append(newDivContent);
+            });
+
+            $("#panel").on("click", ".delete-btn", function() {
+                $(this).parent().remove();
+            });
+           
+        });
+    </script>
+</body>
+</html>

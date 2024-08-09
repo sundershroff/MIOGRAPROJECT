@@ -18,44 +18,134 @@ from pymongo import MongoClient
 from geopy.distance import geodesic
 import requests
 import random
+from django.db import transaction
+from api import business_extension
 from django.utils.timezone import now
 from django.db.models import Q
 from django.db.models import Sum
 from django.db.models import Sum, F
-client = MongoClient('localhost', 27017)
-all_image_url = "http://127.0.0.1:3000/"
 
-def send_notification(message_title , message_desc):
+jsondec = json.decoder.JSONDecoder()
+client = MongoClient('localhost', 27017)
+all_image_url = "https://miogra.clovion.org/"
+
+
+def deliverysend_notification(message_title, message_desc):
     fcm_api = "AAAAbIibZeo:APA91bEHlJFNQjqRjMjX2N-YfgDAjOU_fXdt8HkQiQYhOYbGcv9B6MqGykeaG7zQVdrMOEQrOGckrUwKbl4XWdEOboEY9uDUSALHdzbpdW-DJbUxlVzCG_ayQJIPJfAnEPcCeKX86sqg"
     url = "https://fcm.googleapis.com/fcm/send"
     
     headers = {
-    "Content-Type":"application/json",
-    "Authorization": 'key='+fcm_api
-    }    
-    ex_registration_ids=[]
-    delivery = models.deliverylogintable_model.objects.filter(status=True,delivery_type= "Quick")
-    for i in delivery:
-        ex_registration_ids.append((i.deliveryperson.device_id))
+        "Content-Type": "application/json",
+        "Authorization": 'key=' + fcm_api
+    }
 
-    print(ex_registration_ids)
-    for x in ex_registration_ids:
+    delivery = models.deliverylogintable_model.objects.filter(status=True, delivery_type="Quick")
+    for delivery_person in delivery:
+        registration_id = delivery_person.deliveryperson.device_id
 
         payload = {
-            "registration_ids" :x,
-            "priority" : "high",
-            "notification" : {
-                "body" : message_desc,
-                "title" : message_title,
-                "image" : "https://i.ytimg.com/vi/m5WUPHRgdOA/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDwz-yjKEdwxvKjwMANGk5BedCOXQ",
-                "icon": "https://yt3.ggpht.com/ytc/AKedOLSMvoy4DeAVkMSAuiuaBdIGKC7a5Ib75bKzKO3jHg=s900-c-k-c0x00ffffff-no-rj",
-                
+            "registration_ids": [registration_id],
+            "priority": "high",
+            "notification": {
+                "body": message_desc,
+                "title": message_title,
+                "image": "https://miogra.clovion.org//static/assets/images/logo/Miogra_logo.png",
+                "icon": "https://miogra.clovion.org//static/assets/images/logo/Miogra_logo.png",
             }
         }
+        try:
+            result = requests.post(url, data=json.dumps(payload), headers=headers)
+            print(result.status_code)
+            print(result.json())
 
-        result = requests.post(url,  data=json.dumps(payload), headers=headers )
-        print(result.status_code)
-        print(result.json())
+            with transaction.atomic():  # Ensure atomic transaction
+                # Save notification to the database
+                sender_id = models.Delivery_model.objects.get(device_id=registration_id)
+                notification = models.Notification.objects.create(
+                    notify_id=business_extension.id_generate(),
+                    recipient=registration_id,
+                    message_title=message_title,
+                    message_desc=message_desc,
+                    sender_id=sender_id.uid,
+                )
+                notification.save()
+
+        except requests.exceptions.RequestException as e:
+            print("Failed to send notification:", e)
+
+def deliverysend_notification_pickup(registration_id,message_title, message_desc,uid):
+    fcm_api = "AAAAbIibZeo:APA91bEHlJFNQjqRjMjX2N-YfgDAjOU_fXdt8HkQiQYhOYbGcv9B6MqGykeaG7zQVdrMOEQrOGckrUwKbl4XWdEOboEY9uDUSALHdzbpdW-DJbUxlVzCG_ayQJIPJfAnEPcCeKX86sqg"
+    url = "https://fcm.googleapis.com/fcm/send"
+    
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": 'key=' + fcm_api
+    }
+
+
+    for x in registration_id:
+        payload = {
+            "registration_ids": [x],
+            "priority": "high",
+            "notification": {
+                "body": message_desc,
+                "title": message_title,
+                "image": "https://miogra.clovion.org//static/assets/images/logo/Miogra_logo.pnghttps://miogra.clovion.org//static/assets/images/logo/Miogra_logo.png",
+                "icon": "https://miogra.clovion.org//static/assets/images/logo/Miogra_logo.png",
+            }
+        }
+        try:
+            result = requests.post(url, data=json.dumps(payload), headers=headers)
+            print(result.status_code)
+            print(result.json())
+
+            with transaction.atomic():  # Ensure atomic transaction
+                # Save notification to the database
+                sender_id = models.Delivery_model.objects.get(uid=uid)
+                notification = models.Notification.objects.create(
+                    notify_id=business_extension.id_generate(),
+                    recipient=registration_id,
+                    earnings=message_title,
+                    amount=message_desc,
+                    sender_id=sender_id.uid,
+                )
+                notification.save()
+
+        except requests.exceptions.RequestException as e:
+            print("Failed to send notification:", e)
+
+
+# def send_notification(message_title , message_desc):
+#     fcm_api = "AAAAbIibZeo:APA91bEHlJFNQjqRjMjX2N-YfgDAjOU_fXdt8HkQiQYhOYbGcv9B6MqGykeaG7zQVdrMOEQrOGckrUwKbl4XWdEOboEY9uDUSALHdzbpdW-DJbUxlVzCG_ayQJIPJfAnEPcCeKX86sqg"
+#     url = "https://fcm.googleapis.com/fcm/send"
+    
+#     headers = {
+#     "Content-Type":"application/json",
+#     "Authorization": 'key='+fcm_api
+#     }    
+#     ex_registration_ids=[]
+#     delivery = models.deliverylogintable_model.objects.filter(status=True,delivery_type= "Quick")
+#     for i in delivery:
+#         ex_registration_ids.append((i.deliveryperson.device_id))
+
+#     print(ex_registration_ids)
+#     for x in ex_registration_ids:
+
+#         payload = {
+#             "registration_ids" :x,
+#             "priority" : "high",
+#             "notification" : {
+#                 "body" : message_desc,
+#                 "title" : message_title,
+#                 "image" : "https://i.ytimg.com/vi/m5WUPHRgdOA/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDwz-yjKEdwxvKjwMANGk5BedCOXQ",
+#                 "icon": "https://yt3.ggpht.com/ytc/AKedOLSMvoy4DeAVkMSAuiuaBdIGKC7a5Ib75bKzKO3jHg=s900-c-k-c0x00ffffff-no-rj",
+                
+#             }
+#         }
+
+#         result = requests.post(url,  data=json.dumps(payload), headers=headers )
+#         print(result.status_code)
+#         print(result.json())
 
 
 # send_notification('hi' , 'hello world')
@@ -69,7 +159,6 @@ def delivery_person_signup(request,id):
             if request.method == "POST":
                 userdata=models.Delivery_model.objects.get(uid=id)
                 fs = FileSystemStorage()
-            
                 profile_picture = str(request.FILES['profile_picture']).replace(" ", "_")
                 profile_picturepath = fs.save(f"api/delivery/profile_picture/"+profile_picture, request.FILES['profile_picture'])
                 bank_passbok_pic = str(request.FILES['bank_passbok_pic']).replace(" ", "_")
@@ -127,7 +216,6 @@ def delivery_person_signup(request,id):
         return Response({"Error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 
-
 @api_view(["POST"])
 def delivery_send_otp(request):
     
@@ -140,18 +228,26 @@ def delivery_send_otp(request):
     try:
         existing_delivery = models.Delivery_model.objects.get(phone_number=request.POST['phone_number'])
         uid = existing_delivery.uid
+        alert = "login"
     except models.Delivery_model.DoesNotExist:
         uid = delivery_extension.id_generate()
+        alert = "signup"
     # Replace the placeholder in the payload with the generated OTP and phone number
     payload = f"variables_values={otp}&route=otp&numbers={request.POST['phone_number']}&uid={uid}"
-
+    print(payload)
+    querystring = {
+        "authorization":"sJ06MDvOIS0qOMHEwY9rwjWYjUiTJpqgW48fn5TSJLwb4mYO8rbRlxl2lze0",
+        "sender_id":"MIOGRA",
+        "message":"169709",
+        "variables_values":otp,
+        "route":"dlt",
+        "numbers":request.POST["phone_number"]}
     headers = {
-        'authorization': "ngpY1A5PqHfF0IE7SzsceVhBM6OmtjQxbRr9KCiwL2aGJoD8vkALKMNP8Sfp6Tk3Csouw427rDFga0Ox",
-        'Content-Type': "application/x-www-form-urlencoded",
         'Cache-Control': "no-cache",
     }
 
-    response = requests.request("POST", url, data=payload, headers=headers)
+    response = requests.request("GET", url, headers=headers, params=querystring)
+
     logindata = {
             'otp': otp,
             'phone_number':request.POST["phone_number"],
@@ -168,8 +264,7 @@ def delivery_send_otp(request):
         ]
     }
     
-    return Response({"otp": otp,"uid":uid}, status=status.HTTP_200_OK)
-
+    return Response({"otp": otp,"uid":uid,'alert':alert}, status=status.HTTP_200_OK)
 
 @api_view(["POST"])
 def delivery_verify_otp(request):
@@ -229,84 +324,137 @@ def single_delivery_person_data(request,id):
         print(serializers)
         return Response(data=serializers.data, status=status.HTTP_200_OK)
 
-
 @api_view(["POST"])
-def delivery_person_update(request,id):
-    if request.method=="POST":
-        fs=FileSystemStorage
-        # print(request.data)
-        # print(request.FILES)
-        d_data = models.Delivery_model.objects.get(uid=id)
-        print(d_data)
-        datas = models.Delivery_model.objects.filter(uid=id).values()[0]
-        print(datas)
+def delivery_person_update(request, id):
+    if request.method == "POST":
+        fs = FileSystemStorage()
+        
+        # Get the existing delivery person data
+        d_data = get_object_or_404(models.Delivery_model, uid=id)
+        datas = models.Delivery_model.objects.filter(uid=id).values().first()
+        
+        all_image_url = "http://127.0.0.1:3000/"  # You should define this variable appropriately
 
-        if "profile_picture" in request.FILES:
-            profile_picture = str(request.FILES['profile_picture']).replace(" ","_")
-            profile_picture_path = fs.save(f"api/delivery/{id}/profile_picture/"+profile_picture, request.FILES["profile_picture"])
-            profile_picturepaths = all_image_url+fs.url(profile_picture_path)
-        else:
-            profile_picturepaths = datas["profile_picture"]
-            print(profile_picturepaths) 
-        if "bank_passbok_pic" in request.FILES:
-            bank_passbok_pic = str(request.FILES["pan_file"]).replace(" ","_")
-            bank_passbok_pic_path = fs.save(f"api/delivery/{id}/bank_passbok_pic/"+bank_passbok_pic,request.FILES["bank_passbok_pic"])
-            bank_passbok_pic_paths = all_image_url+fs.url(bank_passbok_pic_path)
-        else:
-            bank_passbok_pic_paths = datas["bank_passbok_pic"]
-            print(bank_passbok_pic_paths)
-        if "aadhar_pic" in request.FILES:
-            aadhar_pic = str(request.FILES["aadhar_pic"]).replace(" ","_")
-            aadhar_pic_path = fs.save(f"api/delivery/{id}/aadhar_pic/"+aadhar_pic,request.FILES["aadhar_pic"])
-            aadhar_pic_paths = all_image_url+fs.url(aadhar_pic_path)
-        else:
-            aadhar_pic_paths = datas["aadhar_pic"]
-            print(aadhar_pic_paths)
-        if "pan_pic" in request.FILES:
-            pan_pic = str(request.FILES["pan_pic"]).replace(" ","_")
-            pan_pic_path = fs.save(f"api/delivery/{id}/pan_pic/"+pan_pic,request.FILES["pan_pic"])
-            pan_pic_paths = all_image_url+fs.url(pan_pic_path)
-        else:
-            pan_pic_paths = datas["pan_pic"]
-            print(pan_pic_paths)
-        if "drlicence_pic" in request.FILES:
-            drlicence_pic = str(request.FILES["drlicence_pic"]).replace(" ","_")
-            drlicence_pic_path = fs.save(f"api/delivery/{id}/drlicence_pic/"+drlicence_pic,request.FILES["drlicence_pic"])
-            drlicence_pic_paths = all_image_url+fs.url(drlicence_pic_path)
-        else:
-            drlicence_pic_paths = datas["drlicence_pic"]
-            print(drlicence_pic_paths)
-        print(request.data)
-        data= {
-            'name':request.data['name'],
-            'phone_number':request.data['phone_number'],
-            'wp_number': request.data['wp_number'],
-            'email': request.data["email"],
-            'aadhar_number':request.data['aadhar_number'],                    
-            'driving_licensenum':request.data['driving_licensenum'],
-            'pan_number':request.data['pan_number'],                    
-            'profile_picture':profile_picturepaths,
-            'bank_name':request.data['bank_name'],
-            'acc_number':request.data['acc_number'],
-            'name_asper_passbook':request.data['name_asper_passbook'],
-            'ifsc_code':request.data['ifsc_code'],
-            'bank_passbok_pic':bank_passbok_pic_paths,
-            'aadhar_pic':aadhar_pic_paths,
-            'pan_pic':pan_pic_paths,
-            'drlicence_pic':drlicence_pic_paths,
-            'delivery_type':request.data['delivery_type'],
-            'region':request.data['region']
+        def handle_file_upload(file_key, folder):
+            if file_key in request.FILES:
+                file_name = str(request.FILES[file_key]).replace(" ", "_")
+                file_path = fs.save(f"api/delivery/{id}/{folder}/{file_name}", request.FILES[file_key])
+                return all_image_url + fs.url(file_path)
+            else:
+                return datas[file_key]
+        
+        profile_picturepaths = handle_file_upload("profile_picture", "profile_picture")
+        bank_passbok_pic_paths = handle_file_upload("bank_passbok_pic", "bank_passbok_pic")
+        aadhar_pic_paths = handle_file_upload("aadhar_pic", "aadhar_pic")
+        pan_pic_paths = handle_file_upload("pan_pic", "pan_pic")
+        drlicence_pic_paths = handle_file_upload("drlicence_pic", "drlicence_pic")
+        
+        data = {
+            'name': request.data.get('name', d_data.name),
+            'wp_number': request.data.get('wp_number', d_data.wp_number),
+            'email': request.data.get('email', d_data.email),
+            'aadhar_number': request.data.get('aadhar_number', d_data.aadhar_number),
+            'driving_licensenum': request.data.get('driving_licensenum', d_data.driving_licensenum),
+            'pan_number': request.data.get('pan_number', d_data.pan_number),
+            'profile_picture': profile_picturepaths,
+            'bank_name': request.data.get('bank_name', d_data.bank_name),
+            'acc_number': request.data.get('acc_number', d_data.acc_number),
+            'name_asper_passbook': request.data.get('name_asper_passbook', d_data.name_asper_passbook),
+            'ifsc_code': request.data.get('ifsc_code', d_data.ifsc_code),
+            'bank_passbok_pic': bank_passbok_pic_paths,
+            'aadhar_pic': aadhar_pic_paths,
+            'pan_pic': pan_pic_paths,
+            'drlicence_pic': drlicence_pic_paths,
+            'delivery_type': request.data.get('delivery_type', d_data.delivery_type),
+            'region': request.data.get('region', d_data.region)
         }
-        print(data,"data")
+        
         dataserializer = delivery_serializers.deliveryperson_edit_serializer(instance=d_data, data=data, partial=True)
-        print(dataserializer)
+        
         if dataserializer.is_valid():
             dataserializer.save()
             return Response(id, status=status.HTTP_200_OK)
         else:
-            return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)
+            return Response(dataserializer.errors, status=status.HTTP_400_BAD_REQUEST)
     else:
-        return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)
+        return Response({"detail": "Method not allowed"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+# @api_view(["POST"])
+# def delivery_person_update(request,id):
+#     if request.method=="POST":
+#         fs=FileSystemStorage
+#         # print(request.data)
+#         # print(request.FILES)
+#         d_data = models.Delivery_model.objects.get(uid=id)
+#         print(d_data)
+#         datas = models.Delivery_model.objects.filter(uid=id).values()[0]
+#         print(datas)
+
+#         if "profile_picture" in request.FILES:
+#             profile_picture = str(request.FILES['profile_picture']).replace(" ","_")
+#             profile_picture_path = fs.save(f"api/delivery/{id}/profile_picture/"+profile_picture, request.FILES["profile_picture"])
+#             profile_picturepaths = all_image_url+fs.url(profile_picture_path)
+#         else:
+#             profile_picturepaths = datas["profile_picture"]
+#             print(profile_picturepaths) 
+#         if "bank_passbok_pic" in request.FILES:
+#             bank_passbok_pic = str(request.FILES["pan_file"]).replace(" ","_")
+#             bank_passbok_pic_path = fs.save(f"api/delivery/{id}/bank_passbok_pic/"+bank_passbok_pic,request.FILES["bank_passbok_pic"])
+#             bank_passbok_pic_paths = all_image_url+fs.url(bank_passbok_pic_path)
+#         else:
+#             bank_passbok_pic_paths = datas["bank_passbok_pic"]
+#             print(bank_passbok_pic_paths)
+#         if "aadhar_pic" in request.FILES:
+#             aadhar_pic = str(request.FILES["aadhar_pic"]).replace(" ","_")
+#             aadhar_pic_path = fs.save(f"api/delivery/{id}/aadhar_pic/"+aadhar_pic,request.FILES["aadhar_pic"])
+#             aadhar_pic_paths = all_image_url+fs.url(aadhar_pic_path)
+#         else:
+#             aadhar_pic_paths = datas["aadhar_pic"]
+#             print(aadhar_pic_paths)
+#         if "pan_pic" in request.FILES:
+#             pan_pic = str(request.FILES["pan_pic"]).replace(" ","_")
+#             pan_pic_path = fs.save(f"api/delivery/{id}/pan_pic/"+pan_pic,request.FILES["pan_pic"])
+#             pan_pic_paths = all_image_url+fs.url(pan_pic_path)
+#         else:
+#             pan_pic_paths = datas["pan_pic"]
+#             print(pan_pic_paths)
+#         if "drlicence_pic" in request.FILES:
+#             drlicence_pic = str(request.FILES["drlicence_pic"]).replace(" ","_")
+#             drlicence_pic_path = fs.save(f"api/delivery/{id}/drlicence_pic/"+drlicence_pic,request.FILES["drlicence_pic"])
+#             drlicence_pic_paths = all_image_url+fs.url(drlicence_pic_path)
+#         else:
+#             drlicence_pic_paths = datas["drlicence_pic"]
+#             print(drlicence_pic_paths)
+#         print(request.data)
+#         data= {
+#             'name':request.data['name'],
+#             'phone_number':request.data['phone_number'],
+#             'wp_number': request.data['wp_number'],
+#             'email': request.data["email"],
+#             'aadhar_number':request.data['aadhar_number'],                    
+#             'driving_licensenum':request.data['driving_licensenum'],
+#             'pan_number':request.data['pan_number'],                    
+#             'profile_picture':profile_picturepaths,
+#             'bank_name':request.data['bank_name'],
+#             'acc_number':request.data['acc_number'],
+#             'name_asper_passbook':request.data['name_asper_passbook'],
+#             'ifsc_code':request.data['ifsc_code'],
+#             'bank_passbok_pic':bank_passbok_pic_paths,
+#             'aadhar_pic':aadhar_pic_paths,
+#             'pan_pic':pan_pic_paths,
+#             'drlicence_pic':drlicence_pic_paths,
+#             'delivery_type':request.data['delivery_type'],
+#             'region':request.data['region']
+#         }
+#         print(data,"data")
+#         dataserializer = delivery_serializers.deliveryperson_edit_serializer(instance=d_data, data=data, partial=True)
+#         print(dataserializer)
+#         if dataserializer.is_valid():
+#             dataserializer.save()
+#             return Response(id, status=status.HTTP_200_OK)
+#         else:
+#             return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)
+#     else:
+#         return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)
 
 
 @api_view(['POST'])
@@ -354,11 +502,23 @@ def delivery_login_table(request, id):
 
             )
             login_entry.save() 
-            if request.data['device_id'] not in delivery.device_id:
+            print("ssssssssssssssssssssssssssssss",delivery.device_id)
+            if delivery.device_id == None or delivery.device_id == "None" or delivery.device_id == "null":
+                listt = []
+                print(request.data['device_id'])
+                listt.append(request.data['device_id'])
+                delivery.device_id = json.dumps(listt)
+                delivery.save()
+            elif request.data['device_id'] not in jsondec.decode(delivery.device_id):
+                
                 print("new")
                 print(type(delivery.device_id))
-                print(type(request.data['device_id']))
-                delivery.device_id.append(request.data['device_id'])
+                print(request.data['device_id'])
+                decodee = jsondec.decode(delivery.device_id)
+                print(decodee)
+                decodee.append(request.data['device_id'])
+                print(decodee)
+                delivery.device_id = json.dumps(decodee)
                 delivery.save()
             return Response("Login successful", status=status.HTTP_200_OK)
         
@@ -431,6 +591,7 @@ def product_status_delivered(request,id,order_id):
             
             balance_amount += float(payable_amount_of_seller.total_amount) - (float(payable_amount_of_seller.total_amount) / int(payable_amount_of_seller.admin_commission_amount))
             print(balance_amount)
+            
             if type(balance_amount) is float:
                 # Convert the decimal number to a string
                 decimal_string = str(balance_amount)
@@ -467,11 +628,17 @@ def product_status(request,id,order_id,orderstatus):
         print(user)
         pro=get_object_or_404(models.Product_Ordermodel,order_id=order_id)
         print(pro)
+        data = models.Product_Ordermodel.objects.get(order_id=order_id)
 
         distance=pro.distance
         pro.status=orderstatus
 
         pro.save()
+        if orderstatus == "delivered":
+            message_title = "You have got earnings of"
+            message_desc = data.order_total
+            print(data.deliveryperson.device_id)
+            deliverysend_notification_pickup(jsondec.decode(data.deliveryperson.device_id),message_title,message_desc,data.deliveryperson.uid)
         return Response({"status updated succesfully"},status=status.HTTP_200_OK)
     except:
         return Response("nostatus",status=status.HTTP_400_BAD_REQUEST)
@@ -504,11 +671,11 @@ def delivery_product_order_status_reject(request,id,product_id,order_id):
  
 
 @api_view(["POST"])
-def delivery_produt_emergency(request,id,order_id):
+def delivery_produt_emergency(request,id):
     try:
         delivery = models.Delivery_model.objects.get(uid=id)
         print(delivery)
-        product_orders = models.Product_Ordermodel.objects.filter(order_id=order_id)
+        product_orders = models.Product_Ordermodel.objects.filter(deliveryperson_id__uid=id)
         print(product_orders)
         if product_orders.exists():
             for product_order in product_orders:
@@ -532,36 +699,46 @@ def delivery_produt_emergency(request,id,order_id):
 @api_view(["GET"])
 def delivery_get_product_order(request,id,region):
     if request.method =="GET":
-        if models.deliverylogintable_model.objects.filter(deliveryperson__uid =id,status="1",delivery_type="Quick",region=region).exists():
+        if models.deliverylogintable_model.objects.filter(Q(deliveryperson__uid =id,status="1",delivery_type="Quick",region=region) |Q(deliveryperson__uid =id,status="1",delivery_type="quick",region=region)).exists():
             data=models.deliverylogintable_model.objects.filter(deliveryperson__uid =id,status="1",delivery_type="Quick",region=region)
             print(data)
             qs=models.Product_Ordermodel.objects.filter(status="accepted",delivery_type="Quick",region=region)
             serializers=end_user_serializers.product_orderlistSerializer(qs,many=True)
             return Response(data=serializers.data,status=status.HTTP_200_OK)
-        # elif models.deliverylogintable_model.objects.filter(deliveryperson__uid=id,delivery_type="Normal",region=region,status="1").exists():
-        #     delivery=models.deliverylogintable_model.objects.filter(deliveryperson__uid=id,delivery_type="Normal",region=region,status="1")
-        #     print(delivery)
-        #     qs=models.Product_Ordermodel.objects.filter(status="accepted",delivery_type="Normal",region=region)
-        #     print(qs)
-        #     serializers=end_user_serializers.product_orderlistSerializer(qs,many=True)
-        #     return Response(data=serializers.data,status=status.HTTP_200_OK)
+        elif models.deliverylogintable_model.objects.filter(deliveryperson__uid=id,delivery_type="Normal",region=region,status="1").exists():
+            delivery=models.deliverylogintable_model.objects.filter(deliveryperson__uid=id,delivery_type="Normal",region=region,status="1")
+            print(delivery)
+            qs=models.Product_Ordermodel.objects.filter(status="accepted",delivery_type="Normal",region=region)
+            print(qs)
+            serializers=end_user_serializers.product_orderlistSerializer(qs,many=True)
+            return Response(data=serializers.data,status=status.HTTP_200_OK)
         else:
+            return Response({"deliverypersons not available"},status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(["GET"])
+def my_orders(request,id):
+    if request.method =="GET":
+        try:
+            qs=models.Product_Ordermodel.objects.filter(deliveryperson__uid=id)
+            serializers=end_user_serializers.product_orderlistSerializer(qs,many=True)
+            return Response(data=serializers.data,status=status.HTTP_200_OK)
+        except:
             return Response({"deliverypersons not available"},status=status.HTTP_400_BAD_REQUEST)
 
 
 
 
-# @api_view(["GET"])
-# def delivery_get_Normalproduct_order(request,id,region):
-#     if request.method =="GET":
-#         delivery=models.deliverylogintable_model.objects.filter(deliveryperson__uid=id,delivery_type="Normal",region=region,status="1")
-#         print(delivery)
-#         qs=models.Product_Ordermodel.objects.filter(status="accepted",delivery_type="Normal",region=region)
-#         print(qs)
-#         serializers=end_user_serializers.product_orderlistSerializer(qs,many=True)
-#         return Response(data=serializers.data,status=status.HTTP_200_OK)
-#     else:
-#         return Response({"deliverypersons not available"},status=status.HTTP_400_BAD_REQUEST)
+@api_view(["GET"])
+def delivery_get_Normalproduct_order(request,id,region):
+    if request.method =="GET":
+        delivery=models.deliverylogintable_model.objects.filter(deliveryperson__uid=id,delivery_type="Normal",region=region,status="1")
+        print(delivery)
+        qs=models.Product_Ordermodel.objects.filter(status="accepted",delivery_type="Normal",region=region)
+        print(qs)
+        serializers=end_user_serializers.product_orderlistSerializer(qs,many=True)
+        return Response(data=serializers.data,status=status.HTTP_200_OK)
+    else:
+        return Response({"deliverypersons not available"},status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["GET"])
@@ -571,13 +748,37 @@ def todays_order(request,id,delivery_date):
         print(data)
         serializer=end_user_serializers.product_orderlistSerializer(data,many=True)
         return Response(data=serializer.data,status=status.HTTP_200_OK)
-    # elif models.Product_Ordermodel.objects.filter(deliveryperson__uid=id,delivery_date=delivery_date,delivery_type="Normal").exists():
-    #     data=models.Product_Ordermodel.objects.filter(deliveryperson__uid=id,delivery_date=delivery_date,delivery_type="Normal")
-    #     print(data)
-    #     serializer=end_user_serializers.product_orderlistSerializer(data,many=True)
-    #     return Response(data=serializer.data,status=status.HTTP_200_OK)
+    elif models.Product_Ordermodel.objects.filter(deliveryperson__uid=id,delivery_date=delivery_date,delivery_type="Normal").exists():
+        data=models.Product_Ordermodel.objects.filter(deliveryperson__uid=id,delivery_date=delivery_date,delivery_type="Normal")
+        print(data)
+        serializer=end_user_serializers.product_orderlistSerializer(data,many=True)
+        return Response(data=serializer.data,status=status.HTTP_200_OK)
     else:
-        return Response({"no orders found"},status=status.HTTP_200_OK)
+        return Response({"no orders found"},status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(["GET"])
+def today_incentives(request,id,delivery_date):
+    try:
+        data=models.Product_Ordermodel.objects.filter(deliveryperson__uid=id,delivery_date=delivery_date)
+        print(data)
+        amount = 0
+        for x in data:
+            amount += int(x.incentive)
+        return Response(str(amount),status=status.HTTP_200_OK)
+    except:
+        return Response("0",status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(["GET"])
+def today_earnings(request,id,delivery_date):
+    try:
+        data=models.Product_Ordermodel.objects.filter(deliveryperson__uid=id,delivery_date=delivery_date)
+        print(data)
+        amount = 0
+        for x in data:
+            amount += int(x.order_total)
+        return Response(amount,status=status.HTTP_200_OK)
+    except:
+        return Response(0,status=status.HTTP_400_BAD_REQUEST)
 
         
 @api_view(["POST","GET"])
@@ -592,8 +793,7 @@ def delivered_productorder_date(request,id):
                 pro_id = item.get("product_id")
                 pro_data.append(pro_id) 
             print(pro_data)
-            if pro_data:
-                
+            if pro_data: 
                 alldata = []
                 for product_id in pro_data:
                     proget = models.Product_Ordermodel.objects.filter(deliveryperson__uid=id,product_id=product_id,status="delivered",delivery_type="Normal")
@@ -632,8 +832,52 @@ def todays_incencentiveorder(request,id,delivery_date):
         print(data)
         serializer=end_user_serializers.product_orderlistSerializer(data,many=True)
         return Response(data=serializer.data,status=status.HTTP_200_OK)
+    elif models.Product_Ordermodel.objects.filter(deliveryperson__uid=id,delivery_date=delivery_date,delivery_type="Normal").exists():
+        data=models.Product_Ordermodel.objects.filter(deliveryperson__uid=id,delivery_date=delivery_date,delivery_type="Normal")
+        print(data)
+        serializer=end_user_serializers.product_orderlistSerializer(data,many=True)
+        return Response(data=serializer.data,status=status.HTTP_200_OK)
     else:
         return Response({"no orders found"},status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(["GET"])
+def delivered_product(request,id):
+    try:
+        data=models.Product_Ordermodel.objects.filter(deliveryperson__uid=id)
+        print(data)
+        serializer=end_user_serializers.product_orderlistSerializer(data,many=True)
+        return Response(data=serializer.data,status=status.HTTP_200_OK)
+    except:
+        return Response({"no orders found"},status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["GET"])
+def floating_cash(request,id):
+    try:
+        data=models.Product_Ordermodel.objects.filter(deliveryperson__uid=id)
+        print(data)
+        amount = 0
+        for x in data:
+            amount += int(x.float_cash)
+        return Response(amount,status=status.HTTP_200_OK)
+    except:
+        return Response(0,status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(["GET"])
+def amount_payable(request,id):
+    try:
+        data=models.Product_Ordermodel.objects.filter(deliveryperson__uid=id)
+        print(data)
+        total_amount = 0
+        for y in data:
+            total_amount += int(y.total_amount)
+        amount = 0
+        for x in data:
+            amount += int(x.float_cash)
+        payable = total_amount - amount
+        return Response(payable,status=status.HTTP_200_OK)
+    except:
+        return Response(0,status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -665,8 +909,6 @@ def delivery_payableamount(request, id):
     except Exception as e:
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
-
 @api_view(["POST"])
 def delivery_withdraw_status(request,id):
     if request.method == "POST":
@@ -681,9 +923,7 @@ def delivery_withdraw_status(request,id):
             return Response("amount not found",status=status.HTTP_404_NOT_FOUND)
     else:
         return Response("withdraw not updated",status=status.HTTP_400_BAD_REQUEST)
-
-
-
+ 
 
 # notification
 @api_view(['POST'])
@@ -713,7 +953,7 @@ def delivery_notification(request):
 @api_view(['GET'])
 def notification_data(request,id):
     if request.method == 'GET':
-       allDataa = models.Notification.objects.filter(recever_id = id).order_by('-notify_date')
+       allDataa = models.Notification.objects.filter(sender_id = id).order_by('-id')
        alldataserializer = delivery_serializers.notificationlistSerializer(allDataa,many=True)
     return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
 
@@ -809,6 +1049,3 @@ def delivery_floating_cash(request, id):
         return Response({"error": "Delivery person not found"}, status=status.HTTP_404_NOT_FOUND)
     except Exception as e:
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    
-
-    

@@ -10,7 +10,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/icon.jpeg' %}">
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo/Miogra_logo.png' %}">
         <!-- Material Design Iconic Font-V2.2.0 -->
         <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
         <!-- Font Awesome -->
@@ -45,6 +45,24 @@
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
         <!-- Modernizr js -->
         <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
+        <style>
+            
+             .wishlist-item-count{
+                    position: absolute;
+                    top: -11px;
+                    left: -13px;
+                    display: block;
+                    overflow: hidden;
+                    min-width: 26px;
+                    line-height: 26px;
+                    font-size: 12px;
+                    font-weight: 700;
+                    color: white;
+                    background: #13b436;
+                    text-align: center;
+                    border-radius: 100%;
+             }
+        </style>
     </head>
     <body>
     <!--[if lt IE 8]>
@@ -55,18 +73,7 @@
             <!-- Begin Header Area -->
             {% include "header.html" %}
             <!-- Header Area End Here -->
-            <!-- Begin Li's Breadcrumb Area -->
-            <div class="breadcrumb-area">
-                <div class="container-fluid">
-                    <div class="breadcrumb-content">
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li class="active">Single Product</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- Li's Breadcrumb Area End Here -->
+           
             <!-- content-wraper start -->
             <div class="content-wraper">
                 <div class="container-fluid">
@@ -148,9 +155,19 @@
                                             <li class="review-item"><a href="#reviews">Read Review</a></li>
                                             <li class="review-item"><a href="/enduser/usersignin">Write Review</a></li>
                                         </ul>
-                                        {% else %}
+                                        {% elif single.rating == "1.0" %}
                                         <ul class="rating rating-with-review-item">
                                             <li><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="review-item"><a href="#reviews">Read Review</a></li>
+                                            <li class="review-item"><a href="/enduser/usersignin">Write Review</a></li>
+                                        </ul>
+                                        {% else %}
+                                        <ul class="rating rating-with-review-item">
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
@@ -165,7 +182,7 @@
                                     </div>
                                     <div class="product-desc">
                                         <p>
-                                            <span>{{single.product.description}}
+                                            <span>{{single.product.product_description}}
                                             </span>
                                         </p>
                                     </div>
@@ -180,7 +197,7 @@
                                         </div>
                                     </div>
                                     <div class="single-add-to-cart">
-                                        <form method="POST" class="cart-quantity">
+                                        <form action="/enduser/usersignin" class="cart-quantity">
                                             {% csrf_token %}
                                             <div class="quantity">
                                                 <label>Quantity</label>
@@ -195,44 +212,44 @@
                                         </form>
                                     </div>
                                     <div class="product-additional-info pt-25">
-                                        <a class="wishlist-btn" href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a>
-                                        <div class="product-social-sharing pt-25">
-                                            <ul>
-                                                <li class="facebook"><a href="#"><i class="fa fa-facebook"></i>Facebook</a></li>
-                                                <li class="twitter"><a href="#"><i class="fa fa-twitter"></i>Twitter</a></li>
-                                                <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i>Google +</a></li>
-                                                <li class="instagram"><a href="#"><i class="fa fa-instagram"></i>Instagram</a></li>
-                                            </ul>
-                                        </div>
+                                        <a class="wishlist-btn" href="/enduser/usersignin"><i class="fa fa-heart-o"></i>Add to wishlist</a>
+                                        <!--<div class="product-social-sharing pt-25">-->
+                                        <!--    <ul>-->
+                                        <!--        <li class="facebook"><a href="#"><i class="fa fa-facebook"></i>Facebook</a></li>-->
+                                        <!--        <li class="twitter"><a href="#"><i class="fa fa-twitter"></i>Twitter</a></li>-->
+                                        <!--        <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i>Google +</a></li>-->
+                                        <!--        <li class="instagram"><a href="#"><i class="fa fa-instagram"></i>Instagram</a></li>-->
+                                        <!--    </ul>-->
+                                        <!--</div>-->
                                     </div>
-                                    <div class="block-reassurance">
-                                        <ul>
-                                            <li>
-                                                <div class="reassurance-item">
-                                                    <div class="reassurance-icon">
-                                                        <i class="fa fa-check-square-o"></i>
-                                                    </div>
-                                                    <p>Security policy (edit with Customer reassurance module)</p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="reassurance-item">
-                                                    <div class="reassurance-icon">
-                                                        <i class="fa fa-truck"></i>
-                                                    </div>
-                                                    <p>Delivery policy (edit with Customer reassurance module)</p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="reassurance-item">
-                                                    <div class="reassurance-icon">
-                                                        <i class="fa fa-exchange"></i>
-                                                    </div>
-                                                    <p> Return policy (edit with Customer reassurance module)</p>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    <!--<div class="block-reassurance">-->
+                                    <!--    <ul>-->
+                                    <!--        <li>-->
+                                    <!--            <div class="reassurance-item">-->
+                                    <!--                <div class="reassurance-icon">-->
+                                    <!--                    <i class="fa fa-check-square-o"></i>-->
+                                    <!--                </div>-->
+                                    <!--                <p>Security policy (edit with Customer reassurance module)</p>-->
+                                    <!--            </div>-->
+                                    <!--        </li>-->
+                                    <!--        <li>-->
+                                    <!--            <div class="reassurance-item">-->
+                                    <!--                <div class="reassurance-icon">-->
+                                    <!--                    <i class="fa fa-truck"></i>-->
+                                    <!--                </div>-->
+                                    <!--                <p>Delivery policy (edit with Customer reassurance module)</p>-->
+                                    <!--            </div>-->
+                                    <!--        </li>-->
+                                    <!--        <li>-->
+                                    <!--            <div class="reassurance-item">-->
+                                    <!--                <div class="reassurance-icon">-->
+                                    <!--                    <i class="fa fa-exchange"></i>-->
+                                    <!--                </div>-->
+                                    <!--                <p> Return policy (edit with Customer reassurance module)</p>-->
+                                    <!--            </div>-->
+                                    <!--        </li>-->
+                                    <!--    </ul>-->
+                                    <!--</div>-->
                                 </div>
                             </div>
                         </div> 
@@ -258,7 +275,7 @@
                     <div class="tab-content">
                         <div id="description" class="tab-pane active show" role="tabpanel">
                             <div class="product-description">
-                                <span>{{single.product.description}}</span>
+                                <span>{{single.product.product_description}}</span>
                             </div>
                         </div>
                         <div id="product-details" class="tab-pane" role="tabpanel">
@@ -270,8 +287,8 @@
                                 <p><span>Product Name :</span> {{single.product.model_name}}</p>
                                 <p><span>Brand :</span> {{single.product.brand}}</p>
                                 <p><span>Category :</span> {{single.product.subcategory}}</p>
-                                <p><span>Actual Price :</span> {{single.product.actual_price}}</p>
-                                <p><span>Selling Price(+ GST) :</span> {{single.product.selling_price}}</p>
+                                
+                                <p><span>Product Price:</span> {{single.product.selling_price}}</p>
 
                             </div>
                         </div>
@@ -279,9 +296,22 @@
                             <div class="product-reviews">
                                 <div class="product-details-comment-block">
                                     {% for x in reviews %}
+                                    <div class="comment-author-infos pt-5">
+                                        <img src="{%static 'images/user_icon.jpg' %}" width="30px" height="30px">
+                                        <span>{{x.user.full_name}}</span>
+                                        <em>{{x.created_date}}</em>
+                                    </div>
                                     <div class="comment-review">
-                                        <span>Grade</span>{{x.rating}}
-                                        {% if x.rating == '2.0' %}
+                                        <span>Grade :</span> {{x.rating}}
+                                        {% if x.rating == "2.0" %}
+                                        <ul class="rating">
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                           <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                        </ul>
+                                        {% elif x.rating == "3.0" %}
                                         <ul class="rating">
                                             <li><i class="fa fa-star-o"></i></li>
                                             <li><i class="fa fa-star-o"></i></li>
@@ -289,55 +319,52 @@
                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                         </ul>
-                                        {% elif x.rating == '3.0' %}
+                                        {% elif x.rating == "4.0" %}
                                         <ul class="rating">
                                             <li><i class="fa fa-star-o"></i></li>
                                             <li><i class="fa fa-star-o"></i></li>
                                             <li><i class="fa fa-star-o"></i></li>
-                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                         </ul>
-                                        {% elif x.rating == '4.0' %}
+                                        {% elif x.rating == "5.0" %}
                                         <ul class="rating">
                                             <li><i class="fa fa-star-o"></i></li>
                                             <li><i class="fa fa-star-o"></i></li>
                                             <li><i class="fa fa-star-o"></i></li>
-                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                           <li><i class="fa fa-star-o"></i></li>
                                         </ul>
-                                        {% elif x.rating == '5.0' %}
-                                        <ul class="rating">
+                                        {% elif single.rating == "1.0" %}
+                                        <ul class="rating rating-with-review-item">
                                             <li><i class="fa fa-star-o"></i></li>
-                                            <li><i class="fa fa-star-o"></i></li>
-                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                         </ul>
                                         {% else %}
                                         <ul class="rating">
-                                            <li><i class="fa fa-star-o"></i></li>
-                                            <li><i class="fa fa-star-o"></i></li>
-                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
                                         </ul>
                                         {% endif %}
                                     </div>
-                                    <div class="comment-author-infos pt-25">
-                                        <span>{{x.user.fullname}}</span>
-                                        <em>{{x.created_date}}</em>
-                                    </div>
+                                    
                                     <div class="comment-details">
-                                        <h4 class="title-block">Comment</h4>
-                                        <p>{{x.comment}}</p>
+                                        <h4 class="title-block">Comment: <span>{{x.comment}}</span></h4>
+                                        
                                     </div>
                                     {% endfor %}
                                     <div class="review-btn">
-                                        <a class="review-links" href="#" >Write Your Review!</a>
+                                        <a class="review-links" href="/enduser/usersignin" >Write Your Review!</a>
                                     </div>
                                     <!-- Begin Quick View | Modal Area -->
-                                    <div class="modal fade modal-wrapper" id="mymodal" >
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal" id="mymodal" >
+                                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-body">
                                                     <h3 class="review-page-title">Write Your Review</h3>
@@ -413,7 +440,7 @@
             </div>
             <!-- Product Area End Here -->
             <!-- Begin Li's Laptop Product Area -->
-            <section class="product-area li-laptop-product pt-30 pb-50">
+            {% comment %} <section class="product-area li-laptop-product pt-30 pb-50">
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -683,7 +710,7 @@
                         <!-- Li's Section Area End Here -->
                     </div>
                 </div>
-            </section>
+            </section> {% endcomment %}
             <!-- Li's Laptop Product Area End Here -->
             <!-- Begin Footer Area -->
             {% include "footer.html" %}

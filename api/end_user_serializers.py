@@ -261,6 +261,7 @@ class product_orderlistSerializer(serializers.Serializer):
     incentive = serializers.CharField()
     ship_to_other_region = serializers.CharField()
     order_date = serializers.DateField()
+    order_total = serializers.CharField()
 
 
 class review_serializer(serializers.Serializer):
@@ -298,4 +299,3 @@ class used_productlistserializer(serializers.Serializer):
     category = serializers.CharField()
     subcategory=serializers.CharField()
     product = serializers.JSONField()
-

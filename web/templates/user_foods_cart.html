@@ -10,7 +10,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/icon.jpeg' %}">
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo/Miogra_logo.png' %}">
         <!-- Material Design Iconic Font-V2.2.0 -->
         <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
         <!-- Font Awesome -->
@@ -56,24 +56,13 @@
             <!-- Begin Header Area -->
             {% include "enduser_header.html" %}
             <!-- Header Area End Here -->
-            <!-- Begin Li's Breadcrumb Area -->
-            <div class="breadcrumb-area">
-                <div class="container-fluid">
-                    <div class="breadcrumb-content">
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li class="active">Shopping Cart</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- Li's Breadcrumb Area End Here -->
+            
             <!--Shopping Cart Area Strat-->
             <div class="Shopping-cart-area pt-60 pb-60">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
-                            <form >
+                           
                                
                                 <div class="table-content table-responsive">
                                     
@@ -103,7 +92,7 @@
                                                 <form method="POST">
                                                     {% csrf_token %}
                                                 <td class="li-product-thumbnail"><a href="#"><img src="{{data.food_product.product.primary_image}}" alt="Li's Product Image"></a></td>
-                                                <td class="li-product-name"><a href="#">{{data.food_product.product.name|join:","}}</a></td>
+                                                <td class="li-product-name"><a href="#">{{data.food_product.product.model_name}}</a></td>
                                                 <td class="li-product-price"><span class="amount">&#8377 {{data.food_product.product.selling_price}}</span></td>
                                                 <td class="quantity">
                                                     <label>Quantity</label>
@@ -151,6 +140,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                {% if cart_data %}
                                 <div class="row">
                                     <div class="col-md-5 ml-auto">
                                         <div class="cart-page-total">
@@ -163,7 +153,21 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                                {% else %}
+                                <div class="row">
+                                    <div class="col-md-5 ml-auto">
+                                        <div class="cart-page-total">
+                                            <h2>Cart totals</h2>
+                                            <ul>
+                                                <li>Subtotal <span>&#8377 {{sub_total}}</span></li>
+                                                <li>Total <span>&#8377 {{sub_total}}</span></li>
+                                            </ul>
+                                            <a href="">Proceed to checkout</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            
                         </div>
                     </div>
                 </div>

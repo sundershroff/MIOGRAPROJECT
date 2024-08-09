@@ -15,8 +15,6 @@ def validate_email(email):
     return email_exists
 
     
-
-
 def verify_user(phone_number):
     Data = models.Delivery_model.objects.get(phone_number = phone_number)
     data = delivery_serializers.DeliverypersonSerializer(Data)
@@ -51,5 +49,3 @@ def verify_user_otp(phone_number):
     if data.data['otp'] == data.data['user_otp']:
         authentication = True
     return authentication
-
-

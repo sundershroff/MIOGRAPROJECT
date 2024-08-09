@@ -9,9 +9,11 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{% static '/images/icon.jpeg' %}">
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo/Miogra_logo.png' %}">
         <!-- Material Design Iconic Font-V2.2.0 -->
         <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <!-- Font Awesome -->
         <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
         <!-- Font Awesome Stars-->
@@ -58,18 +60,7 @@
             <!-- Begin Header Area -->
             {% include "enduser_header.html" %}
             <!-- Header Area End Here -->
-            <!-- Begin Li's Breadcrumb Area -->
-            <div class="breadcrumb-area">
-                <div class="container">
-                    <div class="breadcrumb-content">
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li class="active">Shop Left Sidebar</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- Li's Breadcrumb Area End Here -->
+           
             <!-- Begin Li's Content Wraper Area -->
             <div class="content-wraper pt-60 pb-60 pt-sm-30">
                 <div class="container">
@@ -167,7 +158,7 @@
                                                             <div class="product_desc_info">
                                                                 <div class="product-review">
                                                                     <h5 class="manufacturer">
-                                                                        <a href="/products/doriginalproducts/doriginal/{{key.uid}}/{{i.d_id}}/{{i.product_id}}">{{i.product.model_name}}.</a>
+                                                                        <a href="/products/doriginalproducts/doriginal/{{key.uid}}/{{i.d_id}}/{{i.product_id}}">{{i.product.brand}}</a>
                                                                     </h5>
                                                                     <!-- <div class="rating-box">
                                                                         <ul class="rating">
@@ -200,14 +191,14 @@
                                                                 {% comment %} <h4>{{i.hotel.business_name}}</h4>
                                                                 <h6 style="color: gray;">{{i.hotel.area}}</h6> {% endcomment %}
                                                             </div>
-                                                            {% comment %} <div class="add-actions">
+                                                            <div class="add-actions">
                                                                 <ul class="add-actions-link">
                                                                     
-                                                                    <li class="add-cart active"><a href="/enduser/usersignin">Add to cart</a></li>
-                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                                    <li><a class="links-details" href="/enduser/usersignin"><i class="fa fa-heart-o"></i></a></li>
+                                                                    {% comment %} <li class="add-cart active"><a href="/enduser/usersignin">Add to cart</a></li>
+                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>{% endcomment %}
+                                                                    <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/d_original/{{i.product_id}}/"><i class="fa fa-heart-o"></i>Add to Wishlist</a></li>
                                                                 </ul>
-                                                            </div> {% endcomment %}
+                                                            </div> 
                                                         </div>
                                                     </div>
                                                     <!-- single-product-wrap end -->
@@ -1090,7 +1081,7 @@
     $(".cart-plus-minus").append('<button class="dec qtybutton" id="increase"><i class="fa fa-angle-down"></i></button><button class="inc qtybutton" id="decrease"><i class="fa fa-angle-up"></i></button>');
     $(document).ready(function() {
         const Items=[];
-        const category ="food";
+        const category ="d_original";
         let totalPrice = 0; // Variable to store total price
         let itemCount = 0;
         

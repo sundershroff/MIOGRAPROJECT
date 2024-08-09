@@ -10,7 +10,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/icon.jpeg' %}">
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo/Miogra_logo.png' %}">
         <!-- Material Design Iconic Font-V2.2.0 -->
         <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
         <!-- Font Awesome -->
@@ -63,35 +63,36 @@
                         <!-- Begin Slider Area -->
                         <div class="col-lg-12 col-md-12" style="
                         padding-left: 0;
-                        padding-right: 0;
-                    ">
+                        padding-right: 0; ">
                             <div class="slider-area">
                                 <div class="slider-active owl-carousel">
+                                    {% for x in banner.banner_list1 %}
                                     <!-- Begin Single Slide Area -->
-                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(/media/{{banner.banner1}});">
+                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url({{x}});">
                                         <div class="slider-progress"></div>
                                         {% comment %} <div class="slider-content">
                                             <h5>Sale Offer <span>-20% Off</span> This Week</h5>
                                             <h2>Chicken Briyani</h2>
                                             <h3>Starting at <span>&#8377;150.00</span></h3>
                                             <div class="default-btn slide-btn">
-                                                <a class="links" href="">Shopping Now</a>
+                                                <a class="links" href="/">Shopping Now</a>
                                             </div>
                                         </div> {% endcomment %}
                                     </div>
+                                    {% endfor %}
                                     <!-- Single Slide Area End Here -->
                                     <!-- Begin Single Slide Area -->
-                                    <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(/media/{{banner.banner2}});">
-                                        <div class="slider-progress"></div>
-                                        {% comment %} <div class="slider-content">
-                                            <h5>Sale Offer <span>Black Friday</span> This Week</h5>
-                                            <h2>Ham Burger</h2>
-                                            <h3>Starting at <span>&#8377;224.00</span></h3>
-                                            <div class="default-btn slide-btn">
-                                                <a class="links" href="">Shopping Now</a>
-                                            </div>
-                                        </div> {% endcomment %}
-                                    </div>
+                                    <!--<div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url(media/{{banner.banner2}});">-->
+                                    <!--    <div class="slider-progress"></div>-->
+                                    <!--    {% comment %} <div class="slider-content">-->
+                                    <!--        <h5>Sale Offer <span>Black Friday</span> This Week</h5>-->
+                                    <!--        <h2>Ham Burger</h2>-->
+                                    <!--        <h3>Starting at <span>&#8377;224.00</span></h3>-->
+                                    <!--        <div class="default-btn slide-btn">-->
+                                    <!--            <a class="links" href="">Shopping Now</a>-->
+                                    <!--        </div>-->
+                                    <!--    </div> {% endcomment %}-->
+                                    <!--</div> -->
                                     <!-- Single Slide Area End Here -->
                                     <!-- Begin Single Slide Area -->
                                     {% comment %} <div class="single-slide align-center-left animation-style-01 bg-3">
@@ -437,8 +438,8 @@
                                                 </div>
                                                 <div class="add-actions">
                                                     <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.item.category.0}}/products/{{i.shop.food_id}}/{{i.item.product.product_id}}/">Add to cart</a></li>
-                                                        <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.item.category.0}}/{{i.item.product.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
+                                                        <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.item.category}}/products/{{i.shop.food_id}}/{{i.item.product.product_id}}/">Add to cart</a></li>
+                                                        <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.item.category}}/{{i.item.product.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
                                                 </div>
@@ -480,8 +481,8 @@
                                                 </div>
                                                 <div class="add-actions">
                                                     <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.item.category.0}}/products/{{i.shop.food_id}}/{{i.item.product.product_id}}/">Add to cart</a></li>
-                                                        <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.item.category.0}}/{{i.item.product.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
+                                                        <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.item.category}}/products/{{i.shop.food_id}}/{{i.item.product.product_id}}/">Add to cart</a></li>
+                                                        <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.item.category}}/{{i.item.product.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
                                                 </div>
@@ -521,8 +522,8 @@
                                                 </div>
                                                 <div class="add-actions">
                                                     <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.item.category.0}}/products/{{i.shop.food_id}}/{{i.item.product.product_id}}/">Add to cart</a></li>
-                                                        <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.item.category.0}}/{{i.item.product.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
+                                                        <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.item.category}}/products/{{i.shop.food_id}}/{{i.item.product.product_id}}/">Add to cart</a></li>
+                                                        <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.item.category}}/{{i.item.product.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
                                                 </div>
@@ -564,8 +565,8 @@
                                                 </div>
                                                 <div class="add-actions">
                                                     <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.item.category.0}}/products/{{i.shop.food_id}}/{{i.item.product.product_id}}/">Add to cart</a></li>
-                                                        <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.item.category.0}}/{{i.item.product.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
+                                                        <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.item.category}}/products/{{i.shop.food_id}}/{{i.item.product.product_id}}/">Add to cart</a></li>
+                                                        <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.item.category}}/{{i.item.product.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
                                                 </div>
@@ -605,8 +606,8 @@
                                                 </div>
                                                 <div class="add-actions">
                                                     <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.item.category.0}}/products/{{i.shop.food_id}}/{{i.item.product.product_id}}/">Add to cart</a></li>
-                                                        <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.item.category.0}}/{{i.item.product.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
+                                                        <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.item.category}}/products/{{i.shop.food_id}}/{{i.item.product.product_id}}/">Add to cart</a></li>
+                                                        <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.item.category}}/{{i.item.product.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
                                                 </div>
@@ -648,8 +649,8 @@
                                                 </div>
                                                 <div class="add-actions">
                                                     <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.item.category.0}}/products/{{i.shop.food_id}}/{{i.item.product.product_id}}/">Add to cart</a></li>
-                                                        <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.item.category.0}}/{{i.item.product.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
+                                                        <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.item.category}}/products/{{i.shop.food_id}}/{{i.item.product.product_id}}/">Add to cart</a></li>
+                                                        <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.item.category}}/{{i.item.product.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
                                                 </div>
@@ -738,8 +739,8 @@
                                                 </div>
                                                 <div class="add-actions">
                                                     <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.item.category.0}}/products/{{i.shop.food_id}}/{{i.item.product.product_id}}/">Add to cart</a></li>
-                                                        <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.item.category.0}}/{{i.item.product.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
+                                                        <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.item.category}}/products/{{i.shop.food_id}}/{{i.item.product.product_id}}/">Add to cart</a></li>
+                                                        <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.item.category}}/{{i.item.product.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
                                                 </div>
@@ -822,8 +823,8 @@
                                                 </div>
                                                 <div class="add-actions">
                                                     <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.item.category.0}}/products/{{i.shop.food_id}}/{{i.item.product.product_id}}/">Add to cart</a></li>
-                                                        <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.item.category.0}}/{{i.item.product.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
+                                                        <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.item.category}}/products/{{i.shop.food_id}}/{{i.item.product.product_id}}/">Add to cart</a></li>
+                                                        <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.item.category}}/{{i.item.product.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
                                                 </div>
@@ -863,8 +864,8 @@
                                                 </div>
                                                 <div class="add-actions">
                                                     <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.item.category.0}}/products/{{i.shop.food_id}}/{{i.item.product.product_id}}/">Add to cart</a></li>
-                                                        <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.item.category.0}}/{{i.item.product.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
+                                                        <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.item.category}}/products/{{i.shop.food_id}}/{{i.item.product.product_id}}/">Add to cart</a></li>
+                                                        <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.item.category}}/{{i.item.product.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
                                                 </div>
@@ -906,8 +907,8 @@
                                                 </div>
                                                 <div class="add-actions">
                                                     <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.item.category.0}}/products/{{i.shop.food_id}}/{{i.item.product.product_id}}/">Add to cart</a></li>
-                                                        <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.item.category.0}}/{{i.item.product.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
+                                                        <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.item.category}}/products/{{i.shop.food_id}}/{{i.item.product.product_id}}/">Add to cart</a></li>
+                                                        <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.item.category}}/{{i.item.product.product_id}}/"><i class="fa fa-heart-o"></i></a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                     </ul>
                                                 </div>
@@ -944,13 +945,13 @@
                             <div class="row">
                                 <div class="product-active owl-carousel">
                                     
-                                    {% for i in foods %}
+                                    {% for i in shops %}
                                     <div class="col-lg-12">
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="/products/food_restaurant/{{key.uid}}/{{i.shop.food_id}}/">
-                                                    <img src="{{i.shop.profile}}" alt="Li's Product Image">
+                                                <a href="/products/food_restaurant/{{key.uid}}/{{i.food_id}}/">
+                                                    <img src="{{i.profile}}" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">New</span>
                                             </div>
@@ -958,11 +959,11 @@
                                                 <div class="product_desc_info">
                                                     <div class="product-review">
                                                         <h5 class="manufacturer">
-                                                            <a href="">{{i.shop.area}}</a>
+                                                            <a href="">{{i.area}}</a>
                                                         </h5>
                                                         <div class="rating-box">
-                                                            <span>{{i.shop.rating}}</span>
-                                                            {% if i.shop.raing == "2.0" %}
+                                                            <span>{{i.rating}}</span>
+                                                            {% if i.rating == "2.0" %}
                                                             <ul class="rating">
                                                                 <li><i class="fa fa-star-o"></i></li>
                                                                 <li><i class="fa fa-star-o"></i></li>
@@ -970,7 +971,7 @@
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                             </ul>
-                                                            {% elif i.shop.raing == "3.0" %}
+                                                            {% elif i.rating == "3.0" %}
                                                             <ul class="rating">
                                                                 <li><i class="fa fa-star-o"></i></li>
                                                                 <li><i class="fa fa-star-o"></i></li>
@@ -978,7 +979,7 @@
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                             </ul>
-                                                            {% elif i.shop.raing == "4.0" %}
+                                                            {% elif i.rating == "4.0" %}
                                                             <ul class="rating">
                                                                 <li><i class="fa fa-star-o"></i></li>
                                                                 <li><i class="fa fa-star-o"></i></li>
@@ -986,7 +987,7 @@
                                                                 <li><i class="fa fa-star-o"></i></li>
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                             </ul>
-                                                            {% elif i.shop.raing == "5.0" %}
+                                                            {% elif i.rating == "5.0" %}
                                                             <ul class="rating">
                                                                 <li><i class="fa fa-star-o"></i></li>
                                                                 <li><i class="fa fa-star-o"></i></li>
@@ -1006,7 +1007,10 @@
 
                                                         </div>
                                                     </div>
-                                                    <h4><a class="product_name" href="/products/food_restaurant/{{key.uid}}/{{i.shop.food_id}}/">{{i.shop.business_name}}</a></h4>
+                                                    <h4><a class="product_name" href="/products/food_restaurant/{{key.uid}}/{{i.food_id}}/">{{i.business_name}}</a></h4>
+                                                    <p></p>
+                                                    <p>{{i.area}}</p>
+                                                    <p>{{i.region}}</p>
                                                     <div class="price-box">
                                                         <span class="new-price">Delivery With in 10min - 15min</span>
                                                     </div>
@@ -1236,7 +1240,7 @@
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                             </ul>
-                                                            {% elif i.shop.raing == "3.0" %}
+                                                            {% elif i.shop.rating == "3.0" %}
                                                             <ul class="rating">
                                                                 <li><i class="fa fa-star-o"></i></li>
                                                                 <li><i class="fa fa-star-o"></i></li>
@@ -1244,7 +1248,7 @@
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                             </ul>
-                                                            {% elif i.shop.raing == "4.0" %}
+                                                            {% elif i.shop.rating == "4.0" %}
                                                             <ul class="rating">
                                                                 <li><i class="fa fa-star-o"></i></li>
                                                                 <li><i class="fa fa-star-o"></i></li>
@@ -1252,7 +1256,7 @@
                                                                 <li><i class="fa fa-star-o"></i></li>
                                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                             </ul>
-                                                            {% elif i.shop.raing == "5.0" %}
+                                                            {% elif i.shop.rating == "5.0" %}
                                                             <ul class="rating">
                                                                 <li><i class="fa fa-star-o"></i></li>
                                                                 <li><i class="fa fa-star-o"></i></li>
@@ -1272,6 +1276,9 @@
                                                         </div>
                                                     </div>
                                                     <h4><a class="product_name" href="/products/food_restaurant/{{key.uid}}/{{i.shop.food_id}}/">{{i.shop.business_name}}</a></h4>
+                                                    <p></p>
+                                                    <p>{{i.shop.area}}</p>
+                                                    <p>{{i.shop.region}}</p>
                                                     <div class="price-box">
                                                         <span class="new-price">Delivery With in 10min - 15min</span>
                                                     </div>
@@ -1564,7 +1571,7 @@
                                                 </form>
                                             </div>
                                             <div class="product-additional-info pt-25">
-                                                <a class="wishlist-btn" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.item.category.0}}/{{i.item.product.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a>
+                                                <a class="wishlist-btn" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.item.category}}/{{i.item.product.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a>
                                                 <div class="product-social-sharing pt-25">
                                                     <ul>
                                                         <li class="facebook"><a href="#"><i class="fa fa-facebook"></i>Facebook</a></li>

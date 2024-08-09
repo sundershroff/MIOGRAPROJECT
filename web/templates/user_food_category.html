@@ -9,9 +9,11 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{% static '/images/icon.jpeg' %}">
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo/Miogra_logo.png' %}">
         <!-- Material Design Iconic Font-V2.2.0 -->
         <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <!-- Font Awesome -->
         <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
         <!-- Font Awesome Stars-->
@@ -56,18 +58,7 @@
             <!-- Begin Header Area -->
             {% include "enduser_header.html" %}
             <!-- Header Area End Here -->
-            <!-- Begin Li's Breadcrumb Area -->
-            <div class="breadcrumb-area">
-                <div class="container">
-                    <div class="breadcrumb-content">
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li class="active">Shop Left Sidebar</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- Li's Breadcrumb Area End Here -->
+            
             <!-- Begin Li's Content Wraper Area -->
             <div class="content-wraper pt-60 pb-60 pt-sm-30">
                 
@@ -214,7 +205,7 @@
                                                                     
                                                                     {% comment %} <li class="add-cart active"><a href="/user/shopping_add_to_cart/{{key.uid}}/{{i.shop.category.0}}/products/{{i.shop.food_id}}/{{i.item.product_id}}/">Add to cart</a></li> {% endcomment %}
                                                                     {% comment %} <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li> {% endcomment %}
-                                                                    <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i> Add to Wishlist</a></li>
+                                                                    <li><a class="links-details" href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i> Add to Wishlist</a></li>
                                                                 </ul>
                                                             </div>
 
@@ -880,7 +871,7 @@
                                                         <div class="shop-add-action mb-xs-30">
                                                             <ul class="add-actions-link">
                                                                 <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category.0}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
+                                                                <li class="wishlist"><a href="/user/shopping_add_to_wishlist/{{key.uid}}/products/{{i.shop.category}}/{{i.item.product_id}}/"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
                                                                 <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
                                                             </ul>
                                                         </div>
@@ -1742,7 +1733,8 @@
                 
             });
 
-            $('#proceed').on("click", function(){
+           $('#proceed').on("click", function(event){
+               event.preventDefault();
                 Items.forEach(function(item) {
                     const userId = item.userId;
                     const productId = item.productId;

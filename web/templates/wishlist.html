@@ -9,9 +9,11 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/icon.jpeg' %}">
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo/Miogra_logo.png' %}">
         <!-- Material Design Iconic Font-V2.2.0 -->
         <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <!-- Font Awesome -->
         <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
         <!-- Font Awesome Stars-->
@@ -52,18 +54,7 @@
             <!-- Begin Header Area -->
            {% include "enduser_header.html" %}
             <!-- Header Area End Here -->
-            <!-- Begin Li's Breadcrumb Area -->
-            <div class="breadcrumb-area">
-                <div class="container-fluid">
-                    <div class="breadcrumb-content">
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li class="active">Wishlist</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- Li's Breadcrumb Area End Here -->
+           
             <!--Wishlist Area Strat-->
             <div class="wishlist-area pt-60 pb-60">
                 <div class="container-fluid">
@@ -99,7 +90,7 @@
                                                     {% csrf_token %}
                                                 
                                                 <td class="li-product-thumbnail"><a href="#"><img src="{{data.shop_product.product.primary_image}}" alt="Li's Product Image"></a></td>
-                                                <td class="li-product-name"><a href="#">{{data.shop_product.product.name|join:","}}</a></td>
+                                                <td class="li-product-name"><a href="#">{{data.shop_product.product.model_name}}</a></td>
                                                 <td class="li-product-price"><span class="amount">&#8377 {{data.shop_product.product.selling_price}}</span></td>
                                                 <td class="quantity">
                                                     <label>Quantity</label>
@@ -111,7 +102,7 @@
                                                 </td>
 
                                                 <td >
-                                                    <input type="text" name="category" value="{{data.shop_product.product.category.0}}" style="display:none;">
+                                                    <input type="text" name="category" value="{{data.shop_product.product.category}}" style="display:none;">
                                                     <button name="cartup" value="{{data.shop_product.product_id}}">Upload Cart</button></td>
                                                 </form>
                                             </tr>
@@ -126,7 +117,7 @@
                                                     {% csrf_token %}
                                                 
                                                 <td class="li-product-thumbnail"><a href="#"><img src="{{data.food_product.product.primary_image}}" alt="Li's Product Image"></a></td>
-                                                <td class="li-product-name"><a href="#">{{data.food_product.product.name|join:","}}</a></td>
+                                                <td class="li-product-name"><a href="#">{{data.food_product.product.model_name}}</a></td>
                                                 <td class="li-product-price"><span class="amount">&#8377 {{data.food_product.product.selling_price}}</span></td>
                                                 <td class="quantity">
                                                     <label>Quantity</label>
@@ -138,7 +129,7 @@
                                                 </td>
 
                                                 <td >
-                                                    <input type="text" name="category" value="{{data.food_product.product.category.0}}" style="display:none;">
+                                                    <input type="text" name="category" value="{{data.food_product.product.category}}" style="display:none;">
                                                     <button name="cartup" value="{{data.food_product.product_id}}">Upload Cart</button></td>
                                                 </form>
                                             </tr>
@@ -153,7 +144,7 @@
                                                     {% csrf_token %}
                                                 
                                                 <td class="li-product-thumbnail"><a href="#"><img src="{{data.jewel_product.product.primary_image}}" alt="Li's Product Image"></a></td>
-                                                <td class="li-product-name"><a href="#">{{data.jewel_product.product.name|join:","}}</a></td>
+                                                <td class="li-product-name"><a href="#">{{data.jewel_product.product.model_name}}</a></td>
                                                 <td class="li-product-price"><span class="amount">&#8377 {{data.jewel_product.product.selling_price}}</span></td>
                                                 <td class="quantity">
 
@@ -165,7 +156,7 @@
                                                     </div>
                                                 </td>
                                                 <td >
-                                                    <input type="text" name="category" value="{{data.jewel_product.product.category.0}}" style="display:none;">
+                                                    <input type="text" name="category" value="{{data.jewel_product.product.category}}" style="display:none;">
                                                     <button name="cartup" value="{{data.jewel_product.product_id}}" >Upload Cart</button></td>
                                             </form>
                                             </tr>
@@ -180,7 +171,7 @@
                                                     {% csrf_token %}
                                                 
                                                 <td class="li-product-thumbnail"><a href="#"><img src="{{data.pharmacy_product.product.primary_image}}" alt="Li's Product Image"></a></td>
-                                                <td class="li-product-name"><a href="#">{{data.pharmacy_product.product.name|join:","}}</a></td>
+                                                <td class="li-product-name"><a href="#">{{data.pharmacy_product.product.model_name}}</a></td>
                                                 <td class="li-product-price"><span class="amount">&#8377 {{data.pharmacy_product.product.selling_price}}</span></td>
                                                 <td class="quantity">
                                                     
@@ -192,7 +183,7 @@
                                                     </div>
                                                 </td>
                                                 <td >
-                                                    <input type="text" name="category" value="{{data.pharmacy_product.product.category.0}}" style="display:none;">
+                                                    <input type="text" name="category" value="{{data.pharmacy_product.product.category}}" style="display:none;">
                                                     <button name="cartup" value="{{data.pharmacy_product.product_id}}" >Upload Cart</button></td>
                                             </form>
                                             </tr>
@@ -206,7 +197,7 @@
                                                 <form method="POST">
                                                     {% csrf_token %}
                                                 <td class="li-product-thumbnail"><a href="#"><img src="{{data.freshcut_product.product.primary_image}}" alt="Li's Product Image"></a></td>
-                                                <td class="li-product-name"><a href="#">{{data.freshcut_product.product.name|join:","}}</a></td>
+                                                <td class="li-product-name"><a href="#">{{data.freshcut_product.product.model_name}}</a></td>
                                                 <td class="li-product-price"><span class="amount">&#8377 {{data.freshcut_product.product.selling_price}}</span></td>
                                                 <td class="quantity">
                                                     
@@ -218,7 +209,7 @@
                                                     </div>
                                                 </td>
                                                 <td >
-                                                    <input type="text" name="category" value="{{data.freshcut_product.product.category.0}}" style="display:none;">
+                                                    <input type="text" name="category" value="{{data.freshcut_product.product.category}}" style="display:none;">
                                                     <button name="cartup" value="{{data.freshcut_product.product_id}}">Upload Cart</button></td>
                                                 </form>
                                             </tr>
@@ -233,7 +224,7 @@
                                                 <form method="POST">
                                                     {% csrf_token %}
                                                 <td class="li-product-thumbnail"><a href="#"><img src="{{data.dailymio_product.product.primary_image}}" alt="Li's Product Image"></a></td>
-                                                <td class="li-product-name"><a href="#">{{data.dailymio_product.product.name|join:","}}</a></td>
+                                                <td class="li-product-name"><a href="#">{{data.dailymio_product.product.model_name}}</a></td>
                                                 <td class="li-product-price"><span class="amount">&#8377 {{data.dailymio_product.product.selling_price}}</span></td>
                                                 <td class="quantity">
                                                   
@@ -245,7 +236,7 @@
                                                     </div>
                                                 </td>
                                                 <td >
-                                                    <input type="text" name="category" value="{{data.dailymio_product.product.category.0}}" style="display:none;">
+                                                    <input type="text" name="category" value="{{data.dailymio_product.product.category}}" style="display:none;">
                                                     <button name="cartup" value="{{data.dailymio_product.product_id}}">Upload Cart</button></td>
                                                 </form>
                                             </tr>
@@ -260,7 +251,7 @@
                                                     {% csrf_token %}
                                                 
                                                 <td class="li-product-thumbnail"><a href="#"><img src="{{data.d_origin_product.product.primary_image}}" alt="Li's Product Image"></a></td>
-                                                <td class="li-product-name"><a href="#">{{data.d_origin_product.product.name|join:","}}</a></td>
+                                                <td class="li-product-name"><a href="#">{{data.d_origin_product.product.model_name}}</a></td>
                                                 <td class="li-product-price"><span class="amount">&#8377 {{data.d_origin_product.product.selling_price}}</span></td>
                                                 <td class="quantity">
                                                     <label>Quantity</label>
@@ -271,7 +262,7 @@
                                                     </div>
                                                 </td>
                                                 <td >
-                                                    <input type="text" name="category" value="{{data.d_origin_product.product.category.0}}" style="display:none;">
+                                                    <input type="text" name="category" value="{{data.d_origin_product.product.category}}" style="display:none;">
                                                     <button name="cartup" value="{{data.d_origin_product.product_id}}">Upload Cart</button></td>
                                                 </form>
                                             </tr>

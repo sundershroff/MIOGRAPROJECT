@@ -27,9 +27,15 @@ SECRET_KEY = 'django-insecure-+-m!x-ux_!1=34ha_np#@o#@vetsx93g*2n4nr4tsg89#w-fg)
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    # "192.168.28.154"
+    "miogra.clovion.org",
+]
+CORS_ALLOWED_ORIGINS = [
+   "https://example.com",
 ]
 
+
+
+# CSRF_TRUSTED_ORIGINS = ['miogra.com']
 
 # Application definition
 
@@ -40,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'api',
     'rest_framework',
     'web',
@@ -53,12 +60,16 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+      'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
 
 ROOT_URLCONF = 'MIOGRA.urls'
 

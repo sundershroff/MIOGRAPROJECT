@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.http import HttpResponse
 from pymongo import MongoClient
 from api.models import *
 from mio_admin.models import *
@@ -15,6 +16,8 @@ from rest_framework.decorators import api_view
 import os
 from django.conf import settings
 from datetime import date
+from django.views.decorators.csrf import csrf_exempt
+
 # Generate a key
 key = Fernet.generate_key()
 
@@ -22,7 +25,7 @@ key = Fernet.generate_key()
 cipher_suite = Fernet(key)
 
 client = MongoClient('localhost', 27017)
-all_image_url = "http://127.0.0.1:3000/"
+all_image_url = "https://miogra.clovion.org/"
 # Create your views here.
 # @never_cache
 def decimal(amount):
@@ -39,6 +42,7 @@ def decimal(amount):
     else:
         return amount
 
+@csrf_exempt
 def login_hub(request):
     error = ""
     if request.method == "POST":
@@ -94,10 +98,32 @@ def login_hub(request):
     }
     return render(request,"admin_loginpage.html",context)
 
+@csrf_exempt
+def forget_password(request):
+    error = ""
+    if request.method == "POST":
+        print(request.POST)
+        if User.objects.filter(username = request.POST['username']).exists():
+            print("exists")
+            data = User.objects.get(username = request.POST['username'])
+            data.set_password(request.POST['new_password'])
+            data.save()
+            return redirect("/admin")
+        else:
+            print("no exists")
+            error = "Check Your Username"
+    context = {
+        'error':error
+    }
+    return render(request,"admin_forgetpassword.html",context)
+
+
+@csrf_exempt
 def logout(request):
     auth.logout(request)
     return redirect("/admin/")
 
+@csrf_exempt
 def index(request,access_priveleges):
     x = date.today()
     print(x)
@@ -181,6 +207,7 @@ def index(request,access_priveleges):
     
     return render(request,'admin_index.html',context)
 
+@csrf_exempt
 def dashboard(request,access_priveleges):
     try:
         authenticate = User.objects.get(username = access_priveleges)
@@ -195,9 +222,10 @@ def dashboard(request,access_priveleges):
     for x in order_data_shopping:
         shopping_delivery_total += float(x.total_amount)
         shopping_delivery_received += float(x.float_cash)
-    shopping_total = decimal(shopping_delivery_total)
+    shopping__total = decimal(shopping_delivery_total)
     shopping_to_be_received = decimal(shopping_delivery_received)
-    received_shopping = float(shopping_total)-float(shopping_to_be_received)
+    received_shopping = float(shopping_delivery_total)-float(shopping_to_be_received)
+    print("receivedddd",received_shopping)
     shopping_received = decimal(received_shopping)
     #seller payment
     shopping_calc_total = 0
@@ -219,10 +247,9 @@ def dashboard(request,access_priveleges):
     for x in order_data_food:
         food_delivery_total += float(x.total_amount)
         food_delivery_received += float(x.float_cash)
-    food_total = decimal(food_delivery_total)
-    print(food_total)
+    food__total = decimal(food_delivery_total)
     food_to_be_received = decimal(food_delivery_received)
-    received_food = float(food_total)-float(food_to_be_received)
+    received_food = float(food__total)-float(food_to_be_received)
     food_received = decimal(received_food)
     print(f"food received",{food_received})
     #seller payment
@@ -245,10 +272,9 @@ def dashboard(request,access_priveleges):
     for x in order_data_fresh:
         fresh_delivery_total += float(x.total_amount)
         fresh_delivery_received += float(x.float_cash)
-    fresh_total = decimal(fresh_delivery_total)
-    print(fresh_total)
+    fresh__total = decimal(fresh_delivery_total)
     fresh_to_be_received = decimal(fresh_delivery_received)
-    received_fresh = float(fresh_total)-float(fresh_to_be_received)
+    received_fresh = float(fresh__total)-float(fresh_to_be_received)
     fresh_received = decimal(received_fresh)
     print(f"fresh received",{fresh_received})
     #seller payment
@@ -271,10 +297,9 @@ def dashboard(request,access_priveleges):
     for x in order_data_dailymio:
         dailymio_delivery_total += float(x.total_amount)
         dailymio_delivery_received += float(x.float_cash)
-    dailymio_total = decimal(dailymio_delivery_total)
-    print(dailymio_total)
+    dailymio__total = decimal(dailymio_delivery_total)
     dailymio_to_be_received = decimal(dailymio_delivery_received)
-    received_dailymio = float(dailymio_total)-float(dailymio_to_be_received)
+    received_dailymio = float(dailymio__total)-float(dailymio_to_be_received)
     dailymio_received = decimal(received_dailymio)
     print(f"dailymio received",{dailymio_received})
     #seller payment
@@ -297,10 +322,9 @@ def dashboard(request,access_priveleges):
     for x in order_data_pharmacy:
         pharmacy_delivery_total += float(x.total_amount)
         pharmacy_delivery_received += float(x.float_cash)
-    pharmacy_total = decimal(pharmacy_delivery_total)
-    print(pharmacy_total)
+    pharmacy__total = decimal(pharmacy_delivery_total)
     pharmacy_to_be_received = decimal(pharmacy_delivery_received)
-    received_pharmacy = float(pharmacy_total)-float(pharmacy_to_be_received)
+    received_pharmacy = float(pharmacy__total)-float(pharmacy_to_be_received)
     pharmacy_received = decimal(received_pharmacy)
     print(f"pharmacy received",{pharmacy_received})
     #seller payment
@@ -323,10 +347,9 @@ def dashboard(request,access_priveleges):
     for x in order_data_doriginal:
         doriginal_delivery_total += float(x.total_amount)
         doriginal_delivery_received += float(x.float_cash)
-    doriginal_total = decimal(doriginal_delivery_total)
-    print(doriginal_total)
+    doriginal__total = decimal(doriginal_delivery_total)
     doriginal_to_be_received = decimal(doriginal_delivery_received)
-    received_doriginal = float(doriginal_total)-float(doriginal_to_be_received)
+    received_doriginal = float(doriginal__total)-float(doriginal_to_be_received)
     doriginal_received = decimal(received_doriginal)
     print(f"doriginal received",{doriginal_received})
     #seller payment
@@ -349,10 +372,9 @@ def dashboard(request,access_priveleges):
     for x in order_data_jewellery:
         jewellery_delivery_total += float(x.total_amount)
         jewellery_delivery_received += float(x.float_cash)
-    jewellery_total = decimal(jewellery_delivery_total)
-    print(jewellery_total)
+    jewellery__total = decimal(jewellery_delivery_total)
     jewellery_to_be_received = decimal(jewellery_delivery_received)
-    received_jewellery = float(jewellery_total)-float(jewellery_to_be_received)
+    received_jewellery = float(jewellery__total)-float(jewellery_to_be_received)
     jewellery_received = decimal(received_jewellery)
     print(f"jewellery received",{jewellery_received})
     #seller payment
@@ -373,49 +395,49 @@ def dashboard(request,access_priveleges):
         'authenticate':authenticate,
         'access_priveleges':authenticate.access_priveleges,
         #shopping
-        'shopping_delivery_total':shopping_total,
+        'shopping_delivery_total':shopping__total,
         'shopping_to_be_received':shopping_to_be_received,
         'shopping_received':shopping_received,
         'shopping_total':shopping_total,
         'shopping_balance':shopping_balance,
         'shopping_paid':shopping_paid,
         #food
-        'food_delivery_total':food_total,
+        'food_delivery_total':food__total,
         'food_to_be_received':food_to_be_received,
         'food_received':food_received,
         'food_total':food_total,
         'food_balance':food_balance,
         'food_paid':food_paid,
         #fresh_cuts
-        'fresh_delivery_total':fresh_total,
+        'fresh_delivery_total':fresh__total,
         'fresh_to_be_received':fresh_to_be_received,
         'fresh_received':fresh_received,
         'fresh_total':fresh_total,
         'fresh_balance':fresh_balance,
         'fresh_paid':fresh_paid,
         #daily_mio
-        'dailymio_delivery_total':dailymio_total,
+        'dailymio_delivery_total':dailymio__total,
         'dailymio_to_be_received':dailymio_to_be_received,
         'dailymio_received':dailymio_received,
         'dailymio_total':dailymio_total,
         'dailymio_balance':dailymio_balance,
         'dailymio_paid':dailymio_paid,
         #pharmacy
-        'pharmacy_delivery_total':pharmacy_total,
+        'pharmacy_delivery_total':pharmacy__total,
         'pharmacy_to_be_received':pharmacy_to_be_received,
         'pharmacy_received':pharmacy_received,
         'pharmacy_total':pharmacy_total,
         'pharmacy_balance':pharmacy_balance,
         'pharmacy_paid':pharmacy_paid,
         #d original
-        'doriginal_delivery_total':doriginal_total,
+        'doriginal_delivery_total':doriginal__total,
         'doriginal_to_be_received':doriginal_to_be_received,
         'doriginal_received':doriginal_received,
         'doriginal_total':doriginal_total,
         'doriginal_balance':doriginal_balance,
         'doriginal_paid':doriginal_paid,
         #jewellery
-        'jewellery_delivery_total':jewellery_total,
+        'jewellery_delivery_total':jewellery__total,
         'jewellery_to_be_received':jewellery_to_be_received,
         'jewellery_received':jewellery_received,
         'jewellery_total':jewellery_total,
@@ -424,6 +446,7 @@ def dashboard(request,access_priveleges):
     }
     return render(request,'admin_dashboard.html',context)
 
+@csrf_exempt
 def product_details(request,access_priveleges):
     today_date = date.today()
     # print(x)
@@ -440,7 +463,7 @@ def product_details(request,access_priveleges):
     d_original = d_originalmodel.objects.filter(category = "d_original")
     jewellery = jewellerymodel.objects.filter(category = "jewellery")
     #today sales amount
-    today_sales = Product_Ordermodel.objects.filter(order_date = today_date)
+    today_sales = Product_Ordermodel.objects.filter(order_date = today_date,status = "delivered")
     today_sales_amount = 0
     admin_commision = 0
     for x in today_sales: 
@@ -460,7 +483,7 @@ def product_details(request,access_priveleges):
     for y in today_sales: 
         print(int(y.admin_commission_amount))
         print(float(y.total_amount) / int(y.admin_commission_amount))
-        admin_commision += float(y.total_amount) / int(y.admin_commission_amount)
+        admin_commision += (int(y.admin_commission_amount)/100)*float(y.total_amount)
     if type(admin_commision) is float:
         # Convert the decimal number to a string
         decimal_string = str(admin_commision)
@@ -503,7 +526,7 @@ def product_details(request,access_priveleges):
                 print(y.total_amount)
                 print(int(y.admin_commission_amount))
                 print(float(y.total_amount) / int(y.admin_commission_amount))
-                admin_commision += float(y.total_amount) / int(y.admin_commission_amount)
+                admin_commision += (int(y.admin_commission_amount)/100)*float(y.total_amount)
             if type(admin_commision) is float:
                 # Convert the decimal number to a string
                 decimal_string = str(admin_commision)
@@ -630,37 +653,161 @@ def product_details(request,access_priveleges):
     
     return render(request,'admin_product_details.html',context)
 
+@csrf_exempt
 def single_store_details(request,category,id,access_priveleges):
     try:
         authenticate = User.objects.get(username = access_priveleges)
     except:
         authenticate = admin_CustomUser.objects.get(username = access_priveleges)
-    payment = admin_to_business_payment.objects.get(seller = id)
+    try:
+        payment = admin_to_business_payment.objects.get(seller = id)
+        print("payment",payment)
+        balance_amount = decimal(payment.balance_amount)
+        paid_amount = decimal(payment.paid_amount)
+    except:
+        balance_amount = 0
+        paid_amount = 0
+        pass
     if category == "shopping":
         data = shoppingmodel.objects.get(shop_id  = id)
+        product_data = shop_productsmodel.objects.filter(shop_id  = id)
+        business_data = Businessmodel.objects.get(uid = data.Business_id)
     elif category == "food":
         data = foodmodel.objects.get(food_id = id)
+        product_data = food_productsmodel.objects.filter(food_id  = id)
+        business_data = Businessmodel.objects.get(uid = data.Business_id)
     elif category == "fresh_cuts":
         data = freshcutsmodel.objects.get(fresh_id = id)
+        product_data = fresh_productsmodel.objects.filter(fresh_id  = id)
+        business_data = Businessmodel.objects.get(uid = data.Business_id)
     elif category == "daily_mio":
         data = dailymio_model.objects.get(dmio_id = id)
+        product_data = dmio_productsmodel.objects.filter(dmio_id  = id)
+        business_data = Businessmodel.objects.get(uid = data.Business_id)
     elif category == "pharmacy":
         data = pharmacy_model.objects.get(pharm_id = id)
+        product_data = pharmacy_productsmodel.objects.filter(pharm_id  = id)
+        business_data = Businessmodel.objects.get(uid = data.Business_id)
     elif category == "d_original":
         data = d_originalmodel.objects.get(d_id = id)
+        product_data = d_original_productsmodel.objects.filter(d_id  = id)
+        business_data = Businessmodel.objects.get(uid = data.Business_id)
     elif category == "jewellery":
         data = jewellerymodel.objects.get(jewel_id = id)
+        product_data = jewel_productsmodel.objects.filter(jewel_id  = id)
+        business_data = Businessmodel.objects.get(uid = data.Business_id)
  
+    if request.method == "POST":
+        productid = request.POST['product_id']
+        status = request.POST['status']
+        category = request.POST['category']
+        if category == "shopping":
+            if status == "True":
+                update = shop_productsmodel.objects.get(product_id = productid)
+                update.status = status
+                update.save()
+            elif status == "Reject":
+                update = shop_productsmodel.objects.get(product_id = productid)
+                product = update.product
+                product['reason'] = request.POST['reason']
+                update.status = status
+                update.product = product
+                update.save()
+        elif category == "food":
+                if status == "True":
+                    update = food_productsmodel.objects.get(product_id = productid)
+                    update.status = status
+                    update.save()
+                elif status == "Reject":
+                    update = food_productsmodel.objects.get(product_id = productid)
+                    product = update.product
+                    product['reason'] = request.POST['reason']
+                    update.status = status
+                    update.product = product
+                    update.save()
+        elif category == "fresh_cuts":
+            if status == "True":
+                update = fresh_productsmodel.objects.get(product_id = productid)
+                update.status = status
+                update.save()
+            elif status == "Reject":
+                update = fresh_productsmodel.objects.get(product_id = productid)
+                product = update.product
+                product['reason'] = request.POST['reason']
+                update.status = status
+                update.product = product
+                update.save()
+        elif category == "daily_mio":
+            if status == "True":
+                update = dmio_productsmodel.objects.get(product_id = productid)
+                update.status = status
+                update.save()
+            elif status == "Reject":
+                update = dmio_productsmodel.objects.get(product_id = productid)
+                product = update.product
+                product['reason'] = request.POST['reason']
+                update.status = status
+                update.product = product
+                update.save()
+        elif category == "pharmacy":
+            if status == "True":
+                update = pharmacy_productsmodel.objects.get(product_id = productid)
+                update.status = status
+                update.save()
+            elif status == "Reject":
+                update = pharmacy_productsmodel.objects.get(product_id = productid)
+                product = update.product
+                product['reason'] = request.POST['reason']
+                update.status = status
+                update.product = product
+                update.save()
+        elif category == "d_original":
+            if status == "True":
+                update = d_original_productsmodel.objects.get(product_id = productid)
+                update.status = status
+                update.save()
+            elif status == "Reject":
+                update = d_original_productsmodel.objects.get(product_id = productid)
+                product = update.product
+                product['reason'] = request.POST['reason']
+                update.status = status
+                update.product = product
+                update.save()
+        elif category == "jewellery":
+            if status == "True":
+                update = jewel_productsmodel.objects.get(product_id = productid)
+                update.status = status
+                update.save()
+            elif status == "Reject":
+                update = jewel_productsmodel.objects.get(product_id = productid)
+                product = update.product
+                product['reason'] = request.POST['reason']
+                update.status = status
+                update.product = product
+                update.save()
+        print("update successfully")
     context = {
         'data':data,
+        'product_data':product_data,
         'authenticate':authenticate,
         'access_priveleges':authenticate.access_priveleges,
-        'order_data':payment.balance_amount,
-        'paid_data':payment.paid_amount,
+        'order_data':balance_amount,
+        'paid_data':paid_amount,
+        'business_data':business_data,
     }
     
     return render(request,"single_store_details.html",context)
 
+def store_block_unblock(request,business_id,status,authenticate):
+    data = Businessmodel.objects.get(uid = business_id)
+    if status == "True":
+        data.status = True
+    else:
+        data.status = False
+    data.save()
+    return redirect(f"/admin_product_details/{authenticate}")
+
+@csrf_exempt
 def order_details(request,access_priveleges):
     try:
         authenticate = User.objects.get(username = access_priveleges)
@@ -745,18 +892,19 @@ def order_details(request,access_priveleges):
     
     return render(request,'admin_orderlist.html',context)
 
+@csrf_exempt
 def bannerr(request,access_priveleges):
     try:
         authenticate = User.objects.get(username = access_priveleges)
     except:
         authenticate = admin_CustomUser.objects.get(username = access_priveleges)
-    shopping = banner.objects.get(id = 1)
-    food = banner.objects.get(id = 2)
-    fresh_cuts = banner.objects.get(id = 3)
-    daily_mio = banner.objects.get(id = 4)
-    pharmacy = banner.objects.get(id = 5)
-    d_original = banner.objects.get(id = 6)
-    jewellery = banner.objects.get(id = 7)
+    shopping = banner.objects.get(category = "shopping")
+    food = banner.objects.get(category = "food")
+    fresh_cuts = banner.objects.get(category = "fresh_cuts")
+    daily_mio = banner.objects.get(category = "daily_mio")
+    pharmacy = banner.objects.get(category = "pharmacy")
+    d_original = banner.objects.get(category = "d_original")
+    jewellery = banner.objects.get(category = "jewellery")
     context = {
         'shopping':shopping,
         'food':food,
@@ -772,12 +920,37 @@ def bannerr(request,access_priveleges):
     
     if request.method == "POST":
         print(request.FILES)
+        fs = FileSystemStorage()
         if "banner" in request.POST:
             data = banner.objects.get(id = request.POST['banner'])
             if "banner1" in request.FILES:
-                data.banner1 = request.FILES['banner1']
+                # data.banner1 = request.FILES['banner1']
+                other_image = []
+                other_imagelist = []
+                for sav in request.FILES.getlist('banner1'):
+                    ot = fs.save(f"banner/" + str(sav).replace(" ", "_"), sav)
+                    other_image.append(str(ot).replace(" ", "_"))
+                
+                # print(other_image)
+                for iname in other_image:
+                    other_images_path = iname
+                    other_imagelist.append(all_image_url + fs.url(other_images_path))
+                print(other_imagelist)
+                data.banner_list1 = other_imagelist
             if "banner2" in request.FILES:
-                data.banner2 = request.FILES['banner2']
+                # data.banner2 = request.FILES['banner2']
+                other_image = []
+                other_imagelist = []
+                for sav in request.FILES.getlist('banner2'):
+                    ot = fs.save(f"banner/" + str(sav).replace(" ", "_"), sav)
+                    other_image.append(str(ot).replace(" ", "_"))
+                
+                # print(other_image)
+                for iname in other_image:
+                    other_images_path = iname
+                    other_imagelist.append(all_image_url + fs.url(other_images_path))
+                print(other_imagelist)
+                data.banner_list2= other_imagelist
         elif "ad" in request.POST:
             data = banner.objects.get(id = request.POST['ad'])
             if "ad1" in request.FILES:
@@ -788,6 +961,7 @@ def bannerr(request,access_priveleges):
         return redirect(f"/admin_banner/{authenticate.username}")
     return render(request,'admin_banner.html',context)
 
+@csrf_exempt
 def customer_service(request,access_priveleges):
     try:
         authenticate = User.objects.get(username = access_priveleges)
@@ -796,6 +970,9 @@ def customer_service(request,access_priveleges):
     seller = ""
     product = ""
     business = ""
+    order_data=""
+    error = ""
+    success = ""
     if request.method == "POST":
         if "seller" in request.POST:
             if shoppingmodel.objects.filter(shop_id = request.POST['seller_id']).exists() == True:
@@ -839,16 +1016,69 @@ def customer_service(request,access_priveleges):
             except:
                 business = "User Not Available"
             print(business)
+        elif "track" in request.POST:
+            try:
+                order_data = Product_Ordermodel.objects.get(track_id = request.POST['track']).status
+            except:
+                order_data = "Track id Not Available"
+        elif "cancel_order" in request.POST:
+            order_Data_2 = Product_Ordermodel.objects.get(track_id = request.POST['cancel_order'])
+            print(order_Data_2.end_user.phone_number)
+            global cancel_order
+            cancel_order = request.POST['cancel_order']
+            global pin
+            pin = random.randint(1000,9999)
+            print(pin)
+            url = "https://www.fast2sms.com/dev/bulkV2"
 
+            payload = f"variables_values={pin}&route=otp&numbers={order_Data_2.end_user.phone_number}"
+            headers = {
+                'authorization': "ngpY1A5PqHfF0IE7SzsceVhBM6OmtjQxbRr9KCiwL2aGJoD8vkALKMNP8Sfp6Tk3Csouw427rDFga0Ox",
+                'Content-Type': "application/x-www-form-urlencoded",
+                'Cache-Control': "no-cache",
+                }
+
+            response = requests.request("POST", url, data=payload, headers=headers)
+
+            print(response.text)
+            # Service Route Success Response:
+            {
+                "return": True,
+                "request_id": "lwdtp7cjyqxvfe9",
+                "message": [
+                    "Message sent successfully"
+                ]
+            }
+        elif "otp" in request.POST:
+            print(pin)
+            print(request.POST.getlist("otp"))
+            user_pin = ""
+            for x in request.POST.getlist("otp"):
+                user_pin += x
+            print(user_pin)
+            if pin ==  int(user_pin):
+                print("pin match")
+                order_Data_3 = Product_Ordermodel.objects.get(track_id = cancel_order)
+                order_Data_3.status = "order_cancelled"
+                order_Data_3.save()
+                success = "Order Cancelled Successfully"
+            else:
+                error = "Invalid OTP"
+                # return redirect(f"/admin/delivery_boy_add/{generate_uid}/{authenticate.username}")
+        
     context = {
         'authenticate':authenticate,
         'access_priveleges':authenticate.access_priveleges,
         'seller':seller,
         'product':product,
         'business':business,
+        'order_data':order_data,
+        'error':error,
+        'success':success,
     }
     return render(request,'admin_customer_service.html',context)
 
+@csrf_exempt
 def product_appaoval(request,access_priveleges):
     try:
         authenticate = User.objects.get(username = access_priveleges)
@@ -876,6 +1106,9 @@ def product_appaoval(request,access_priveleges):
     #jwellery
     jwellery = jewel_productsmodel.objects.all()
     jwellery_length = jewel_productsmodel.objects.filter(status = "False")
+     #used products
+    used_products = used_productsmodel.objects.all()
+    used_products_length = used_productsmodel.objects.filter(status = "False")
     if request.method == "POST":
         print(request.POST)
         if "region_select" in request.POST:
@@ -1106,23 +1339,37 @@ def product_appaoval(request,access_priveleges):
                     update.status = status
                     update.product = product
                     update.save()
+            elif category == "used_products" or category == "used_product":
+                if status == "True":
+                    update = used_productsmodel.objects.get(product_id = productid)
+                    update.status = status
+                    update.save()
+                elif status == "Reject":
+                    update = used_productsmodel.objects.get(product_id = productid)
+                    product = update.product
+                    product['reason'] = request.POST['reason']
+                    update.status = status
+                    update.product = product
+                    update.save()
             print("update successfully")
     context = {
         'region_area':region_area,
-        'shopping':shop_product,
+        'shopping':shop_product[::-1],
         'shop_product_length':shop_product_length,
-        "food_product":food_product,
+        "food_product":food_product[::-1],
         'food_product_length':food_product_length,
-        'fresh_cuts':fresh_cuts,
+        'fresh_cuts':fresh_cuts[::-1],
         'fresh_cuts_length':fresh_cuts_length,
-        'daily_mio':daily_mio,
+        'daily_mio':daily_mio[::-1],
         'daily_mio_length':daily_mio_length,
-        'pharmacy':pharmacy,
+        'pharmacy':pharmacy[::-1],
         'pharmacy_length':pharmacy_length,
-        'd_original':d_original,
+        'd_original':d_original[::-1],
         'd_original_length':d_original_length,
-        'jwellery':jwellery,
+        'jwellery':jwellery[::-1],
         'jwellery_length':jwellery_length,
+        'used_products':used_products,
+        'used_products_length':used_products_length,
         'authenticate':authenticate,
         'access_priveleges':authenticate.access_priveleges,
         
@@ -1132,6 +1379,7 @@ def product_appaoval(request,access_priveleges):
 
     return render(request,'admin_product_appaoval.html',context)
 
+@csrf_exempt
 def edit_product(request,product_id,category,access_priveleges):
     try:
         authenticate = User.objects.get(username = access_priveleges)
@@ -1160,7 +1408,7 @@ def edit_product(request,product_id,category,access_priveleges):
     elif "pharmacy" == category:
         product = pharmacy_productsmodel.objects.get(product_id = product_id)
         for_custom_description = pharmacy_productsmodel.objects.get(product_id = product_id)
-        shop_id = product.dmio_id
+        shop_id = product.pharm_id
 
     elif "d_original" == category:
         product = d_original_productsmodel.objects.get(product_id = product_id)
@@ -1170,11 +1418,15 @@ def edit_product(request,product_id,category,access_priveleges):
         product = jewel_productsmodel.objects.get(product_id = product_id)
         for_custom_description = jewel_productsmodel.objects.get(product_id = product_id)
         shop_id = product.jewel_id
+    elif "Used Product" == category or "used products" == category or category == "used_products":
+        product = used_productsmodel.objects.get(product_id = product_id)
+        for_custom_description = used_productsmodel.objects.get(product_id = product_id)
+        shop_id = product.user
 
 
     custom_description = for_custom_description.product
     try:
-        custom_description.pop("name")
+        custom_description.pop("model_name")
     except:
         pass
     try:
@@ -1201,10 +1453,10 @@ def edit_product(request,product_id,category,access_priveleges):
         custom_description.pop("subcategory")
     except:
         pass
-    try:
-        custom_description.pop("shop_id")
-    except:
-        pass
+    # try:
+    #     custom_description.pop("shop_id")
+    # except:
+    #     pass
     try:
         custom_description.pop("product_id")
     except:
@@ -1236,6 +1488,7 @@ def edit_product(request,product_id,category,access_priveleges):
         "custom_description":custom_description,
         'authenticate':authenticate,
         'access_priveleges':authenticate.access_priveleges,
+        'user':access_priveleges,
     }
     
     if request.method == "POST":
@@ -1252,6 +1505,10 @@ def edit_product(request,product_id,category,access_priveleges):
             pass
         try:
             for_product.pop("value")
+        except:
+            pass
+        try:
+            for_product.pop("user")
         except:
             pass
         #add custome discription
@@ -1271,9 +1528,38 @@ def edit_product(request,product_id,category,access_priveleges):
             if os.path.exists(filepath):
                 print("in")
                 os.remove(filepath)
-                primary_image = str(request.FILES['primary_image']).replace(" ", "_")
-                primary_image_path = fs.save(f"api/shop_products/{shop_id}/primary_image/"+primary_image, request.FILES['primary_image'])
-                primary_image_paths = all_image_url+fs.url(primary_image_path)
+                if product.category == "shopping":
+                    primary_image = str(request.FILES['primary_image']).replace(" ", "_")
+                    primary_image_path = fs.save(f"api/shop_products/{shop_id}/primary_image/"+primary_image, request.FILES['primary_image'])
+                    primary_image_paths = all_image_url+fs.url(primary_image_path)
+                elif product.category == "food":
+                    primary_image = str(request.FILES['primary_image']).replace(" ", "_")
+                    primary_image_path = fs.save(f"api/food_products/{shop_id}/primary_image/"+primary_image, request.FILES['primary_image'])
+                    primary_image_paths = all_image_url+fs.url(primary_image_path)
+                elif product.category == "fresh_cuts":
+                    primary_image = str(request.FILES['primary_image']).replace(" ", "_")
+                    primary_image_path = fs.save(f"api/fresh_products/{shop_id}/primary_image/"+primary_image, request.FILES['primary_image'])
+                    primary_image_paths = all_image_url+fs.url(primary_image_path)
+                elif product.category == "daily_mio":
+                    primary_image = str(request.FILES['primary_image']).replace(" ", "_")
+                    primary_image_path = fs.save(f"api/dmio_products/{shop_id}/primary_image/"+primary_image, request.FILES['primary_image'])
+                    primary_image_paths = all_image_url+fs.url(primary_image_path)
+                elif product.category == "pharmacy":
+                    primary_image = str(request.FILES['primary_image']).replace(" ", "_")
+                    primary_image_path = fs.save(f"api/pharmacy_products/{shop_id}/primary_image/"+primary_image, request.FILES['primary_image'])
+                    primary_image_paths = all_image_url+fs.url(primary_image_path)
+                elif product.category == "d_original":
+                    primary_image = str(request.FILES['primary_image']).replace(" ", "_")
+                    primary_image_path = fs.save(f"api/d_original_products/{shop_id}/primary_image/"+primary_image, request.FILES['primary_image'])
+                    primary_image_paths = all_image_url+fs.url(primary_image_path)
+                elif product.category == "jewellery":
+                    primary_image = str(request.FILES['primary_image']).replace(" ", "_")
+                    primary_image_path = fs.save(f"api/jewel_products/{shop_id}/primary_image/"+primary_image, request.FILES['primary_image'])
+                    primary_image_paths = all_image_url+fs.url(primary_image_path)
+                elif "Used Product" == product.category or "used products" == product.category or product.category == "used_products":
+                    primary_image = str(request.FILES['primary_image']).replace(" ", "_")
+                    primary_image_path = fs.save(f"api/used_products/{shop_id}/primary_image/"+primary_image, request.FILES['primary_image'])
+                    primary_image_paths = all_image_url+fs.url(primary_image_path)
         else:
             primary_image_paths = product.product['primary_image']
         print(primary_image_paths)
@@ -1302,8 +1588,7 @@ def edit_product(request,product_id,category,access_priveleges):
             #         other_images_path = iname
             #         other_imagelist.append(all_image_url+fs.url(other_images_path))
         else:
-            other_imagelist = product.product['other_images']
-        print(other_imagelist)
+            old_image = product.product['other_images']
         cleaned_data_dict ={key:value[0] if isinstance(value,list) and len(value)==1 else value for key,value in for_product.items()}
         # cleaned_data_dict.pop("other_images")
         cleaned_data_dict['primary_image'] = primary_image_paths
@@ -1321,12 +1606,59 @@ def edit_product(request,product_id,category,access_priveleges):
         return redirect(f"/admin/edit_product/{product_id}/{product.category}/{access_priveleges}")
     return render(request,'product_edit.html',context)
 
+@csrf_exempt
+def pause_product(request,product_id,category):
+    if category == "shopping":
+        shop_product = shop_productsmodel.objects.get(product_id = product_id)
+    if category == "food":
+        shop_product = food_productsmodel.objects.get(product_id = product_id)
+    if category == "fresh_cuts":
+        shop_product = fresh_productsmodel.objects.get(product_id = product_id)
+    if category == "daily_mio":
+        shop_product = dmio_productsmodel.objects.get(product_id = product_id)
+    if category == "pharmacy":
+        shop_product = pharmacy_productsmodel.objects.get(product_id = product_id)
+    if category == "d_original":
+        shop_product = d_original_productsmodel.objects.get(product_id = product_id)
+    if category == "jewellery":
+        shop_product = jewel_productsmodel.objects.get(product_id = product_id)
+    if category == "used_products" or "used products" == category or category == "Used Product":
+        shop_product = used_productsmodel.objects.get(product_id = product_id)
+    shop_product.status = "False"
+    shop_product.save()
+    return redirect(f"/admin_product_appaoval/admin")
+
+@csrf_exempt
+def delete_product(request,product_id,category):
+    if category == "shopping":
+        shop_product = shop_productsmodel.objects.get(product_id = product_id)
+    if category == "food":
+        shop_product = food_productsmodel.objects.get(product_id = product_id)
+    if category == "fresh_cuts":
+        shop_product = fresh_productsmodel.objects.get(product_id = product_id)
+    if category == "daily_mio":
+        shop_product = dmio_productsmodel.objects.get(product_id = product_id)
+    if category == "pharmacy":
+        shop_product = pharmacy_productsmodel.objects.get(product_id = product_id)
+    if category == "d_original":
+        shop_product = d_original_productsmodel.objects.get(product_id = product_id)
+    if category == "jewellery":
+        shop_product = jewel_productsmodel.objects.get(product_id = product_id)
+    if category == "used_products" or category == "Used Product" or "used products" == category:
+        shop_product = used_productsmodel.objects.get(product_id = product_id)
+    shop_product.delete()
+    return redirect(f"/admin_product_appaoval/admin")
+
+
+@csrf_exempt
 def delete_other_image(request,product_id,position,access_priveleges):
     data = shop_productsmodel.objects.get(product_id = product_id)
     data1 = data.product['other_images']
     data1.pop(int(position))
     print(data1)
     return redirect(f"/admin/edit_product/{product_id}/{data.category}/{access_priveleges}")
+
+@csrf_exempt
 def hub_details(request,access_priveleges):
     try:
         authenticate = User.objects.get(username = access_priveleges)
@@ -1357,6 +1689,7 @@ def hub_details(request,access_priveleges):
     }
     return render(request,'admin_hub_details.html',context)
 
+@csrf_exempt
 def hub_menu1(request,access_priveleges):
     try:
         authenticate = User.objects.get(username = access_priveleges)
@@ -1394,6 +1727,7 @@ def hub_menu1(request,access_priveleges):
     }
     return render(request,'admin_hub_menu1.html',context)
 
+@csrf_exempt
 def hub_update(request,id,access_priveleges):
     try:
         authenticate = User.objects.get(username = access_priveleges)
@@ -1422,8 +1756,7 @@ def hub_update(request,id,access_priveleges):
         return redirect(f"/admin_hub_menu1/{authenticate.username}")
     return render(request,"hub_user_update.html",context)
 
-
-
+@csrf_exempt
 def user_add(request,access_priveleges):
     try:
         authenticate = User.objects.get(username = access_priveleges)
@@ -1447,6 +1780,7 @@ def user_add(request,access_priveleges):
     }
     return render(request,'admin_usar_add.html',context)
 
+@csrf_exempt
 def user_menu(request,access_priveleges):
     try:
         authenticate = User.objects.get(username = access_priveleges)
@@ -1466,7 +1800,7 @@ def user_menu(request,access_priveleges):
         return redirect(f"/admin_user_menu/{authenticate.username}")
     return render(request,'admin_user_menu.html',context)
 
-
+@csrf_exempt
 def user_update(request,id,access_priveleges):
     try:
         authenticate = User.objects.get(username = access_priveleges)
@@ -1490,6 +1824,7 @@ def user_update(request,id,access_priveleges):
         return redirect(f"/admin_user_menu/{authenticate.username}")
     return render(request,"admin_user_update.html",context)
 
+@csrf_exempt
 def customer(request,access_priveleges):
     try:
         authenticate = User.objects.get(username = access_priveleges)
@@ -1504,6 +1839,7 @@ def customer(request,access_priveleges):
     
     return render(request,'customer_menu.html',context)
 
+@csrf_exempt
 def delivery_boy_add(request,add,access_priveleges):
     try:
         authenticate = User.objects.get(username = access_priveleges)
@@ -1540,24 +1876,21 @@ def delivery_boy_add(request,add,access_priveleges):
                 print(pin)
                 url = "https://www.fast2sms.com/dev/bulkV2"
 
-                payload = f"variables_values={pin}&route=otp&numbers={request.POST['phone_number']}"
+                querystring = {
+                    "authorization":"sJ06MDvOIS0qOMHEwY9rwjWYjUiTJpqgW48fn5TSJLwb4mYO8rbRlxl2lze0",
+                    "sender_id":"MIOGRA",
+                    "message":"169709",
+                    "variables_values":pin,
+                    "route":"dlt",
+                    "numbers":phone_number}
+                
                 headers = {
-                    'authorization': "ngpY1A5PqHfF0IE7SzsceVhBM6OmtjQxbRr9KCiwL2aGJoD8vkALKMNP8Sfp6Tk3Csouw427rDFga0Ox",
-                    'Content-Type': "application/x-www-form-urlencoded",
-                    'Cache-Control': "no-cache",
-                    }
-
-                response = requests.request("POST", url, data=payload, headers=headers)
+                    'cache-control': "no-cache"
+                }
+                
+                response = requests.request("GET", url, headers=headers, params=querystring)
 
                 print(response.text)
-                # Service Route Success Response:
-                {
-                    "return": True,
-                    "request_id": "lwdtp7cjyqxvfe9",
-                    "message": [
-                        "Message sent successfully"
-                    ]
-                }
         elif "otp" in request.POST:
             print(pin)
             print(request.POST.getlist("otp"))
@@ -1663,6 +1996,7 @@ def delivery_boy_add(request,add,access_priveleges):
         #     error = "Email Id Already Existed"
     return render(request,'deliveryboy_add.html',context)
 
+@csrf_exempt
 def delivery_otp(request,access_priveleges):
     try:
         authenticate = User.objects.get(username = access_priveleges)
@@ -1679,7 +2013,7 @@ def delivery_otp(request,access_priveleges):
     }
     return render(request,'delivery_otp.html',context)
 
-
+@csrf_exempt
 def delivery_boy_manage(request,access_priveleges):
     try:
         authenticate = User.objects.get(username = access_priveleges)
@@ -1713,12 +2047,13 @@ def delivery_boy_manage(request,access_priveleges):
             update_data.save()
     context = {
         'region_area' : region_area,
-        'data':data,
+        'data':data[::-1],
         'authenticate':authenticate,
         'access_priveleges':authenticate.access_priveleges,
     }
     return render(request,'deliverboy_menu.html',context)
 
+@csrf_exempt
 def delivery_boy_single(request,id,access_priveleges):
     
     try:
@@ -1729,7 +2064,6 @@ def delivery_boy_single(request,id,access_priveleges):
     delivery_history = Product_Ordermodel.objects.filter(deliveryperson__uid = id)
     paid_amount = 0
     for i in delivery_history:
-        print(i.float_cash)
         paid_amount += float(i.float_cash)
     if type(paid_amount) is float:
         # Convert the decimal number to a string
@@ -1745,9 +2079,8 @@ def delivery_boy_single(request,id,access_priveleges):
     print(decimal_last_two_digits)
     total_amount = 0
     for j in delivery_history:
-        print(j.total_amount)
         total_amount += float(j.total_amount)
-    balance_amount = total_amount - paid_amount
+    balance_amount = float(total_amount) - float(paid_amount)
     if type(balance_amount) is float:
                 # Convert the decimal number to a string
                 decimal_string = str(balance_amount)
@@ -1759,6 +2092,15 @@ def delivery_boy_single(request,id,access_priveleges):
                 decimal_last_two_digits_balance = decimal_string[:decimal_point_index + 3]
     else:
         decimal_last_two_digits_balance = balance_amount
+    print("balance:",decimal_last_two_digits_balance)
+    if request.method == "POST":
+        if "paid" in request.POST:
+            order_table = Product_Ordermodel.objects.get(order_id = request.POST['order_id'])
+            print(order_table)
+            order_table.payment_status = request.POST['paid']
+            order_table.float_cash = 0
+            order_table.save()
+            return redirect(f"/admin/delivery_boy_single/{id}/{access_priveleges}")
     context={
         'data':data,
         'authenticate':authenticate,
@@ -1770,6 +2112,21 @@ def delivery_boy_single(request,id,access_priveleges):
       
     return render(request,'deliverboy_single.html',context)
 
+@csrf_exempt
+def delete_delivery_man(request,id,access_priveleges):
+    delivery_boy = Delivery_model.objects.get(uid = id)
+    delivery_boy.delete()
+    return redirect(f"/admin/delivery_boy_manage/{access_priveleges}")
+
+@csrf_exempt
+def block_delivery_man(request,id,access_priveleges):
+    delivery_boy = Delivery_model.objects.get(uid = id)
+    delivery_boy.approve_status = False
+    delivery_boy.save()
+    return redirect(f"/admin/delivery_boy_manage/{access_priveleges}")
+
+
+@csrf_exempt
 def delivery_Commision(request,access_priveleges):
     try:
         authenticate = User.objects.get(username = access_priveleges)
@@ -1790,6 +2147,7 @@ def delivery_Commision(request,access_priveleges):
         return redirect(f"/admin/delivery_Commision/{authenticate.username}")
     return render(request,'delivery_commision.html',context)
 
+@csrf_exempt
 def business_Commision(request,access_priveleges):
     try:
         authenticate = User.objects.get(username = access_priveleges)
@@ -1810,7 +2168,7 @@ def business_Commision(request,access_priveleges):
 
     return render(request,'business_commsion.html',context)
 
-
+@csrf_exempt
 def shutdownnn(request,access_priveleges):
     try:
         authenticate = User.objects.get(username = access_priveleges)
@@ -1841,6 +2199,15 @@ def shutdownnn(request,access_priveleges):
         elif "jewellery" in request.POST:
             shutdownn.jewellery = request.POST['jewellery']
             shutdownn.save()
+        elif "used_products" in request.POST:
+            shutdownn.used_products = request.POST['used_products']
+            shutdownn.save()
+        elif "cod" in request.POST:
+            shutdownn.cod = request.POST['cod']
+            shutdownn.save()
+        elif "online_payment" in request.POST:
+            shutdownn.online_payment = request.POST['online_payment']
+            shutdownn.save()
         return redirect(f"/admin/shutdown/{authenticate.username}")
         
     context = {
@@ -1850,6 +2217,7 @@ def shutdownnn(request,access_priveleges):
     }
     return render(request,'showdown.html',context)
 
+@csrf_exempt
 def zonee(request,access_priveleges):
     try:
         authenticate = User.objects.get(username = access_priveleges)
@@ -1895,6 +2263,7 @@ def zonee(request,access_priveleges):
         return redirect(f"/admin/zone/{authenticate.username}")
     return render(request,'zone.html',context)
 
+@csrf_exempt
 def hsn(request,access_priveleges):
     try:
         authenticate = User.objects.get(username = access_priveleges)
@@ -1929,6 +2298,79 @@ def hsn(request,access_priveleges):
         return redirect(f"/admin/hsn/{authenticate.username}")
     return render(request,'hsn.html',context)
 
+@csrf_exempt
+def other_images(request,index_id,category,product_id):
+    print("other images")
+    if request.method == "POST":
+            print("hii")
+            print(request.FILES)
+            if "shopping" == category:
+                product = shop_productsmodel.objects.get(product_id = product_id)
+                for_custom_description = shop_productsmodel.objects.get(product_id = product_id)
+                shop_id = product.shop_id
+                product_category = "shop_products"
+                old_image = product.product['other_images']
+                print(type(product.product['other_images']))
+                print(product.product['other_images'])
+            elif "food" == category:
+                product = food_productsmodel.objects.get(product_id = product_id)
+                for_custom_description = food_productsmodel.objects.get(product_id = product_id)
+                shop_id = product.food_id
+                product_category = "food_products"
+                old_image = product.product['other_images']
+            elif "fresh_cuts" == category:
+                product = fresh_productsmodel.objects.get(product_id = product_id)
+                for_custom_description = fresh_productsmodel.objects.get(product_id = product_id)
+                shop_id = product.fresh_id
+                product_category = "fresh_products"
+                old_image = product.product['other_images']
+            elif "daily_mio" == category:
+                product = dmio_productsmodel.objects.get(product_id = product_id)
+                for_custom_description = dmio_productsmodel.objects.get(product_id = product_id)
+                shop_id = product.dmio_id
+                product_category = "dmio_products"
+                old_image = product.product['other_images']
+
+            elif "pharmacy" == category:
+                product = pharmacy_productsmodel.objects.get(product_id = product_id)
+                for_custom_description = pharmacy_productsmodel.objects.get(product_id = product_id)
+                shop_id = product.pharm_id
+                product_category = "pharmacy_products"
+                old_image = product.product['other_images']
+
+            elif "d_original" == category:
+                product = d_original_productsmodel.objects.get(product_id = product_id)
+                for_custom_description = d_original_productsmodel.objects.get(product_id = product_id)
+                shop_id = product.d_id
+                product_category = "d_original_products"
+                old_image = product.product['other_images']
+            elif "jewellery" == category:
+                product = jewel_productsmodel.objects.get(product_id = product_id)
+                for_custom_description = jewel_productsmodel.objects.get(product_id = product_id)
+                shop_id = product.jewel_id
+                product_category = "jewel_products"
+                old_image = product.product['other_images']
+            elif "Used Product" == category or "used products" == category or category == "used_products":
+                product = used_productsmodel.objects.get(product_id = product_id)
+                for_custom_description = used_productsmodel.objects.get(product_id = product_id)
+                shop_id = product.user
+                product_category = "used_products"
+                old_image = product.product['other_images']
+            print(index_id)
+            print(old_image[int(index_id)])
+            fs = FileSystemStorage()
+            other_image = str(request.FILES['other_images']).replace(" ", "_")
+            other_image_path = fs.save(f"api/{product_category}/{shop_id}/other_images/"+other_image, request.FILES['other_images'])
+            other_image_paths = all_image_url+fs.url(other_image_path)
+            print(other_image_paths)
+            old_image[int(index_id)] = other_image_paths
+            print(old_image)
+            product.product['other_images'] = old_image
+            product.save()
+            return redirect(f"/admin/edit_product/{request.POST['product_id']}/{request.POST['category']}/{request.POST['user']}")
+
+        
+
 @api_view(['GET'])
 def get_shutdown(request):
     data = shutdown.objects.filter(id = 1).values()
@@ -1957,5 +2399,28 @@ def emergency(request,uid):
     except:
         return Response("error",status=status.HTTP_400_BAD_REQUEST) 
 
+@api_view(['GET']) 
+def banner_display(request,category):
+    try:
+        if request.method == "GET":
+            banner_data = banner.objects.filter(category = category).values()
+            print(banner_data)
+            return Response(banner_data,status=status.HTTP_200_OK)
+    except:
+        return Response("error",status=status.HTTP_400_BAD_REQUEST) 
 
-
+@api_view(['GET']) 
+def normal_delivery_commision(request):
+    try:
+        if request.method == "GET":
+            commision_data = comission_Editing.objects.all().values()[0]["normal_delivery_commision"]
+            return Response(commision_data,status=status.HTTP_200_OK)
+    except:
+        return Response("error",status=status.HTTP_400_BAD_REQUEST)
+        
+        
+def get(request):
+     return render(request,'get.html')
+     
+def pay(request):
+    return render(request,"pay.html")
